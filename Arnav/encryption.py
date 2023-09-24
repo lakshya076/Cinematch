@@ -6,7 +6,13 @@ K = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 
 
 
-def turn_to_bits(message):
+def turn_to_bits(message: str):
+
+    '''
+    
+    Returns `list` of all bits in `message`
+    
+    '''
 
     chars = [i for i in message]
     charnums = [ord(i) for i in chars]
@@ -19,13 +25,19 @@ def turn_to_bits(message):
     return bitlist
 
 
-def turn_to_hex(value):
+def turn_to_hex(value: list[int]):
+  
+  '''
+  
+  Returns given `value` in hex form
+  
+  '''
 
-  value = ''.join([str(x) for x in value])
+  val = ''.join([str(x) for x in value])
   binaries = []
 
-  for d in range(0, len(value), 4):
-    binaries.append('0b' + value[d:d+4])
+  for d in range(0, len(val), 4):
+    binaries.append('0b' + val[d:d+4])
 
   hexes = ''
   for b in binaries:
@@ -34,14 +46,31 @@ def turn_to_hex(value):
   return hexes
 
 
-def divider(bits, l=8):
+def divider(bits: list, l: int = 8):
+
+    '''
+    
+    divides `bits` into `l` equal parts
+
+    Returns `list`
+    
+    '''
 
     L = [bits[i*l:(i+1)*l] for i in range(len(bits)//l)]
 
     return L
 
 
-def fillZeros(bits, length=8, endian='LE'):
+def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE'):
+
+    '''
+    
+    Fills zeroes in `bits` as per Big and Little `endian`
+
+    Returns `list`
+    
+    '''
+
     l = len(bits)
     if endian == 'LE':
         for i in range(l, length):
@@ -53,7 +82,15 @@ def fillZeros(bits, length=8, endian='LE'):
     return bits
 
 # initialize values from H and K
-def val_init(vals):
+def val_init(vals: list[str]):
+
+    '''
+    
+    Initialises predetermined hex values in `vals`
+
+    Returns `list`
+    
+    '''
 
     binaries = [bin(int(str(i), 16))[2:] for i in vals]
 
@@ -66,7 +103,14 @@ def val_init(vals):
     return words
 
 # pad the message to nearest next multiple of 512 and return list of 512 length chunks
-def padder(message):
+def padder(message: str):
+
+    '''
+    
+    Returns padded message in hex form
+    as per sha256 algorithm
+    
+    '''
 
     msgbits = turn_to_bits(message) + [1]
     msglen = len(msgbits)-1
@@ -83,44 +127,51 @@ def padder(message):
 
 
 #truth condition is integer 1
-def isTrue(x): return x == 1
+def isTrue(x: int): return x == 1
 
 
 #simple if 
-def if_(i, y, z): return y if isTrue(i) else z
+def if_(i: int, y: int, z: int): return y if isTrue(i) else z
 
 
 #and - both arguments need to be true
-def and_(i, j): return if_(i, j, 0)
-def AND(i, j): return [and_(ia, ja) for ia, ja in zip(i,j)] 
+def and_(i: int, j: int): return if_(i, j, 0)
+def AND(i: list[int], j: list[int]): return [and_(ia, ja) for ia, ja in zip(i,j)] 
 
 
 #simply negates argument
-def not_(i): return if_(i, 0, 1)
-def NOT(i): return [not_(x) for x in i]
+def not_(i: int): return if_(i, 0, 1)
+def NOT(i: list[int]): return [not_(x) for x in i]
 
 
 #return true if either i or j is true but not both at the same time
-def xor(i, j): return if_(i, not_(j), j)
-def XOR(i, j): return [xor(ia, ja) for ia, ja in zip(i, j)]
+def xor(i: int, j: int): return if_(i, not_(j), j)
+def XOR(i: list[int], j: list[int]): return [xor(ia, ja) for ia, ja in zip(i, j)]
 
 
 #if number of truth values is odd then return true
-def xorxor(i, j, l): return xor(i, xor(j, l))
-def XORXOR(i, j, l): return [xorxor(ia, ja, la) for ia, ja, la, in zip(i, j, l)]
+def xorxor(i: int, j: int, l: int): return xor(i, xor(j, l))
+def XORXOR(i: list[int], j: list[int], l: list[int]): return [xorxor(ia, ja, la) for ia, ja, la, in zip(i, j, l)]
 
 
 #get the majority of results, i.e., if 2 or more of three values are the same 
-def maj(i,j,k): return max([i,j], key=[i,j,k].count)
+def maj(i: int, j: int, k: int): return max([i,j], key=[i,j,k].count)
 
 
 # rotate right
-def rotr(x, n): return x[-n:] + x[:-n]
+def rotr(x: list[int], n: int): return x[-n:] + x[:-n]
 # shift right
-def shr(x, n): return n * [0] + x[:-n]
+def shr(x: list[int], n: int): return n * [0] + x[:-n]
 
 
-def bin_adder(i, j):
+def bin_adder(i: list[int], j: list[int]):
+  
+  '''
+  
+  Full binary adder without the final carry-over
+  returns `list`
+  
+  '''
 
   length = len(i)
   sums = list(range(length))
@@ -134,7 +185,15 @@ def bin_adder(i, j):
   return sums
 
 
-def sha256(message):
+def sha256(message: str):
+
+    '''
+    
+    Encrypts `message` using SHA256 algorithm
+    
+    returns hex
+    
+    '''
 
     k = val_init(K)
     h0, h1, h2, h3, h4, h5, h6, h7 = val_init(H)
