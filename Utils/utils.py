@@ -34,7 +34,7 @@ def get_recs(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     x = cursor.fetchall()
 
     if x:    
-        return cursor.fetchall()[0][0].split('-')
+        return x[0][0].split('-')
     else:
         return []
 
@@ -51,7 +51,7 @@ def get_genz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     x = cursor.fetchall()
 
     if x:
-        return cursor.fetchall()[0][0].split('-')
+        return x[0][0].split('-')
     else:
         return []
 
@@ -68,7 +68,7 @@ def get_keyz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     x = cursor.fetchall()
 
     if x:
-        return cursor.fetchall()[0][0].split('-')
+        return x[0][0].split('-')
     else:
         return []
 
@@ -86,7 +86,7 @@ def get_pop(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cur
     x = cursor.fetchall()
 
     if x:
-        return float(cursor.fetchall()[0][0])
+        return x[0][0]
     else:
         return 1.86 # Avg
 
