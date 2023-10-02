@@ -1,0 +1,5 @@
+mysql-connector-python~=8.0.33
+PyQt5~=5.15.9
+requests~=2.31.0
+cachecontrol~=0.13.1
+PyMySQL~=1.1.0
