@@ -3,13 +3,14 @@ from email.message import EmailMessage
 import random
 from validate_email import validate_email
 
+
 def send_otp(email: str):
 
     '''
     
     Sends a random 6-digit `OTP` to `email`
 
-    Returns `OTP` if email is valid, else returns `-1`
+    Returns `OTP` if `email` is valid, else returns `-1`
     
     '''
 

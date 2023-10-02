@@ -2,6 +2,7 @@ import pymysql, pymysql.cursors
 import encryption
 import otp
 
+
 def register(uname: str, passwd: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
 
@@ -33,7 +34,8 @@ def register(uname: str, passwd: str, email: str, connection: pymysql.Connection
     else:
 
         return False
-    
+
+
 def login(uname: str, passwd: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
 
@@ -60,6 +62,7 @@ def login(uname: str, passwd: str, connection: pymysql.Connection, cursor: pymys
         
         else:
             return False
+
 
 def forgot_passwd(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
