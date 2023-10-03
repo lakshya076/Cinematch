@@ -23,13 +23,11 @@ if __name__ == "__main__":
     checklist_win = Checklist()
     genrelang_win = GenreLang()
 
-    if start_win.exec_() == 1:
-        window.show()
-    elif start_win.exec_() == 0:
+    if start_win.exec_() == 1:  # User registered
         if checklist_win.exec_() == QDialog.Accepted:
             if genrelang_win.exec_() == QDialog.Accepted:
                 window.show()
-    else:
-        sys.exit(0)
+    elif start_win.exec_() == 2:  # User logged in
+        window.show()
 
     sys.exit(app.exec_())

@@ -496,7 +496,7 @@ class Checklist(QDialog, FrameReuse):
         Due to an unknown bug (mostly by modifying reject() function), the close button doesn't work. So we are
         overriding the default closeEvent to close the window when close button is pressed
         """
-        self.close()
+        sys.exit()
 
 
 '''

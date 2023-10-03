@@ -126,35 +126,7 @@ checklist_movie_source = [
     (610150, 'Dragon Ball Super: Super Hero', '/rugyJdeoJm7cSJL1q4jBpTNbxyU.jpg'),
     (575322, 'Project Gemini', '/eX6tDFp4RhhjZaa1HUDUzFGPWYk.jpg')]
 
-genre_source = ['Crime', 'Family', 'War', 'History', 'Thriller', 'Romance', 'Mystery', 'Action', 'Fantasy', 'Animation',
-                'Comedy', 'Drama']
+genre_source = ['Sci-Fi', 'Crime', 'Family', 'War', ' History', 'Thriller', 'Horror', 'Adventure', 'Romance', 'Mystery',
+                'Action', 'Fantasy', 'Animation', 'Comedy', 'Drama']
 
-lang_source = {
-    'Abkhaz': 'ab', 'Afrikaans': 'af', 'Akan': 'ak', 'Albanian': 'sq', 'Amharic': 'am', 'Arabic': 'ar',
-    'Armenian': 'hy', 'Assamese': 'as', 'Aymara': 'ay', 'Azerbaijani': 'az', 'Bambara': 'bm', 'Bashkir': 'ba',
-    'Basque': 'eu', 'Belarusian': 'be', 'Bengali': 'bn', 'Bislama': 'bi', 'Bosnian': 'bs', 'Bulgarian': 'bg',
-    'Burmese': 'my', 'Catalan; Valencian': 'ca', 'Chamorro': 'ch', 'Chechen': 'ce', 'Chichewa; Chewa; Nyanja': 'ny',
-    'Chinese': 'zh', 'Chuvash': 'cv', 'Corsican': 'co', 'Cree': 'cr', 'Croatian': 'hr', 'Czech': 'cs', 'Danish': 'da',
-    'Divehi; Maldivian;': 'dv', 'Dutch': 'nl', 'Dzongkha': 'dz', 'English': 'en', 'Esperanto': 'eo', 'Estonian': 'et',
-    'Faroese': 'fo', 'Fijian': 'fj', 'Finnish': 'fi', 'French': 'fr', 'Fula': 'ff', 'Galician': 'gl', 'Georgian': 'ka',
-    'German': 'de', 'Greek, Modern': 'el', 'Guaraní': 'gn', 'Gujarati': 'gu', 'Haitian': 'ht', 'Hausa': 'ha',
-    'Hebrew (modern)': 'he', 'Hindi': 'hi', 'Hungarian': 'hu', 'Interlingua': 'ia', 'Indonesian': 'id',
-    'Interlingue': 'ie', 'Irish': 'ga', 'Igbo': 'ig', 'Icelandic': 'is', 'Italian': 'it', 'Inuktitut': 'iu',
-    'Japanese': 'ja', 'Javanese': 'jv', 'Kalaallisut': 'kl', 'Kannada': 'kn', 'Kashmiri': 'ks', 'Kazakh': 'kk',
-    'Khmer': 'km', 'Kikuyu, Gikuyu': 'ki', 'Kinyarwanda': 'rw', 'Kirghiz, Kyrgyz': 'ky', 'Korean': 'ko',
-    'Kurdish': 'ku', 'Latin': 'la', 'Luxembourgish': 'lb', 'Luganda': 'lg', 'Limburgish': 'li', 'Lingala': 'ln',
-    'Lao': 'lo', 'Lithuanian': 'lt', 'Latvian': 'lv', 'Manx': 'gv', 'Macedonian': 'mk', 'Malagasy': 'mg', 'Malay': 'ms',
-    'Malayalam': 'ml', 'Maltese': 'mt', 'Māori': 'mi', 'Marathi (Marāṭhī)': 'mr', 'Marshallese': 'mh',
-    'Mongolian': 'mn', 'Navajo, Navaho': 'nv', 'Norwegian Bokmål': 'nb', 'Nepali': 'ne', 'Norwegian Nynorsk': 'nn',
-    'Norwegian': 'no', 'Nuosu': 'ii', 'Occitan': 'oc', 'Ojibwe, Ojibwa': 'oj', 'Oromo': 'om', 'Oriya': 'or',
-    'Ossetian, Ossetic': 'os', 'Panjabi, Punjabi': 'pa', 'Pāli': 'pi', 'Persian': 'fa', 'Polish': 'pl',
-    'Pashto, Pushto': 'ps', 'Portuguese': 'pt', 'Quechua': 'qu', 'Romansh': 'rm', 'Kirundi': 'rn',
-    'Romanian, Moldavan': 'ro', 'Russian': 'ru', 'Sanskrit (Saṁskṛta)': 'sa', 'Sardinian': 'sc', 'Sindhi': 'sd',
-    'Northern Sami': 'se', 'Samoan': 'sm', 'Sango': 'sg', 'Serbian': 'sr', 'Scottish Gaelic': 'gd', 'Shona': 'sn',
-    'Sinhala, Sinhalese': 'si', 'Slovak': 'sk', 'Slovene': 'sl', 'Somali': 'so', 'Southern Sotho': 'st',
-    'Spanish; Castilian': 'es', 'Sundanese': 'su', 'Swahili': 'sw', 'Swati': 'ss', 'Swedish': 'sv', 'Tamil': 'ta',
-    'Telugu': 'te', 'Tajik': 'tg', 'Thai': 'th', 'Tigrinya': 'ti', 'Tibetan': 'bo', 'Turkmen': 'tk', 'Tagalog': 'tl',
-    'Tswana': 'tn', 'Tonga': 'to', 'Turkish': 'tr', 'Tsonga': 'ts', 'Tatar': 'tt', 'Twi': 'tw', 'Tahitian': 'ty',
-    'Uighur, Uyghur': 'ug', 'Ukrainian': 'uk', 'Urdu': 'ur', 'Uzbek': 'uz', 'Vietnamese': 'vi', 'Welsh': 'cy',
-    'Wolof': 'wo', 'Western Frisian': 'fy', 'Xhosa': 'xh', 'Yiddish': 'yi', 'Yoruba': 'yo', 'Zhuang, Chuang': 'za',
-    'Zulu': 'zu'}
+lang_source = ['English', 'Hindi', 'French', 'German', 'Japanese', 'Dutch', 'Korean', 'Spanish']

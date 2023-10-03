@@ -18,7 +18,7 @@ def wifi_availability():
     :return: bool
     """
     try:
-        response = requests.get("https://google.com", timeout=1)
+        response = requests.get("https://google.com", timeout=4)
         return True
     except requests.ConnectionError:
         return False
@@ -89,7 +89,7 @@ class Start(QDialog):
 
             else:
                 print("Registering")
-                self.done(0)
+                self.done(1)
                 """
                 Closes the dialog and sets its result code to 0.
                 If this dialog is shown with exec() now, upon clicking the register option, 0 is returned which is then
@@ -115,7 +115,7 @@ class Start(QDialog):
                 # Database linkage code to check credentials
                 # check either for username or for email
                 print("Logging In")
-                self.done(1)
+                self.done(2)
                 """
                 Closes the dialog and sets its result code to 1.
                 If this dialog is shown with exec() now, upon clicking the register option, 1 is returned which is then
@@ -235,14 +235,13 @@ class Start(QDialog):
         Although this is not necessary, but after encountering an unknown bug of close button not working in the
         checklist window, we are adding this to prevent bugs related to closing the screen (if exist)
         """
-        self.close()
+        sys.exit()
 
 
 # main
-'''
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = Start()
     window.show()
     sys.exit(app.exec_())
-'''

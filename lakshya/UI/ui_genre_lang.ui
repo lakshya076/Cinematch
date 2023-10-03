@@ -140,7 +140,7 @@ color:rgb(0,0,0);</string>
            <height>375</height>
           </rect>
          </property>
-         <layout class="QVBoxLayout" name="scroll_lang_vlayout"/>
+         <layout class="QVBoxLayout" name="lang_scroll_vlayout"/>
         </widget>
        </widget>
       </item>

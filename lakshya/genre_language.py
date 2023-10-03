@@ -16,7 +16,7 @@ from PyQt5.uic import loadUi
 
 from reusable_imports.commons import ErrorDialog, clickable
 from reusable_imports._css import genre_frame_selection_css, genre_title_selection_css
-from reusable_imports.source_vars import genre_source
+from reusable_imports.source_vars import genre_source, lang_source
 from reusable_imports.common_vars import genres, languages
 
 # 168,325 : 150,225 : 150,60 -> preferred layouts of frame, image and title for the main ui page
@@ -49,10 +49,10 @@ class FrameReuse:
         self.frame.setFrameShape(QFrame.Panel)
 
     def title_reuse(self):
-        self.movie_title.setCursor(QCursor(Qt.PointingHandCursor))
-        self.movie_title.setStyleSheet(title_original)
-        self.movie_title.setWordWrap(True)
-        self.movie_title.hasScaledContents()
+        self.title.setCursor(QCursor(Qt.PointingHandCursor))
+        self.title.setStyleSheet(title_original)
+        self.title.setWordWrap(True)
+        self.title.hasScaledContents()
 
 
 class GenreLang(QDialog, FrameReuse):
@@ -64,8 +64,12 @@ class GenreLang(QDialog, FrameReuse):
         global _obj_  # defining global variables for the whole class
 
         self.genre_flags = [False] * 15
-        '''setting up genre flags to know if a frame has been clicked or not so that we could select/deselect the
-         frame (apply css)'''
+        '''setting up genre flags to know if a genre frame has been clicked or not so that we could select/deselect the
+        genre frame (apply css)'''
+
+        self.lang_flags = [False]*15
+        '''setting up lang flags to know if a lang frame has been clicked or not so that we could select/deselect the
+        lang_frame (apply css)'''
 
         self.scroll = [self.genre_scroll, self.lang_scroll]
         '''parent objects for the scroll parameter of the new_widgets function'''
@@ -102,21 +106,21 @@ class GenreLang(QDialog, FrameReuse):
         self.frame_hlayout.setObjectName(u"frame_hlayout")
 
         # generic movie title object
-        self.movie_title = MyLabel(self.frame)  # MyLabel is the redefined QLabel class above
-        self.movie_title.setObjectName(self.title_new)
+        self.title = MyLabel(self.frame)  # MyLabel is the redefined QLabel class above
+        self.title.setObjectName(self.title_new)
         self.title_reuse()  # calls the title reuse method from frame reuse class so to setup movie title properties.
-        self.movie_title.setText(title)  # parameter of function (reference to the for loop in __init__ method)
-        setattr(self, self.title_new, self.movie_title)
+        self.title.setText(title)  # parameter of function (reference to the for loop in __init__ method)
+        setattr(self, self.title_new, self.title)
 
-        # Making movie_image and movie_title object clickable externally since Labels don't have an inbuilt click method
-        clickable(self.movie_title).connect(self.display_frame_color_change)
+        # Making movie_image and title object clickable externally since Labels don't have an inbuilt click method
+        clickable(self.title).connect(self.display_frame_color_change)
 
         # Adding movie image and movie title objects to the vlayout of the frame
-        self.frame_hlayout.addWidget(self.movie_title)
+        self.frame_hlayout.addWidget(self.title)
 
     def display_frame_color_change(self):
         """
-        This method is called when a movie_image and movie_title with a specific name is clicked in the ui.
+        This method is called when a movie_image and title with a specific name is clicked in the ui.
         This method call the frame_selection_reuse function which will decide when the frame is selected or deselected
         and when a movie should be added in the movies list and when it should be removed.
         :return: None
@@ -139,11 +143,11 @@ class GenreLang(QDialog, FrameReuse):
         its id is removed from the movies list.
         The frame_flag above is a member of the self.genre_flags list (depending on the clicked frame) defined in
         the __init__ method.
-        This function will be called in the frame_color_change method which is called when a movie_image and movie_title
-        with a specific, unique id is clicked in the ui.
+        This function will be called in the frame_color_change method which is called when a title with a specific,
+        unique id is clicked in the ui.
         :param frame: str -> frame_number (will be passed as eval)
         :param title: str -> title_number (will be passed as eval)
-        :param number: int -> the number in frame_number, title_number, image_number
+        :param number: int -> the number in frame_number, title_number
         :return: None
         """
 
@@ -207,7 +211,7 @@ class GenreLang(QDialog, FrameReuse):
         Due to an unknown bug (mostly by modifying reject() function), the close button doesn't work. So we are
         overriding the default closeEvent to close the window when close button is pressed
         """
-        self.close()
+        sys.exit()
 
 
 if __name__ == "__main__":
