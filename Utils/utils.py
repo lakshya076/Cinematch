@@ -73,7 +73,7 @@ def get_keyz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
         return []
 
 
-def get_pop(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def get_popularity(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
     '''
     
@@ -89,6 +89,17 @@ def get_pop(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cur
         return x[0][0]
     else:
         return 1.86 # Avg
+
+
+def get_overview(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select overview from main where id="{id}"')
+    x = cursor.fetchall()
+
+    if x:
+        return x[0][0]
+    else:
+        return ''
 
 
 def recommend_direct(id: int, depth: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
@@ -126,7 +137,7 @@ def pop_sort(ids: list, connection: pymysql.Connection, cursor: pymysql.cursors.
 
     for i in ids:
 
-        popularity = get_pop(i, connection, cursor)
+        popularity = get_popularity(i, connection, cursor)
         pop_dict[popularity] = i
 
     pop_list = list(pop_dict.keys())
@@ -148,6 +159,7 @@ def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.
     '''
 
     title_search = []
+    cast_search = []
     keyword_search = []
     overview_search = []
 
@@ -160,8 +172,66 @@ def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.
     cursor.execute(f'select id from recommendations where keywords like "%{phrase}%"')
     keyword_search.extend([int(i[0]) for i in cursor.fetchall()])
 
-    combined_search = title_search + overview_search + keyword_search
+    cursor.execute(f'select id from recommendations where cast like "%{phrase}%"')
+    cast_search.extend([int(i[0]) for i in cursor.fetchall()])
+
+    combined_search = title_search + cast_search + overview_search + keyword_search
     combined_search = set(combined_search)
     combined_search = pop_sort(list(combined_search), connection, cursor)
 
     return combined_search
+
+
+def user_exists(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select email from users where email="{user}" or username="{user}"')
+
+    x = cursor.fetchall()
+
+    return bool(len(x))
+
+
+def get_email(uname: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select email from users where username="{uname}"')
+    x = cursor.fetchall()
+
+    if x:
+        return x[0][0]
+    else:
+        return False
+    
+
+def get_username(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select email from users where email="{email}"')
+    x = cursor.fetchall()
+
+    if x:
+        return x[0][0]
+    else:
+        return False
+
+    
+def get_password(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select password from users where email="{user}" or username="{user}"')
+    x = cursor.fetchall()
+
+    if x:
+        return x[0][0]
+    else:
+        return False
+    
+
+def is_premium(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    if user_exists(user, connection, cursor):
+
+        cursor.execute(f'select * from users where username="{user}" or email="{user}"')
+        return bool(cursor.fetchall()[0][0])
+
+    else:
+        return False
+
+
