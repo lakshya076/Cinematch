@@ -1,9 +1,9 @@
 import pymysql, pymysql.cursors
 import encryption
-import otp
+import utils
 
 
-def register(uname: str, passwd: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def register(username: str, passwd: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
 
     '''
@@ -16,7 +16,7 @@ def register(uname: str, passwd: str, email: str, connection: pymysql.Connection
     
     '''
 
-    cursor.execute(f'select username from users where username="{uname}"')
+    cursor.execute(f'select username from users where username="{username}"')
     data = cursor.fetchall()
 
     cursor.execute(f'select * from users where email="{email}"')
@@ -25,7 +25,12 @@ def register(uname: str, passwd: str, email: str, connection: pymysql.Connection
     if data == () and data2 == ():
 
         hashed_pass = encryption.sha256(passwd)
-        cursor.execute(f'insert into users(username, password, email) values("{uname}", "{hashed_pass}", "{email}")')
+        cursor.execute(f'insert into users values("{username}", "{hashed_pass}", "{email}", 0, null, null)')
+        del passwd
+
+        cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null)')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null)')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null)')
 
         connection.commit()
 
@@ -36,7 +41,7 @@ def register(uname: str, passwd: str, email: str, connection: pymysql.Connection
         return False
 
 
-def login(uname: str, passwd: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def login(username: str, passwd: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
 
     '''
@@ -47,17 +52,18 @@ def login(uname: str, passwd: str, connection: pymysql.Connection, cursor: pymys
     
     '''
 
-    cursor.execute(f'select * from users where username="{uname}"')
 
-    if cursor.fetchall() == ():
+    if not utils.user_exists(username, connection, cursor) == ():
 
         return False
 
     else:
 
+        cursor.execute(f'select username, password from users where username="{username}"')
         data = cursor.fetchall()[0]
 
-        if uname == data[0] and encryption.sha256(passwd) == data[1]:
+        if username == data[0] and encryption.sha256(passwd) == data[1]:
+            del passwd
             return True
         
         else:
@@ -84,4 +90,33 @@ def forgot_passwd(email: str, connection: pymysql.Connection, cursor: pymysql.cu
     
     else:
 
-        return otp.send_otp(data[0][4])
+        return email.send_otp(data[0][4])
+
+
+def update_passwd(email: str, new_pass: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    if utils.user_exists(email, connection, cursor):
+    
+        cursor.execute(f'update users set password="{encryption.sha256(new_pass)}" where email="{email}"')
+        del new_pass
+        connection.commit()
+
+        return True
+    
+    else:
+
+        return True
+
+
+def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    if utils.user_exists(username, connection, cursor):
+        
+        cursor.execute(f'delete from users where username="{username}"')
+        connection.commit()
+
+        return True
+    
+    else:
+
+        return False
