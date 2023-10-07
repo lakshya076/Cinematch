@@ -1,5 +1,17 @@
 import pymysql
 import pymysql.cursors
+from validate_email import validate_email
+
+
+def movie_exists(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select * from main where id={id}')
+
+    if cursor.fetchall():
+        return True
+    else:
+        return False
+
 
 def get_title(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
@@ -29,12 +41,9 @@ def get_recs(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     
     '''
 
-
-    cursor.execute(f'select recommended from recommendations where id={id}')
-    x = cursor.fetchall()
-
-    if x:    
-        return x[0][0].split('-')
+    if movie_exists(id, connection, cursor):
+        cursor.execute(f'select recommended from recommendation where id={id}')
+        return cursor.fetchall()[0][0].split('-')
     else:
         return []
 
@@ -47,7 +56,7 @@ def get_genz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     
     '''
 
-    cursor.execute(f'select genres from recommendations where id={id}')
+    cursor.execute(f'select genres from recommendation where id={id}')
     x = cursor.fetchall()
 
     if x:
@@ -64,11 +73,10 @@ def get_keyz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     
     '''
 
-    cursor.execute(f'select keywords from recommendations where id={id}')
-    x = cursor.fetchall()
+    cursor.execute(f'select keywords from recommendation where id={id}')
 
-    if x:
-        return x[0][0].split('-')
+    if movie_exists(id, connection, cursor):
+        return cursor.fetchall()[0][0].split('-')
     else:
         return []
 
@@ -82,47 +90,61 @@ def get_popularity(id: int, connection: pymysql.Connection, cursor: pymysql.curs
     '''
 
 
-    cursor.execute(f'select popularity from recommendations where id={id}')
-    x = cursor.fetchall()
-
-    if x:
-        return x[0][0]
+    if movie_exists(id, connection, cursor):
+        cursor.execute(f'select popularity from recommendation where id={id}')
+        return cursor.fetchall()[0][0]
     else:
         return 1.86 # Avg
 
 
 def get_overview(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
-    cursor.execute(f'select overview from main where id="{id}"')
-    x = cursor.fetchall()
-
-    if x:
-        return x[0][0]
+    if movie_exists(id, connection, cursor):
+        cursor.execute(f'select overview from main where id="{id}"')
+        return cursor.fetchall()[0][0]
     else:
-        return ''
+        return False
+
+
+def get_release_date(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    if movie_exists(id, connection, cursor):
+        
+        cursor.execute(f'get release_date from main where id={id}')
+        return cursor.fetchall()[0][0]
+    
+    else:
+
+        return False
 
 
 def recommend_direct(id: int, depth: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
     '''
     
-    Searches for recommendations of a movie using the given recommendations till `depth`
+    Searches for recommendation of a movie using the given recommendation till `depth`
     
     '''
 
-    og_recs = get_recs(id, connection, cursor)
+    if movie_exists(id, connection, cursor):
 
-    popsorted = pop_sort(og_recs, connection, cursor)
+        og_recs = get_recs(id, connection, cursor)
 
-    recommendations = popsorted
+        popsorted = pop_sort(og_recs, connection, cursor)
 
-    if depth == 1:
-        return recommendations
+        recommendation = popsorted
 
-    for i in popsorted[:]:
-        recommendations += recommend_direct(i, depth-1, connection, cursor)
+        if depth == 1:
+            return recommendation
 
-    return list(set(recommendations))
+        for i in popsorted[:]:
+            recommendation += recommend_direct(i, depth-1, connection, cursor)
+
+        return list(set(recommendation))
+    
+    else:
+
+        return []
 
 
 def pop_sort(ids: list, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
@@ -137,8 +159,9 @@ def pop_sort(ids: list, connection: pymysql.Connection, cursor: pymysql.cursors.
 
     for i in ids:
 
-        popularity = get_popularity(i, connection, cursor)
-        pop_dict[popularity] = i
+        if movie_exists(i, connection, cursor):
+            popularity = get_popularity(i, connection, cursor)
+            pop_dict[popularity] = i
 
     pop_list = list(pop_dict.keys())
     pop_list.sort(reverse=True)
@@ -150,36 +173,9 @@ def pop_sort(ids: list, connection: pymysql.Connection, cursor: pymysql.cursors.
     return ids_sorted
 
 
-def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
-    
-    '''
-    
-    search for movies using `phrase`
-    
-    '''
+def valid_email(email: str):
 
-    title_search = []
-    cast_search = []
-    keyword_search = []
-    overview_search = []
-
-    cursor.execute(f'select id from main where overview like "%{phrase}%"')
-    overview_search.extend([int(i[0]) for i in cursor.fetchall()])
-
-    cursor.execute(f'select id from main where title like "%{phrase}%" or genres like "%{phrase}%"')
-    title_search.extend([int(i[0]) for i in cursor.fetchall()])
-
-    cursor.execute(f'select id from recommendations where keywords like "%{phrase}%"')
-    keyword_search.extend([int(i[0]) for i in cursor.fetchall()])
-
-    cursor.execute(f'select id from recommendations where cast like "%{phrase}%"')
-    cast_search.extend([int(i[0]) for i in cursor.fetchall()])
-
-    combined_search = title_search + cast_search + overview_search + keyword_search
-    combined_search = set(combined_search)
-    combined_search = pop_sort(list(combined_search), connection, cursor)
-
-    return combined_search
+    return validate_email(email)
 
 
 def user_exists(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
