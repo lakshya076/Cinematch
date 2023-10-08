@@ -28,6 +28,8 @@ def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.
     keyword_search = []
     overview_search = []
 
+    phrase = phrase.strip()
+
     cursor.execute(f'select id from main where overview like "%{phrase}%" order by popularity desc')
     overview_search.extend([int(i[0]) for i in cursor.fetchall()])
 
