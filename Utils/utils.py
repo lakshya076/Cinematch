@@ -307,5 +307,3 @@ def is_premium(user: str, connection: pymysql.Connection, cursor: pymysql.cursor
     else:
 
         return False
-
-

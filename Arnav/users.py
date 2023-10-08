@@ -1,6 +1,6 @@
 import pymysql, pymysql.cursors
 import encryption
-import utils
+import Utils.utils as utils
 
 
 def register(username: str, passwd: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
