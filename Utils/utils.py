@@ -5,6 +5,12 @@ from validate_email import validate_email
 
 def movie_exists(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
+    '''
+    
+    Returns `True` if movie exists in the database, else returns `False`
+    
+    '''
+
     cursor.execute(f'select * from main where id={id}')
 
     if cursor.fetchall():
@@ -23,13 +29,13 @@ def get_title(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.C
     
     '''
 
-    cursor.execute(f'select title from main where id={id}')
+    if movie_exists(id, connection, cursor):
 
-    x = cursor.fetchall()
+        cursor.execute(f'select title from main where id={id}')
+        return cursor.fetchall()[0][0]
 
-    if x:
-        return x[0][0]
     else:
+
         return False
 
 
@@ -42,9 +48,12 @@ def get_recs(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     '''
 
     if movie_exists(id, connection, cursor):
-        cursor.execute(f'select recommended from recommendation where id={id}')
+
+        cursor.execute(f'select recommended from recommendation where id={id} order by popularity desc')
         return cursor.fetchall()[0][0].split('-')
+    
     else:
+
         return []
 
 
@@ -56,12 +65,13 @@ def get_genz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     
     '''
 
-    cursor.execute(f'select genres from recommendation where id={id}')
-    x = cursor.fetchall()
+    if movie_exists(id, connection, cursor):
 
-    if x:
-        return x[0][0].split('-')
+        cursor.execute(f'select genres from recommendation where id={id}')
+        return cursor.fetchall()[0][0].split('-')
+    
     else:
+
         return []
 
 
@@ -73,11 +83,13 @@ def get_keyz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
     
     '''
 
-    cursor.execute(f'select keywords from recommendation where id={id}')
-
     if movie_exists(id, connection, cursor):
+
+        cursor.execute(f'select keywords from recommendation where id={id}')
         return cursor.fetchall()[0][0].split('-')
+    
     else:
+
         return []
 
 
@@ -91,22 +103,42 @@ def get_popularity(id: int, connection: pymysql.Connection, cursor: pymysql.curs
 
 
     if movie_exists(id, connection, cursor):
+
         cursor.execute(f'select popularity from recommendation where id={id}')
         return cursor.fetchall()[0][0]
+    
     else:
+
         return 1.86 # Avg
 
 
 def get_overview(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
+    '''
+    
+    Returns the overview/description of a movie using its `id`
+    
+    '''
+
     if movie_exists(id, connection, cursor):
+
         cursor.execute(f'select overview from main where id="{id}"')
         return cursor.fetchall()[0][0]
+    
     else:
+
         return False
 
 
 def get_release_date(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    '''
+    
+    Returns the release date of the movie using its `id`
+
+    Date is in format `YYYY-MM-DD`
+    
+    '''
 
     if movie_exists(id, connection, cursor):
         
@@ -123,21 +155,20 @@ def recommend_direct(id: int, depth: int, connection: pymysql.Connection, cursor
     '''
     
     Searches for recommendation of a movie using the given recommendation till `depth`
+
+    Returns `[]` if movie doesn't exist
     
     '''
 
     if movie_exists(id, connection, cursor):
 
         og_recs = get_recs(id, connection, cursor)
-
-        popsorted = pop_sort(og_recs, connection, cursor)
-
-        recommendation = popsorted
+        recommendation = og_recs
 
         if depth == 1:
             return recommendation
 
-        for i in popsorted[:]:
+        for i in og_recs[:]:
             recommendation += recommend_direct(i, depth-1, connection, cursor)
 
         return list(set(recommendation))
@@ -175,10 +206,24 @@ def pop_sort(ids: list, connection: pymysql.Connection, cursor: pymysql.cursors.
 
 def valid_email(email: str):
 
+    '''
+    
+    Return `True` or `False` depending if the email address exists or/and can be delivered.
+
+    Return `None` if the result is ambiguous.
+    
+    '''
+
     return validate_email(email)
 
 
 def user_exists(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    '''
+    
+    Returns `True` if username/email exists in the database, else returns `False`
+    
+    '''
 
     cursor.execute(f'select email from users where email="{user}" or username="{user}"')
 
@@ -188,6 +233,14 @@ def user_exists(user: str, connection: pymysql.Connection, cursor: pymysql.curso
 
 
 def get_email(uname: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    '''
+    
+    Returns the email of a user, given the username
+
+    Returns `False` if user doesn't exist
+    
+    '''
 
     cursor.execute(f'select email from users where username="{uname}"')
     x = cursor.fetchall()
@@ -200,27 +253,51 @@ def get_email(uname: str, connection: pymysql.Connection, cursor: pymysql.cursor
 
 def get_username(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
-    cursor.execute(f'select email from users where email="{email}"')
-    x = cursor.fetchall()
+    '''
+    
+    Returns the username of a user, given the email
 
-    if x:
-        return x[0][0]
+    Returns `False` if user doesn't exist
+    
+    '''
+
+    if user_exists(email, connection, cursor):
+
+        cursor.execute(f'select email from users where email="{email}"')
+        return cursor.fetchall()[0][0]
+    
     else:
+
         return False
 
     
 def get_password(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
-    cursor.execute(f'select password from users where email="{user}" or username="{user}"')
-    x = cursor.fetchall()
+    '''
+    
+    Returns the hashed password of a user, given its username or email
 
-    if x:
-        return x[0][0]
+    Returns `False` if user doesn't exist
+    
+    '''
+
+    if user_exists(user, connection, ):
+
+        cursor.execute(f'select password from users where email="{user}" or username="{user}"')
+        return cursor.fetchall()[0][0]
+    
     else:
+
         return False
     
 
 def is_premium(user: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    '''
+    
+    Returns `True` if user is premium, else returns `False`
+
+    '''
 
     if user_exists(user, connection, cursor):
 
@@ -228,6 +305,7 @@ def is_premium(user: str, connection: pymysql.Connection, cursor: pymysql.cursor
         return bool(cursor.fetchall()[0][0])
 
     else:
+
         return False
 
 
