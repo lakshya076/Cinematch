@@ -1,6 +1,6 @@
 import pymysql, pymysql.cursors
 import encryption
-import Utils.utils as utils
+import Utils.user_utils as user_utils
 
 
 def register(username: str, passwd: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
@@ -53,7 +53,7 @@ def login(username: str, passwd: str, connection: pymysql.Connection, cursor: py
     '''
 
 
-    if not utils.user_exists(username, connection, cursor) == ():
+    if not user_utils.user_exists(username, connection, cursor) == ():
 
         return False
 
@@ -95,7 +95,7 @@ def forgot_passwd(email: str, connection: pymysql.Connection, cursor: pymysql.cu
 
 def update_passwd(email: str, new_pass: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
-    if utils.user_exists(email, connection, cursor):
+    if user_utils.user_exists(email, connection, cursor):
     
         cursor.execute(f'update users set password="{encryption.sha256(new_pass)}" where email="{email}"')
         del new_pass
@@ -110,7 +110,7 @@ def update_passwd(email: str, new_pass: str, connection: pymysql.Connection, cur
 
 def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
-    if utils.user_exists(username, connection, cursor):
+    if user_utils.user_exists(username, connection, cursor):
         
         cursor.execute(f'delete from users where username="{username}"')
         connection.commit()

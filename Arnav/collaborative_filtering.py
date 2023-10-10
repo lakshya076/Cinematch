@@ -1,9 +1,7 @@
 import pandas
 import pymysql, pymysql.cursors
-import utils
-import timeit
+import Utils.movie_utils as movie_utils
 
-st = timeit.default_timer()
 
 item_similarity = pandas.read_csv('cos_similarity_upd.csv', index_col=0)
 
@@ -17,7 +15,7 @@ def get_similar(id, rating):
 
 def recommend(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
-    recommended = utils.recommend_direct(id, 1, connection, cursor)
+    recommended = movie_utils.recommend_direct(id, 1, connection, cursor)
     ratings = [(i, 5) for i in recommended]
 
 
