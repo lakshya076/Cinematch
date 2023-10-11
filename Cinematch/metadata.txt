@@ -1,0 +1,52 @@
+Background Color - #FFFAF0 (cosmic latte)
+Button Color - #F0EAD6 (eggshell)
+Frame Color Unselected - #F5F5DC (beige)
+Frame Color Selected - #F0E7FF (bluish type)
+Sidebar (Checklist) - #FFFFFF
+Icon Color Unchecked - #DFE8F5
+Icon Color Checked - #FFFFFF
+Sidebar (Main) - #313A46
+Sidebar text unchecked - #BCD2F5
+Sidebar text checked - #ffffff
+
+
+Dark Mode (MainWin):
+Sidebar - #313A46
+Central Widget - #24292E
+Scrollbar - #C26B5C
+
+Decide on the Dialog Box bg color
+
+Total movies -> 355474
+
+Images used:
+    Library:
+        Watching List display picture - Image by <a href="https://pixabay.com/users/onkelglocke-12931647/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4609877">Andreas Glöckner</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4609877">Pixabay</a>
+
+Run Order:
+Register - startup -> checklist -> genres -> language -> splash -> main
+Login - startup -> splash -> main
+
+
+Home
+	For you
+	Watch Again
+	Languages
+		English
+		Hindi
+		Japanese
+
+
+
+Username
+Email
+
+Theme
+Font Size
+Picture Quality (if possible) (for slower connections)
+Clear Cache
+Manage Playlists
+
+Log Out
+
+Delete Account
