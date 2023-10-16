@@ -1,2 +1,2 @@
 # Cinematch
-Movie Recommender (Alpha)
+Movie Recommender (Alpha stage)
