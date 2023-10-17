@@ -6,11 +6,11 @@ from threading import Thread
 
 from PyQt5.QtCore import QRect, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QStackedWidget
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
-from library import Library
+from library import Library, _obj_library
 from search import Search
 from startup import Start
 from checklist import Checklist
@@ -142,7 +142,14 @@ class Main(QMainWindow):
 
     def shortlist_func(self):
         self.stack.setCurrentIndex(3)
+        self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
+
+        def open_movie_main():
+            sender = display.sender()
+            _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
+            print(f"Opening {_objectdisplay}")
+
         if len(self.shortlist_sa_widgets.children()) > 1:
             pass
         else:
@@ -150,24 +157,64 @@ class Main(QMainWindow):
                 display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
                                            image=display.check[i][2], title=display.check[i][1],
                                            lang=display.check[i][3], pop=display.check[i][4],
-                                           scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout)
+                                           scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
+                                           open_movie=open_movie_main)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
 
     def library_func(self):
         self.stack.setCurrentIndex(4)
+        children = len(playlists_metadata)
         lib = Library()
-        if len(self.library_sa_widgets.children()) > 1:
+
+        def add_func_lib_main():
+            sender = lib.sender()
+            _object = sender.objectName().strip().split(sep="_")[-1]
+            print(f"Add to playlist {_object}")
+            # separate non-modal dialog box to add playlist
+
+        def delete_func_lib_main():
+            sender = lib.sender()
+            _objectdelete = sender.objectName().strip().split(sep="_")[-1]
+            if _objectdelete.lower() in ["shortlist"]:
+                print("Can't Delete Pre-Built Playlist")
+            else:
+                print(f"Playlist Deleted {_objectdelete}")
+                try:
+                    del playlists_metadata[_objectdelete]
+                    print(playlists_metadata)
+                except KeyError:
+                    print("Key Error, Can't Delete Playlist.")
+
+            self.library_func()
+            # remove playlist from dict and delete the children in the library_sa and recall the lib_new_widgets func
+
+        def open_func_lib_main():
+            sender = lib.sender()
+            _objectopen = sender.objectName().strip().split(sep="_")[-1]
+            print(f"Opening Playlist {_objectopen}")
+            if _objectopen == "shortlist":
+                self.shortlist_func()
+            else:
+                pass
+                # add functionality to open playlist in a new page
+
+        try:
+            for i in reversed(range(self.library_gridLayout.count())):
+                self.library_gridLayout.itemAt(i).widget().setParent(None)
+        except:
             pass
-        else:
-            for i in range(len(playlists_metadata)):
-                for j in range(1):
-                    lib.new_widgets_lib(name=playlists_original[i], row=j, column=i,
-                                        display_name=list(playlists_metadata.values())[i][0],
-                                        _username=list(playlists_metadata.values())[i][1],
-                                        dob=list(playlists_metadata.values())[i][2], image=playlist_picture[i],
-                                        scroll_area=self.library_sa_widgets, layout=self.library_gridLayout)
+
+        for i in range(children):
+            for j in range(1):
+                lib.new_widgets_lib(name=list(playlists_metadata.keys())[i], row=j, column=i,
+                                    display_name=list(playlists_metadata.values())[i][0],
+                                    _username=list(playlists_metadata.values())[i][1],
+                                    dob=list(playlists_metadata.values())[i][2], image=playlist_picture[i],
+                                    scroll_area=self.library_sa_widgets, layout=self.library_gridLayout,
+                                    add_func_lib=add_func_lib_main, delete_func_lib=delete_func_lib_main,
+                                    open_func_lib=open_func_lib_main)
 
         if self.expand.isVisible():
             self.expand.hide()

@@ -1,19 +1,17 @@
 import PyQt5
-from PyQt5.QtCore import Qt, QSize, QEvent
+from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QFrame, QPushButton, QMenu
-from PyQt5.uic import loadUi
 
 from reusable_imports._css import dark_menu
-from reusable_imports.common_vars import get_movies, get_playlist_movies, playlists_metadata
-from reusable_imports.commons import clickable
+from reusable_imports.common_vars import get_playlist_movies, playlists_metadata
 
 _obj_lists = ""
 frame_style = """
-    font:14pt; 
+    font:14pt;
     background-color: #111111; 
-    color: #fffaf0; 
-    border-radius: 10px; 
+    color: #fffaf0;
+    border-radius: 10px;
     border: 1px solid #111111;
 """
 
@@ -49,7 +47,7 @@ class MovieButton(QPushButton):
                 elif _type[0] == "Add":
                     self.divert_add()
                 elif _type[0] == "Remove":
-                    self.diver_remove()
+                    self.divert_remove()
 
     def create_menu_contextual(self):
         menu = QMenu()
@@ -73,23 +71,22 @@ class MovieButton(QPushButton):
         print(f"Adding {self.movie_id}")
         # create sub menu
 
-    def diver_remove(self):
+    def divert_remove(self):
         print(f"Deleted movie {self.movie_id} from playlist {self.playlist_name.title()}")
 
 
 class MovieLabel(QLabel):
+    clicked = pyqtSignal()
+
     def __init__(self, parent=None):
         super(MovieLabel, self).__init__(parent)
-        self.installEventFilter(self)
 
-    def eventFilter(self, source, event):
-        if event.type() == QEvent.MouseButtonPress:
-            global _obj_lists
-            _obj_lists = source.objectName()
-            _obj_lists = str(_obj_lists.split(sep="_")[-1])
-            print(f"Clicked {_obj_lists}")
+    def mousePressEvent(self, QMouseEvent):
+        self.clicked.emit()
 
-        return super().eventFilter(source, event)
+        global _obj_lists
+        _obj_lists = self.objectName()
+        _obj_lists = _obj_lists.split(sep="_")[1]
 
 
 class DisplayMovies(QFrame):
@@ -100,7 +97,8 @@ class DisplayMovies(QFrame):
         global _obj_lists
 
     def new_movies_display(self, name: str, image: bytearray, title: str, lang: str, pop: str,
-                           scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QVBoxLayout):
+                           scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QVBoxLayout,
+                           open_movie=None):
         # unique identifiers for each frame,image,title
         self.frame_new = f"movie_frame_{name}"
         self.image_new = f"movie_image_{name}"
@@ -165,10 +163,7 @@ class DisplayMovies(QFrame):
 
         layout.addWidget(self.movie_frame)
 
-        clickable(self.image).connect(self.open_movie)
-        clickable(self.title).connect(self.open_movie)
-        clickable(self.lang).connect(self.open_movie)
-        clickable(self.pop).connect(self.open_movie)
-
-    def open_movie(self):
-        print(f"Opening movie {_obj_lists}")
+        self.image.clicked.connect(lambda: open_movie())
+        self.title.clicked.connect(lambda: open_movie())
+        self.lang.clicked.connect(lambda: open_movie())
+        self.pop.clicked.connect(lambda: open_movie())

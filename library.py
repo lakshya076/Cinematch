@@ -1,9 +1,8 @@
 import PyQt5
-from PyQt5.QtCore import Qt, QSize, QEvent
+from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
 from PyQt5.QtWidgets import QMenu, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel, QVBoxLayout, QFrame
 
-from reusable_imports.commons import clickable
 from reusable_imports._css import dark_menu, dark_library_stylesheet
 
 _obj_library = ""
@@ -17,7 +16,6 @@ class LibraryButton(QPushButton):
         self.setIconSize(QSize(32, 32))
         self.setIcon(QIcon("Icons/kebab_white.png"))
         self.setCursor(QCursor(Qt.PointingHandCursor))
-        self.setToolTip("Manage Playlist")
 
     def mousePressEvent(self, event):
         super().mousePressEvent(event)
@@ -65,17 +63,17 @@ class LibraryButton(QPushButton):
 
 
 class LibraryLabel(QLabel):
+    clicked = pyqtSignal()
+
     def __init__(self, parent=None):
         super(LibraryLabel, self).__init__(parent)
-        self.installEventFilter(self)
 
-    def eventFilter(self, source, event):
-        if event.type() == QEvent.MouseButtonPress:
-            global _obj_library
-            _obj_library = source.objectName()
-            _obj_library = _obj_library.split(sep="_")[1]
+    def mousePressEvent(self, QMouseEvent):
+        self.clicked.emit()
 
-        return super().eventFilter(source, event)
+        global _obj_library
+        _obj_library = self.objectName()
+        _obj_library = _obj_library.split(sep="_")[1]
 
 
 class Library(QFrame):
@@ -85,7 +83,8 @@ class Library(QFrame):
         global _obj_library
 
     def new_widgets_lib(self, name: str, row: int, column: int, display_name: str, _username: str, dob: str, image: str,
-                        scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QGridLayout):
+                        scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QGridLayout,
+                        add_func_lib=None, delete_func_lib=None, open_func_lib=None):
         # unique identifiers for each frame,image,title
         self.frame_new = f"frame_{name}"
         self.poster_new = f"poster_{name}"
@@ -134,7 +133,6 @@ class Library(QFrame):
         self.add.setIconSize(QSize(24, 24))
         self.add.setIcon(QIcon("Icons/add.ico"))
         self.add.setCursor(QCursor(Qt.PointingHandCursor))
-        self.add.setToolTip("Add to Playlist")
         setattr(self, self.add_new, self.add)
 
         self.verticalspacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -145,7 +143,6 @@ class Library(QFrame):
         self.deletelist.setIconSize(QSize(24, 24))
         self.deletelist.setIcon(QIcon("Icons/delete.ico"))
         self.deletelist.setCursor(QCursor(Qt.PointingHandCursor))
-        self.deletelist.setToolTip("Delete Playlist")
         setattr(self, self.deletelist_new, self.deletelist)
 
         self.user = LibraryLabel(self.frame)
@@ -165,12 +162,12 @@ class Library(QFrame):
         self.dob.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.dob_new, self.dob)
 
-        self.add.clicked.connect(lambda: self.add_playlist())
-        self.deletelist.clicked.connect(lambda: self.delete_playlist())
-        clickable(self.poster).connect(self.open_playlist)
-        clickable(self.title).connect(self.open_playlist)
-        clickable(self.user).connect(self.open_playlist)
-        clickable(self.dob).connect(self.open_playlist)
+        self.add.clicked.connect(lambda: add_func_lib())
+        self.deletelist.clicked.connect(lambda: delete_func_lib())
+        self.poster.clicked.connect(lambda: open_func_lib())
+        self.title.clicked.connect(lambda: open_func_lib())
+        self.user.clicked.connect(lambda: open_func_lib())
+        self.dob.clicked.connect(lambda: open_func_lib())
 
         # Setting Layouts
         self.frame_vlayout_library = QVBoxLayout(self.frame)
@@ -195,17 +192,6 @@ class Library(QFrame):
         self.frame_vlayout_library.addWidget(self.dob)
 
         layout.addWidget(self.frame, row, column, Qt.AlignHCenter | Qt.AlignVCenter)
-
-    def add_playlist(self):
-        print("Add to playlist")
-
-    def delete_playlist(self):
-        sender = self.sender()
-        _object = sender.objectName().strip().split(sep="_")
-        if _object[1].lower() in ["shortlisted"]:
-            print("Can't Delete Pre-Built Playlist")
-        else:
-            print("Playlist Deleted")
 
     def open_playlist(self):
         print(f"Opening Playlist {_obj_library}")
