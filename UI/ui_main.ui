@@ -1130,6 +1130,9 @@ background-color: rgba(0,0,0,0);</string>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
+           <property name="currentIndex">
+               <number>3</number>
+           </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
           <string notr="true"/>
@@ -1430,6 +1433,50 @@ background-color: rgba(0,0,0,0);</string>
         <widget class="QWidget" name="shortlist_page">
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                      <widget class="QLabel" name="shortlist_display">
+                          <property name="styleSheet">
+                              <string notr="true">color:#fffaf0;
+                                  font:20pt;
+                              </string>
+                          </property>
+                          <property name="text">
+                              <string>Shortlist</string>
+                          </property>
+                      </widget>
+                  </item>
+                  <item>
+                      <widget class="ShortListLabel" name="add_to_shortlist">
+                          <property name="minimumSize">
+                              <size>
+                                  <width>32</width>
+                                  <height>32</height>
+                              </size>
+                          </property>
+                          <property name="maximumSize">
+                              <size>
+                                  <width>32</width>
+                                  <height>32</height>
+                              </size>
+                          </property>
+                          <property name="styleSheet">
+                              <string notr="true">background-color:rgba(0,0,0,0);</string>
+                          </property>
+                          <property name="text">
+                              <string/>
+                          </property>
+                          <property name="pixmap">
+                              <pixmap>../../PycharmProjects/Cinematch/Icons/add.ico</pixmap>
+                          </property>
+                          <property name="scaledContents">
+                              <bool>true</bool>
+                          </property>
+                      </widget>
+                  </item>
+              </layout>
+          </item>
+             <item>
            <widget class="QScrollArea" name="shortlist_sa">
             <property name="widgetResizable">
              <bool>true</bool>
@@ -1440,7 +1487,7 @@ background-color: rgba(0,0,0,0);</string>
                <x>0</x>
                <y>0</y>
                <width>820</width>
-               <height>480</height>
+                  <height>439</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -1977,6 +2024,11 @@ border-radius:10px;</string>
    <class>Search</class>
    <extends>QLineEdit</extends>
    <header>search.h</header>
+  </customwidget>
+     <customwidget>
+         <class>ShortListLabel</class>
+         <extends>QLabel</extends>
+         <header>shortlistlabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

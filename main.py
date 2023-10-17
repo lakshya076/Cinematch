@@ -145,6 +145,11 @@ class Main(QMainWindow):
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
 
+        def add_to_shortlist_func():
+            print("Add to shortlist")
+
+        self.add_to_shortlist.clicked.connect(lambda: add_to_shortlist_func())
+
         def open_movie_main():
             sender = display.sender()
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
