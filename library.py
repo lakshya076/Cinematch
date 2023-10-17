@@ -186,6 +186,3 @@ class Library(QFrame):
         self.frame_vlayout_library.addWidget(self.dob)
 
         layout.addWidget(self.frame, row, column, Qt.AlignHCenter | Qt.AlignVCenter)
-
-    def open_playlist(self):
-        print(f"Opening Playlist {_obj_library}")

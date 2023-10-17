@@ -4,13 +4,13 @@ import shutil
 import sys
 from threading import Thread
 
-from PyQt5.QtCore import QRect, Qt
+from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication, QStackedWidget
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
-from library import Library, _obj_library
+from library import Library
 from search import Search
 from startup import Start
 from checklist import Checklist
@@ -183,7 +183,6 @@ class Main(QMainWindow):
                 print(f"Playlist Deleted {_objectdelete}")
                 try:
                     del playlists_metadata[_objectdelete]
-                    print(playlists_metadata)
                 except KeyError:
                     print("Key Error, Can't Delete Playlist.")
 
