@@ -28,6 +28,10 @@ playlists_metadata = {
     'plantowatch': ['Plan To Watch', 'User', '12/12/2023', [575264, 267805, 283995]],
     'testplay': ['Test Play', 'User', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
 
+# Playlist metadata will be added in this when deleted
+# Then this should be uploaded to the removed playlists table
+removed_playlists = dict()
+
 # unique identifiers for playlists which will be assigned when creating the playlists frame in the library page
 playlists_original = list(playlists_metadata.keys())
 poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg"]

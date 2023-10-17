@@ -111,6 +111,10 @@ dark_library_stylesheet = """
         background-color: rgba(0,0,0,0);
         border:none;
     }
+    QToolTip {
+        color: #111111;
+        opacity: 200
+    }
     """
 dark_menu = """
     QMenu {

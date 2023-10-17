@@ -3,57 +3,9 @@ from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
 from PyQt5.QtWidgets import QMenu, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel, QVBoxLayout, QFrame
 
-from reusable_imports._css import dark_menu, dark_library_stylesheet
+from reusable_imports._css import dark_library_stylesheet
 
 _obj_library = ""
-
-
-class LibraryButton(QPushButton):
-    def __init__(self, parent=None):
-        super(LibraryButton, self).__init__(parent)
-
-        self.setFixedSize(QSize(32, 32))
-        self.setIconSize(QSize(32, 32))
-        self.setIcon(QIcon("Icons/kebab_white.png"))
-        self.setCursor(QCursor(Qt.PointingHandCursor))
-
-    def mousePressEvent(self, event):
-        super().mousePressEvent(event)
-        if event.button() == Qt.LeftButton:
-            print(self.objectName())
-            position = self.mapToGlobal(event.pos())
-            menu = self.create_menu_contextual()
-            action = menu.exec_(position)
-
-            if action is not None:
-                _type = str(action.text()).strip().split()
-                if _type[0] == "Open":
-                    self.divert_open()
-                elif _type[0] == "Add":
-                    self.divert_add()
-                elif _type[0] == "Delete":
-                    self.divert_delete()
-
-    def create_menu_contextual(self):
-        menu = QMenu()
-        menu.addAction("Open Playlist")
-        menu.addAction("Add to Playlist")
-        menu.addAction("Delete Playlist")
-        menu.setStyleSheet(dark_menu)
-        return menu
-
-    def divert_open(self):
-        print(f"Opening playlist {self.objectName().split(sep='_')[1]}")
-
-    def divert_add(self):
-        print("Add")
-
-    def divert_delete(self):
-        _object = self.objectName().strip().split(sep="_")
-        if _object[1].lower() in ["shortlisted"]:
-            print("Can't Delete Pre-Built Playlist")
-        else:
-            print("Playlist Deleted")
 
 
 class LibraryLabel(QLabel):
@@ -83,9 +35,8 @@ class Library(QFrame):
         self.frame_new = f"frame_{name}"
         self.poster_new = f"poster_{name}"
         self.title_new = f"title_{name}"
-        self.manage_new = f"manage_{name}"
         self.add_new = f"add_{name}"
-        self.deletelist_new = f"deletelist_{name}"
+        self.delete_playlist_new = f"delete_playlist_{name}"
         self.user_new = f"user_{name}"
         self.dob_new = f"dob_{name}"
         print(self.frame_new)
@@ -117,27 +68,25 @@ class Library(QFrame):
         self.title.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.title_new, self.title)
 
-        self.manage = LibraryButton(self.frame)
-        self.manage.setObjectName(self.manage_new)
-        setattr(self, self.manage_new, self.manage)
-
         self.add = QPushButton(self.frame)
         self.add.setObjectName(self.add_new)
         self.add.setFixedSize(QSize(32, 32))
         self.add.setIconSize(QSize(24, 24))
         self.add.setIcon(QIcon("Icons/add.ico"))
+        self.add.setToolTip(f"Add to {display_name}")
         self.add.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.add_new, self.add)
 
         self.verticalspacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.deletelist = QPushButton(self.frame)
-        self.deletelist.setObjectName(self.deletelist_new)
-        self.deletelist.setFixedSize(QSize(32, 32))
-        self.deletelist.setIconSize(QSize(24, 24))
-        self.deletelist.setIcon(QIcon("Icons/delete.ico"))
-        self.deletelist.setCursor(QCursor(Qt.PointingHandCursor))
-        setattr(self, self.deletelist_new, self.deletelist)
+        self.delete_playlist = QPushButton(self.frame)
+        self.delete_playlist.setObjectName(self.delete_playlist_new)
+        self.delete_playlist.setFixedSize(QSize(32, 32))
+        self.delete_playlist.setIconSize(QSize(24, 24))
+        self.delete_playlist.setIcon(QIcon("Icons/delete.ico"))
+        self.delete_playlist.setToolTip(f"Delete {display_name}")
+        self.delete_playlist.setCursor(QCursor(Qt.PointingHandCursor))
+        setattr(self, self.delete_playlist_new, self.delete_playlist)
 
         self.user = LibraryLabel(self.frame)
         self.user.setObjectName(self.user_new)
@@ -157,7 +106,7 @@ class Library(QFrame):
         setattr(self, self.dob_new, self.dob)
 
         self.add.clicked.connect(lambda: add_func_lib())
-        self.deletelist.clicked.connect(lambda: delete_func_lib())
+        self.delete_playlist.clicked.connect(lambda: delete_func_lib())
         self.poster.clicked.connect(lambda: open_func_lib())
         self.title.clicked.connect(lambda: open_func_lib())
         self.user.clicked.connect(lambda: open_func_lib())
@@ -172,9 +121,8 @@ class Library(QFrame):
 
         self.button_vlayout = QVBoxLayout()
         self.button_vlayout.setObjectName(u"button_vlayout")
-        self.button_vlayout.addWidget(self.manage)
         self.button_vlayout.addWidget(self.add)
-        self.button_vlayout.addWidget(self.deletelist)
+        self.button_vlayout.addWidget(self.delete_playlist)
         self.button_vlayout.addItem(self.verticalspacer)
 
         self.poster_button_hlayout.addWidget(self.poster)

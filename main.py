@@ -19,7 +19,8 @@ from language import Language
 
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
-from reusable_imports.common_vars import playlists_original, playlist_picture, playlists_metadata, get_movies
+from reusable_imports.common_vars import playlists_original, playlist_picture, playlists_metadata, get_movies, \
+    removed_playlists
 from reusable_imports.commons import clickable
 
 _thread = Thread(target=get_movies)
@@ -185,9 +186,10 @@ class Main(QMainWindow):
             if _objectdelete.lower() in ["shortlist"]:
                 print("Can't Delete Pre-Built Playlist")
             else:
-                print(f"Playlist Deleted {_objectdelete}")
                 try:
+                    removed_playlists[_objectdelete] = playlists_metadata[_objectdelete]
                     del playlists_metadata[_objectdelete]
+                    print(f"Playlist Deleted {_objectdelete}")
                 except KeyError:
                     print("Key Error, Can't Delete Playlist.")
 
@@ -339,6 +341,8 @@ class Main(QMainWindow):
 
     def closeEvent(self, event):
         print("closing")
+        # Commit ALL THE CHANGES that happened in the common_vars.py file like if playlist is deleted or movie is
+        # deleted from playlist or a new movie playlist is created
         # add a dialog box that asks if the user actually want to close or not
         # or check if any bg process is running and if they are show a warning to the user
 
