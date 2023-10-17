@@ -1,5 +1,5 @@
 # Cinematch
-Movie Recommender (Alpha stage)
+Movie Recommender/Organiser (Alpha stage)
 
 ## Requirements
 - [Python 3.7 or later version](https://www.python.org/downloads/)
