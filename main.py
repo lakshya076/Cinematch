@@ -45,8 +45,8 @@ class Main(QMainWindow):
         self.start_mode()
 
         # Setting drop downs on settings page
-        for i in list(playlists_metadata.keys())[1:]:
-            self.playlist_dd.addItem(i)
+        for i in list(playlists_metadata.values())[1:]:
+            self.playlist_dd.addItem(i[0])
 
         clickable(self.collapse).connect(self.sidebar_expand_show)
         clickable(self.expand).connect(self.sidebar_collapse_show)
