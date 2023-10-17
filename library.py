@@ -27,9 +27,7 @@ class LibraryButton(QPushButton):
 
             if action is not None:
                 _type = str(action.text()).strip().split()
-                if _type[0] == "Manage":
-                    self.divert_manage()
-                elif _type[0] == "Open":
+                if _type[0] == "Open":
                     self.divert_open()
                 elif _type[0] == "Add":
                     self.divert_add()
@@ -38,15 +36,11 @@ class LibraryButton(QPushButton):
 
     def create_menu_contextual(self):
         menu = QMenu()
-        menu.addAction("Manage Playlist")
         menu.addAction("Open Playlist")
         menu.addAction("Add to Playlist")
         menu.addAction("Delete Playlist")
         menu.setStyleSheet(dark_menu)
         return menu
-
-    def divert_manage(self):
-        print("Manage")
 
     def divert_open(self):
         print(f"Opening playlist {self.objectName().split(sep='_')[1]}")
