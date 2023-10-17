@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1100</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1100</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="bgwidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1100</width>
+     <height>650</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1100</width>
+     <height>650</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1100</width>
+     <height>650</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QWidget#bgwidget{background-color:#FFFAF0;}
+
+</string>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>13</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="text1">
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(0,0,0);</string>
+      </property>
+      <property name="text">
+       <string>Select minimum 5 movies from below so that we can prepare your recommendations</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignHCenter|Qt::AlignTop</set>
+      </property>
+      <property name="margin">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="genre_text">
+        <property name="minimumSize">
+         <size>
+          <width>110</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>110</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(0,0,0);</string>
+        </property>
+        <property name="text">
+         <string>Genres</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="genre_define">
+        <property name="styleSheet">
+         <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(0,0,0);</string>
+        </property>
+        <property name="text">
+         <string>Popular Movies</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QScrollArea" name="options">
+        <property name="maximumSize">
+         <size>
+          <width>110</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:#fff;
+</string>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="genre_scroll">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>108</width>
+           <height>431</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="genre_vlayout">
+          <property name="topMargin">
+           <number>12</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="genre_1">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Popular</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_2">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8 0 8 8;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Dev's Pick</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_3">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Action</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_4">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Animation</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_5">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Comedy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_6">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Crime</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_7">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Drama</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_8">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Horror</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_9">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Romance</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="genre_10">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#bgwidget QPushButton {
+		border:none;
+		border-radius: 3px;
+		text-align: left;
+		padding: 8px 0 8px 8px;
+		font: 12pt &quot;MS Shell Dlg 2&quot;;
+		text-align: left;
+	}
+
+#bgwidget QPushButton:hover {
+		background-color: rgba(179, 176, 162, 0.22);
+	}
+
+#bgwidget QPushButton:checked {
+		color: #ffffff;
+	}</string>
+            </property>
+            <property name="text">
+             <string>Sci-Fi</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QStackedWidget" name="stack">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="currentIndex">
+         <number>2</number>
+        </property>
+        <widget class="QWidget" name="page1_popular">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QScrollArea" name="popular_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="popular_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;
+QScrollBar
+{
+background : lightgreen;
+}
+QScrollBar::handle
+{
+background : pink;
+}
+QScrollBar::handle::pressed
+{
+background : red;
+}</string>
+             </property>
+             <layout class="QGridLayout" name="popular_grid">
+              <property name="leftMargin">
+               <number>5</number>
+              </property>
+              <property name="topMargin">
+               <number>5</number>
+              </property>
+              <property name="rightMargin">
+               <number>5</number>
+              </property>
+              <property name="bottomMargin">
+               <number>5</number>
+              </property>
+              <property name="spacing">
+               <number>4</number>
+              </property>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page2_handpicked">
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QScrollArea" name="handpicked_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="handpicked_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="handpicked_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page3_action">
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QScrollArea" name="action_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="action_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>930</width>
+               <height>415</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="action_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page4_animation">
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QScrollArea" name="animation_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="animation_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="animation_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page5_comedy">
+         <layout class="QVBoxLayout" name="verticalLayout_10">
+          <item>
+           <widget class="QScrollArea" name="comedy_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="comedy_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="comedy_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page6_crime">
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <item>
+           <widget class="QScrollArea" name="crime_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="crime_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="crime_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page7_drama">
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QScrollArea" name="drama_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="drama_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="drama_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page8_horror">
+         <layout class="QVBoxLayout" name="verticalLayout_13">
+          <item>
+           <widget class="QScrollArea" name="horror_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="horror_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="horror_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page9_romance">
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <widget class="QScrollArea" name="romance_scroll">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="romance_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="romance_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page10_scifi">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QScrollArea" name="scifi_scroll">
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scifi_scroll_area">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>100</width>
+               <height>30</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:#FFFAF0;</string>
+             </property>
+             <layout class="QGridLayout" name="scifi_grid"/>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>13</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="bottom_hlayout">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
+      <item alignment="Qt::AlignVCenter">
+       <widget class="QPushButton" name="exit_button">
+        <property name="minimumSize">
+         <size>
+          <width>70</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:5px;
+background-color:#F0EAD6;
+font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Exit</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>16</width>
+          <height>16</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="selected_text">
+        <property name="styleSheet">
+         <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(0,0,0);</string>
+        </property>
+        <property name="text">
+         <string>Selected Movies: 0 (Minimum 5)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>13</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item alignment="Qt::AlignRight">
+       <widget class="QPushButton" name="done_button">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>35</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-radius:5px;
+background-color:#F0EAD6;
+font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Done</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>options</tabstop>
+  <tabstop>genre_1</tabstop>
+  <tabstop>genre_2</tabstop>
+  <tabstop>genre_3</tabstop>
+  <tabstop>genre_4</tabstop>
+  <tabstop>genre_5</tabstop>
+  <tabstop>genre_6</tabstop>
+  <tabstop>genre_7</tabstop>
+  <tabstop>genre_8</tabstop>
+  <tabstop>genre_9</tabstop>
+  <tabstop>genre_10</tabstop>
+  <tabstop>handpicked_scroll</tabstop>
+  <tabstop>popular_scroll</tabstop>
+  <tabstop>animation_scroll</tabstop>
+  <tabstop>comedy_scroll</tabstop>
+  <tabstop>crime_scroll</tabstop>
+  <tabstop>horror_scroll</tabstop>
+  <tabstop>action_scroll</tabstop>
+  <tabstop>romance_scroll</tabstop>
+  <tabstop>done_button</tabstop>
+  <tabstop>exit_button</tabstop>
+  <tabstop>drama_scroll</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
