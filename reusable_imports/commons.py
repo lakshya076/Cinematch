@@ -1,5 +1,28 @@
 from PyQt5.QtCore import QEvent, pyqtSignal, QObject, Qt
-from PyQt5.QtWidgets import QMessageBox, QLineEdit
+from PyQt5.QtGui import QCursor
+from PyQt5.QtWidgets import QMessageBox, QLabel, QFrame
+
+
+class ClickableLabel(QLabel):
+    clicked = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super(ClickableLabel, self).__init__(parent)
+        self.setCursor(QCursor(Qt.PointingHandCursor))
+
+    def mousePressEvent(self, QMouseEvent):
+        self.clicked.emit()
+
+
+class ClickableFrame(QFrame):
+    clicked = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super(ClickableFrame, self).__init__(parent)
+        self.setCursor(QCursor(Qt.PointingHandCursor))
+
+    def mousePressEvent(self, QMouseEvent):
+        self.clicked.emit()
 
 
 def clickable(widget):

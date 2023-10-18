@@ -1,32 +1,15 @@
 import PyQt5
-from PyQt5.QtCore import Qt, QSize, pyqtSignal
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QCursor, QPixmap, QIcon
-from PyQt5.QtWidgets import QMenu, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel, QVBoxLayout, QFrame
+from PyQt5.QtWidgets import QMenu, QPushButton, QHBoxLayout, QSpacerItem, QSizePolicy, QVBoxLayout, QFrame
 
 from reusable_imports._css import dark_library_stylesheet
-
-_obj_library = ""
-
-
-class LibraryLabel(QLabel):
-    clicked = pyqtSignal()
-
-    def __init__(self, parent=None):
-        super(LibraryLabel, self).__init__(parent)
-
-    def mousePressEvent(self, QMouseEvent):
-        self.clicked.emit()
-
-        global _obj_library
-        _obj_library = self.objectName()
-        _obj_library = _obj_library.split(sep="_")[1]
+from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 
 class Library(QFrame):
     def __init__(self):
         super(Library, self).__init__()
-
-        global _obj_library
 
     def new_widgets_lib(self, name: str, row: int, column: int, display_name: str, _username: str, dob: str, image: str,
                         scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QGridLayout,
@@ -41,31 +24,28 @@ class Library(QFrame):
         self.dob_new = f"dob_{name}"
         print(self.frame_new)
 
-        self.frame = QFrame(scroll_area)
+        self.frame = ClickableFrame(scroll_area)
         self.frame.setObjectName(self.frame_new)
         self.frame.setFixedSize(QSize(200, 250))
         self.frame.setContentsMargins(0, 0, 0, 0)
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.frame.setCursor(QCursor(Qt.PointingHandCursor))
         self.frame.setStyleSheet(dark_library_stylesheet)
         setattr(self, self.frame_new, self.frame)
 
-        self.poster = LibraryLabel(self.frame)
+        self.poster = ClickableLabel(self.frame)
         self.poster.setObjectName(self.poster_new)
         self.poster.setText("Image")
-        self.poster.setCursor(QCursor(Qt.PointingHandCursor))
         self.poster.setPixmap(QPixmap(image))
         setattr(self, self.poster_new, self.poster)
 
-        self.title = LibraryLabel(self.frame)
+        self.title = ClickableLabel(self.frame)
         self.title.setObjectName(self.title_new)
         self.title.setText(display_name)
         self.title.setFixedHeight(30)
         self.title.setStyleSheet(u"font:15pt;")
         self.title.setScaledContents(True)
         self.title.setWordWrap(True)
-        self.title.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.title_new, self.title)
 
         self.add = QPushButton(self.frame)
@@ -88,21 +68,19 @@ class Library(QFrame):
         self.delete_playlist.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.delete_playlist_new, self.delete_playlist)
 
-        self.user = LibraryLabel(self.frame)
+        self.user = ClickableLabel(self.frame)
         self.user.setObjectName(self.user_new)
         self.user.setStyleSheet(u"font:12pt;")
         self.user.setAlignment(Qt.AlignRight)
         self.user.setText(_username)
         self.user.setWordWrap(True)
-        self.user.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.user_new, self.user)
 
-        self.dob = LibraryLabel(self.frame)
+        self.dob = ClickableLabel(self.frame)
         self.dob.setObjectName(self.dob_new)
         self.dob.setStyleSheet(u"font:8pt;")
         self.dob.setAlignment(Qt.AlignRight)
         self.dob.setText(dob)
-        self.dob.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.dob_new, self.dob)
 
         self.add.clicked.connect(lambda: add_func_lib())

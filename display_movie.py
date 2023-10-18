@@ -1,11 +1,11 @@
 import PyQt5
-from PyQt5.QtCore import Qt, QSize, pyqtSignal
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QFrame, QPushButton
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QFrame, QPushButton
 
 from reusable_imports.common_vars import get_playlist_movies, playlists_metadata
+from reusable_imports.commons import ClickableLabel, ClickableFrame
 
-_obj_lists = ""
 frame_style = """
     font:14pt;
     background-color: #111111; 
@@ -15,26 +15,10 @@ frame_style = """
 """
 
 
-class MovieLabel(QLabel):
-    clicked = pyqtSignal()
-
-    def __init__(self, parent=None):
-        super(MovieLabel, self).__init__(parent)
-
-    def mousePressEvent(self, QMouseEvent):
-        self.clicked.emit()
-
-        global _obj_lists
-        _obj_lists = self.objectName()
-        _obj_lists = _obj_lists.split(sep="_")[1]
-
-
 class DisplayMovies(QFrame):
     def __init__(self, playlist: str = None):
         super(DisplayMovies, self).__init__()
         self.check = get_playlist_movies(playlist)
-
-        global _obj_lists
 
     def new_movies_display(self, name: str, image: bytearray, title: str, lang: str, pop: str,
                            scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QVBoxLayout,
@@ -48,44 +32,40 @@ class DisplayMovies(QFrame):
         self.movie_delete_new = f"movie_delete_{name}"
         print(self.frame_new)
 
-        self.movie_frame = QFrame(scroll_area)
+        self.movie_frame = ClickableFrame(scroll_area)
         self.movie_frame.setObjectName(self.frame_new)
         self.movie_frame.setStyleSheet(frame_style)
         self.movie_frame.setMaximumHeight(125)
         setattr(self, self.frame_new, self.movie_frame)
 
-        self.image = MovieLabel(self.movie_frame)
+        self.image = ClickableLabel(self.movie_frame)
         self.image.setObjectName(self.image_new)
-        self.image.setFixedSize(QSize(50, 75))
+        self.image.setFixedSize(QSize(60, 90))
         self.image.setScaledContents(True)
         image_object = QImage()
         image_object.loadFromData(image)
         self.image.setPixmap(QPixmap(image_object))
-        self.image.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.image_new, self.image)
 
-        self.title = MovieLabel(self.movie_frame)
+        self.title = ClickableLabel(self.movie_frame)
         self.title.setObjectName(self.title_new)
         self.title.setMinimumSize(QSize(0, 50))
         self.title.setMaximumSize(QSize(16777215, 50))
         self.title.setText(title)
-        self.title.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.title_new, self.title)
 
-        self.lang = MovieLabel(self.movie_frame)
+        self.lang = ClickableLabel(self.movie_frame)
         self.lang.setObjectName(self.lang_new)
         self.lang.setMinimumSize(QSize(50, 50))
         self.lang.setMaximumSize(QSize(50, 50))
         self.lang.setText(lang)
-        self.lang.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.lang_new, self.lang)
 
-        self.pop = MovieLabel(self.movie_frame)
+        self.pop = ClickableLabel(self.movie_frame)
         self.pop.setObjectName(self.pop_new)
         self.pop.setFixedSize(QSize(70, 50))
         self.pop.setStyleSheet("font:10pt;")
         self.pop.setText(str(pop))
-        self.pop.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.pop_new, self.pop)
 
         self.movie_delete = QPushButton(self.movie_frame)
@@ -109,6 +89,7 @@ class DisplayMovies(QFrame):
 
         layout.addWidget(self.movie_frame)
 
+        self.movie_frame.clicked.connect(lambda: open_movie())
         self.image.clicked.connect(lambda: open_movie())
         self.title.clicked.connect(lambda: open_movie())
         self.lang.clicked.connect(lambda: open_movie())
