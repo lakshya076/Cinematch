@@ -1,9 +1,8 @@
 import PyQt5
 from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QFrame, QPushButton, QMenu, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QFrame, QPushButton
 
-from reusable_imports._css import dark_menu
 from reusable_imports.common_vars import get_playlist_movies, playlists_metadata
 
 _obj_lists = ""
@@ -39,7 +38,7 @@ class DisplayMovies(QFrame):
 
     def new_movies_display(self, name: str, image: bytearray, title: str, lang: str, pop: str,
                            scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QVBoxLayout,
-                           open_movie=None, delete_movie=None, add_movie=None):
+                           open_movie=None, delete_movie=None):
         # unique identifiers for each frame,image,title
         self.frame_new = f"movie_frame_{name}"
         self.image_new = f"movie_image_{name}"

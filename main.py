@@ -6,7 +6,7 @@ from threading import Thread
 
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QWidget, QVBoxLayout, QScrollArea, QHBoxLayout
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
@@ -19,13 +19,16 @@ from language import Language
 
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
-from reusable_imports.common_vars import playlists_original, playlist_picture, playlists_metadata, get_movies, \
-    removed_playlists, playlists_display_metadata
+from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
+    playlists_display_metadata
 from reusable_imports.commons import clickable
 
+# MAKE A MOVIE DELETE FUNCTIONALITY FOR PLAYLISTS OTHER THAN SHORTLIST
+# FIX ADD TO SHORTLIST BUTTON (OR MAKE A SEPARATE WINDOW FOR IT)
+
+# Threading to get the movies metadata (movies stored in playlists) at start
 _thread = Thread(target=get_movies)
 _thread.start()
-# get_movies()  # retrieve the metadata for display
 
 # only for windows (get resolution)
 user = ctypes.windll.user32
@@ -44,6 +47,10 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(0)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
+
+        # List to keep the check of how many playlist widgets have been created in the stack
+        self.widget_created = list()
+        self.widget_created_ind = dict()
 
         # Setting drop downs on settings page
         for i in list(playlists_metadata.values())[1:]:
@@ -223,7 +230,7 @@ class Main(QMainWindow):
             if _objectopen == "shortlist":
                 self.shortlist_func()
             else:
-                pass
+                self.open_playlist_func(_objectopen)
                 # add functionality to open playlist in a new page
 
         try:
@@ -245,6 +252,75 @@ class Main(QMainWindow):
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
+
+    def open_playlist_func(self, playlist_name: str):
+
+        if playlist_name in self.widget_created:
+            self.stack.setCurrentIndex(self.widget_created_ind[playlist_name])
+        else:
+            self.frame_name = QWidget()
+            self.frame_name.setObjectName(playlist_name)
+            self.widget_created.append(playlist_name)
+            self.frame_name.setStyleSheet(dark_mainwin_widget)
+            setattr(self, playlist_name, self.frame_name)
+
+            self.name_label = QLabel(self.frame_name)
+            self.name_label.setText(f"{playlists_metadata[playlist_name][0]}")
+            self.name_label.setStyleSheet("font:20pt;")
+
+            self.frame_vert_layout = QVBoxLayout(self.frame_name)
+            self.frame_hor_layout = QHBoxLayout()
+            self.frame_hor_layout.addWidget(self.name_label)
+
+            self.frame_display_sa = QScrollArea(self.frame_name)
+            self.frame_display_sa.setObjectName(f"sa_{playlist_name}")
+            self.frame_display_sa.setWidgetResizable(True)
+
+            self.frame_display_sa_widgets = QWidget()
+            self.frame_display_sa_widgets.setObjectName(f"sa_widgets_{playlist_name}")
+            self.frame_display_sa_widgets.setGeometry(QRect(0, 0, 820, 439))
+            self.frame_display_sa_widgets.setStyleSheet("background-color:#24292e; color:#fffaf0;")
+
+            self.frame_display_vlayout = QVBoxLayout(self.frame_display_sa_widgets)
+            self.frame_display_vlayout.setObjectName(u"frame_display_vlayout")
+            self.frame_display_sa.setWidget(self.frame_display_sa_widgets)
+
+            self.frame_vert_layout.addLayout(self.frame_hor_layout)
+            self.frame_vert_layout.addWidget(self.frame_display_sa)
+
+            display = DisplayMovies(playlist_name)
+
+            def open_movie_main():
+                sender = display.sender()
+                _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
+                print(f"Opening {_objectdisplay}")
+
+            def delete_movie_main():
+                # Make a remove function for playlists other than shortlist
+                sender = display.sender()
+                _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
+                print(f"Removing {_objectdisplay}")
+
+            try:
+                for i in reversed(range(self.frame_display_vlayout.count())):
+                    self.frame_display_vlayout.itemAt(i).widget().setParent(None)
+            except:
+                pass
+
+            for i in range(len(display.check)):
+                display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
+                                           image=display.check[i][2], title=display.check[i][1],
+                                           lang=display.check[i][3], pop=display.check[i][4],
+                                           scroll_area=self.frame_display_sa_widgets, layout=self.frame_display_vlayout,
+                                           open_movie=open_movie_main, delete_movie=delete_movie_main)
+
+            self.stack.addWidget(self.frame_name)
+            self.stack.setCurrentWidget(self.frame_name)
+            index = self.stack.currentIndex()
+            self.widget_created_ind[playlist_name] = index
+
+            print(self.frame_name.objectName())
+            print(self.widget_created)
 
     def add_func(self):
         self.stack.setCurrentIndex(5)
