@@ -6,7 +6,7 @@ from threading import Thread
 
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
@@ -20,7 +20,7 @@ from language import Language
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlists_original, playlist_picture, playlists_metadata, get_movies, \
-    removed_playlists
+    removed_playlists, playlists_display_metadata
 from reusable_imports.commons import clickable
 
 _thread = Thread(target=get_movies)
@@ -156,15 +156,35 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             print(f"Opening {_objectdisplay}")
 
-        if len(self.shortlist_sa_widgets.children()) > 1:
+        def delete_movie_main():
+            sender = display.sender()
+            _playlist = sender.objectName().strip().split(sep="_")[-2]
+            _objectdelete = sender.objectName().strip().split(sep="_")[-1]
+
+            try:
+                delete_list = [i[5] for i in display.check]
+                delete_queue = delete_list.index(int(_objectdelete))
+                del playlists_display_metadata[_playlist][delete_queue]
+                print(f"Movie Deleted {_objectdelete} from {_playlist}")
+                # Reflect changes in sql table
+            except KeyError:
+                print("Key Error, Can't Delete Playlist.")
+
+            self.shortlist_func()
+            # remove move from playlist and recall shortlist_func function to reload the widgets
+
+        try:
+            for i in reversed(range(self.shortlist_vlayout.count())):
+                self.shortlist_vlayout.itemAt(i).widget().setParent(None)
+        except:
             pass
-        else:
-            for i in range(len(display.check)):
-                display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
-                                           image=display.check[i][2], title=display.check[i][1],
-                                           lang=display.check[i][3], pop=display.check[i][4],
-                                           scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
-                                           open_movie=open_movie_main)
+
+        for i in range(len(display.check)):
+            display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
+                                       image=display.check[i][2], title=display.check[i][1],
+                                       lang=display.check[i][3], pop=display.check[i][4],
+                                       scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -178,7 +198,7 @@ class Main(QMainWindow):
             sender = lib.sender()
             _object = sender.objectName().strip().split(sep="_")[-1]
             print(f"Add to playlist {_object}")
-            # separate non-modal dialog box to add playlist
+            # redirect to add playlist stack page
 
         def delete_func_lib_main():
             sender = lib.sender()

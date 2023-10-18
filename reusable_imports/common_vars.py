@@ -74,8 +74,7 @@ def get_movies():
                 # gets poster image as a byte array
             else:
                 poster_var = None
-                # executes if the poster path is not available in the database. This link above redirects to another
-                # custom poster image for nan posters in the database.
+                # executes if the poster path is not available in the database.
 
             lang = get_lang(int(j), connection=conn, cursor=conn.cursor())  # gets movie lang
             popularity = get_pop(int(j), connection=conn, cursor=conn.cursor())  # gets movie popularity

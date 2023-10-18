@@ -1163,7 +1163,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>805</width>
+                  <width>261</width>
                <height>888</height>
               </rect>
              </property>
@@ -1207,7 +1207,7 @@ background-color: rgba(0,0,0,0);</string>
                    <x>0</x>
                    <y>0</y>
                    <width>12018</width>
-                   <height>228</height>
+                      <height>31</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1270,8 +1270,8 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>787</width>
-                   <height>245</height>
+                      <width>118</width>
+                      <height>31</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1334,8 +1334,8 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>787</width>
-                   <height>245</height>
+                      <width>118</width>
+                      <height>31</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -1450,27 +1450,31 @@ background-color: rgba(0,0,0,0);</string>
                       <widget class="ShortListLabel" name="add_to_shortlist">
                           <property name="minimumSize">
                               <size>
-                                  <width>32</width>
+                                  <width>0</width>
                                   <height>32</height>
                               </size>
                           </property>
                           <property name="maximumSize">
                               <size>
-                                  <width>32</width>
+                                  <width>1234567</width>
                                   <height>32</height>
                               </size>
                           </property>
                           <property name="styleSheet">
-                              <string notr="true">background-color:rgba(0,0,0,0);</string>
+                              <string notr="true">background-color:rgba(0,0,0,0);
+                                  color: #fffaf0;
+                                  text-align: right;
+                                  font:18pt;
+                              </string>
                           </property>
                           <property name="text">
-                              <string/>
-                          </property>
-                          <property name="pixmap">
-                              <pixmap>../../PycharmProjects/Cinematch/Icons/add.ico</pixmap>
+                              <string>&lt;u&gt;Add to Playlist&lt;/u&gt;</string>
                           </property>
                           <property name="scaledContents">
                               <bool>true</bool>
+                          </property>
+                          <property name="alignment">
+                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                           </property>
                       </widget>
                   </item>
@@ -1518,8 +1522,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>820</width>
-               <height>445</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -1566,7 +1570,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>805</width>
+                  <width>514</width>
                <height>557</height>
               </rect>
              </property>

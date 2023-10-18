@@ -1,7 +1,7 @@
 import PyQt5
 from PyQt5.QtCore import Qt, QSize, pyqtSignal
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QFrame, QPushButton, QMenu
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QFrame, QPushButton, QMenu, QVBoxLayout
 
 from reusable_imports._css import dark_menu
 from reusable_imports.common_vars import get_playlist_movies, playlists_metadata
@@ -14,65 +14,6 @@ frame_style = """
     border-radius: 10px;
     border: 1px solid #111111;
 """
-
-
-class MovieButton(QPushButton):
-    def __init__(self, parent=None, name: str = None):
-        super(MovieButton, self).__init__(parent)
-
-        self.setIconSize(QSize(32, 32))
-        self.setFixedSize(QSize(32, 32))
-        self.setCursor(QCursor(Qt.PointingHandCursor))
-        self.setIcon(QIcon("Icons/kebab_white.png"))
-        self.setStyleSheet("border: none; background_color: rgba(0,0,0,0); font: 10pt;")
-        self.setToolTip("Manage Playlist")
-
-        _object = name.strip().split(sep="_")
-        self.movie_id = _object[-1]
-        self.playlist_name = _object[-2]
-
-    def mousePressEvent(self, event):
-        super().mousePressEvent(event)
-        if event.button() == Qt.LeftButton:
-            position = self.mapToGlobal(event.pos())
-            menu = self.create_menu_contextual()
-            action = menu.exec_(position)
-
-            if action is not None:
-                _type = str(action.text()).strip().split()
-                if _type[-1] == "Shortlist" and _type[0] == "Add":
-                    self.add_to_shortlist()
-                elif _type[0] == "Open":
-                    self.divert_open()
-                elif _type[0] == "Add":
-                    self.divert_add()
-                elif _type[0] == "Remove":
-                    self.divert_remove()
-
-    def create_menu_contextual(self):
-        menu = QMenu()
-        menu.addAction("Add to Shortlist")
-        menu.addAction("Open Movie")
-        menu.addAction(f"Add to another playlist")  # redirect to add to playlist page with the selected movie open
-        menu.addAction(f"Remove from {playlists_metadata[self.playlist_name][0]}")
-        menu.setStyleSheet(dark_menu)
-        return menu
-
-    def add_to_shortlist(self):
-        if self.playlist_name == "shortlist":
-            print("Movie already in shortlist")
-        else:
-            print(f"Adding {self.movie_id} to shortlist")
-
-    def divert_open(self):
-        print(f"Opening movie {self.movie_id} in {self.playlist_name.title()}")
-
-    def divert_add(self):
-        print(f"Adding {self.movie_id}")
-        # create sub menu
-
-    def divert_remove(self):
-        print(f"Deleted movie {self.movie_id} from playlist {self.playlist_name.title()}")
 
 
 class MovieLabel(QLabel):
@@ -98,19 +39,20 @@ class DisplayMovies(QFrame):
 
     def new_movies_display(self, name: str, image: bytearray, title: str, lang: str, pop: str,
                            scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QVBoxLayout,
-                           open_movie=None):
+                           open_movie=None, delete_movie=None, add_movie=None):
         # unique identifiers for each frame,image,title
         self.frame_new = f"movie_frame_{name}"
         self.image_new = f"movie_image_{name}"
         self.title_new = f"movie_title_{name}"
         self.lang_new = f"movie_lang_{name}"
         self.pop_new = f"movie_pop_{name}"
-        self.movie_manage_new = f"movie_manage_{name}"
+        self.movie_delete_new = f"movie_delete_{name}"
         print(self.frame_new)
 
         self.movie_frame = QFrame(scroll_area)
         self.movie_frame.setObjectName(self.frame_new)
         self.movie_frame.setStyleSheet(frame_style)
+        self.movie_frame.setMaximumHeight(125)
         setattr(self, self.frame_new, self.movie_frame)
 
         self.image = MovieLabel(self.movie_frame)
@@ -147,9 +89,14 @@ class DisplayMovies(QFrame):
         self.pop.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.pop_new, self.pop)
 
-        self.movie_manage = MovieButton(self.movie_frame, self.movie_manage_new)
-        self.movie_manage.setObjectName(self.movie_manage_new)
-        setattr(self, self.movie_manage_new, self.movie_manage)
+        self.movie_delete = QPushButton(self.movie_frame)
+        self.movie_delete.setObjectName(self.movie_delete_new)
+        self.movie_delete.setIconSize(QSize(24, 24))
+        self.movie_delete.setFixedSize(QSize(32, 32))
+        self.movie_delete.setIcon(QIcon("Icons\\delete.ico"))
+        self.movie_delete.setToolTip(f"Delete movie from {playlists_metadata[self.frame_new.split(sep='_')[-2]][0]}")
+        self.movie_delete.setCursor(QCursor(Qt.PointingHandCursor))
+        setattr(self, self.movie_delete_new, self.movie_delete)
 
         self.movie_frame_hlayout = QHBoxLayout(self.movie_frame)
         self.movie_frame_hlayout.setObjectName(u"movie_frame_hlayout")
@@ -159,7 +106,7 @@ class DisplayMovies(QFrame):
         self.movie_frame_hlayout.addWidget(self.title)
         self.movie_frame_hlayout.addWidget(self.lang)
         self.movie_frame_hlayout.addWidget(self.pop)
-        self.movie_frame_hlayout.addWidget(self.movie_manage)
+        self.movie_frame_hlayout.addWidget(self.movie_delete)
 
         layout.addWidget(self.movie_frame)
 
@@ -167,3 +114,4 @@ class DisplayMovies(QFrame):
         self.title.clicked.connect(lambda: open_movie())
         self.lang.clicked.connect(lambda: open_movie())
         self.pop.clicked.connect(lambda: open_movie())
+        self.movie_delete.clicked.connect(lambda: delete_movie())
