@@ -1131,7 +1131,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
            <property name="currentIndex">
-               <number>3</number>
+               <number>2</number>
            </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1163,7 +1163,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>261</width>
+                  <width>805</width>
                <height>888</height>
               </rect>
              </property>
@@ -1207,7 +1207,7 @@ background-color: rgba(0,0,0,0);</string>
                    <x>0</x>
                    <y>0</y>
                    <width>12018</width>
-                      <height>31</height>
+                      <height>228</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1270,8 +1270,8 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>118</width>
-                      <height>31</height>
+                      <width>787</width>
+                      <height>245</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1334,8 +1334,8 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>118</width>
-                      <height>31</height>
+                      <width>787</width>
+                      <height>245</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -1386,8 +1386,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>135</width>
-               <height>43</height>
+                  <width>822</width>
+                  <height>482</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1414,73 +1414,233 @@ background-color: rgba(0,0,0,0);</string>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QWidget" name="randomwidget" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_9">
-             <item>
-              <widget class="QLabel" name="label_8">
-               <property name="styleSheet">
-                <string notr="true">font:16pt;</string>
-               </property>
-               <property name="text">
-                <string>Display Random Movie</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                   <property name="spacing">
+                       <number>10</number>
+                   </property>
+                   <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_14">
+                           <item>
+                               <widget class="QLabel" name="random_image">
+                                   <property name="minimumSize">
+                                       <size>
+                                           <width>240</width>
+                                           <height>360</height>
+                                       </size>
+                                   </property>
+                                   <property name="maximumSize">
+                                       <size>
+                                           <width>240</width>
+                                           <height>360</height>
+                                       </size>
+                                   </property>
+                                   <property name="text">
+                                       <string/>
+                                   </property>
+                                   <property name="scaledContents">
+                                       <bool>true</bool>
+                                   </property>
+                               </widget>
+                           </item>
+                           <item>
+                               <widget class="QLabel" name="random_lang">
+                                   <property name="styleSheet">
+                                       <string notr="true">font:16pt;</string>
+                                   </property>
+                                   <property name="text">
+                                       <string/>
+                                   </property>
+                               </widget>
+                           </item>
+                           <item>
+                               <widget class="QLabel" name="random_pop">
+                                   <property name="maximumSize">
+                                       <size>
+                                           <width>240</width>
+                                           <height>16777215</height>
+                                       </size>
+                                   </property>
+                                   <property name="styleSheet">
+                                       <string notr="true">font:16pt;</string>
+                                   </property>
+                                   <property name="text">
+                                       <string/>
+                                   </property>
+                               </widget>
+                           </item>
+                           <item>
+                               <widget class="QPushButton" name="randomiser">
+                                   <property name="styleSheet">
+                                       <string notr="true">font:14pt;
+                                           text-align:left;
+                                           min-height:20px;
+                                           background-color:rgba(0,0,0,0);
+                                           border-radius:16px;
+                                           border-width:1px;
+                                           border-style:solid;
+                                           border-color:black;
+                                           padding:8px;
+                                       </string>
+                                   </property>
+                                   <property name="text">
+                                       <string>Randomise</string>
+                                   </property>
+                                   <property name="icon">
+                                       <iconset>
+                                           <normaloff>../Icons/random_checked.ico</normaloff>../Icons/random_checked.ico
+                                       </iconset>
+                                   </property>
+                               </widget>
+                           </item>
+                       </layout>
+                   </item>
+                   <item>
+                       <layout class="QVBoxLayout" name="verticalLayout_9">
+                           <property name="spacing">
+                               <number>15</number>
+                           </property>
+                           <property name="leftMargin">
+                               <number>6</number>
+                           </property>
+                           <property name="topMargin">
+                               <number>6</number>
+                           </property>
+                           <property name="rightMargin">
+                               <number>6</number>
+                           </property>
+                           <property name="bottomMargin">
+                               <number>6</number>
+                           </property>
+                           <item>
+                               <widget class="QLabel" name="random_title">
+                                   <property name="minimumSize">
+                                       <size>
+                                           <width>0</width>
+                                           <height>50</height>
+                                       </size>
+                                   </property>
+                                   <property name="maximumSize">
+                                       <size>
+                                           <width>16777215</width>
+                                           <height>50</height>
+                                       </size>
+                                   </property>
+                                   <property name="styleSheet">
+                                       <string notr="true">font:22pt;</string>
+                                   </property>
+                                   <property name="text">
+                                       <string/>
+                                   </property>
+                               </widget>
+                           </item>
+                           <item>
+                               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                                   <item>
+                                       <widget class="QPushButton" name="random_add_toshortlist">
+                                           <property name="cursor">
+                                               <cursorShape>PointingHandCursor</cursorShape>
+                                           </property>
+                                           <property name="styleSheet">
+                                               <string notr="true">padding:8px;
+                                                   min-height:20px;
+                                                   font:12pt;
+                                                   border:none;
+                                                   opacity:0;
+                                               </string>
+                                           </property>
+                                           <property name="text">
+                                               <string>Add to Shortlist</string>
+                                           </property>
+                                           <property name="icon">
+                                               <iconset>
+                                                   <normaloff>../Icons/like_unchecked.ico</normaloff>
+                                                   <normalon>../Icons/like_checked.ico</normalon>
+                                                   ../Icons/like_unchecked.ico
+                                               </iconset>
+                                           </property>
+                                           <property name="iconSize">
+                                               <size>
+                                                   <width>24</width>
+                                                   <height>24</height>
+                                               </size>
+                                           </property>
+                                           <property name="checkable">
+                                               <bool>false</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <spacer name="horizontalSpacer_3">
+                                           <property name="orientation">
+                                               <enum>Qt::Horizontal</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                               <size>
+                                                   <width>40</width>
+                                                   <height>20</height>
+                                               </size>
+                                           </property>
+                                       </spacer>
+                                   </item>
+                               </layout>
+                           </item>
+                           <item>
+                               <widget class="QTextBrowser" name="random_overview">
+                                   <property name="styleSheet">
+                                       <string notr="true">background-color:#24292e;
+                                           color:#eeeade;
+                                           font:14pt;
+                                       </string>
+                                   </property>
+                                   <property name="frameShape">
+                                       <enum>QFrame::Panel</enum>
+                                   </property>
+                                   <property name="frameShadow">
+                                       <enum>QFrame::Plain</enum>
+                                   </property>
+                                   <property name="lineWidth">
+                                       <number>0</number>
+                                   </property>
+                                   <property name="html">
+                                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                                           &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot;
+                                           /&gt;&lt;style type=&quot;text/css&quot;&gt;
+                                           p, li { white-space: pre-wrap; }
+                                           &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg
+                                           2'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
+                                           &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px;
+                                           margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0;
+                                           text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                       </string>
+                                   </property>
+                               </widget>
+                           </item>
+                       </layout>
+                   </item>
+               </layout>
            </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="shortlist_page">
-         <layout class="QVBoxLayout" name="verticalLayout_8">
-          <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_6">
-                  <item>
-                      <widget class="QLabel" name="shortlist_display">
-                          <property name="styleSheet">
-                              <string notr="true">color:#fffaf0;
-                                  font:20pt;
-                              </string>
-                          </property>
-                          <property name="text">
-                              <string>Shortlist</string>
-                          </property>
-                      </widget>
-                  </item>
-                  <item>
-                      <widget class="ShortListLabel" name="add_to_shortlist">
-                          <property name="minimumSize">
-                              <size>
-                                  <width>0</width>
-                                  <height>32</height>
-                              </size>
-                          </property>
-                          <property name="maximumSize">
-                              <size>
-                                  <width>1234567</width>
-                                  <height>32</height>
-                              </size>
-                          </property>
-                          <property name="styleSheet">
-                              <string notr="true">background-color:rgba(0,0,0,0);
-                                  color: #fffaf0;
-                                  text-align: right;
-                                  font:18pt;
-                              </string>
-                          </property>
-                          <property name="text">
-                              <string>&lt;u&gt;Add to Playlist&lt;/u&gt;</string>
-                          </property>
-                          <property name="scaledContents">
-                              <bool>true</bool>
-                          </property>
-                          <property name="alignment">
-                              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                          </property>
-                      </widget>
-                  </item>
-              </layout>
+           <widget class="QWidget" name="shortlist_page">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                   <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_6">
+                           <item>
+                               <widget class="QLabel" name="shortlist_display">
+                                   <property name="styleSheet">
+                                       <string notr="true">color:#fffaf0;
+                                           font:20pt;
+                                       </string>
+                                   </property>
+                                   <property name="text">
+                                       <string>Shortlist</string>
+                                   </property>
+                               </widget>
+                           </item>
+                       </layout>
           </item>
-             <item>
+                   <item>
            <widget class="QScrollArea" name="shortlist_sa">
             <property name="widgetResizable">
              <bool>true</bool>
@@ -1522,8 +1682,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>63</width>
+                  <height>18</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2028,11 +2188,6 @@ border-radius:10px;</string>
    <class>Search</class>
    <extends>QLineEdit</extends>
    <header>search.h</header>
-  </customwidget>
-     <customwidget>
-         <class>ShortListLabel</class>
-         <extends>QLabel</extends>
-         <header>shortlistlabel.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

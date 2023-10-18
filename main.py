@@ -2,12 +2,17 @@ import ctypes
 import os
 import shutil
 import sys
+import random
 from threading import Thread
 
+import pymysql
+import requests
 from PyQt5.QtCore import QRect
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QWidget, QVBoxLayout, QScrollArea, QHBoxLayout
 from PyQt5.uic import loadUi
+from cachecontrol import CacheControl
+from cachecontrol.caches import FileCache
 
 from display_movie import DisplayMovies
 from library import Library
@@ -20,11 +25,13 @@ from language import Language
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata
+    playlists_display_metadata, random_movies, iso_639_1
 from reusable_imports.commons import clickable
+from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
 
 # MAKE A MOVIE DELETE FUNCTIONALITY FOR PLAYLISTS OTHER THAN SHORTLIST
 # FIX ADD TO SHORTLIST BUTTON (OR MAKE A SEPARATE WINDOW FOR IT)
+# FIX ADD TO SHORTLIST ON RANDOM SCREEN
 
 # Threading to get the movies metadata (movies stored in playlists) at start
 _thread = Thread(target=get_movies)
@@ -47,6 +54,7 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(0)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
+        self.random_movie()
 
         # List to keep the check of how many playlist widgets have been created in the stack
         self.widget_created = list()
@@ -71,6 +79,7 @@ class Main(QMainWindow):
         self.search_box.returnPressed.connect(self.search_func)
         self.search_button.clicked.connect(self.search_func)
 
+        self.randomiser.clicked.connect(lambda: self.random_movie())
         self.random_collapse.clicked.connect(self.random_func)
         self.random_expand.clicked.connect(self.random_func)
 
@@ -96,6 +105,34 @@ class Main(QMainWindow):
         self.delete_playlist.clicked.connect(self.deleteplay_combobox)
         self.logout_settings.clicked.connect(self.logout_func)
         self.delete_acc.clicked.connect(self.delete_acc_func)
+
+    def random_movie(self):
+        self.random_id = random.choice(random_movies)
+        conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+        cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
+        session = CacheControl(requests.Session(), cache=FileCache(cache_path))
+
+        # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
+        random_title = get_title(self.random_id, conn, conn.cursor())
+        random_poster = get_poster(self.random_id, conn, conn.cursor())
+        random_overview = get_overview(self.random_id, conn, conn.cursor())
+        random_lang = get_lang(self.random_id, conn, conn.cursor())
+        random_pop = get_pop(self.random_id, conn, conn.cursor())
+
+        try:
+            random_lang_real = iso_639_1[random_lang]
+        except KeyError:
+            random_lang_real = random_lang
+
+        random_poster_real = session.get(f"https://image.tmdb.org/t/p/original{random_poster}").content
+        image_object = QImage()
+        image_object.loadFromData(random_poster_real)
+
+        self.random_image.setPixmap(QPixmap(image_object))
+        self.random_title.setText(random_title)
+        self.random_overview.setText(random_overview)
+        self.random_pop.setText(f"Popularity:\n{str(random_pop)}")
+        self.random_lang.setText(random_lang_real)
 
     def search_func(self):
         search_text = self.search_box.text()
@@ -152,11 +189,6 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(3)
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
-
-        def add_to_shortlist_func():
-            print("Add to shortlist")
-
-        self.add_to_shortlist.clicked.connect(lambda: add_to_shortlist_func())
 
         def open_movie_main():
             sender = display.sender()
