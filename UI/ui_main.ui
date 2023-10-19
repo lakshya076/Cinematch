@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1108</width>
-    <height>605</height>
+       <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1131,7 +1131,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
            <property name="currentIndex">
-               <number>2</number>
+               <number>7</number>
            </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1163,7 +1163,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>805</width>
+                  <width>261</width>
                <height>888</height>
               </rect>
              </property>
@@ -1207,7 +1207,7 @@ background-color: rgba(0,0,0,0);</string>
                    <x>0</x>
                    <y>0</y>
                    <width>12018</width>
-                      <height>228</height>
+                      <height>31</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1270,8 +1270,8 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>787</width>
-                      <height>245</height>
+                      <width>118</width>
+                      <height>31</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -1334,8 +1334,8 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>787</width>
-                      <height>245</height>
+                      <width>118</width>
+                      <height>31</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -1386,8 +1386,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>822</width>
-                  <height>482</height>
+                  <width>135</width>
+                  <height>43</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1470,11 +1470,15 @@ background-color: rgba(0,0,0,0);</string>
                            </item>
                            <item>
                                <widget class="QPushButton" name="randomiser">
+                                   <property name="cursor">
+                                       <cursorShape>PointingHandCursor</cursorShape>
+                                   </property>
                                    <property name="styleSheet">
                                        <string notr="true">font:14pt;
                                            text-align:left;
                                            min-height:20px;
-                                           background-color:rgba(0,0,0,0);
+                                           background-color:rgba(200,230,200);
+                                           color:#000;
                                            border-radius:16px;
                                            border-width:1px;
                                            border-style:solid;
@@ -1608,9 +1612,10 @@ background-color: rgba(0,0,0,0);</string>
                                            p, li { white-space: pre-wrap; }
                                            &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg
                                            2'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
-                                           &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px;
-                                           margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0;
-                                           text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                           &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px;
+                                           margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                                           &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px;
+                                           margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                                        </string>
                                    </property>
                                </widget>
@@ -1713,8 +1718,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>820</width>
-                  <height>439</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -1745,8 +1750,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>820</width>
-                  <height>441</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -1793,7 +1798,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>514</width>
+                  <width>805</width>
                <height>557</height>
               </rect>
              </property>
@@ -2225,6 +2230,261 @@ border-radius:10px;</string>
               </item>
              </layout>
             </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+           <widget class="QWidget" name="display_page">
+               <layout class="QVBoxLayout" name="verticalLayout_17">
+                   <item>
+                       <widget class="QWidget" name="displaywidget" native="true">
+                           <layout class="QHBoxLayout" name="horizontalLayout_13">
+                               <property name="spacing">
+                                   <number>10</number>
+                               </property>
+                               <item>
+                                   <layout class="QVBoxLayout" name="verticalLayout_15">
+                                       <item>
+                                           <widget class="QLabel" name="display_image">
+                                               <property name="minimumSize">
+                                                   <size>
+                                                       <width>240</width>
+                                                       <height>360</height>
+                                                   </size>
+                                               </property>
+                                               <property name="maximumSize">
+                                                   <size>
+                                                       <width>240</width>
+                                                       <height>360</height>
+                                                   </size>
+                                               </property>
+                                               <property name="text">
+                                                   <string/>
+                                               </property>
+                                               <property name="scaledContents">
+                                                   <bool>true</bool>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                       <item>
+                                           <widget class="QLabel" name="display_lang">
+                                               <property name="styleSheet">
+                                                   <string notr="true">font:16pt;</string>
+                                               </property>
+                                               <property name="text">
+                                                   <string/>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                       <item>
+                                           <widget class="QLabel" name="display_pop">
+                                               <property name="maximumSize">
+                                                   <size>
+                                                       <width>240</width>
+                                                       <height>16777215</height>
+                                                   </size>
+                                               </property>
+                                               <property name="styleSheet">
+                                                   <string notr="true">font:16pt;</string>
+                                               </property>
+                                               <property name="text">
+                                                   <string/>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                   </layout>
+                               </item>
+                               <item>
+                                   <layout class="QVBoxLayout" name="verticalLayout_16">
+                                       <property name="spacing">
+                                           <number>15</number>
+                                       </property>
+                                       <property name="leftMargin">
+                                           <number>6</number>
+                                       </property>
+                                       <property name="topMargin">
+                                           <number>6</number>
+                                       </property>
+                                       <property name="rightMargin">
+                                           <number>6</number>
+                                       </property>
+                                       <property name="bottomMargin">
+                                           <number>6</number>
+                                       </property>
+                                       <item>
+                                           <widget class="QLabel" name="display_title">
+                                               <property name="minimumSize">
+                                                   <size>
+                                                       <width>0</width>
+                                                       <height>50</height>
+                                                   </size>
+                                               </property>
+                                               <property name="maximumSize">
+                                                   <size>
+                                                       <width>16777215</width>
+                                                       <height>50</height>
+                                                   </size>
+                                               </property>
+                                               <property name="styleSheet">
+                                                   <string notr="true">font:22pt;</string>
+                                               </property>
+                                               <property name="text">
+                                                   <string/>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                       <item>
+                                           <layout class="QHBoxLayout" name="horizontalLayout_14">
+                                               <item>
+                                                   <widget class="QPushButton" name="display_add_toshortlist">
+                                                       <property name="cursor">
+                                                           <cursorShape>PointingHandCursor</cursorShape>
+                                                       </property>
+                                                       <property name="styleSheet">
+                                                           <string notr="true">padding:8px;
+                                                               min-height:20px;
+                                                               font:12pt;
+                                                               border:none;
+                                                               opacity:0;
+                                                           </string>
+                                                       </property>
+                                                       <property name="text">
+                                                           <string>Add to Shortlist</string>
+                                                       </property>
+                                                       <property name="icon">
+                                                           <iconset>
+                                                               <normaloff>../Icons/like_unchecked.ico</normaloff>
+                                                               <normalon>../Icons/like_checked.ico</normalon>
+                                                               ../Icons/like_unchecked.ico
+                                                           </iconset>
+                                                       </property>
+                                                       <property name="iconSize">
+                                                           <size>
+                                                               <width>24</width>
+                                                               <height>24</height>
+                                                           </size>
+                                                       </property>
+                                                       <property name="checkable">
+                                                           <bool>false</bool>
+                                                       </property>
+                                                   </widget>
+                                               </item>
+                                               <item>
+                                                   <spacer name="horizontalSpacer_7">
+                                                       <property name="orientation">
+                                                           <enum>Qt::Horizontal</enum>
+                                                       </property>
+                                                       <property name="sizeHint" stdset="0">
+                                                           <size>
+                                                               <width>40</width>
+                                                               <height>20</height>
+                                                           </size>
+                                                       </property>
+                                                   </spacer>
+                                               </item>
+                                           </layout>
+                                       </item>
+                                       <item>
+                                           <widget class="QTextBrowser" name="display_overview">
+                                               <property name="styleSheet">
+                                                   <string notr="true">background-color:#24292e;
+                                                       color:#eeeade;
+                                                       font:14pt;
+                                                   </string>
+                                               </property>
+                                               <property name="frameShape">
+                                                   <enum>QFrame::Panel</enum>
+                                               </property>
+                                               <property name="frameShadow">
+                                                   <enum>QFrame::Plain</enum>
+                                               </property>
+                                               <property name="lineWidth">
+                                                   <number>0</number>
+                                               </property>
+                                               <property name="html">
+                                                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot;
+                                                       &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+                                                       &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot;
+                                                       content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+                                                       p, li { white-space: pre-wrap; }
+                                                       &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS
+                                                       Shell Dlg 2'; font-size:14pt; font-weight:400; font-style:normal;&quot;&gt;
+                                                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px;
+                                                       margin-left:0px; margin-right:0px; -qt-block-indent:0;
+                                                       text-indent:0px;&quot;&gt; &lt;/p&gt;
+                                                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px;
+                                                       margin-left:0px; margin-right:0px; -qt-block-indent:0;
+                                                       text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                                   </string>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                       <item>
+                                           <widget class="QLabel" name="display_date">
+                                               <property name="minimumSize">
+                                                   <size>
+                                                       <width>0</width>
+                                                       <height>40</height>
+                                                   </size>
+                                               </property>
+                                               <property name="maximumSize">
+                                                   <size>
+                                                       <width>16777215</width>
+                                                       <height>40</height>
+                                                   </size>
+                                               </property>
+                                               <property name="styleSheet">
+                                                   <string notr="true">font:14pt;</string>
+                                               </property>
+                                               <property name="text">
+                                                   <string/>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                       <item>
+                                           <widget class="QLabel" name="display_genre">
+                                               <property name="minimumSize">
+                                                   <size>
+                                                       <width>0</width>
+                                                       <height>40</height>
+                                                   </size>
+                                               </property>
+                                               <property name="maximumSize">
+                                                   <size>
+                                                       <width>16777215</width>
+                                                       <height>40</height>
+                                                   </size>
+                                               </property>
+                                               <property name="styleSheet">
+                                                   <string notr="true">font:14pt;</string>
+                                               </property>
+                                               <property name="text">
+                                                   <string/>
+                                               </property>
+                                               <property name="alignment">
+                                                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                               </property>
+                                               <property name="wordWrap">
+                                                   <bool>true</bool>
+                                               </property>
+                                           </widget>
+                                       </item>
+                                       <item>
+                                           <spacer name="verticalSpacer_12">
+                                               <property name="orientation">
+                                                   <enum>Qt::Vertical</enum>
+                                               </property>
+                                               <property name="sizeHint" stdset="0">
+                                                   <size>
+                                                       <width>20</width>
+                                                       <height>40</height>
+                                                   </size>
+                                               </property>
+                                           </spacer>
+                                       </item>
+                                   </layout>
+                               </item>
+                           </layout>
            </widget>
           </item>
          </layout>

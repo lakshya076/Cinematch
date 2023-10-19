@@ -1,4 +1,3 @@
-# Built-in imports
 import ctypes
 import os
 import shutil
@@ -6,9 +5,9 @@ import sys
 import random
 from threading import Thread
 
-# Module imports
 import pymysql
 import requests
+import PyQt5
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon, QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QWidget, QVBoxLayout, QScrollArea, QHBoxLayout
@@ -16,7 +15,6 @@ from PyQt5.uic import loadUi
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 
-# File Imports
 from display_movie import DisplayMovies
 from library import Library
 from search import Search
@@ -25,7 +23,6 @@ from checklist import Checklist
 from genre import Genre
 from language import Language
 
-# Reusable/Utils imports
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
@@ -58,7 +55,6 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(0)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
-        self.random_movie()
 
         # List to keep the check of how many playlist widgets have been created in the stack
         self.widget_created_ind = dict()
@@ -82,7 +78,10 @@ class Main(QMainWindow):
         self.search_box.returnPressed.connect(self.search_func)
         self.search_button.clicked.connect(self.search_func)
 
-        self.randomiser.clicked.connect(lambda: self.random_movie())
+        self.randomiser.clicked.connect(
+            lambda: self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
+                                    _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
+                                    _genre=self.random_genre, _date=self.random_date))
         self.random_collapse.clicked.connect(self.random_func)
         self.random_expand.clicked.connect(self.random_func)
 
@@ -109,47 +108,53 @@ class Main(QMainWindow):
         self.logout_settings.clicked.connect(self.logout_func)
         self.delete_acc.clicked.connect(self.delete_acc_func)
 
-    def random_movie(self):
-        self.random_id = random.choice(random_movies)
+        self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
+                        _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
+                        _genre=self.random_genre, _date=self.random_date)
+
+    def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
+                   _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
+                   _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel):
+        self.random_id = random.choice(id)
         conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
         cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
         session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        random_title = get_title(self.random_id, conn, conn.cursor())
-        random_poster = get_poster(self.random_id, conn, conn.cursor())
-        random_overview = get_overview(self.random_id, conn, conn.cursor())
-        random_lang = get_lang(self.random_id, conn, conn.cursor())
-        random_pop = get_pop(self.random_id, conn, conn.cursor())
-        random_gen = get_genz(self.random_id, conn, conn.cursor())
-        random_date = get_release_date(self.random_id, conn, conn.cursor())
+        title = get_title(self.random_id, conn, conn.cursor())
+        poster = get_poster(self.random_id, conn, conn.cursor())
+        overview = get_overview(self.random_id, conn, conn.cursor())
+        lang = get_lang(self.random_id, conn, conn.cursor())
+        pop = get_pop(self.random_id, conn, conn.cursor())
+        gen = get_genz(self.random_id, conn, conn.cursor())
+        date = get_release_date(self.random_id, conn, conn.cursor())
 
-        if random_overview == "nan":
-            random_overview = "Not Available"
+        if overview == "nan":
+            overview = "Not Available"
 
         try:
-            random_lang_real = iso_639_1[random_lang]
+            lang_real = iso_639_1[lang]
         except KeyError:
-            random_lang_real = random_lang
+            lang_real = lang
 
-        random_genre_real = str()
-        for i in random_gen:
-            random_genre_real += f"{i}, "
+        genre_real = str()
+        for i in gen:
+            genre_real += f"{i}, "
 
         try:
-            random_poster_real = session.get(f"https://image.tmdb.org/t/p/original{random_poster}").content
+            poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
         except requests.ConnectionError:
-            random_poster_real = None
+            poster_real = None
         image_object = QImage()
-        image_object.loadFromData(random_poster_real)
+        image_object.loadFromData(poster_real)
 
-        self.random_image.setPixmap(QPixmap(image_object))
-        self.random_title.setText(random_title)
-        self.random_overview.setText(random_overview)
-        self.random_pop.setText(f"Popularity:\n{str(random_pop)}")
-        self.random_lang.setText(random_lang_real)
-        self.random_genre.setText(random_genre_real[:-2:1])
-        self.random_date.setText(str(random_date))
+        _image.setPixmap(QPixmap(image_object))
+        _title.setText(title)
+        _overview.setText(overview)
+        _pop.setText(f"Popularity:\n{str(pop)}")
+        _lang.setText(lang_real)
+        _genre.setText(genre_real[:-2:1])
+        _date.setText(str(date))
 
     def search_func(self):
         search_text = self.search_box.text()
@@ -210,7 +215,15 @@ class Main(QMainWindow):
         def open_movie_main():
             sender = display.sender()
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
-            print(f"Opening {_objectdisplay}")
+            try:
+                display_id = int(_objectdisplay)
+                print(type(id))
+                self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+                                _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                                _genre=self.display_genre, _date=self.display_date)
+                self.stack.setCurrentIndex(7)
+            except TypeError:
+                print("TypeError. Can't display movie.")
 
         def delete_movie_main():
             sender = display.sender()
@@ -341,7 +354,15 @@ class Main(QMainWindow):
             def open_movie_main():
                 sender = display.sender()
                 _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
-                print(f"Opening {_objectdisplay}")
+                try:
+                    display_id = int(_objectdisplay)
+                    print(type(id))
+                    self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+                                    _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                                    _genre=self.display_genre, _date=self.display_date)
+                    self.stack.setCurrentIndex(7)
+                except TypeError:
+                    print("TypeError. Can't display movie.")
 
             def delete_movie_main():
                 # Make a remove function for playlists other than shortlist
@@ -450,6 +471,7 @@ class Main(QMainWindow):
         self.add_page.setStyleSheet(dark_mainwin_widget)
         self.library_page.setStyleSheet(dark_mainwin_widget)
         self.shortlist_page.setStyleSheet(dark_mainwin_widget)
+        self.display_page.setStyleSheet(dark_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_dark.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/dark_mode.ico"))
@@ -476,6 +498,7 @@ class Main(QMainWindow):
         self.add_page.setStyleSheet(light_mainwin_widget)
         self.library_page.setStyleSheet(light_mainwin_widget)
         self.shortlist_page.setStyleSheet(light_mainwin_widget)
+        self.display_page.setStyleSheet(light_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
