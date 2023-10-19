@@ -213,7 +213,16 @@ class Main(QMainWindow):
         display = DisplayMovies("shortlist")
 
         def open_movie_main():
-            pass
+            sender = display.sender()
+            _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
+            try:
+                display_id = int(_objectdisplay)
+                self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+                                _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                                _genre=self.display_genre, _date=self.display_date)
+                self.stack.setCurrentIndex(7)
+            except TypeError:
+                print("TypeError. Can't display movie.")
 
         def delete_movie_main():
             sender = display.sender()
@@ -342,7 +351,16 @@ class Main(QMainWindow):
             display = DisplayMovies(playlist_name)
 
             def open_movie_main():
-                pass
+                sender = display.sender()
+                _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
+                try:
+                    display_id = int(_objectdisplay)
+                    self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+                                    _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                                    _genre=self.display_genre, _date=self.display_date)
+                    self.stack.setCurrentIndex(7)
+                except TypeError:
+                    print("TypeError. Can't display movie.")
 
             def delete_movie_main():
                 # Make a remove function for playlists other than shortlist
