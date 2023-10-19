@@ -133,7 +133,6 @@ def get_overview(id: int, connection: pymysql.Connection, cursor: pymysql.cursor
     """
 
     if movie_exists(id, connection, cursor):
-
         cursor.execute(f'select overview from main where id="{id}"')
         return cursor.fetchall()[0][0]
 
@@ -145,13 +144,11 @@ def get_overview(id: int, connection: pymysql.Connection, cursor: pymysql.cursor
 def get_release_date(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     """
     Returns the release date of the movie using its `id`
-
     Date is in format `YYYY-MM-DD`
     """
 
     if movie_exists(id, connection, cursor):
-
-        cursor.execute(f'get release_date from main where id={id}')
+        cursor.execute(f'select release_date from main where id={id}')
         return cursor.fetchall()[0][0]
 
     else:

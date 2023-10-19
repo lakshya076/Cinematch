@@ -118,7 +118,10 @@ class Main(QMainWindow):
         random_lang = get_lang(self.random_id, conn, conn.cursor())
         random_pop = get_pop(self.random_id, conn, conn.cursor())
         random_gen = get_genz(self.random_id, conn, conn.cursor())
-        print(random_gen)
+        random_date = get_release_date(self.random_id, conn, conn.cursor())
+
+        if random_overview == "nan":
+            random_overview = "Not Available"
 
         try:
             random_lang_real = iso_639_1[random_lang]
@@ -139,6 +142,7 @@ class Main(QMainWindow):
         self.random_pop.setText(f"Popularity:\n{str(random_pop)}")
         self.random_lang.setText(random_lang_real)
         self.random_genre.setText(random_genre_real[:-2:1])
+        self.random_date.setText(str(random_date))
 
     def search_func(self):
         search_text = self.search_box.text()

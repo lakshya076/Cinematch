@@ -1616,6 +1616,28 @@ background-color: rgba(0,0,0,0);</string>
                                </widget>
                            </item>
                            <item>
+                               <widget class="QLabel" name="random_date">
+                                   <property name="minimumSize">
+                                       <size>
+                                           <width>0</width>
+                                           <height>40</height>
+                                       </size>
+                                   </property>
+                                   <property name="maximumSize">
+                                       <size>
+                                           <width>16777215</width>
+                                           <height>40</height>
+                                       </size>
+                                   </property>
+                                   <property name="styleSheet">
+                                       <string notr="true">font:14pt;</string>
+                                   </property>
+                                   <property name="text">
+                                       <string/>
+                                   </property>
+                               </widget>
+                           </item>
+                           <item>
                                <widget class="QLabel" name="random_genre">
                                    <property name="minimumSize">
                                        <size>
