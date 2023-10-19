@@ -1615,6 +1615,47 @@ background-color: rgba(0,0,0,0);</string>
                                    </property>
                                </widget>
                            </item>
+                           <item>
+                               <widget class="QLabel" name="random_genre">
+                                   <property name="minimumSize">
+                                       <size>
+                                           <width>0</width>
+                                           <height>40</height>
+                                       </size>
+                                   </property>
+                                   <property name="maximumSize">
+                                       <size>
+                                           <width>16777215</width>
+                                           <height>40</height>
+                                       </size>
+                                   </property>
+                                   <property name="styleSheet">
+                                       <string notr="true">font:14pt;</string>
+                                   </property>
+                                   <property name="text">
+                                       <string/>
+                                   </property>
+                                   <property name="alignment">
+                                       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                                   </property>
+                                   <property name="wordWrap">
+                                       <bool>true</bool>
+                                   </property>
+                               </widget>
+                           </item>
+                           <item>
+                               <spacer name="verticalSpacer_11">
+                                   <property name="orientation">
+                                       <enum>Qt::Vertical</enum>
+                                   </property>
+                                   <property name="sizeHint" stdset="0">
+                                       <size>
+                                           <width>20</width>
+                                           <height>40</height>
+                                       </size>
+                                   </property>
+                               </spacer>
+                           </item>
                        </layout>
                    </item>
                </layout>
@@ -1665,7 +1706,7 @@ background-color: rgba(0,0,0,0);</string>
           <item>
            <widget class="QLabel" name="label_11">
             <property name="styleSheet">
-             <string notr="true">font:18pt;</string>
+                <string notr="true">font:20pt;</string>
             </property>
             <property name="text">
              <string>Your Library</string>
@@ -1682,8 +1723,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>820</width>
+                  <height>441</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>

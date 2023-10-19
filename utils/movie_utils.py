@@ -89,7 +89,7 @@ def get_genz(id: int, connection: pymysql.Connection, cursor: pymysql.cursors.Cu
 
     if movie_exists(id, connection, cursor):
 
-        cursor.execute(f'select genres from recommendation where id={id}')
+        cursor.execute(f'select genres from main where id={id}')
         return cursor.fetchall()[0][0].split('-')
 
     else:

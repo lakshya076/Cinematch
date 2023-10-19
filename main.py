@@ -57,7 +57,6 @@ class Main(QMainWindow):
         self.random_movie()
 
         # List to keep the check of how many playlist widgets have been created in the stack
-        self.widget_created = list()
         self.widget_created_ind = dict()
 
         # Setting drop downs on settings page
@@ -118,11 +117,17 @@ class Main(QMainWindow):
         random_overview = get_overview(self.random_id, conn, conn.cursor())
         random_lang = get_lang(self.random_id, conn, conn.cursor())
         random_pop = get_pop(self.random_id, conn, conn.cursor())
+        random_gen = get_genz(self.random_id, conn, conn.cursor())
+        print(random_gen)
 
         try:
             random_lang_real = iso_639_1[random_lang]
         except KeyError:
             random_lang_real = random_lang
+
+        random_genre_real = str()
+        for i in random_gen:
+            random_genre_real += f"{i}, "
 
         random_poster_real = session.get(f"https://image.tmdb.org/t/p/original{random_poster}").content
         image_object = QImage()
@@ -133,6 +138,7 @@ class Main(QMainWindow):
         self.random_overview.setText(random_overview)
         self.random_pop.setText(f"Popularity:\n{str(random_pop)}")
         self.random_lang.setText(random_lang_real)
+        self.random_genre.setText(random_genre_real[:-2:1])
 
     def search_func(self):
         search_text = self.search_box.text()
@@ -287,12 +293,11 @@ class Main(QMainWindow):
 
     def open_playlist_func(self, playlist_name: str):
 
-        if playlist_name in self.widget_created:
+        if playlist_name in self.widget_created_ind.keys():
             self.stack.setCurrentIndex(self.widget_created_ind[playlist_name])
         else:
             self.frame_name = QWidget()
             self.frame_name.setObjectName(playlist_name)
-            self.widget_created.append(playlist_name)
             self.frame_name.setStyleSheet(dark_mainwin_widget)
             setattr(self, playlist_name, self.frame_name)
 
@@ -352,7 +357,6 @@ class Main(QMainWindow):
             self.widget_created_ind[playlist_name] = index
 
             print(self.frame_name.objectName())
-            print(self.widget_created)
 
     def add_func(self):
         self.stack.setCurrentIndex(5)
