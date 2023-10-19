@@ -3,7 +3,6 @@ import os
 import shutil
 import sys
 import random
-from threading import Thread
 
 import pymysql
 import requests
