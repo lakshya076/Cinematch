@@ -14,7 +14,7 @@ def phrase_former(phrase: str, sep: str):
 
     return phrase_list[1:]
 
-def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def search(phrase: str, cursor: pymysql.cursors.Cursor):
     
     '''
     
@@ -23,9 +23,7 @@ def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.
     '''
 
     title_search = []
-    genre_search = []
     cast_search = []
-    keyword_search = []
     overview_search = []
 
     phrase = phrase.strip()
@@ -33,32 +31,22 @@ def search(phrase: str, connection: pymysql.Connection, cursor: pymysql.cursors.
     cursor.execute(f'select id from main where overview like "%{phrase}%" order by popularity desc')
     overview_search.extend([int(i[0]) for i in cursor.fetchall()])
 
-    cursor.execute(f'select id from main where title like "%{phrase}%" order by popularity desc')
-    title_search.extend([int(i[0]) for i in cursor.fetchall()])
-
     L = []
     s = ''
     for sep in [':', ';', ' -']:
         L.extend(phrase_former(phrase, sep))
+    L.insert(0, phrase)
     for i in L:
         s += f'"%{i}%" or title like '
     s = s[:len(s)-15]
 
-
-    cursor.execute(f'select id from main where title like {s} or title sounds like "{phrase}" order by popularity desc')
+    cursor.execute(f'select id from main where title sounds like "{phrase}" or title like {s}')
     title_search.extend([int(j[0]) for j in cursor.fetchall()])
-
-    cursor.execute(f'select id from main where genres like "%{phrase}%" order by popularity desc')
-    genre_search.extend([int(i[0]) for i in cursor.fetchall()])
-
-    cursor.execute(f'select id from recommendation where keywords like "%{phrase}%" order by popularity desc')
-    keyword_search.extend([int(i[0]) for i in cursor.fetchall()])
 
     cursor.execute(f'select id from main where cast like "%{phrase}%" order by popularity desc')
     cast_search.extend([int(i[0]) for i in cursor.fetchall()])
 
-    combined_search = title_search + cast_search + overview_search + keyword_search
+    combined_search = title_search + cast_search + overview_search
     combined_search = list(set(combined_search))
 
     return combined_search
-

@@ -1,6 +1,6 @@
 import pandas
 import pymysql, pymysql.cursors
-import utils.movie_utils as movie_utils
+import Utils.movie_utils as movie_utils
 
 
 item_similarity = pandas.read_csv('cos_similarity_upd.csv', index_col=0)
