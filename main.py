@@ -1,3 +1,4 @@
+# Built-in imports
 import ctypes
 import os
 import shutil
@@ -5,6 +6,7 @@ import sys
 import random
 from threading import Thread
 
+# Module imports
 import pymysql
 import requests
 from PyQt5.QtCore import QRect
@@ -14,6 +16,7 @@ from PyQt5.uic import loadUi
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 
+# File Imports
 from display_movie import DisplayMovies
 from library import Library
 from search import Search
@@ -22,6 +25,7 @@ from checklist import Checklist
 from genre import Genre
 from language import Language
 
+# Reusable/Utils imports
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
@@ -132,7 +136,10 @@ class Main(QMainWindow):
         for i in random_gen:
             random_genre_real += f"{i}, "
 
-        random_poster_real = session.get(f"https://image.tmdb.org/t/p/original{random_poster}").content
+        try:
+            random_poster_real = session.get(f"https://image.tmdb.org/t/p/original{random_poster}").content
+        except requests.ConnectionError:
+            random_poster_real = None
         image_object = QImage()
         image_object.loadFromData(random_poster_real)
 

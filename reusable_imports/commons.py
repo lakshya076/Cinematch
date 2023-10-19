@@ -63,5 +63,5 @@ class ErrorDialog(QMessageBox):
         self.error_dialog.setText("")
         self.error_dialog.button(QMessageBox.Ok)
         self.error_dialog.setDefaultButton(QMessageBox.Ok)
-        self.error_dialog.setStyleSheet("background-color: #FFFAF0; font: 10pt\"MS Shell Dlg 2\";")
+        self.error_dialog.setStyleSheet("font: 10pt;")
         self.error_dialog.setIcon(QMessageBox.Warning)

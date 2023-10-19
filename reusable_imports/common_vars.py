@@ -1,14 +1,11 @@
 # This file defines common variables which are used in more than one files
 # These values should be retrieved as soon as the user logs in from the mapping table
-import io
 import os
 import random
 import pymysql
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 import requests
-import cv2
-import numpy
 
 from utils.movie_utils import get_title, get_poster, get_lang, get_pop
 
@@ -74,7 +71,10 @@ def get_movies():
             poster_path = get_poster(int(j), connection=conn, cursor=conn.cursor())  # gets poster path
 
             if poster_path is not 'nan':
-                poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                try:
+                    poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                except requests.ConnectionError:
+                    poster_var = None
                 # gets poster image as a byte array
             else:
                 poster_var = None
