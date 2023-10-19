@@ -140,7 +140,7 @@ def get_release_date(id: int, cursor: pymysql.cursors.Cursor) -> str:
     
     '''
 
-    cursor.execute(f'get release_date from main where id={id}')
+    cursor.execute(f'select release_date from main where id={id}')
     data = cursor.fetchone()
 
     if data:
