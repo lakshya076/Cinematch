@@ -1,4 +1,5 @@
 import ctypes
+import datetime
 import os
 import shutil
 import sys
@@ -58,9 +59,6 @@ class Main(QMainWindow):
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date)
-
-        # List to keep the check of how many playlist widgets have been created in the stack
-        self.widget_created_ind = dict()
 
         # Setting drop downs on settings page
         for i in list(playlists_metadata.values())[1:]:
@@ -220,7 +218,15 @@ class Main(QMainWindow):
             try:
                 delete_list = [i[5] for i in display.check]
                 delete_queue = delete_list.index(int(_objectdelete))
+                # Deletes from the viewable 'client' side dict
                 del playlists_display_metadata[_playlist][delete_queue]
+
+                try:
+                    # Deletes from the backend list which will be updated in the sql table
+                    playlists_metadata[_playlist][3].remove(int(_objectdelete))
+                except:
+                    print("Can't delete")
+
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
             except KeyError:
@@ -326,77 +332,68 @@ class Main(QMainWindow):
         This function creates a new page in the stack and displays it with some dynamically created widgets
         """
 
-        if playlist_name in self.widget_created_ind.keys():
-            self.stack.setCurrentIndex(self.widget_created_ind[playlist_name])
-        else:
-            self.frame_name = QWidget()
-            self.frame_name.setObjectName(playlist_name)
-            self.frame_name.setStyleSheet(dark_mainwin_widget)
-            setattr(self, playlist_name, self.frame_name)
+        display = DisplayMovies(playlist_name)
 
-            self.name_label = QLabel(self.frame_name)
-            self.name_label.setText(f"{playlists_metadata[playlist_name][0]}")
-            self.name_label.setStyleSheet("font:20pt;")
+        def open_movie_main():
+            """
+            Displays the movie clicked in the playlist
+            """
+            sender = display.sender()
+            _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
+            try:
+                display_id = int(_objectdisplay)
+                self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+                                _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                                _genre=self.display_genre, _date=self.display_date)
+                self.stack.setCurrentIndex(7)
+            except TypeError:
+                print("TypeError. Can't display movie.")
 
-            self.frame_vert_layout = QVBoxLayout(self.frame_name)
-            self.frame_hor_layout = QHBoxLayout()
-            self.frame_hor_layout.addWidget(self.name_label)
+        def delete_movie_main():
+            """
+            Deletes the clicked movie from the playlist page and then refreshes it to show the updated playlist
+            Function is passed a parameter in display_new_widgets function of DisplayMovies class
+            """
+            sender = display.sender()
+            _playlist = sender.objectName().strip().split(sep="_")[-2]
+            _objectdelete = sender.objectName().strip().split(sep="_")[-1]
 
-            self.frame_display_sa = QScrollArea(self.frame_name)
-            self.frame_display_sa.setObjectName(f"sa_{playlist_name}")
-            self.frame_display_sa.setWidgetResizable(True)
+            try:
+                delete_list = [i[5] for i in display.check]
+                delete_queue = delete_list.index(int(_objectdelete))
+                # Deletes from the viewable 'client' side dict
+                del playlists_display_metadata[_playlist][delete_queue]
 
-            self.frame_display_sa_widgets = QWidget()
-            self.frame_display_sa_widgets.setObjectName(f"sa_widgets_{playlist_name}")
-            self.frame_display_sa_widgets.setGeometry(QRect(0, 0, 820, 439))
-            self.frame_display_sa_widgets.setStyleSheet("background-color:#24292e; color:#fffaf0;")
-
-            self.frame_display_vlayout = QVBoxLayout(self.frame_display_sa_widgets)
-            self.frame_display_vlayout.setObjectName(u"frame_display_vlayout")
-            self.frame_display_sa.setWidget(self.frame_display_sa_widgets)
-
-            self.frame_vert_layout.addLayout(self.frame_hor_layout)
-            self.frame_vert_layout.addWidget(self.frame_display_sa)
-
-            display = DisplayMovies(playlist_name)
-
-            def open_movie_main():
-                """
-                Displays the movie clicked in the playlist
-                """
-                sender = display.sender()
-                _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
                 try:
-                    display_id = int(_objectdisplay)
-                    self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
-                                    _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                                    _genre=self.display_genre, _date=self.display_date)
-                    self.stack.setCurrentIndex(7)
-                except TypeError:
-                    print("TypeError. Can't display movie.")
+                    # Deletes from the backend list which will be updated in the sql table
+                    playlists_metadata[_playlist][3].remove(int(_objectdelete))
+                except ValueError:
+                    print("Can't delete")
 
-            def delete_movie_main():
-                """
-                Just for show. Gotta make an actual delete function
-                """
-                # Make a remove function for playlists other than shortlist
-                sender = display.sender()
-                _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
-                print(f"Removing {_objectdisplay}")
+                print(f"Movie Deleted {_objectdelete} from {_playlist}")
+                # Reflect changes in sql table
+            except KeyError:
+                print("Key Error, Can't Delete Playlist.")
 
-            for i in range(len(display.check)):
-                display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
-                                           image=display.check[i][2], title=display.check[i][1],
-                                           lang=display.check[i][3], pop=display.check[i][4],
-                                           scroll_area=self.frame_display_sa_widgets, layout=self.frame_display_vlayout,
-                                           open_movie=open_movie_main, delete_movie=delete_movie_main)
+            self.open_playlist_func(playlist_name=playlist_name)
+            # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
 
-            self.stack.addWidget(self.frame_name)
-            self.stack.setCurrentWidget(self.frame_name)
-            index = self.stack.currentIndex()
-            self.widget_created_ind[playlist_name] = index
+        try:
+            # Removes the previously generated widgets and sets the layout empty
+            for i in reversed(range(self.playlist_vlayout.count())):
+                self.playlist_vlayout.itemAt(i).widget().setParent(None)
+        except:
+            pass
 
-            print(self.frame_name.objectName())
+        for i in range(len(display.check)):
+            display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
+                                       image=display.check[i][2], title=display.check[i][1],
+                                       lang=display.check[i][3], pop=display.check[i][4],
+                                       scroll_area=self.playlist_sa_widgets, layout=self.playlist_vlayout,
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main)
+        self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
+
+        self.stack.setCurrentIndex(8)
 
     def add_func(self):
         """
@@ -443,6 +440,8 @@ class Main(QMainWindow):
         gen = get_genz(self.random_id, conn, conn.cursor())
         date = get_release_date(self.random_id, conn, conn.cursor())
 
+        real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+
         if overview == "nan":
             overview = "Not Available"
 
@@ -468,7 +467,7 @@ class Main(QMainWindow):
         _pop.setText(f"Popularity:\n{str(pop)}")
         _lang.setText(lang_real)
         _genre.setText(genre_real[:-2:1])
-        _date.setText(str(date))
+        _date.setText(f"Release Date:\n{real_date}")
 
     def sidebar_expand_show(self):
         """
@@ -542,11 +541,13 @@ class Main(QMainWindow):
         self.settings_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.library_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.shortlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
+        self.playlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.random_page.setStyleSheet(dark_mainwin_widget)
         self.add_page.setStyleSheet(dark_mainwin_widget)
         self.library_page.setStyleSheet(dark_mainwin_widget)
         self.shortlist_page.setStyleSheet(dark_mainwin_widget)
         self.display_page.setStyleSheet(dark_mainwin_widget)
+        self.playlist_page.setStyleSheet(dark_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_dark.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/dark_mode.ico"))
@@ -572,11 +573,13 @@ class Main(QMainWindow):
         self.settings_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.library_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.shortlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
+        self.playlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.random_page.setStyleSheet(light_mainwin_widget)
         self.add_page.setStyleSheet(light_mainwin_widget)
         self.library_page.setStyleSheet(light_mainwin_widget)
         self.shortlist_page.setStyleSheet(light_mainwin_widget)
         self.display_page.setStyleSheet(light_mainwin_widget)
+        self.playlist_page.setStyleSheet(light_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
@@ -585,6 +588,8 @@ class Main(QMainWindow):
 
     def closeEvent(self, event):
         print("closing")
+        print(playlists_metadata)
+        # playlist metadata will be pushed to the sql table which contains information about all the playlists made by the user
         # Commit ALL THE CHANGES that happened in the common_vars.py file like if playlist is deleted or movie is
         # deleted from playlist or a new movie playlist is created
         # add a dialog box that asks if the user actually want to close or not

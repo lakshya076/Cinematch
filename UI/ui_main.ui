@@ -1131,7 +1131,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
            <property name="currentIndex">
-               <number>7</number>
+               <number>2</number>
            </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1491,7 +1491,7 @@ background-color: rgba(0,0,0,0);</string>
                                    </property>
                                    <property name="icon">
                                        <iconset>
-                                           <normaloff>../Icons/random_checked.ico</normaloff>../Icons/random_checked.ico
+                                           <normaloff>../Icons/randomiser.ico</normaloff>../Icons/randomiser.ico
                                        </iconset>
                                    </property>
                                </widget>
@@ -1718,8 +1718,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>820</width>
+                  <height>443</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -1750,8 +1750,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>820</width>
+                  <height>445</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2485,6 +2485,38 @@ border-radius:10px;</string>
                                    </layout>
                                </item>
                            </layout>
+                       </widget>
+                   </item>
+               </layout>
+           </widget>
+           <widget class="QWidget" name="playlist_page">
+               <layout class="QVBoxLayout" name="verticalLayout_18">
+                   <item>
+                       <widget class="QLabel" name="playlist_name">
+                           <property name="styleSheet">
+                               <string notr="true">font:20pt;</string>
+                           </property>
+                           <property name="text">
+                               <string/>
+                           </property>
+                       </widget>
+                   </item>
+                   <item>
+                       <widget class="QScrollArea" name="playlist_sa">
+                           <property name="widgetResizable">
+                               <bool>true</bool>
+                           </property>
+                           <widget class="QWidget" name="playlist_sa_widgets">
+                               <property name="geometry">
+                                   <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>820</width>
+                                       <height>445</height>
+                                   </rect>
+                               </property>
+                               <layout class="QVBoxLayout" name="playlist_vlayout"/>
+                           </widget>
            </widget>
           </item>
          </layout>

@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QFrame, QPushButton
 
-from reusable_imports.common_vars import get_playlist_movies, playlists_metadata
+from reusable_imports.common_vars import get_playlist_movies, playlists_metadata, iso_639_1
 from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 frame_style = """
@@ -56,9 +56,17 @@ class DisplayMovies(QFrame):
 
         self.lang = ClickableLabel(self.movie_frame)
         self.lang.setObjectName(self.lang_new)
-        self.lang.setMinimumSize(QSize(50, 50))
-        self.lang.setMaximumSize(QSize(50, 50))
-        self.lang.setText(lang)
+        self.lang.setMinimumSize(QSize(100, 50))
+        self.lang.setMaximumSize(QSize(100, 50))
+        try:
+            try:
+                lang = iso_639_1[lang].split(sep=";")[0].strip()
+            except:
+                lang = iso_639_1[lang]
+
+            self.lang.setText(lang)
+        except KeyError:
+            self.lang.setText(lang)
         setattr(self, self.lang_new, self.lang)
 
         self.pop = ClickableLabel(self.movie_frame)
