@@ -15,7 +15,6 @@ from reusable_imports._css import checklist_frame_selection_css, checklist_image
 from reusable_imports.source_vars import checklist_movie_source
 from reusable_imports.common_vars import movies
 
-# 168,325 : 150,225 : 150,60 -> preferred layouts of frame, image and title for the main ui page
 
 _obj_ = ""
 
@@ -208,7 +207,7 @@ class Checklist(QDialog, FrameReuse):
         self.frame_new = f"frame_{number}"
         self.image_new = f"image_{number}"
         self.title_new = f"title_{number}"
-        print(self.frame_new, self.image_new, self.title_new)
+        print(self.frame_new)
 
         # generic frame object
         self.frame = QFrame(scroll_area)  # the scroll area parent which QFrame will belong to

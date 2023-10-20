@@ -5,11 +5,6 @@ from PyQt5.uic import loadUi
 
 from reusable_imports.commons import ErrorDialog, clickable
 
-
-# A variable which holds the button through which startup.py (welcome screen) is accepted
-# If False, startup.py is accepted through register screen and checklist and genres/languages is run
-# If True, startup.py is accepted through login screen and splash screen is run
-
 # regex to validate email
 
 def wifi_availability():

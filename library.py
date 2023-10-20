@@ -22,7 +22,6 @@ class Library(QFrame):
         self.delete_playlist_new = f"delete_playlist_{name}"
         self.user_new = f"user_{name}"
         self.dob_new = f"dob_{name}"
-        print(self.frame_new)
 
         self.frame = ClickableFrame(scroll_area)
         self.frame.setObjectName(self.frame_new)

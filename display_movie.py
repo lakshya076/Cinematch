@@ -30,7 +30,6 @@ class DisplayMovies(QFrame):
         self.lang_new = f"movie_lang_{name}"
         self.pop_new = f"movie_pop_{name}"
         self.movie_delete_new = f"movie_delete_{name}"
-        print(self.frame_new)
 
         self.movie_frame = ClickableFrame(scroll_area)
         self.movie_frame.setObjectName(self.frame_new)

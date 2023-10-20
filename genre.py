@@ -1,12 +1,3 @@
-"""
-Science Fiction Image by
-https://www.freepik.com/free-ai-image/digital-city-life-shines-futuristic-sunset-generated-by-ai_41438711.htm#query=science%20fiction&position=0&from_view=search&track=ais
-Adventure Image by
-https://www.freepik.com/free-ai-image/one-person-standing-backpack-cliff-edge-generated-by-ai_41594365.htm#fromView=search&term=adventure+movie&page=1&position=2&track=ais_ai_generated
-horror - /wVYREutTvI2tmxr6ujrHT704wGF.jpg
-comedy - /iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg
-"""
-
 import sys
 
 from PyQt5.QtCore import QSize, Qt, QEvent
@@ -18,8 +9,6 @@ from reusable_imports.commons import ErrorDialog, clickable
 from reusable_imports._css import genre_frame_selection_css, genre_title_selection_css
 from reusable_imports.source_vars import genre_source
 from reusable_imports.common_vars import genres
-
-# 168,325 : 150,225 : 150,60 -> preferred layouts of frame, image and title for the main ui page
 
 _obj_ = ""
 
@@ -91,7 +80,6 @@ class Genre(QDialog, FrameReuse):
         # unique identifiers for each frame,image,title
         self.frame_new = f"frame_{number}"
         self.title_new = f"title_{number}"
-        print(self.frame_new, self.title_new)
 
         # generic frame object
         self.frame = QFrame(scroll_area)  # the scroll area parent which QFrame will belong to

@@ -10,8 +10,6 @@ from reusable_imports._css import genre_frame_selection_css, genre_title_selecti
 from reusable_imports.commons import ErrorDialog, clickable
 from reusable_imports.source_vars import lang_source
 
-# 168,325 : 150,225 : 150,60 -> preferred layouts of frame, image and title for the main ui page
-
 _obj_ = ""
 
 frame_original = "border-radius:10px; border-width:2px; background-color:#F5F5DC;"
