@@ -12,7 +12,7 @@ import requests
 import PyQt5
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon, QImage, QPixmap
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QWidget, QVBoxLayout, QScrollArea, QHBoxLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.uic import loadUi
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
@@ -28,7 +28,7 @@ from language import Language
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata, random_movies, iso_639_1
+    playlists_display_metadata, random_movies, iso_639_1, username, poster
 from reusable_imports.commons import clickable
 from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
 
@@ -50,6 +50,13 @@ session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 # Universal SQL connection
 conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+
+
+def remove_spaces(string: str):
+    """
+    Function to remove spaces from a string and return it in lowercase
+    """
+    return "".join(string.split()).lower()
 
 
 class Main(QMainWindow):
@@ -104,6 +111,8 @@ class Main(QMainWindow):
 
         self.create_collapse.clicked.connect(self.create_func)
         self.create_expand.clicked.connect(self.create_func)
+        self.create_playlist.clicked.connect(self.create_playlist_func)
+        self.create_playlist_name.returnPressed.connect(self.create_playlist_func)
 
         self.mode_collapse.clicked.connect(self.mode)
         self.mode_expand.clicked.connect(self.mode)
@@ -250,7 +259,7 @@ class Main(QMainWindow):
             for i in reversed(range(self.shortlist_vlayout.count())):
                 self.shortlist_vlayout.itemAt(i).widget().setParent(None)
         except:
-            pass
+            print("Can't delete movie layout")
 
         # Add new widgets after the previously generated widgets are removed
         for i in range(len(display.check)):
@@ -271,12 +280,6 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(4)
         children = len(playlists_metadata)
         lib = Library()
-
-        def add_func_lib_main():
-            sender = lib.sender()
-            _object = sender.objectName().strip().split(sep="_")[-1]
-            print(f"Add to playlist {_object}")
-            # redirect to add playlist stack page
 
         def delete_func_lib_main():
             """
@@ -319,7 +322,7 @@ class Main(QMainWindow):
             for i in reversed(range(self.library_gridLayout.count())):
                 self.library_gridLayout.itemAt(i).widget().setParent(None)
         except:
-            pass
+            print("Can't delete playlist layout")
 
         # Adds the new widgets to the library grid layout
         for i in range(children):
@@ -329,8 +332,7 @@ class Main(QMainWindow):
                                     _username=list(playlists_metadata.values())[i][1],
                                     dob=list(playlists_metadata.values())[i][2], image=playlist_picture[i],
                                     scroll_area=self.library_sa_widgets, layout=self.library_gridLayout,
-                                    add_func_lib=add_func_lib_main, delete_func_lib=delete_func_lib_main,
-                                    open_func_lib=open_func_lib_main)
+                                    delete_func_lib=delete_func_lib_main, open_func_lib=open_func_lib_main)
 
         if self.expand.isVisible():
             self.expand.hide()
@@ -394,7 +396,7 @@ class Main(QMainWindow):
             for i in reversed(range(self.playlist_vlayout.count())):
                 self.playlist_vlayout.itemAt(i).widget().setParent(None)
         except:
-            pass
+            print("Can't delete movie layout")
 
         for i in range(len(display.check)):
             display.new_movies_display(name=f"{display.check[i][0].lower()}_{display.check[i][5]}",
@@ -406,10 +408,32 @@ class Main(QMainWindow):
 
         self.stack.setCurrentIndex(8)
 
+    def create_playlist_func(self):
+        self.playlist_error.setText("")
+        self.playlist_success.setText("")
+
+        text = self.create_playlist_name.text()
+        uid = remove_spaces(text)
+        current_date = datetime.date.today().strftime("%d/%m/%Y")
+
+        if text == "":
+            self.playlist_error.setText("Please enter playlist name")
+        elif uid in playlists_metadata.keys():
+            self.playlist_error.setText("Playlist name not available!")
+        else:
+            playlists_metadata[uid] = [text, username, current_date, []]
+            get_movies()
+            playlist_picture.append(random.choice(poster))
+            self.playlist_success.setText("Playlist added to account.")
+
     def create_func(self):
         """
         Function to display the add (create) playlist widget of the stack
         """
+        self.playlist_error.setText("")
+        self.playlist_success.setText("")
+        self.create_playlist_name.clear()
+
         self.stack.setCurrentIndex(5)
         if self.expand.isVisible():
             self.expand.hide()

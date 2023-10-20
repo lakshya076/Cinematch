@@ -18,12 +18,15 @@ genres = list()
 # This list holds the languages selected by the user in the genre page
 languages = list()
 
+# Username
+username = "User"
+
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {
     'shortlist': ['Shortlist', 'Cinematch Team', '12/10/2023', [615656, 872585, 677179, 385687, 1397]],
-    'test1': ['Test 1', 'User', '02/03/2020', [238, 12, 37165]],
-    'test2': ['Test 2', 'User', '12/12/2023', [575264, 267805, 283995]],
-    'test3': ['Test 3', 'User', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
+    'test1': ['Test 1', f'{username}', '02/03/2020', [238, 12, 37165]],
+    'test2': ['Test 2', f'{username}', '12/12/2023', [575264, 267805, 283995]],
+    'test3': ['Test 3', f'{username}', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
 
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
@@ -33,8 +36,6 @@ removed_playlists = dict()
 random_movies = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092,
                  873126, 575264, 267805, 283995]
 
-# unique identifiers for playlists which will be assigned when creating the playlists frame in the library page
-playlists_original = list(playlists_metadata.keys())
 poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg"]
 # Append more these three are default
 
@@ -89,8 +90,11 @@ def get_movies():
 
 
 def get_playlist_movies(list_name: str):
-    if list_name in playlists_original:
-        return playlists_display_metadata[list_name]
+    if list_name in playlists_metadata.keys():
+        try:
+            return playlists_display_metadata[list_name]
+        except KeyError:
+            return False
     else:
         return False
 

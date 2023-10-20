@@ -13,7 +13,7 @@ class Library(QFrame):
 
     def new_widgets_lib(self, name: str, row: int, column: int, display_name: str, _username: str, dob: str, image: str,
                         scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QGridLayout,
-                        add_func_lib=None, delete_func_lib=None, open_func_lib=None):
+                        delete_func_lib=None, open_func_lib=None):
         # unique identifiers for each frame,image,title
         self.frame_new = f"frame_{name}"
         self.poster_new = f"poster_{name}"
@@ -47,15 +47,6 @@ class Library(QFrame):
         self.title.setWordWrap(True)
         setattr(self, self.title_new, self.title)
 
-        self.add = QPushButton(self.frame)
-        self.add.setObjectName(self.add_new)
-        self.add.setFixedSize(QSize(32, 32))
-        self.add.setIconSize(QSize(24, 24))
-        self.add.setIcon(QIcon("Icons/add.ico"))
-        self.add.setToolTip(f"Add to {display_name}")
-        self.add.setCursor(QCursor(Qt.PointingHandCursor))
-        setattr(self, self.add_new, self.add)
-
         self.verticalspacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         self.delete_playlist = QPushButton(self.frame)
@@ -82,7 +73,6 @@ class Library(QFrame):
         self.dob.setText(dob)
         setattr(self, self.dob_new, self.dob)
 
-        self.add.clicked.connect(lambda: add_func_lib())
         self.delete_playlist.clicked.connect(lambda: delete_func_lib())
         self.poster.clicked.connect(lambda: open_func_lib())
         self.title.clicked.connect(lambda: open_func_lib())
@@ -98,7 +88,6 @@ class Library(QFrame):
 
         self.button_vlayout = QVBoxLayout()
         self.button_vlayout.setObjectName(u"button_vlayout")
-        self.button_vlayout.addWidget(self.add)
         self.button_vlayout.addWidget(self.delete_playlist)
         self.button_vlayout.addItem(self.verticalspacer)
 
