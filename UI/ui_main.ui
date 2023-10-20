@@ -312,7 +312,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="add_collapse">
+           <widget class="QPushButton" name="create_collapse">
          <property name="minimumSize">
           <size>
            <width>35</width>
@@ -795,7 +795,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="add_expand">
+           <widget class="QPushButton" name="create_expand">
          <property name="minimumSize">
           <size>
            <width>150</width>
@@ -1079,13 +1079,13 @@
          <widget class="QPushButton" name="search_button">
           <property name="minimumSize">
            <size>
-            <width>0</width>
+               <width>32</width>
             <height>32</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
+               <width>32</width>
             <height>32</height>
            </size>
           </property>
@@ -1569,7 +1569,7 @@ background-color: rgba(0,0,0,0);</string>
                                                </size>
                                            </property>
                                            <property name="checkable">
-                                               <bool>false</bool>
+                                               <bool>true</bool>
                                            </property>
                                        </widget>
                                    </item>
@@ -1760,7 +1760,7 @@ background-color: rgba(0,0,0,0);</string>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="add_page">
+           <widget class="QWidget" name="create_page">
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
            <widget class="QLabel" name="label_10">
@@ -2365,7 +2365,7 @@ border-radius:10px;</string>
                                                            </size>
                                                        </property>
                                                        <property name="checkable">
-                                                           <bool>false</bool>
+                                                           <bool>true</bool>
                                                        </property>
                                                    </widget>
                                                </item>
@@ -2552,7 +2552,7 @@ border-radius:10px;</string>
   <tabstop>random_collapse</tabstop>
   <tabstop>shortlist_collapse</tabstop>
   <tabstop>library_collapse</tabstop>
-  <tabstop>add_collapse</tabstop>
+     <tabstop>create_collapse</tabstop>
   <tabstop>settings_collapse</tabstop>
   <tabstop>logout_collapse</tabstop>
   <tabstop>exit_collapse</tabstop>
@@ -2562,7 +2562,7 @@ border-radius:10px;</string>
   <tabstop>random_expand</tabstop>
   <tabstop>shortlist_expand</tabstop>
   <tabstop>library_expand</tabstop>
-  <tabstop>add_expand</tabstop>
+     <tabstop>create_expand</tabstop>
   <tabstop>settings_expand</tabstop>
   <tabstop>logout_expand</tabstop>
   <tabstop>exit_expand</tabstop>
@@ -2716,9 +2716,9 @@ border-radius:10px;</string>
    </hints>
   </connection>
   <connection>
-   <sender>add_collapse</sender>
+      <sender>create_collapse</sender>
    <signal>toggled(bool)</signal>
-   <receiver>add_expand</receiver>
+      <receiver>create_expand</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2828,9 +2828,9 @@ border-radius:10px;</string>
    </hints>
   </connection>
   <connection>
-   <sender>add_expand</sender>
+      <sender>create_expand</sender>
    <signal>toggled(bool)</signal>
-   <receiver>add_collapse</receiver>
+      <receiver>create_collapse</receiver>
    <slot>setChecked(bool)</slot>
    <hints>
     <hint type="sourcelabel">

@@ -1,5 +1,6 @@
 import ctypes
 import datetime
+import functools
 import os
 import shutil
 import sys
@@ -43,6 +44,13 @@ _thread.start()
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 
+# Initialising requests connection
+cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
+session = CacheControl(requests.Session(), cache=FileCache(cache_path))
+
+# Universal SQL connection
+conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+
 
 class Main(QMainWindow):
     def __init__(self):
@@ -58,7 +66,7 @@ class Main(QMainWindow):
         self.start_mode()
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
-                        _genre=self.random_genre, _date=self.random_date)
+                        _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
 
         # Setting drop downs on settings page
         for i in list(playlists_metadata.values())[1:]:
@@ -81,9 +89,10 @@ class Main(QMainWindow):
         self.search_button.clicked.connect(self.search_func)
 
         self.randomiser.clicked.connect(
-            lambda: self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
-                                    _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
-                                    _genre=self.random_genre, _date=self.random_date))  # Randomise movie
+            functools.partial(self.movie_disp, random_movies, _image=self.random_image, _title=self.random_title,
+                              _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
+                              _genre=self.random_genre, _date=self.random_date,
+                              _shortlist_but=self.random_add_toshortlist))  # Randomise movie
         self.random_collapse.clicked.connect(self.random_func)
         self.random_expand.clicked.connect(self.random_func)
 
@@ -93,8 +102,8 @@ class Main(QMainWindow):
         self.library_collapse.clicked.connect(self.library_func)
         self.library_expand.clicked.connect(self.library_func)
 
-        self.add_collapse.clicked.connect(self.add_func)
-        self.add_expand.clicked.connect(self.add_func)
+        self.create_collapse.clicked.connect(self.create_func)
+        self.create_expand.clicked.connect(self.create_func)
 
         self.mode_collapse.clicked.connect(self.mode)
         self.mode_expand.clicked.connect(self.mode)
@@ -201,7 +210,8 @@ class Main(QMainWindow):
                 display_id = int(_objectdisplay)
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                                _genre=self.display_genre, _date=self.display_date)
+                                _genre=self.display_genre, _date=self.display_date,
+                                _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
             except TypeError:
                 print("TypeError. Can't display movie.")
@@ -344,7 +354,8 @@ class Main(QMainWindow):
                 display_id = int(_objectdisplay)
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                                _genre=self.display_genre, _date=self.display_date)
+                                _genre=self.display_genre, _date=self.display_date,
+                                _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
             except TypeError:
                 print("TypeError. Can't display movie.")
@@ -395,7 +406,7 @@ class Main(QMainWindow):
 
         self.stack.setCurrentIndex(8)
 
-    def add_func(self):
+    def create_func(self):
         """
         Function to display the add (create) playlist widget of the stack
         """
@@ -421,24 +432,23 @@ class Main(QMainWindow):
 
     def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
                    _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
-                   _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel):
+                   _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
+                   _shortlist_but: PyQt5.QtWidgets.QPushButton):
         """
         Function to display movies when the respective movie frame is clicked (either in search window or individual
         playlist windows)
         """
-        self.random_id = random.choice(id)
-        conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
-        cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
-        session = CacheControl(requests.Session(), cache=FileCache(cache_path))
+        _id = random.choice(id)
+        _shortlist_but.setChecked(False)
 
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        title = get_title(self.random_id, conn, conn.cursor())
-        poster = get_poster(self.random_id, conn, conn.cursor())
-        overview = get_overview(self.random_id, conn, conn.cursor())
-        lang = get_lang(self.random_id, conn, conn.cursor())
-        pop = get_pop(self.random_id, conn, conn.cursor())
-        gen = get_genz(self.random_id, conn, conn.cursor())
-        date = get_release_date(self.random_id, conn, conn.cursor())
+        title = get_title(_id, conn, conn.cursor())
+        poster = get_poster(_id, conn, conn.cursor())
+        overview = get_overview(_id, conn, conn.cursor())
+        lang = get_lang(_id, conn, conn.cursor())
+        pop = get_pop(_id, conn, conn.cursor())
+        gen = get_genz(_id, conn, conn.cursor())
+        date = get_release_date(_id, conn, conn.cursor())
 
         real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
 
@@ -468,6 +478,37 @@ class Main(QMainWindow):
         _lang.setText(lang_real)
         _genre.setText(genre_real[:-2:1])
         _date.setText(f"Release Date:\n{real_date}")
+
+        _shortlist_but.clicked.connect(functools.partial(self.add_to_shortlist, _id))
+        _shortlist_but.setEnabled(True)
+
+    def add_to_shortlist(self, id: int):
+        sender = self.sender()
+        sender.disconnect()  # To prevent multiple signals get connected to the clicked buttons
+        sender.setDisabled(True)
+
+        playlists_metadata["shortlist"][3].append(id)
+        title = get_title(id, connection=conn, cursor=conn.cursor())  # gets title
+        poster_path = get_poster(id, connection=conn, cursor=conn.cursor())  # gets poster path
+        lang = get_lang(id, connection=conn, cursor=conn.cursor())  # gets movie lang
+        popularity = get_pop(id, connection=conn, cursor=conn.cursor())  # gets movie popularity
+
+        if poster_path is not 'nan':
+            try:
+                poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+            except requests.ConnectionError:  # Network Error
+                poster_var = None
+            # gets poster image as a byte array
+        else:
+            poster_var = None
+            # executes if the poster path is not available in the database.
+
+        enter = ["shortlist", title, poster_var, lang, popularity, id]
+
+        try:
+            playlists_display_metadata["shortlist"].append(tuple(enter))
+        except AttributeError:
+            print("Unable to enter the movie metadata to the display list")
 
     def sidebar_expand_show(self):
         """
@@ -543,7 +584,7 @@ class Main(QMainWindow):
         self.shortlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.random_page.setStyleSheet(dark_mainwin_widget)
-        self.add_page.setStyleSheet(dark_mainwin_widget)
+        self.create_page.setStyleSheet(dark_mainwin_widget)
         self.library_page.setStyleSheet(dark_mainwin_widget)
         self.shortlist_page.setStyleSheet(dark_mainwin_widget)
         self.display_page.setStyleSheet(dark_mainwin_widget)
@@ -575,7 +616,7 @@ class Main(QMainWindow):
         self.shortlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.random_page.setStyleSheet(light_mainwin_widget)
-        self.add_page.setStyleSheet(light_mainwin_widget)
+        self.create_page.setStyleSheet(light_mainwin_widget)
         self.library_page.setStyleSheet(light_mainwin_widget)
         self.shortlist_page.setStyleSheet(light_mainwin_widget)
         self.display_page.setStyleSheet(light_mainwin_widget)

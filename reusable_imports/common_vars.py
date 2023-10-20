@@ -21,9 +21,9 @@ languages = list()
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {
     'shortlist': ['Shortlist', 'Cinematch Team', '12/10/2023', [615656, 872585, 677179, 385687, 1397]],
-    'completed': ['Completed', 'User', '02/03/2020', [238, 12, 37165]],
-    'plantowatch': ['Plan To Watch', 'User', '12/12/2023', [575264, 267805, 283995]],
-    'testplay': ['Test Play', 'User', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
+    'test1': ['Test 1', 'User', '02/03/2020', [238, 12, 37165]],
+    'test2': ['Test 2', 'User', '12/12/2023', [575264, 267805, 283995]],
+    'test3': ['Test 3', 'User', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
 
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
@@ -67,21 +67,21 @@ def get_movies():
 
         for j in list(playlists_metadata.values())[i][3]:
             id = int(j)
+
             title = get_title(int(j), connection=conn, cursor=conn.cursor())  # gets title
             poster_path = get_poster(int(j), connection=conn, cursor=conn.cursor())  # gets poster path
-
+            lang = get_lang(int(j), connection=conn, cursor=conn.cursor())  # gets movie lang
+            popularity = get_pop(int(j), connection=conn, cursor=conn.cursor())  # gets movie popularity
             if poster_path is not 'nan':
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-                except requests.ConnectionError:
+                except requests.ConnectionError:  # Network Error
                     poster_var = None
                 # gets poster image as a byte array
             else:
                 poster_var = None
                 # executes if the poster path is not available in the database.
 
-            lang = get_lang(int(j), connection=conn, cursor=conn.cursor())  # gets movie lang
-            popularity = get_pop(int(j), connection=conn, cursor=conn.cursor())  # gets movie popularity
             enter = [name, title, poster_var, lang, popularity, id]
 
             if type(title) is str:
