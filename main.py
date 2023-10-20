@@ -630,7 +630,9 @@ class Main(QMainWindow):
     def closeEvent(self, event):
         print("closing")
         print(playlists_metadata)
+        print(removed_playlists)
         # playlist metadata will be pushed to the sql table which contains information about all the playlists made by the user
+        # removed playlists will be pushed to the deleted playlist table from where the user can recover it if wanted
         # Commit ALL THE CHANGES that happened in the common_vars.py file like if playlist is deleted or movie is
         # deleted from playlist or a new movie playlist is created
         # add a dialog box that asks if the user actually want to close or not
