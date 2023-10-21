@@ -9,17 +9,26 @@ import requests
 
 from utils.movie_utils import get_title, get_poster, get_lang, get_pop
 
-# This list holds id of all the movies selected by the user in the checklist page
+# This list holds id of all the movies selected by the user in the checklist page - works only when user registers
 movies = list()
 
-# This list holds the genres selected by the user in the genre page
+# This list holds the genres selected by the user in the genre page - works only when user registers
 genres = list()
 
-# This list holds the languages selected by the user in the genre page
+# This list holds the languages selected by the user in the genre page - works only when user registers
 languages = list()
 
 # Username
 username = "User"
+
+# This list holds all the recommendations for the user (max - 15)
+recoms = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092, 873126]
+
+# This list holds all the movies user can watch again (max - 10)
+watchagain = [677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152]
+
+# This movie holds all the language movies based on the languages user has chosen (max -15)
+language = [615656, 872585, 677179, 385687, 1397]
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {
@@ -45,6 +54,41 @@ playlist_picture = [random.choice(poster) for i in range(len(playlists_metadata)
 
 # stores the output of get_movies function
 playlists_display_metadata = {}
+
+movie_data = {"recoms": [], "watchagain": [], "language": []}
+
+
+def get_data():
+    """
+    Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
+    home screen)
+    """
+    # Common session used to load the images of all the movies in the metadata list. The images are then cached and
+    # stored so when the program is run again, images load easily.
+    cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
+    session = CacheControl(requests.Session(), cache=FileCache(cache_path))
+
+    # SQL connection
+    conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+
+    movie_list = [recoms, watchagain, language]
+    for i in range(len(movie_list)):
+        for j in movie_list[i]:
+            title = get_title(j, connection=conn, cursor=conn.cursor())  # gets title
+            poster_path = get_poster(j, connection=conn, cursor=conn.cursor())  # gets poster path
+            if poster_path != 'nan':
+                try:
+                    poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                except requests.ConnectionError:  # Network Error
+                    poster_var = None
+                # gets poster image as a byte array
+            else:
+                poster_var = None
+                # executes if the poster path is not available in the database.
+
+            enter = [list(movie_data.keys())[i], title, poster_var, j]
+
+            movie_data[list(movie_data.keys())[i]].append(tuple(enter))
 
 
 def get_movies():

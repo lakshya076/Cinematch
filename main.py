@@ -20,6 +20,7 @@ from cachecontrol.caches import FileCache
 
 from display_movie import DisplayMovies
 from library import Library
+from widget_generator_home import Home
 from startup import Start
 from checklist import Checklist
 from genre import Genre
@@ -28,13 +29,17 @@ from language import Language
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata, random_movies, iso_639_1, username, poster
+    playlists_display_metadata, random_movies, iso_639_1, username, poster, get_data, recoms, movie_data, watchagain, \
+    language
 from reusable_imports.commons import clickable, remove_spaces
 from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
 
-# Threading to get the movies metadata (movies stored in playlists) at start
+# Threading to get the playlists metadata at start
 _thread = Thread(target=get_movies)
 _thread.start()
+
+# Function to get movies metadata to display on home screen (add splash screen for this)
+get_data()
 
 # Checking OS
 if platform.system() == "Windows":
@@ -122,6 +127,35 @@ class Main(QMainWindow):
         self.clearcache_button.clicked.connect(self.clear_cache_func)
         self.logout_settings.clicked.connect(self.logout_func)
         self.delete_acc.clicked.connect(self.delete_acc_func)
+
+        # Displaying widgets on the home screen
+        home = Home()
+        for i in range(len(recoms)):
+            home.new_widgets_home(recoms[i], title=movie_data["recoms"][i][1], image=movie_data["recoms"][i][2],
+                                  scroll_area=self.foryou_sa_widgets, layout=self.foryou_hlayout,
+                                  open_func_lib=self.open_home)
+        for i in range(len(watchagain)):
+            home.new_widgets_home(watchagain[i], image=movie_data["watchagain"][i][2],
+                                  title=movie_data["watchagain"][i][1], scroll_area=self.watchagain_sa_widgets,
+                                  layout=self.watchagain_hlayout, open_func_lib=self.open_home)
+        for i in range(len(language)):
+            home.new_widgets_home(language[i], title=movie_data["language"][i][1], image=movie_data["language"][i][2],
+                                  scroll_area=self.languages_sa_widgets, layout=self.languages_hlayout,
+                                  open_func_lib=self.open_home)
+
+    def open_home(self):
+        sender = self.sender()
+        _id = sender.objectName().split(sep="_")[-1]
+
+        try:
+            self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
+                            _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                            _genre=self.display_genre, _date=self.display_date, _playlist_combo=self.display_combo,
+                            _another_playlist=self.display_anotherplaylist_but,
+                            _shortlist_but=self.display_add_toshortlist, _output_label=self.display_add_label)
+            self.stack.setCurrentIndex(7)
+        except TypeError:
+            print(f"Can't display {_id}")
 
     def home_func(self):
         """
