@@ -124,6 +124,14 @@ dark_playlist_frame_style = """
     border-radius: 10px;
     border: 1px solid #13161a;
 """
+dark_home_stylesheet = """
+    QFrame {
+        background-color: #13161a;
+        color: #DFE8F5; 
+        border-radius: 16px; 
+        border-width: 1px;
+    }
+"""
 dark_main_stylesheet = """
         /*CentralWidget Stylesheet*/
         #centralwidget {
