@@ -5,14 +5,7 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QFrame, QPushButton
 
 from reusable_imports.common_vars import get_playlist_movies, playlists_metadata, iso_639_1
 from reusable_imports.commons import ClickableLabel, ClickableFrame
-
-frame_style = """
-    font:14pt;
-    background-color: #111111; 
-    color: #fffaf0;
-    border-radius: 10px;
-    border: 1px solid #111111;
-"""
+from reusable_imports._css import dark_playlist_frame_style
 
 
 class DisplayMovies(QFrame):
@@ -33,7 +26,7 @@ class DisplayMovies(QFrame):
 
         self.movie_frame = ClickableFrame(scroll_area)
         self.movie_frame.setObjectName(self.frame_new)
-        self.movie_frame.setStyleSheet(frame_style)
+        self.movie_frame.setStyleSheet(dark_playlist_frame_style)
         self.movie_frame.setMaximumHeight(125)
         setattr(self, self.frame_new, self.movie_frame)
 
