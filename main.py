@@ -499,7 +499,7 @@ class Main(QMainWindow):
         lang = get_lang(id, connection=conn, cursor=conn.cursor())  # gets movie lang
         popularity = get_pop(id, connection=conn, cursor=conn.cursor())  # gets movie popularity
 
-        if poster_path is not 'nan':
+        if poster_path != 'nan':
             try:
                 poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
             except requests.ConnectionError:  # Network Error

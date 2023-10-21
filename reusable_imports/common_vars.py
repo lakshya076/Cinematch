@@ -74,7 +74,7 @@ def get_movies():
             poster_path = get_poster(int(j), connection=conn, cursor=conn.cursor())  # gets poster path
             lang = get_lang(int(j), connection=conn, cursor=conn.cursor())  # gets movie lang
             popularity = get_pop(int(j), connection=conn, cursor=conn.cursor())  # gets movie popularity
-            if poster_path is not 'nan':
+            if poster_path != 'nan':
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
                 except requests.ConnectionError:  # Network Error
