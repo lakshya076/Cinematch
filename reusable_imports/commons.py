@@ -31,7 +31,7 @@ def clickable(widget):
     QEvent. A signal is emitted upon clicking the widget on which this function is used. That signal can be relayed to
     the program and the click (mouse release) event can be used.
     :param: widget
-    :return: Bool
+    :return: Bool or clicked signal
     """
 
     class Filter(QObject):

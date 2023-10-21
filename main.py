@@ -55,6 +55,43 @@ session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
 
 
+def get_single_movie(id: int, name: str):
+    """
+    Takes a movie id and gets its title, poster, language, popularity, playlist to store into and then append the
+    result into the playlists_display_metadata list
+    """
+    try:
+        playlists_metadata[name][3].append(id)
+        print(f"Added {id} to {name}")
+    except KeyError:
+        print(f"Unable to add {id} to {name}")
+
+    title = get_title(id, connection=conn, cursor=conn.cursor())  # gets title
+    poster_path = get_poster(id, connection=conn, cursor=conn.cursor())  # gets poster path
+    lang = get_lang(id, connection=conn, cursor=conn.cursor())  # gets movie lang
+    popularity = get_pop(id, connection=conn, cursor=conn.cursor())  # gets movie popularity
+
+    if poster_path is not 'nan':
+        try:
+            poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+        except requests.ConnectionError:  # Network Error
+            poster_var = None
+        # gets poster image as a byte array
+    else:
+        poster_var = None
+        # executes if the poster path is not available in the database.
+
+    enter = ["shortlist", title, poster_var, lang, popularity, id]
+
+    try:
+        playlists_display_metadata[name].append(tuple(enter))
+        print(f"Added {id} to display list")
+        return True
+    except AttributeError:
+        print("Unable to enter the movie metadata to the display list")
+        return False
+
+
 class Main(QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -69,7 +106,10 @@ class Main(QMainWindow):
         self.start_mode()
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
-                        _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
+                        _genre=self.random_genre, _date=self.random_date, _playlist_combo=self.random_combo,
+                        _another_playlist=self.random_anotherplaylist_but, _shortlist_but=self.random_add_toshortlist,
+                        _output_label=self.random_add_label)
+        self.combo(_playlist_combo=self.random_combo)
 
         clickable(self.collapse).connect(self.sidebar_expand_show)
         clickable(self.expand).connect(self.sidebar_collapse_show)
@@ -90,7 +130,8 @@ class Main(QMainWindow):
         self.randomiser.clicked.connect(
             functools.partial(self.movie_disp, random_movies, _image=self.random_image, _title=self.random_title,
                               _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
-                              _genre=self.random_genre, _date=self.random_date,
+                              _genre=self.random_genre, _date=self.random_date, _playlist_combo=self.random_combo,
+                              _another_playlist=self.random_anotherplaylist_but, _output_label=self.random_add_label,
                               _shortlist_but=self.random_add_toshortlist))  # Randomise movie
         self.random_collapse.clicked.connect(self.random_func)
         self.random_expand.clicked.connect(self.random_func)
@@ -167,8 +208,9 @@ class Main(QMainWindow):
                 display_id = int(_objectdisplay)
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                                _genre=self.display_genre, _date=self.display_date,
-                                _shortlist_but=self.display_add_toshortlist)
+                                _genre=self.display_genre, _date=self.display_date, _playlist_combo=self.display_combo,
+                                _another_playlist=self.display_anotherplaylist_but,
+                                _shortlist_but=self.display_add_toshortlist, _output_label=self.display_add_label)
                 self.stack.setCurrentIndex(7)
             except TypeError:
                 print("TypeError. Can't display movie.")
@@ -244,6 +286,8 @@ class Main(QMainWindow):
                     removed_playlists[_objectdelete] = playlists_metadata[_objectdelete]
                     del playlists_metadata[_objectdelete]
                     print(f"Playlist Deleted {_objectdelete}")
+                    self.combo(_playlist_combo=self.random_combo)
+                    self.combo(_playlist_combo=self.display_combo)
                 except KeyError:
                     print("Key Error, Can't Delete Playlist.")
 
@@ -332,8 +376,9 @@ class Main(QMainWindow):
                 display_id = int(_objectdisplay)
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                                _genre=self.display_genre, _date=self.display_date,
-                                _shortlist_but=self.display_add_toshortlist)
+                                _genre=self.display_genre, _date=self.display_date, _playlist_combo=self.display_combo,
+                                _another_playlist=self.display_anotherplaylist_but,
+                                _shortlist_but=self.display_add_toshortlist, _output_label=self.display_add_label)
                 self.stack.setCurrentIndex(7)
             except TypeError:
                 print("TypeError. Can't display movie.")
@@ -401,19 +446,23 @@ class Main(QMainWindow):
             self.playlist_error.setText("Playlist name not available!")
         else:
             playlists_metadata[uid] = [text, username, current_date, []]
-            get_movies()
+            playlists_display_metadata[uid] = []  # manually adding playlist to the display metadata variable
             playlist_picture.append(random.choice(poster))
             self.playlist_success.setText("Playlist added to account.")
+            self.combo(_playlist_combo=self.random_combo)
+            self.combo(_playlist_combo=self.display_combo)
 
     def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
                    _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
                    _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
-                   _shortlist_but: PyQt5.QtWidgets.QPushButton = None):
+                   _playlist_combo: PyQt5.QtWidgets.QComboBox, _another_playlist: PyQt5.QtWidgets.QPushButton,
+                   _shortlist_but: PyQt5.QtWidgets.QPushButton, _output_label: PyQt5.QtWidgets.QLabel):
         """
-        Function to display movies when the respective movie frame is clicked)
+        Function to display movies when the respective movie frame is clicked
         """
         _id = random.choice(id)
         _shortlist_but.setChecked(False)
+        _output_label.setText("")
 
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
         title = get_title(_id, conn, conn.cursor())
@@ -456,6 +505,18 @@ class Main(QMainWindow):
         _shortlist_but.clicked.connect(functools.partial(self.add_to_shortlist, _id))
         _shortlist_but.setEnabled(True)
 
+        try:
+            _playlist_combo.clear()
+        except:
+            pass
+
+        _playlist_combo.addItem("Select Playlist")
+        for i in list(playlists_metadata.keys())[1:]:
+            _playlist_combo.addItem(playlists_metadata[i][0])
+
+        _another_playlist.clicked.connect(
+            functools.partial(self.add_to_another_playlist, _id, _playlist_combo, _output_label))
+
     def add_to_shortlist(self, id: int):
         """
         Function to add a movie to shortlist
@@ -464,28 +525,40 @@ class Main(QMainWindow):
         sender.disconnect()  # To prevent multiple signals get connected to the clicked buttons
         sender.setDisabled(True)
 
-        playlists_metadata["shortlist"][3].append(id)
-        title = get_title(id, connection=conn, cursor=conn.cursor())  # gets title
-        poster_path = get_poster(id, connection=conn, cursor=conn.cursor())  # gets poster path
-        lang = get_lang(id, connection=conn, cursor=conn.cursor())  # gets movie lang
-        popularity = get_pop(id, connection=conn, cursor=conn.cursor())  # gets movie popularity
+        get_single_movie(id, "shortlist")
 
-        if poster_path is not 'nan':
-            try:
-                poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-            except requests.ConnectionError:  # Network Error
-                poster_var = None
-            # gets poster image as a byte array
+    def add_to_another_playlist(self, id: int, combo_name: PyQt5.QtWidgets.QComboBox,
+                                output_label: PyQt5.QtWidgets.QLabel):
+        """
+        Function to add a movie to any other playlist except shortlist
+        """
+        sender = self.sender()
+        sender.disconnect()  # to prevent multiple signals getting connected to the button
+        playlist_name = combo_name.currentText()
+        real_playlist = remove_spaces(playlist_name)
+
+        if playlist_name != "Select Playlist":
+            if get_single_movie(id, real_playlist):  # If movie is successfully added
+                output_label.setText(f"Added to {playlist_name}")
+            else:  # If there is an error in adding the movie
+                output_label.setText(f"Can't enter movie in {playlist_name}")
         else:
-            poster_var = None
-            # executes if the poster path is not available in the database.
+            output_label.setText("Select playlist to enter movie to")
+            print("Select playlist to enter")
 
-        enter = ["shortlist", title, poster_var, lang, popularity, id]
-
+    def combo(self, _playlist_combo: PyQt5.QtWidgets.QComboBox):
+        """
+        Function to update the combo boxes of the app which display the playlists present in the user account whenever
+        a playlist is created/deleted
+        """
         try:
-            playlists_display_metadata["shortlist"].append(tuple(enter))
-        except AttributeError:
-            print("Unable to enter the movie metadata to the display list")
+            _playlist_combo.clear()
+        except:
+            pass
+
+        _playlist_combo.addItem("Select Playlist")
+        for i in list(playlists_metadata.keys())[1:]:
+            _playlist_combo.addItem(playlists_metadata[i][0])
 
     def search_func(self):
         """
