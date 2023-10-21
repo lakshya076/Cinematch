@@ -75,10 +75,6 @@ class Main(QMainWindow):
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
 
-        # Setting drop downs on settings page
-        for i in list(playlists_metadata.values())[1:]:
-            self.playlist_dd.addItem(i[0])
-
         clickable(self.collapse).connect(self.sidebar_expand_show)
         clickable(self.expand).connect(self.sidebar_collapse_show)
 
@@ -124,7 +120,6 @@ class Main(QMainWindow):
         self.logout_expand.clicked.connect(self.logout_func)
 
         self.clearcache_button.clicked.connect(self.clear_cache_func)
-        self.delete_playlist.clicked.connect(self.deleteplay_combobox)
         self.logout_settings.clicked.connect(self.logout_func)
         self.delete_acc.clicked.connect(self.delete_acc_func)
 
@@ -145,19 +140,6 @@ class Main(QMainWindow):
         # then close the app and move the user credentials to the recovery table.
         print("Account Deleted")
         sys.exit()
-
-    def deleteplay_combobox(self):
-        """
-        Function to delete a playlist from the settings page. Might be removed in future
-        """
-        play = self.playlist_dd.currentText()
-        if play == "":
-            pass
-        else:
-            # Dialog box to confirm deletion
-            # get playlist index and then remove from all the common_var file's variables
-            # move the whole playlist and metadata to deleted playlist table
-            print("Deleted playlist")
 
     def clear_cache_func(self):
         """
