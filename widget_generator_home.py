@@ -7,14 +7,15 @@ from reusable_imports._css import dark_home_stylesheet
 from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 
-# 168, 325 : 150, 225 : 150, 60
-
 class Home(QFrame):
     def __init__(self):
         super(Home, self).__init__()
 
     def new_widgets_home(self, id: int, title: str, image: bytes, scroll_area: PyQt5.QtWidgets.QScrollArea,
                          layout: PyQt5.QtWidgets.QHBoxLayout, open_func_lib=None):
+        """
+        function to create widgets and display it in the home screen
+        """
         # unique identifiers for each frame,image,title
         self.frame_new = f"frame_home_{id}"
         self.poster_new = f"poster_home_{id}"

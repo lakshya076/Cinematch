@@ -14,7 +14,10 @@ class Library(QFrame):
     def new_widgets_lib(self, name: str, row: int, column: int, display_name: str, _username: str, dob: str, image: str,
                         scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QGridLayout,
                         delete_func_lib=None, open_func_lib=None):
-        # unique identifiers for each frame,image,title
+        """
+        function to add new widgets to the library page of main window
+        """
+        # unique identifiers
         self.frame_new = f"frame_{name}"
         self.poster_new = f"poster_{name}"
         self.title_new = f"title_{name}"

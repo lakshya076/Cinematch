@@ -4,6 +4,9 @@ from PyQt5.QtWidgets import QMessageBox, QLabel, QFrame
 
 
 class ClickableLabel(QLabel):
+    """
+    Making a QLabel clickable
+    """
     clicked = pyqtSignal()
 
     def __init__(self, parent=None):
@@ -15,6 +18,9 @@ class ClickableLabel(QLabel):
 
 
 class ClickableFrame(QFrame):
+    """
+    Making a QFrame clickable
+    """
     clicked = pyqtSignal()
 
     def __init__(self, parent=None):
