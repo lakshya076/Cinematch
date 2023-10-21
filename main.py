@@ -41,7 +41,7 @@ if platform.system() == "Windows":
     print("OS check completed")
 else:
     print("This program only works on Windows systems")
-    sys.exit(-1)
+    sys.exit(-2)
 
 # only for windows (get resolution)
 user = ctypes.windll.user32

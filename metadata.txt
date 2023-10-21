@@ -31,4 +31,4 @@ Login - startup -> splash -> main
 
 Exit Codes:
 
--1 -> OSError
+-2 -> OSError
