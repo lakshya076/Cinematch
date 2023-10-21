@@ -25,7 +25,7 @@ class Library(QFrame):
 
         self.frame = ClickableFrame(scroll_area)
         self.frame.setObjectName(self.frame_new)
-        self.frame.setFixedSize(QSize(200, 250))
+        self.frame.setFixedSize(QSize(250, 300))
         self.frame.setContentsMargins(0, 0, 0, 0)
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -86,16 +86,14 @@ class Library(QFrame):
         self.poster_button_hlayout = QHBoxLayout()
         self.poster_button_hlayout.setObjectName(u"poster_button_hlayout")
 
-        self.button_vlayout = QVBoxLayout()
-        self.button_vlayout.setObjectName(u"button_vlayout")
-        self.button_vlayout.addWidget(self.delete_playlist)
-        self.button_vlayout.addItem(self.verticalspacer)
+        self.title_delete_hlayout = QHBoxLayout()
+        self.title_delete_hlayout.addWidget(self.title)
+        self.title_delete_hlayout.addWidget(self.delete_playlist)
 
         self.poster_button_hlayout.addWidget(self.poster)
-        self.poster_button_hlayout.addLayout(self.button_vlayout)
 
         self.frame_vlayout_library.addLayout(self.poster_button_hlayout)
-        self.frame_vlayout_library.addWidget(self.title)
+        self.frame_vlayout_library.addLayout(self.title_delete_hlayout)
         self.frame_vlayout_library.addWidget(self.user)
         self.frame_vlayout_library.addWidget(self.dob)
 

@@ -55,43 +55,6 @@ session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
 
 
-def get_single_movie(id: int, name: str):
-    """
-    Takes a movie id and gets its title, poster, language, popularity, playlist to store into and then append the
-    result into the playlists_display_metadata list
-    """
-    try:
-        playlists_metadata[name][3].append(id)
-        print(f"Added {id} to {name}")
-    except KeyError:
-        print(f"Unable to add {id} to {name}")
-
-    title = get_title(id, connection=conn, cursor=conn.cursor())  # gets title
-    poster_path = get_poster(id, connection=conn, cursor=conn.cursor())  # gets poster path
-    lang = get_lang(id, connection=conn, cursor=conn.cursor())  # gets movie lang
-    popularity = get_pop(id, connection=conn, cursor=conn.cursor())  # gets movie popularity
-
-    if poster_path is not 'nan':
-        try:
-            poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-        except requests.ConnectionError:  # Network Error
-            poster_var = None
-        # gets poster image as a byte array
-    else:
-        poster_var = None
-        # executes if the poster path is not available in the database.
-
-    enter = ["shortlist", title, poster_var, lang, popularity, id]
-
-    try:
-        playlists_display_metadata[name].append(tuple(enter))
-        print(f"Added {id} to display list")
-        return True
-    except AttributeError:
-        print("Unable to enter the movie metadata to the display list")
-        return False
-
-
 class Main(QMainWindow):
     def __init__(self):
         super(Main, self).__init__()
@@ -525,7 +488,34 @@ class Main(QMainWindow):
         sender.disconnect()  # To prevent multiple signals get connected to the clicked buttons
         sender.setDisabled(True)
 
-        get_single_movie(id, "shortlist")
+        try:
+            playlists_metadata["shortlist"][3].append(id)
+            print(f"Added {id} to shortlist")
+        except KeyError:
+            print(f"Unable to add {id} to shortlist")
+
+        title = get_title(id, connection=conn, cursor=conn.cursor())  # gets title
+        poster_path = get_poster(id, connection=conn, cursor=conn.cursor())  # gets poster path
+        lang = get_lang(id, connection=conn, cursor=conn.cursor())  # gets movie lang
+        popularity = get_pop(id, connection=conn, cursor=conn.cursor())  # gets movie popularity
+
+        if poster_path is not 'nan':
+            try:
+                poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+            except requests.ConnectionError:  # Network Error
+                poster_var = None
+            # gets poster image as a byte array
+        else:
+            poster_var = None
+            # executes if the poster path is not available in the database.
+
+        enter = ["shortlist", title, poster_var, lang, popularity, id]
+
+        try:
+            playlists_display_metadata["shortlist"].append(tuple(enter))
+            print(f"Added {id} to display list")
+        except AttributeError:
+            print("Unable to enter the movie metadata to the display list")
 
     def add_to_another_playlist(self, id: int, combo_name: PyQt5.QtWidgets.QComboBox,
                                 output_label: PyQt5.QtWidgets.QLabel):
@@ -538,9 +528,12 @@ class Main(QMainWindow):
         real_playlist = remove_spaces(playlist_name)
 
         if playlist_name != "Select Playlist":
-            if get_single_movie(id, real_playlist):  # If movie is successfully added
+            try:
+                playlists_metadata[real_playlist][3].append(id)
+                # If movie is successfully added
+                get_movies()
                 output_label.setText(f"Added to {playlist_name}")
-            else:  # If there is an error in adding the movie
+            except KeyError:  # If there is an error in adding the movie
                 output_label.setText(f"Can't enter movie in {playlist_name}")
         else:
             output_label.setText("Select playlist to enter movie to")
