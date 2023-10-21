@@ -36,7 +36,8 @@ removed_playlists = dict()
 random_movies = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092,
                  873126, 575264, 267805, 283995]
 
-poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg"]
+poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg",
+          "playlist_posters\\four.png"]
 # Append more these three are default
 
 # random picture generator for playlist img

@@ -34,7 +34,7 @@ class Library(QFrame):
 
         self.poster = ClickableLabel(self.frame)
         self.poster.setObjectName(self.poster_new)
-        self.poster.setText("Image")
+        self.poster.setScaledContents(True)
         self.poster.setPixmap(QPixmap(image))
         setattr(self, self.poster_new, self.poster)
 
