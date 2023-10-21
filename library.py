@@ -26,7 +26,6 @@ class Library(QFrame):
         self.frame = ClickableFrame(scroll_area)
         self.frame.setObjectName(self.frame_new)
         self.frame.setFixedSize(QSize(250, 300))
-        self.frame.setContentsMargins(0, 0, 0, 0)
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.frame.setStyleSheet(dark_library_stylesheet)
@@ -44,7 +43,6 @@ class Library(QFrame):
         self.title.setFixedHeight(30)
         self.title.setStyleSheet(u"font:15pt;")
         self.title.setScaledContents(True)
-        self.title.setWordWrap(True)
         setattr(self, self.title_new, self.title)
 
         self.verticalspacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
