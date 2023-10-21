@@ -2248,7 +2248,6 @@ border-radius:10px;</string>
                    <string notr="true">background-color:rgba(0,0,0,0);
 border: 2px solid red;
 padding: 7px;
-color:#fffaf0;
 font: 12pt;
 border-radius:10px;</string>
                   </property>

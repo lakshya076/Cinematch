@@ -32,10 +32,6 @@ from reusable_imports.common_vars import playlist_picture, playlists_metadata, g
 from reusable_imports.commons import clickable, remove_spaces
 from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
 
-# MAKE A MOVIE DELETE FUNCTIONALITY FOR PLAYLISTS OTHER THAN SHORTLIST
-# FIX ADD TO SHORTLIST BUTTON (OR MAKE A SEPARATE WINDOW FOR IT)
-# FIX ADD TO SHORTLIST ON RANDOM SCREEN
-
 # Threading to get the movies metadata (movies stored in playlists) at start
 _thread = Thread(target=get_movies)
 _thread.start()
@@ -122,36 +118,6 @@ class Main(QMainWindow):
         self.clearcache_button.clicked.connect(self.clear_cache_func)
         self.logout_settings.clicked.connect(self.logout_func)
         self.delete_acc.clicked.connect(self.delete_acc_func)
-
-    def search_func(self):
-        """
-        Function to search and display movies in the search widget of the stack.
-        """
-        search_text = self.search_box.text()
-        self.search_box.clearFocus()  # Removes focus from the search box
-        self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
-        print(f"Searching {search_text}")
-
-    def delete_acc_func(self):
-        """
-        Function to delete user's account (move it to recovery table)
-        """
-        # Dialog box to ask confirmation and give the 14-day recovery period.
-        # then close the app and move the user credentials to the recovery table.
-        print("Account Deleted")
-        sys.exit()
-
-    def clear_cache_func(self):
-        """
-        Clear cache to improve performance. Restart app to see effective changes.
-        """
-        cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
-        if os.path.isdir(cache_dir):
-            shutil.rmtree(cache_dir)
-        else:
-            print("Directory don't exist")
-
-        self.cacheclear_label.setText("Cache cleared!")
 
     def home_func(self):
         """
@@ -320,10 +286,38 @@ class Main(QMainWindow):
             self.expand.hide()
             self.collapse.show()
 
+    def create_func(self):
+        """
+        Function to display the add (create) playlist widget of the stack
+        """
+        self.playlist_error.setText("")
+        self.playlist_success.setText("")
+        self.create_playlist_name.clear()
+
+        self.stack.setCurrentIndex(5)
+        if self.expand.isVisible():
+            self.expand.hide()
+            self.collapse.show()
+
+    def settings_func(self):
+        """
+        Function to display the settings widget of the stack
+        """
+        self.stack.setCurrentIndex(6)
+        self.cacheclear_label.setText("")
+        if self.expand.isVisible():
+            self.expand.hide()
+            self.collapse.show()
+
+    def logout_func(self):
+        # dialog box to make the user confirm if he/she wanna logs out and then call exit function
+        print("Logging out")
+        self.close()
+
     def open_playlist_func(self, playlist_name: str):
         """
         The actual function to open a playlist
-        This function creates a new page in the stack and displays it with some dynamically created widgets
+        This function displays the playlist in the 9th window (index=8) of the stack
         """
 
         display = DisplayMovies(playlist_name)
@@ -391,6 +385,9 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(8)
 
     def create_playlist_func(self):
+        """
+        Function to create a playlist and add it to playlist_metadata list
+        """
         self.playlist_error.setText("")
         self.playlist_success.setText("")
 
@@ -408,41 +405,12 @@ class Main(QMainWindow):
             playlist_picture.append(random.choice(poster))
             self.playlist_success.setText("Playlist added to account.")
 
-    def create_func(self):
-        """
-        Function to display the add (create) playlist widget of the stack
-        """
-        self.playlist_error.setText("")
-        self.playlist_success.setText("")
-        self.create_playlist_name.clear()
-
-        self.stack.setCurrentIndex(5)
-        if self.expand.isVisible():
-            self.expand.hide()
-            self.collapse.show()
-
-    def settings_func(self):
-        """
-        Function to display the settings widget of the stack
-        """
-        self.stack.setCurrentIndex(6)
-        self.cacheclear_label.setText("")
-        if self.expand.isVisible():
-            self.expand.hide()
-            self.collapse.show()
-
-    def logout_func(self):
-        # dialog box to make the user confirm if he/she wanna logs out and then call exit function
-        print("Logging out")
-        self.close()
-
     def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
                    _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
                    _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
-                   _shortlist_but: PyQt5.QtWidgets.QPushButton):
+                   _shortlist_but: PyQt5.QtWidgets.QPushButton = None):
         """
-        Function to display movies when the respective movie frame is clicked (either in search window or individual
-        playlist windows)
+        Function to display movies when the respective movie frame is clicked)
         """
         _id = random.choice(id)
         _shortlist_but.setChecked(False)
@@ -489,6 +457,9 @@ class Main(QMainWindow):
         _shortlist_but.setEnabled(True)
 
     def add_to_shortlist(self, id: int):
+        """
+        Function to add a movie to shortlist
+        """
         sender = self.sender()
         sender.disconnect()  # To prevent multiple signals get connected to the clicked buttons
         sender.setDisabled(True)
@@ -515,6 +486,36 @@ class Main(QMainWindow):
             playlists_display_metadata["shortlist"].append(tuple(enter))
         except AttributeError:
             print("Unable to enter the movie metadata to the display list")
+
+    def search_func(self):
+        """
+        Function to search and display movies in the search widget of the stack.
+        """
+        search_text = self.search_box.text()
+        self.search_box.clearFocus()  # Removes focus from the search box
+        self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
+        print(f"Searching {search_text}")
+
+    def delete_acc_func(self):
+        """
+        Function to delete user's account (move it to recovery table)
+        """
+        # Dialog box to ask confirmation and give the 14-day recovery period.
+        # then close the app and move the user credentials to the recovery table.
+        print("Account Deleted")
+        sys.exit()
+
+    def clear_cache_func(self):
+        """
+        Clear cache to improve performance. Restart app to see effective changes.
+        """
+        cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
+        if os.path.isdir(cache_dir):
+            shutil.rmtree(cache_dir)
+        else:
+            print("Directory don't exist")
+
+        self.cacheclear_label.setText("Cache cleared!")
 
     def sidebar_expand_show(self):
         """
