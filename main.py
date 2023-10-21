@@ -13,7 +13,7 @@ import requests
 import PyQt5
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon, QImage, QPixmap
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
 from PyQt5.uic import loadUi
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
