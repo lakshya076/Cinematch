@@ -29,26 +29,6 @@ Run Order:
 Register - startup -> checklist -> genres -> language -> splash -> main
 Login - startup -> splash -> main
 
+Exit Codes:
 
-Home
-	For you
-	Watch Again
-	Languages
-		English
-		Hindi
-		Japanese
-
-
-
-Username
-Email
-
-Theme
-Font Size
-Picture Quality (if possible) (for slower connections)
-Clear Cache
-Manage Playlists
-
-Log Out
-
-Delete Account
+-1 -> OSError

@@ -2,10 +2,12 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QLineEdit
 
 
-# Modified QLineEdit class for the search bar
-# Adding the clicked signal which is slotted within main.py
-# Text gets selected when text box is clicked
 class Search(QLineEdit):
+    """
+    Modified QLineEdit class for the search bar
+    Adding the clicked signal which is slotted within main.py
+    Text gets selected when text box is clicked
+    """
     clicked = pyqtSignal()
 
     def __init__(self, parent=None):

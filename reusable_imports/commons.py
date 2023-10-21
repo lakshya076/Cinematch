@@ -65,3 +65,10 @@ class ErrorDialog(QMessageBox):
         self.error_dialog.setDefaultButton(QMessageBox.Ok)
         self.error_dialog.setStyleSheet("font: 10pt;")
         self.error_dialog.setIcon(QMessageBox.Warning)
+
+
+def remove_spaces(string: str):
+    """
+    Function to remove spaces from a string and return it in lowercase
+    """
+    return "".join(string.split()).lower()

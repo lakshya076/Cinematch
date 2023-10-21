@@ -6,6 +6,7 @@ import shutil
 import sys
 import random
 from threading import Thread
+import platform
 
 import pymysql
 import requests
@@ -19,7 +20,6 @@ from cachecontrol.caches import FileCache
 
 from display_movie import DisplayMovies
 from library import Library
-from search import Search
 from startup import Start
 from checklist import Checklist
 from genre import Genre
@@ -29,7 +29,7 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster
-from reusable_imports.commons import clickable
+from reusable_imports.commons import clickable, remove_spaces
 from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
 
 # MAKE A MOVIE DELETE FUNCTIONALITY FOR PLAYLISTS OTHER THAN SHORTLIST
@@ -39,6 +39,13 @@ from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get
 # Threading to get the movies metadata (movies stored in playlists) at start
 _thread = Thread(target=get_movies)
 _thread.start()
+
+# Checking OS
+if platform.system() == "Windows":
+    print("OS check completed")
+else:
+    print("This program only works on Windows systems")
+    sys.exit(-1)
 
 # only for windows (get resolution)
 user = ctypes.windll.user32
@@ -50,13 +57,6 @@ session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 # Universal SQL connection
 conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
-
-
-def remove_spaces(string: str):
-    """
-    Function to remove spaces from a string and return it in lowercase
-    """
-    return "".join(string.split()).lower()
 
 
 class Main(QMainWindow):
