@@ -25,7 +25,7 @@ class Library(QFrame):
 
         self.frame = ClickableFrame(scroll_area)
         self.frame.setObjectName(self.frame_new)
-        self.frame.setFixedSize(QSize(250, 300))
+        self.frame.setFixedSize(QSize(200, 250))
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.frame.setStyleSheet(dark_library_stylesheet)
