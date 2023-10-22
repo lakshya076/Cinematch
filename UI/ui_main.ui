@@ -1131,7 +1131,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-            <number>0</number>
+            <number>2</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1609,57 +1609,7 @@ background-color: rgba(0,0,0,0);</string>
                    </property>
                   </spacer>
                  </item>
-                 <item>
-                  <widget class="QComboBox" name="random_combo">
-                   <property name="minimumSize">
-                    <size>
-                     <width>150</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font:12pt;
-                     color:black;
-                    </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="random_anotherplaylist_but">
-                   <property name="maximumSize">
-                    <size>
-                     <width>32</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgba(200,230,200);
-                     color:#000;
-                     font:12pt;
-                     border: 1px solid black;
-                     padding:5px;
-                     border-radius:6px;
-                    </string>
-                   </property>
-                   <property name="text">
-                    <string>OK</string>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QLabel" name="random_add_label">
-                 <property name="styleSheet">
-                  <string notr="true">font:10pt;</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
                </item>
                <item>
                 <widget class="QTextBrowser" name="random_overview">
@@ -1685,6 +1635,8 @@ background-color: rgba(0,0,0,0);</string>
                       p, li { white-space: pre-wrap; }
                       &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
                       font-weight:400; font-style:normal;&quot;&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
@@ -2532,63 +2484,7 @@ border-radius:10px;</string>
                    </property>
                   </spacer>
                  </item>
-                 <item>
-                  <widget class="QComboBox" name="display_combo">
-                   <property name="minimumSize">
-                    <size>
-                     <width>200</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font:12pt;
-                     color:black;
-                    </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="display_anotherplaylist_but">
-                   <property name="minimumSize">
-                    <size>
-                     <width>42</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>36</width>
-                     <height>36</height>
-                    </size>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgba(200,230,200);
-                     color:#000;
-                     font:12pt;
-                     border: 1px solid black;
-                     padding:5px;
-                     border-radius:6px;
-                    </string>
-                   </property>
-                   <property name="text">
-                    <string>OK</string>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QLabel" name="display_add_label">
-                 <property name="styleSheet">
-                  <string notr="true">font:10pt;</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
                </item>
                <item>
                 <widget class="QTextBrowser" name="display_overview">
@@ -2614,6 +2510,8 @@ border-radius:10px;</string>
                       p, li { white-space: pre-wrap; }
                       &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
                       font-weight:400; font-style:normal;&quot;&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
@@ -2718,8 +2616,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>820</width>
-                  <height>445</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
