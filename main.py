@@ -1,6 +1,5 @@
 import ctypes
 import datetime
-import functools
 import os
 import shutil
 import sys
