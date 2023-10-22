@@ -1,5 +1,10 @@
 # Cinematch
-Movie Recommender/Organiser (Alpha stage)
+
+Movie Recommender (Alpha stage)
+
+For movie organiser
+see [oganiser-cum-recommender](https://github.com/lakshya076/Cinematch/tree/organiser-cum-recommender)
+
 
 ## Requirements
 - [Python 3.7 or later version](https://www.python.org/downloads/)
