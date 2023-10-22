@@ -426,6 +426,8 @@ class Main(QMainWindow):
 
         if text == "":
             self.playlist_error.setText("Please enter playlist name")
+        elif len(text) > 18:
+            self.playlist_error.setText("Playlist name can not be over 18 characters")
         elif uid in playlists_metadata.keys():
             self.playlist_error.setText("Playlist name not available!")
         else:
