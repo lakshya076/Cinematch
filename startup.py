@@ -2,10 +2,12 @@ import sys
 import requests
 from PyQt5.QtWidgets import QDialog, QApplication, QLineEdit
 from PyQt5.uic import loadUi
+import pymysql
 
 from reusable_imports.commons import ErrorDialog, clickable
-
-# regex to validate email
+from backend.Utils.user_utils import valid_email
+from backend import mailing, users
+from reusable_imports.common_vars import conn, cur
 
 def wifi_availability():
     """
@@ -82,6 +84,9 @@ class Start(QDialog):
             elif password != confirmpassword:
                 self.error_register.setText("Passwords do not match.")
 
+            elif not valid_email(email):
+                self.error_register.setText("Email is not valid.")
+
             else:
                 print("Registering")
                 self.done(1)
@@ -93,7 +98,9 @@ class Start(QDialog):
                 Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
                 """
                 # Database linkage code
+                users.register(user, password, email, conn, cur)
                 # Direct to next page (Checklist/Languages)
+                
 
         else:
             Wifi()
@@ -109,8 +116,10 @@ class Start(QDialog):
             else:
                 # Database linkage code to check credentials
                 # check either for username or for email
-                print("Logging In")
-                self.done(2)
+
+                if users.login(user, password, cur, conn):
+                    print("Logging In")
+                    self.done(2)
                 """
                 Closes the dialog and sets its result code to 1.
                 If this dialog is shown with exec() now, upon clicking the register option, 1 is returned which is then

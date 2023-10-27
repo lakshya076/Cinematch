@@ -1,6 +1,7 @@
-import Utils.playlist_utils as playlist_utils
-import encryption
+import backend.Utils.playlist_utils as playlist_utils
+import backend.encryption as encryption
 import pymysql, pymysql.cursors
+
 
 def create_playlist(username: str, name: str, movies: str, password: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
 
@@ -13,7 +14,7 @@ def create_playlist(username: str, name: str, movies: str, password: str, connec
             hashed_pass = encryption.sha256(password)
             del password
 
-        cursor.execute(f'insert into playlists values("{username}", "user", "{name}", "{movies}", {req_pass}, "{hashed_pass}")')
+        cursor.execute(f'insert into playlists values("{username}", "user", "{name}", "{movies}", {req_pass}, "{hashed_pass}", curdate())')
         connection.commit()
 
     return status
@@ -41,13 +42,31 @@ def add_movies(movies: list, username: str, name: str, connection: pymysql.Conne
     status = playlist_utils.playlist_status(username, name, cursor)
     if status == 1:
 
-        prev_movies = playlist_utils.get_movies(username, name, cursor)
+        prev_movies = list(map(str, playlist_utils.get_movies(username, name, cursor)))
         final_movies = list(set(prev_movies + list(map(str, movies))))
 
         cursor.execute(f'update playlists set movies = "{"-".join(final_movies)}" where username = "{username}" and name = "{name}"')
         connection.commit()
 
     return status
+
+
+def remove_movies(movies: list, username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    prev_movies = playlist_utils.get_movies(username, name, cursor)
+    movies = list(map(int, movies))
+
+    if prev_movies:
+
+        final_movies = [i for i in prev_movies if i not in movies]
+
+        cursor.execute(f'update playlists set movies = "{"-".join(final_movies)}" where username = "{username}" and name = "{name}"')
+        connection.commit()
+
+        return final_movies
+
+    else:
+        return False
     
 
 def delete_playlist(username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):

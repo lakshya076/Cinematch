@@ -93,7 +93,7 @@ def get_keyz(id: int, cursor: pymysql.cursors.Cursor) -> list[str]:
         return []
 
 
-def get_popularity(id: int, cursor: pymysql.cursors.Cursor) -> float:
+def get_pop(id: int, cursor: pymysql.cursors.Cursor) -> float:
 
     '''
     

@@ -1,7 +1,9 @@
 import pymysql, pymysql.cursors
-import encryption
-import Utils.user_utils as user_utils
-import mailing
+import backend.encryption as encryption
+import backend.Utils.user_utils as user_utils
+import backend.mailing as mailing
+import backend.playlists as playlists
+import backend.Utils.playlist_utils as playlist_utils
 
 
 def register(username: str, password: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
@@ -28,11 +30,13 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
 
     if data == () and data2 == ():
 
-        cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 0, null, null)')
+        cursor.execute('update users set logged_in = 0')
 
-        cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null)')
-        cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null)')
-        cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null)')
+        cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 1, 0, null, null)')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null, curdate())')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null, curdate())')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
 
         connection.commit()
 
@@ -43,7 +47,7 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
         return False
 
 
-def login(username: str, password: str, cursor: pymysql.cursors.Cursor):
+def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
 
 
     '''
@@ -64,6 +68,11 @@ def login(username: str, password: str, cursor: pymysql.cursors.Cursor):
     if data:
 
         if username == data[0][0] and hashed_password == data[0][1]:
+
+            cursor.execute(f'update users set logged_in = 0')
+            cursor.execute(f'update users set logged_in = 1 where username = "{username}"')
+            connection.commit()
+
             return True
         
         else:
@@ -71,6 +80,12 @@ def login(username: str, password: str, cursor: pymysql.cursors.Cursor):
         
     else:
         return False
+
+
+def logout(cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
+
+    cursor.execute('update users set logged_in = 0')
+    connection.commit()
 
 
 def forgot_password(email: str, cursor: pymysql.cursors.Cursor):
@@ -122,6 +137,9 @@ def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.c
         cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", {int(data[3])}, "{data[4]}", "{data[5]}", curdate(), date_add(curdate(), interval 30 day))')
         cursor.execute(f'delete from users where username = "{username}"')
         connection.commit()
+
+        for i in playlist_utils.get_playlists(username, cursor):
+            playlists.delete_playlist(username, i, connection, cursor)
 
         mailing.send_deletion_mail(data[2], cursor)
 
