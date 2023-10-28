@@ -92,9 +92,12 @@ class Start(QDialog):
 
             else:
                 print("Registering")
-                self.done(1)
                 # Database linkage code
-                users.register(user, password, email, conn, cur)
+                if users.register(user, password, email, conn, cur):
+                    self.done(1)
+                else:
+                    self.error_register.setText("Credentials already exists.")
+
                 # Direct to next page (Checklist/Languages)
 
 

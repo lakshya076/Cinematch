@@ -771,10 +771,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     window = Main()
-    start_win = Start()
-    checklist_win = Checklist()
-    genre_win = Genre()
-    lang_win = Language()
 
     username, no_logged = init_uname()
     playlists_metadata = init_list_metadata()
@@ -785,7 +781,12 @@ if __name__ == "__main__":
     if not no_logged:
         window.show()
 
-    elif start_win.exec_() == 1:  # User registered
+    start_win = Start()
+    checklist_win = Checklist()
+    genre_win = Genre()
+    lang_win = Language()
+
+    if start_win.exec_() == 1:  # User registered
         init_uname()
         init_list_metadata()
         get_movies()
