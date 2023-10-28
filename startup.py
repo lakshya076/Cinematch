@@ -90,6 +90,12 @@ class Start(QDialog):
             elif password != confirmpassword:
                 self.error_register.setText("Passwords do not match.")
 
+            elif ' ' in email:
+                self.error_register.setText("Email cannot contain spaces.")
+            
+            elif ' ' in user:
+                self.error_register.setText("Username cannot have a space.")
+
             else:
                 # Database linkage code
                 if users.register(user, password, email, conn, cur):
