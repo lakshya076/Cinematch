@@ -772,6 +772,10 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
 
     window = Main()
+    start_win = Start()
+    checklist_win = Checklist()
+    genre_win = Genre()
+    lang_win = Language()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
@@ -781,26 +785,19 @@ if __name__ == "__main__":
         playlists_display_metadata = get_movies()
         window.show()
 
-    else:
-        
-        start_win = Start()
+    elif start_win.exec_() == 2:  # User logged in
+        username, no_logged = init_uname()
+        playlists_metadata = init_list_metadata()
+        playlists_display_metadata = get_movies()
+        window.show()
 
-        if start_win.exec_() == 2:  # User logged in
-            username, no_logged = init_uname()
-            playlists_metadata = init_list_metadata()
-            playlists_display_metadata = get_movies()
-            window.show()
-
-        elif start_win.exec_() == 1:  # User registered
-            checklist_win = Checklist()
-            genre_win = Genre()
-            lang_win = Language()
-            username, no_logged = init_uname()
-            playlists_metadata = init_list_metadata()
-            playlists_display_metadata = get_movies()
-            if checklist_win.exec_() == QDialog.Accepted:
-                if genre_win.exec_() == QDialog.Accepted:
-                    if lang_win.exec_() == QDialog.Accepted:
-                        window.show()
+    elif start_win.exec_() == 1:  # User registered
+        if checklist_win.exec_() == QDialog.Accepted:
+            if genre_win.exec_() == QDialog.Accepted:
+                if lang_win.exec_() == QDialog.Accepted:
+                    username, no_logged = init_uname()
+                    playlists_metadata = init_list_metadata()
+                    playlists_display_metadata = get_movies()
+                    window.show()
 
     sys.exit(app.exec_())

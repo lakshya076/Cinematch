@@ -123,12 +123,12 @@ def update_password(email: str, new_pass: str, connection: pymysql.Connection, c
 
 def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     cursor.execute(f'select * from users where username = "{username}"')
-    data = cursor.fetchone()
+    data = cursor.fetchall()
 
     if data:
 
-        cursor.execute(
-            f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", {int(data[3])}, "{data[4]}", "{data[5]}", curdate(), date_add(curdate(), interval 30 day))')
+        data = data[0]
+        cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", {int(data[3])}, {int(data[4])}, "{data[5]}", "{data[6]}", curdate(), date_add(curdate(), interval 30 day))')
         cursor.execute(f'delete from users where username = "{username}"')
         connection.commit()
 
