@@ -246,7 +246,8 @@ class Main(QMainWindow):
                 try:
                     # Try to delete playlist
                     removed_playlists[_objectdelete] = playlists_metadata[_objectdelete]
-                    playlist_name = playlists_metadata[_objectdelete][1]
+                    playlist_name = playlists_metadata[_objectdelete][0]
+                    print(playlist_name)
                     del playlists_metadata[_objectdelete]
                     playlists.delete_playlist(username, playlist_name, conn, cur)
                     print(f"Playlist Deleted {_objectdelete}")

@@ -74,8 +74,7 @@ init_list_metadata()
 removed_playlists = dict()
 
 # Random movies to choose for the random page function
-random_movies = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092,
-                 873126, 575264, 267805, 283995]
+random_movies = get_random(cur, 20)
 
 poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg",
           "playlist_posters\\four.png"]
