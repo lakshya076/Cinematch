@@ -35,7 +35,7 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
         cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
-        cursor.execute(f'insert into mapping values("{username}", "", "", "", "", "", "")')
+        # cursor.execute(f'insert into mapping values("{username}", "", "", "", "", "", "")')
 
 
         connection.commit()
