@@ -502,7 +502,30 @@ class Main(QMainWindow):
 
         image_object = QImage()
         image_object.loadFromData(poster_real)
+                       
+        
+        def add_to_shortlist():
+            """
+            Function to add a movie to shortlist
+            """
+            _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+            _shortlist_but.setDisabled(True)
 
+            try:
+                playlists_metadata["shortlist"][3].append(_id)
+                print(f"Added {_id} to shortlist")
+            except KeyError:
+                print(f"Unable to add {_id} to shortlist")
+
+            enter = ["Shortlist", title, poster_real, lang, pop, _id]
+
+            try:
+                playlists_display_metadata["shortlist"].append(tuple(enter))
+                print(f"Added {_id} to display list")
+            except AttributeError:
+                print("Unable to enter the movie metadata to the display list")
+
+                       
         _image.setPixmap(QPixmap(image_object))
         _title.setText(title)
         _overview.setText(overview)
