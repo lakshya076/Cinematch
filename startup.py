@@ -8,6 +8,7 @@ from backend.Utils.user_utils import valid_email
 from backend import mailing, users
 from reusable_imports.common_vars import conn, cur
 
+
 def wifi_availability():
     """
     check if the machine is connected to internet or not.
@@ -99,7 +100,7 @@ class Start(QDialog):
                 # Database linkage code
                 users.register(user, password, email, conn, cur)
                 # Direct to next page (Checklist/Languages)
-                
+
 
         else:
             Wifi()

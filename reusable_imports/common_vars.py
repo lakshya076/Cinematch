@@ -28,6 +28,8 @@ cur = conn.cursor()
 # Username
 no_logged = True
 username = "User"
+
+
 def init_uname():
     global username
     username = get_logged_user(cur)
@@ -38,9 +40,12 @@ def init_uname():
         no_logged = True
 
     return username, no_logged
-        
+
+
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
+
+
 def init_list_metadata():
     global playlists_metadata
     if no_logged:
@@ -54,9 +59,13 @@ def init_list_metadata():
         for i in get_playlists(username, cur):
             list_info = playlist_info(username, i, cur)
             print(list_info)
-            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0], '-'.join(list_info[6].split('-')[::-1]), list_info[3], list_info[5]]
+            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0],
+                                                               '-'.join(list_info[6].split('-')[::-1]), list_info[3],
+                                                               list_info[5]]
 
     return playlists_metadata
+
+
 init_uname()
 init_list_metadata()
 
@@ -87,7 +96,7 @@ def get_movies():
     playlists_display_metadata
     :return: None
     """
-    
+
     # Threaded function needs its own connection
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
     cur = conn.cursor()
@@ -135,6 +144,7 @@ def get_movies():
                 playlists_display_metadata[list(playlists_metadata.keys())[i]].append(tuple(enter))
 
     conn.close()
+
 
 def get_playlist_movies(list_name: str):
     if list_name in playlists_metadata.keys():
