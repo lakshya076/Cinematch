@@ -21,8 +21,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>1100</width>
-    <height>650</height>
+       <width>1200</width>
+       <height>670</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -48,8 +48,8 @@
    </property>
    <property name="maximumSize">
     <size>
-     <width>1100</width>
-     <height>650</height>
+        <width>1200</width>
+        <height>670</height>
     </size>
    </property>
    <property name="styleSheet">
