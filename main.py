@@ -28,7 +28,7 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -440,7 +440,11 @@ class Main(QMainWindow):
             playlists_metadata[uid] = [text, username, current_date, []]
             playlists_display_metadata[uid] = []  # manually adding playlist to the display metadata variable
             playlist_picture.append(random.choice(poster))
-            self.playlist_success.setText("Playlist added to account.")
+            try:
+                playlists.create_playlist(username, uid, '', '', conn, cur)
+                self.playlist_success.setText("Playlist added to account.")
+            except:
+                self.playlist_success.setText("Unable to add playlist")
 
     def placeholder_random(self):
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
@@ -448,8 +452,6 @@ class Main(QMainWindow):
                         _genre=self.random_genre, _date=self.random_date,
                         _shortlist_but=self.random_add_toshortlist)
 
-            playlists.create_playlist(username, uid, '', '', conn, cur)
-          
     def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
                    _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
                    _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
@@ -458,7 +460,7 @@ class Main(QMainWindow):
         Function to display movies when the respective movie frame is clicked
         """
         _id = random.choice(id)
-        
+
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
         movie_info = get_movie_info(_id, cur)
 
@@ -502,8 +504,7 @@ class Main(QMainWindow):
 
         image_object = QImage()
         image_object.loadFromData(poster_real)
-                       
-        
+
         def add_to_shortlist():
             """
             Function to add a movie to shortlist
@@ -525,7 +526,6 @@ class Main(QMainWindow):
             except AttributeError:
                 print("Unable to enter the movie metadata to the display list")
 
-                       
         _image.setPixmap(QPixmap(image_object))
         _title.setText(title)
         _overview.setText(overview)
@@ -537,7 +537,7 @@ class Main(QMainWindow):
         _shortlist_but.setChecked(False)
         _shortlist_but.clicked.connect(lambda: add_to_shortlist())
         _shortlist_but.setEnabled(True)
-    
+
     def search_func(self):
         """
         Function to search and display movies in the search widget of the stack.
