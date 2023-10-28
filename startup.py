@@ -64,7 +64,14 @@ class Start(QDialog):
         self.reset_button.clicked.connect(self.directto_reset)
 
     def directto_reg(self):
-
+        """
+        Closes the dialog and sets its result code to 0.
+        If this dialog is shown with exec() now, upon clicking the register option, 0 is returned which is then
+        used to load checklist (because now the .exec_() function related to this class in the main.py file will
+        also return 0).
+        Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
+        """
+        # TODO email verification at registration
         user = self.ufield_register.text()
         email = self.efield_register.text()
         password = self.pfield_register.text()
@@ -86,13 +93,6 @@ class Start(QDialog):
             else:
                 print("Registering")
                 self.done(1)
-                """
-                Closes the dialog and sets its result code to 0.
-                If this dialog is shown with exec() now, upon clicking the register option, 0 is returned which is then
-                used to load checklist (because now the .exec_() function related to this class in the main.py file will
-                also return 0).
-                Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
-                """
                 # Database linkage code
                 users.register(user, password, email, conn, cur)
                 # Direct to next page (Checklist/Languages)
@@ -102,6 +102,14 @@ class Start(QDialog):
             Wifi()
 
     def directto_log(self):
+        """
+        Closes the dialog and sets its result code to 1.
+        If this dialog is shown with exec() now, upon clicking the register option, 1 is returned which is then
+        used to load checklist (because now the .exec_() function related to this class in the main.py file will
+        also return 1).
+        Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
+        """
+
         user = self.ufield_login.text()
         password = self.pfield_login.text()
 
@@ -116,13 +124,8 @@ class Start(QDialog):
                 if users.login(user, password, cur, conn):
                     print("Logging In")
                     self.done(2)
-                """
-                Closes the dialog and sets its result code to 1.
-                If this dialog is shown with exec() now, upon clicking the register option, 1 is returned which is then
-                used to load checklist (because now the .exec_() function related to this class in the main.py file will
-                also return 1).
-                Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
-                """
+                else:
+                    self.error_login.setText("Email/Password combination is incorrect.")
                 # Direct to next page (Splash Screen)
 
         else:
