@@ -3,7 +3,6 @@ import pymysql.cursors
 from validate_email import validate_email
 
 
-
 def user_status(user: str, cursor: pymysql.cursors.Cursor):
     '''
     
@@ -25,17 +24,6 @@ def user_status(user: str, cursor: pymysql.cursors.Cursor):
 
     else:
         return 0
-
-
-def valid_email(email: str):
-    '''
-    
-    Return `True` or `False` depending if the email is valid.
-    
-    '''
-
-    return validate_email(email, check_format=True, check_blacklist=False, check_dns=False, check_smtp=False,
-                          dns_timeout=0, smtp_timeout=0)
 
 
 def get_email(username: str, cursor: pymysql.cursors.Cursor):
