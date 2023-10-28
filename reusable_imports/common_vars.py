@@ -69,19 +69,17 @@ def init_list_metadata():
         for i in get_playlists(username, cur):
             list_info = playlist_info(username, i, cur)
             print(list_info)
-            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0],
-                                                               '-'.join(list_info[6].split('-')[::-1]), list_info[3],
-                                                               list_info[5]]
+            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0], '-'.join(list_info[6].split('-')[::-1]), list_info[3], list_info[5]]
 
-    return playlists_metadata
+    global playlist_picture
+    playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
 
+    return playlists_metadata, playlist_picture
 
-init_uname()
-init_list_metadata()
 
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
-removed_playlists = dict()
+removed_playlists = []
 
 # Random movies to choose for the random page function
 random_movies = get_random(cur, 20)
@@ -119,13 +117,13 @@ def get_data():
 
     movie_list = [recoms, watchagain, language]
     for i in range(len(movie_list)):
-        for j in movie_list[i]:
-            movie_info = get_movie_info(j, cur)
-            title = movie_info[1]  # gets title
-            poster_path = movie_info[-1]  # gets poster path
+        movies_info = get_movies_info(movie_list[i], cur)
+        for j in movies_info:
+            title = j[1]  # gets title
+            poster_path = j[-1]  # gets poster path
             print("ok")
 
-            if poster_path != 'nan':
+            if poster_path != 'nan' and poster_path:
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
                 except requests.ConnectionError:  # Network Error
@@ -157,19 +155,17 @@ def get_movies():
     session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
     # Main loop to get the metadata
-    for i in range(len(list(playlists_metadata.keys()))):
-        playlists_display_metadata[list(playlists_metadata.keys())[i]] = []
-        name = list(playlists_metadata.keys())[i]
+    for i in playlists_metadata.keys():
+        playlists_display_metadata[i] = []
+        movies_info = get_movies_info(playlists_metadata[i][3], cur)
 
-        for j in list(playlists_metadata.values())[i][3]:
-            id = int(j)
+        for j in movies_info:
+            id = j[0]
 
-            movie_info = get_movie_info(id, cur)
-
-            title = movie_info[1]
-            poster_path = movie_info[8]
-            lang = movie_info[5]
-            popularity = movie_info[6]
+            title = j[1]
+            poster_path = j[8]
+            lang = j[5]
+            popularity = j[6]
 
             # title = get_title(int(j), cursor=conn.cursor())  # gets title
             # poster_path = get_poster(int(j), cursor=conn.cursor())  # gets poster path
@@ -186,10 +182,10 @@ def get_movies():
                 poster_var = not_found_img
                 # executes if the poster path is not available in the database.
 
-            enter = [name, title, poster_var, lang, popularity, id]
+            enter = [i, title, poster_var, lang, popularity, id]
 
             if type(title) is str:
-                playlists_display_metadata[list(playlists_metadata.keys())[i]].append(tuple(enter))
+                playlists_display_metadata[i].append(tuple(enter))
 
     conn.close()
 

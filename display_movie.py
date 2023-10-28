@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QFrame, QPushButton
 
-from reusable_imports.common_vars import get_playlist_movies, playlists_metadata, iso_639_1
+from reusable_imports.common_vars import get_playlist_movies, playlists_metadata, iso_639_1, get_movies
 from reusable_imports.commons import ClickableLabel, ClickableFrame
 from reusable_imports._css import dark_playlist_frame_style
 
@@ -15,7 +15,7 @@ class DisplayMovies(QFrame):
 
     def new_movies_display(self, name: str, image: bytearray, title: str, lang: str, pop: str,
                            scroll_area: PyQt5.QtWidgets.QScrollArea, layout: PyQt5.QtWidgets.QVBoxLayout,
-                           open_movie=None, delete_movie=None):
+                           p_md: dict, open_movie=None, delete_movie=None):
         """
         function to add movies to a playlist and display it
         """
@@ -76,7 +76,7 @@ class DisplayMovies(QFrame):
         self.movie_delete.setIconSize(QSize(24, 24))
         self.movie_delete.setFixedSize(QSize(32, 32))
         self.movie_delete.setIcon(QIcon("Icons\\delete.ico"))
-        self.movie_delete.setToolTip(f"Delete movie from {playlists_metadata[self.frame_new.split(sep='_')[-2]][0]}")
+        self.movie_delete.setToolTip(f"Delete movie from {p_md[self.frame_new.split(sep='_')[-2]][0]}")
         self.movie_delete.setCursor(QCursor(Qt.PointingHandCursor))
         setattr(self, self.movie_delete_new, self.movie_delete)
 

@@ -33,12 +33,6 @@ from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
 
-# Threading to get the playlists metadata at start
-_thread = Thread(target=get_movies)
-_thread.start()
-
-# Function to get movies metadata to display on home screen (add splash screen for this)
-get_data()
 
 # Checking OS
 if platform.system() == "Windows":
@@ -241,7 +235,7 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -414,7 +408,7 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.playlist_sa_widgets, layout=self.playlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
         self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
 
         self.stack.setCurrentIndex(8)
@@ -724,6 +718,15 @@ if __name__ == '__main__':
 
 if __name__ == "__main__":
 
+    username, no_logged = init_uname()
+    playlists_metadata, playlist_picture = init_list_metadata()
+
+    _thread = Thread(target=get_movies)
+    _thread.start()
+
+    # Function to get movies metadata to display on home screen (add splash screen for this)
+    get_data()
+
     app = QApplication(sys.argv)
 
     window = Main()
@@ -736,7 +739,7 @@ if __name__ == "__main__":
 
     if not no_logged:
         username, no_logged = init_uname()
-        playlists_metadata = init_list_metadata()
+        playlists_metadata, playlist_picture = init_list_metadata()
         playlists_display_metadata = get_movies()
         window.show()
 
@@ -744,14 +747,15 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
+                    users.register(start_win.username, start_win.password, start_win.email, conn, cur)
                     username, no_logged = init_uname()
-                    playlists_metadata = init_list_metadata()
+                    playlists_metadata, playlist_picture = init_list_metadata()
                     playlists_display_metadata = get_movies()
                     window.show()
 
     elif start_win.exec_() == 2:  # User logged in
         username, no_logged = init_uname()
-        playlists_metadata = init_list_metadata()
+        playlists_metadata, playlist_picture = init_list_metadata()
         playlists_display_metadata = get_movies()
         window.show()
 
