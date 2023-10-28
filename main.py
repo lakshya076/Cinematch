@@ -323,7 +323,7 @@ class Main(QMainWindow):
 
         users.logout(cur, conn)
         print("Logging out")
-        sys.exit()
+        self.close()
 
     def open_playlist_func(self, playlist_name: str):
         """
@@ -511,7 +511,6 @@ class Main(QMainWindow):
 
         try:
             playlists_metadata["shortlist"][3].append(id)
-            playlists.add_movies([id], username, "Shortlist", conn, cur)
             print(f"Added {id} to shortlist")
         except KeyError:
             print(f"Unable to add {id} to shortlist")
@@ -561,7 +560,6 @@ class Main(QMainWindow):
             try:
                 playlists_metadata[real_playlist][3].append(id)
                 # If movie is successfully added
-                playlists.add_movies([id], username, playlist_name, conn, cur)
                 get_movies()
                 output_label.setText(f"Added to {playlist_name}")
             except KeyError:  # If there is an error in adding the movie
@@ -613,7 +611,7 @@ class Main(QMainWindow):
 
         users.delete_user(username, conn, cur)
         print("Account Deleted")
-        sys.exit()
+        self.close()
 
     def clear_cache_func(self):
         """
@@ -754,6 +752,9 @@ class Main(QMainWindow):
         # deleted from playlist or a new movie playlist is created
         # add a dialog box that asks if the user actually want to close or not
         # or check if any bg process is running and if they are show a warning to the user
+
+        for i in playlists_metadata.keys():
+            playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
 
 '''
 if __name__ == '__main__':
