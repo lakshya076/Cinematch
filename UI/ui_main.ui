@@ -536,6 +536,9 @@
     </item>
     <item>
      <widget class="QFrame" name="expand">
+      <property name="styleSheet">
+       <string notr="true">font:&quot;Roboto&quot;;</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -1131,7 +1134,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>7</number>
+         <number>5</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1163,8 +1166,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>261</width>
-               <height>888</height>
+               <width>805</width>
+               <height>1233</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1177,16 +1180,22 @@ background-color: rgba(0,0,0,0);</string>
                  <string notr="true">font:18pt;</string>
                 </property>
                 <property name="text">
-                 <string>For You</string>
+                 <string>Movies Handpicked</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QScrollArea" name="scrollArea_4">
+               <widget class="QScrollArea" name="foryou_sa">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>245</height>
+                  <height>360</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>360</height>
                  </size>
                 </property>
                 <property name="frameShape">
@@ -1201,36 +1210,28 @@ background-color: rgba(0,0,0,0);</string>
                 <property name="widgetResizable">
                  <bool>true</bool>
                 </property>
-                <widget class="QWidget" name="scrollAreaWidgetContents_4">
+                <widget class="QWidget" name="foryou_sa_widgets">
                  <property name="geometry">
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>12018</width>
-                   <height>31</height>
+                   <width>787</width>
+                   <height>350</height>
                   </rect>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="minimumSize">
-                     <size>
-                      <width>12000</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::Panel</enum>
-                    </property>
-                    <property name="lineWidth">
-                     <number>0</number>
-                    </property>
-                    <property name="text">
-                     <string>Recommendations</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>350</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>350</height>
+                  </size>
+                 </property>
+                 <layout class="QHBoxLayout" name="foryou_hlayout"/>
                 </widget>
                </widget>
               </item>
@@ -1252,11 +1253,17 @@ background-color: rgba(0,0,0,0);</string>
                </widget>
               </item>
               <item>
-               <widget class="QScrollArea" name="scrollArea_3">
+               <widget class="QScrollArea" name="watchagain_sa">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>245</height>
+                  <height>360</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>360</height>
                  </size>
                 </property>
                 <property name="frameShape">
@@ -1271,36 +1278,28 @@ background-color: rgba(0,0,0,0);</string>
                 <property name="widgetResizable">
                  <bool>true</bool>
                 </property>
-                <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                <widget class="QWidget" name="watchagain_sa_widgets">
                  <property name="geometry">
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>118</width>
-                   <height>31</height>
+                   <width>787</width>
+                   <height>350</height>
                   </rect>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
-                  <item>
-                   <widget class="QLabel" name="label_5">
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::Panel</enum>
-                    </property>
-                    <property name="lineWidth">
-                     <number>0</number>
-                    </property>
-                    <property name="text">
-                     <string>Watch Again</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>350</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>350</height>
+                  </size>
+                 </property>
+                 <layout class="QHBoxLayout" name="watchagain_hlayout"/>
                 </widget>
                </widget>
               </item>
@@ -1317,16 +1316,22 @@ background-color: rgba(0,0,0,0);</string>
                  <string notr="true">font:18pt;</string>
                 </property>
                 <property name="text">
-                 <string>Choose your Language</string>
+                 <string>Watch By Language</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QScrollArea" name="scrollArea_2">
+               <widget class="QScrollArea" name="languages_sa">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>245</height>
+                  <height>360</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>360</height>
                  </size>
                 </property>
                 <property name="frameShape">
@@ -1341,36 +1346,28 @@ background-color: rgba(0,0,0,0);</string>
                 <property name="widgetResizable">
                  <bool>true</bool>
                 </property>
-                <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                <widget class="QWidget" name="languages_sa_widgets">
                  <property name="geometry">
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>118</width>
-                   <height>31</height>
+                   <width>787</width>
+                   <height>350</height>
                   </rect>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
-                  <item>
-                   <widget class="QLabel" name="label_6">
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::Panel</enum>
-                    </property>
-                    <property name="lineWidth">
-                     <number>0</number>
-                    </property>
-                    <property name="text">
-                     <string>Choose your language</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>350</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>350</height>
+                  </size>
+                 </property>
+                 <layout class="QHBoxLayout" name="languages_hlayout"/>
                 </widget>
                </widget>
               </item>
@@ -1615,57 +1612,7 @@ background-color: rgba(0,0,0,0);</string>
                    </property>
                   </spacer>
                  </item>
-                 <item>
-                  <widget class="QComboBox" name="random_combo">
-                   <property name="minimumSize">
-                    <size>
-                     <width>150</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font:12pt;
-                     color:black;
-                    </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="random_anotherplaylist_but">
-                   <property name="maximumSize">
-                    <size>
-                     <width>32</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgba(200,230,200);
-                     color:#000;
-                     font:12pt;
-                     border: 1px solid black;
-                     padding:5px;
-                     border-radius:6px;
-                    </string>
-                   </property>
-                   <property name="text">
-                    <string>OK</string>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QLabel" name="random_add_label">
-                 <property name="styleSheet">
-                  <string notr="true">font:10pt;</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
                </item>
                <item>
                 <widget class="QTextBrowser" name="random_overview">
@@ -1691,6 +1638,8 @@ background-color: rgba(0,0,0,0);</string>
                    p, li { white-space: pre-wrap; }
                    &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
                    font-weight:400; font-style:normal;&quot;&gt;
+                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
@@ -2031,8 +1980,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>514</width>
-               <height>471</height>
+               <width>822</width>
+               <height>486</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -2502,7 +2451,7 @@ border-radius:10px;</string>
                      font:12pt;
                      border:none;
                      opacity:0;
-                     text-align:left;
+                        text-align:left;
                     </string>
                    </property>
                    <property name="text">
@@ -2538,63 +2487,7 @@ border-radius:10px;</string>
                    </property>
                   </spacer>
                  </item>
-                 <item>
-                  <widget class="QComboBox" name="display_combo">
-                   <property name="minimumSize">
-                    <size>
-                     <width>200</width>
-                     <height>32</height>
-                    </size>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">font:12pt;
-                     color:black;
-                    </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="display_anotherplaylist_but">
-                   <property name="minimumSize">
-                    <size>
-                     <width>42</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>36</width>
-                     <height>36</height>
-                    </size>
-                   </property>
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="styleSheet">
-                    <string notr="true">background-color:rgba(200,230,200);
-                     color:#000;
-                     font:12pt;
-                     border: 1px solid black;
-                     padding:5px;
-                     border-radius:6px;
-                    </string>
-                   </property>
-                   <property name="text">
-                    <string>OK</string>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QLabel" name="display_add_label">
-                 <property name="styleSheet">
-                  <string notr="true">font:10pt;</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
                </item>
                <item>
                 <widget class="QTextBrowser" name="display_overview">
@@ -2620,6 +2513,8 @@ border-radius:10px;</string>
                    p, li { white-space: pre-wrap; }
                    &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
                    font-weight:400; font-style:normal;&quot;&gt;
+                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;

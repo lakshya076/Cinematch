@@ -102,7 +102,7 @@ dark_scroll_area_mainwindow = "background-color: #24292E; color: #FFFAF0;"
 dark_mainwin_widget = "color: #FFFAF0;"
 dark_library_stylesheet = """
     QFrame {
-        background-color: #111111; 
+        background-color: #13161a;
         color: #DFE8F5; 
         border-radius: 16px; 
         border-width: 1px;
@@ -112,21 +112,24 @@ dark_library_stylesheet = """
         border:none;
     }
     QToolTip {
-        color: #111111;
-        opacity: 200
+        color: #000;
+        opacity: 200;
+        font: 8pt;
     }
     """
-dark_menu = """
-    QMenu {
-        background-color: #111111;
-        color: #fffaf0;
-    }
-    QMenu::item {
-        height: 220px;
-    }
-    QMenu::item:selected { 
-        background-color: #f5f5dc;
-        color: #000;
+dark_playlist_frame_style = """
+    font:14pt;
+    background-color: #13161a; 
+    color: #fffaf0;
+    border-radius: 10px;
+    border: 1px solid #13161a;
+"""
+dark_home_stylesheet = """
+    QFrame {
+        background-color: #13161a;
+        color: #DFE8F5; 
+        border-radius: 16px; 
+        border-width: 1px;
     }
 """
 dark_main_stylesheet = """

@@ -15,6 +15,8 @@ Sidebar - #313A46
 Central Widget - #24292E
 Scrollbar - #C26B5C
 
+Frames (library and playlist) - #191c20 or #13161a (former - #111111)
+
 Decide on the Dialog Box bg color
 
 Total movies -> 355474

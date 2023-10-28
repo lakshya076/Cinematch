@@ -12,13 +12,13 @@ from backend.Utils.user_utils import get_logged_user
 from backend.Utils.playlist_utils import *
 from reusable_imports.commons import remove_spaces
 
-# This list holds id of all the movies selected by the user in the checklist page
+# This list holds id of all the movies selected by the user in the checklist page - works only when user registers
 movies = list()
 
-# This list holds the genres selected by the user in the genre page
+# This list holds the genres selected by the user in the genre page - works only when user registers
 genres = list()
 
-# This list holds the languages selected by the user in the genre page
+# This list holds the languages selected by the user in the genre page - works only when user registers
 languages = list()
 
 # Universal SQL connection
@@ -28,22 +28,32 @@ cur = conn.cursor()
 # Username
 no_logged = True
 username = "User"
+  
+# This list holds all the recommendations for the user (max - 15)
+recoms = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092, 873126]
+
+# This list holds all the movies user can watch again (max - 10)
+watchagain = [677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152]
+
+# This movie holds all the language movies based on the languages user has chosen (max -15)
+language = [615656, 872585, 677179, 385687, 1397]
+
+# Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
+playlists_metadata = {}
 
 
 def init_uname():
     global username
-    username = get_logged_user(cur)
     global no_logged
+    
+    username = get_logged_user(cur)
     no_logged = False
+    
     if not username:
         username = "User"
         no_logged = True
 
     return username, no_logged
-
-
-# Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
-playlists_metadata = {}
 
 
 def init_list_metadata():
@@ -87,6 +97,8 @@ playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
 playlists_display_metadata = {}
 
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
+
+movie_data = {"recoms": [], "watchagain": [], "language": []}
 
 
 def get_movies():
