@@ -785,12 +785,6 @@ if __name__ == "__main__":
         playlists_display_metadata = get_movies()
         window.show()
 
-    elif start_win.exec_() == 2:  # User logged in
-        username, no_logged = init_uname()
-        playlists_metadata = init_list_metadata()
-        playlists_display_metadata = get_movies()
-        window.show()
-
     elif start_win.exec_() == 1:  # User registered
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
@@ -799,5 +793,11 @@ if __name__ == "__main__":
                     playlists_metadata = init_list_metadata()
                     playlists_display_metadata = get_movies()
                     window.show()
+
+    elif start_win.exec_() == 2:  # User logged in
+        username, no_logged = init_uname()
+        playlists_metadata = init_list_metadata()
+        playlists_display_metadata = get_movies()
+        window.show()
 
     sys.exit(app.exec_())

@@ -128,8 +128,11 @@ def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.c
     if data:
 
         data = data[0]
-        cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", {int(data[3])}, {int(data[4])}, "{data[5]}", "{data[6]}", curdate(), date_add(curdate(), interval 30 day))')
-        cursor.execute(f'delete from users where username = "{username}"')
+        if data[5] and data[6]:
+            cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", "{int(data[4])}", "{data[5]}, "{data[6]}",  curdate(), date_add(curdate(), interval 30 day))')
+        else:
+            cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", "{int(data[4])}", null, null,  curdate(), date_add(curdate(), interval 30 day))')
+        cursor.execute(f'delete from users where username = "{data[0]}"')
         connection.commit()
 
         for i in playlist_utils.get_playlists(username, cursor):
