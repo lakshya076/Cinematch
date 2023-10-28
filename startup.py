@@ -91,9 +91,9 @@ class Start(QDialog):
                 self.error_register.setText("Passwords do not match.")
 
             else:
-                print("Registering")
                 # Database linkage code
                 if users.register(user, password, email, conn, cur):
+                    print("Registering")
                     self.done(1)
                 else:
                     self.error_register.setText("Credentials already exists.")
