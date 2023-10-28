@@ -4,8 +4,9 @@ from PyQt5.QtWidgets import QDialog, QApplication, QLineEdit
 from PyQt5.uic import loadUi
 
 from reusable_imports.commons import ErrorDialog, clickable
+from backend import mailing, users
+from reusable_imports.common_vars import conn, cur
 
-# regex to validate email
 
 def wifi_availability():
     """
@@ -63,7 +64,14 @@ class Start(QDialog):
         self.reset_button.clicked.connect(self.directto_reset)
 
     def directto_reg(self):
-
+        """
+        Closes the dialog and sets its result code to 0.
+        If this dialog is shown with exec() now, upon clicking the register option, 0 is returned which is then
+        used to load checklist (because now the .exec_() function related to this class in the main.py file will
+        also return 0).
+        Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
+        """
+        # TODO email verification at registration
         user = self.ufield_register.text()
         email = self.efield_register.text()
         password = self.pfield_register.text()
@@ -82,23 +90,35 @@ class Start(QDialog):
             elif password != confirmpassword:
                 self.error_register.setText("Passwords do not match.")
 
+            elif ' ' in email:
+                self.error_register.setText("Email cannot contain spaces.")
+            
+            elif ' ' in user:
+                self.error_register.setText("Username cannot have a space.")
+
             else:
-                print("Registering")
-                self.done(1)
-                """
-                Closes the dialog and sets its result code to 0.
-                If this dialog is shown with exec() now, upon clicking the register option, 0 is returned which is then
-                used to load checklist (because now the .exec_() function related to this class in the main.py file will
-                also return 0).
-                Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
-                """
                 # Database linkage code
+                if users.register(user, password, email, conn, cur):
+                    print("Registering")
+                    self.done(1)
+                else:
+                    self.error_register.setText("Credentials already exists.")
+
                 # Direct to next page (Checklist/Languages)
+
 
         else:
             Wifi()
 
     def directto_log(self):
+        """
+        Closes the dialog and sets its result code to 1.
+        If this dialog is shown with exec() now, upon clicking the register option, 1 is returned which is then
+        used to load checklist (because now the .exec_() function related to this class in the main.py file will
+        also return 1).
+        Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
+        """
+
         user = self.ufield_login.text()
         password = self.pfield_login.text()
 
@@ -109,29 +129,28 @@ class Start(QDialog):
             else:
                 # Database linkage code to check credentials
                 # check either for username or for email
-                print("Logging In")
-                self.done(2)
-                """
-                Closes the dialog and sets its result code to 1.
-                If this dialog is shown with exec() now, upon clicking the register option, 1 is returned which is then
-                used to load checklist (because now the .exec_() function related to this class in the main.py file will
-                also return 1).
-                Official Documentation -> https://doc.qt.io/qt-5/qdialog.html#done
-                """
+
+                if users.login(user, password, cur, conn):
+                    print("Logging In")
+                    self.done(2)
+                else:
+                    self.error_login.setText("Email/Password combination is incorrect.")
                 # Direct to next page (Splash Screen)
 
         else:
             Wifi()
 
     def directto_forgot(self):
-        email = self.efield_forgot.text()
+        self.email = self.efield_forgot.text()
 
         if wifi_availability():
-            if len(email) == 0:
+            if len(self.email) == 0:
                 self.error_forgot.setText("Please fill in all the inputs.")
             else:
                 # otp send type shit (preferably separate function so that it can be reused in the send again button
                 # in next window
+                self.sent_otp = mailing.send_otp(self.email)
+
                 self.redirect_otp()
         else:
             Wifi()
@@ -146,10 +165,19 @@ class Start(QDialog):
 
             else:
                 # code the otp check function here
-                print("OTP transaction done.")
-                self.error_otp.setText("")
-                self.success_otp.setText("Successful. Redirecting now.")
-                self.redirect_reset()
+                if otp == str(self.sent_otp):
+                    print(otp, self.sent_otp)
+
+                    print("OTP transaction done.")
+                    self.error_otp.setText("")
+                    self.success_otp.setText("Successful. Redirecting now.")
+                    self.redirect_reset()
+
+                else:
+
+                    print("Wrong OTP")
+                    self.error_otp.setText("Incorrect OTP")
+                    self.success_otp.setText("")
 
         else:
             Wifi()
@@ -170,6 +198,8 @@ class Start(QDialog):
 
             else:
                 # code to update password in the database
+
+                users.update_password(self.email, password, conn, cur)
                 self.redirect_login()
 
         else:
@@ -180,6 +210,8 @@ class Start(QDialog):
             self.otp_field.setText("")
             print("New Email sent")
             # Reuse the send mail func code here
+
+            self.sent_otp = mailing.send_otp(self.email)
 
         else:
             Wifi()

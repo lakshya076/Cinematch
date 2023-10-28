@@ -476,7 +476,7 @@ class Checklist(QDialog, FrameReuse):
 
     def switch_to_8(self):
         self.stack.setCurrentIndex(7)
-        self.genre_define.setText("Horro Movies")
+        self.genre_define.setText("Horror Movies")
 
     def switch_to_9(self):
         self.stack.setCurrentIndex(8)

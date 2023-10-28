@@ -3,24 +3,23 @@ import pymysql.cursors
 
 
 def phrase_former(phrase: str, sep: str):
-
     phrase_list = []
     split_phrase = phrase.split()
 
-    for i in range(len(split_phrase)+1):
+    for i in range(len(split_phrase) + 1):
         phrase_list.append(' '.join(split_phrase[:i]) + sep + ' ' + ' '.join(split_phrase[i:]))
 
     phrase_list.pop()
 
     return phrase_list[1:]
 
+
 def search(phrase: str, cursor: pymysql.cursors.Cursor):
-    
-    '''
-    
+    """
+
     search for movies using `phrase`
-    
-    '''
+
+    """
 
     title_search = []
     cast_search = []
@@ -38,7 +37,7 @@ def search(phrase: str, cursor: pymysql.cursors.Cursor):
     L.insert(0, phrase)
     for i in L:
         s += f'"%{i}%" or title like '
-    s = s[:len(s)-15]
+    s = s[:len(s) - 15]
 
     cursor.execute(f'select id from main where title sounds like "{phrase}" or title like {s}')
     title_search.extend([int(j[0]) for j in cursor.fetchall()])

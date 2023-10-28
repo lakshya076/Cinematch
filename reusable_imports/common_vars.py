@@ -7,7 +7,10 @@ from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 import requests
 
-from utils.movie_utils import get_title, get_poster, get_lang, get_pop
+from backend.Utils.movie_utils import *
+from backend.Utils.user_utils import get_logged_user
+from backend.Utils.playlist_utils import *
+from reusable_imports.commons import remove_spaces
 
 # This list holds id of all the movies selected by the user in the checklist page - works only when user registers
 movies = list()
@@ -18,9 +21,14 @@ genres = list()
 # This list holds the languages selected by the user in the genre page - works only when user registers
 languages = list()
 
-# Username
-username = "User"
+# Universal SQL connection
+conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+cur = conn.cursor()
 
+# Username
+no_logged = True
+username = "User"
+  
 # This list holds all the recommendations for the user (max - 15)
 recoms = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092, 873126]
 
@@ -31,64 +39,66 @@ watchagain = [677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152]
 language = [615656, 872585, 677179, 385687, 1397]
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
-playlists_metadata = {
-    'shortlist': ['Shortlist', 'Cinematch Team', '12/10/2023', [615656, 872585, 677179, 385687, 1397]],
-    'test1': ['Test 1', f'{username}', '02/03/2020', [238, 12, 37165]],
-    'test2': ['Test 2', f'{username}', '12/12/2023', [575264, 267805, 283995]],
-    'test3': ['Test 3', f'{username}', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
+playlists_metadata = {}
+
+
+def init_uname():
+    global username
+    global no_logged
+    
+    username = get_logged_user(cur)
+    no_logged = False
+    
+    if not username:
+        username = "User"
+        no_logged = True
+
+    return username, no_logged
+
+
+def init_list_metadata():
+    global playlists_metadata
+    if no_logged:
+        playlists_metadata = {
+            'shortlist': ['Shortlist', 'Cinematch Team', '12/10/2023', [615656, 872585, 677179, 385687, 1397]],
+            'test1': ['Test 1', f'{username}', '02/03/2020', [238, 12, 37165]],
+            'test2': ['Test 2', f'{username}', '12/12/2023', [575264, 267805, 283995]],
+            'test3': ['Test 3', f'{username}', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
+    else:
+        playlists_metadata = {}
+        for i in get_playlists(username, cur):
+            list_info = playlist_info(username, i, cur)
+            print(list_info)
+            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0],
+                                                               '-'.join(list_info[6].split('-')[::-1]), list_info[3],
+                                                               list_info[5]]
+
+    return playlists_metadata
+
+
+init_uname()
+init_list_metadata()
 
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
 removed_playlists = dict()
 
 # Random movies to choose for the random page function
-random_movies = [615656, 872585, 677179, 385687, 1397, 238, 12, 37165, 758009, 920143, 28152, 852096, 668482, 587092,
-                 873126, 575264, 267805, 283995]
+random_movies = get_random(cur, 20)
 
 poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg",
           "playlist_posters\\four.png"]
 # Append more these three are default
 
 # random picture generator for playlist img
-playlist_picture = [random.choice(poster) for i in range(len(playlists_metadata))]
+playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
 
 # stores the output of get_movies function
 playlists_display_metadata = {}
 
+not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
+
 movie_data = {"recoms": [], "watchagain": [], "language": []}
-
-
-def get_data():
-    """
-    Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
-    home screen)
-    """
-    # Common session used to load the images of all the movies in the metadata list. The images are then cached and
-    # stored so when the program is run again, images load easily.
-    cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
-    session = CacheControl(requests.Session(), cache=FileCache(cache_path))
-
-    # SQL connection
-    conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
-
-    movie_list = [recoms, watchagain, language]
-    for i in range(len(movie_list)):
-        for j in movie_list[i]:
-            title = get_title(j, connection=conn, cursor=conn.cursor())  # gets title
-            poster_path = get_poster(j, connection=conn, cursor=conn.cursor())  # gets poster path
-            if poster_path != 'nan':
-                try:
-                    poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-                except requests.ConnectionError:  # Network Error
-                    poster_var = None
-                # gets poster image as a byte array
-            else:
-                poster_var = None
-                # executes if the poster path is not available in the database.
-
-            enter = [list(movie_data.keys())[i], title, poster_var, j]
-
-            movie_data[list(movie_data.keys())[i]].append(tuple(enter))
 
 
 def get_movies():
@@ -97,6 +107,10 @@ def get_movies():
     playlists_display_metadata
     :return: None
     """
+
+    # Threaded function needs its own connection
+    conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+    cur = conn.cursor()
 
     # Common session used to load the images of all the movies in the metadata list. The images are then cached and
     # stored so when the program is run again, images load easily.
@@ -114,24 +128,35 @@ def get_movies():
         for j in list(playlists_metadata.values())[i][3]:
             id = int(j)
 
-            title = get_title(int(j), connection=conn, cursor=conn.cursor())  # gets title
-            poster_path = get_poster(int(j), connection=conn, cursor=conn.cursor())  # gets poster path
-            lang = get_lang(int(j), connection=conn, cursor=conn.cursor())  # gets movie lang
-            popularity = get_pop(int(j), connection=conn, cursor=conn.cursor())  # gets movie popularity
-            if poster_path != 'nan':
+            movie_info = get_movie_info(id, cur)
+
+            title = movie_info[1]
+            poster_path = movie_info[8]
+            lang = movie_info[5]
+            popularity = movie_info[6]
+
+            # title = get_title(int(j), cursor=conn.cursor())  # gets title
+            # poster_path = get_poster(int(j), cursor=conn.cursor())  # gets poster path
+            # lang = get_lang(int(j), cursor=conn.cursor())  # gets movie lang
+            # popularity = get_pop(int(j), cursor=conn.cursor())  # gets movie popularity
+            if poster_path != 'nan' and poster_path:
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
                 except requests.ConnectionError:  # Network Error
-                    poster_var = None
+                    poster_var = not_found_img
                 # gets poster image as a byte array
             else:
-                poster_var = None
+                poster_var = not_found_img
                 # executes if the poster path is not available in the database.
 
             enter = [name, title, poster_var, lang, popularity, id]
 
             if type(title) is str:
                 playlists_display_metadata[list(playlists_metadata.keys())[i]].append(tuple(enter))
+
+    conn.close()
+
+    return playlists_display_metadata
 
 
 def get_playlist_movies(list_name: str):

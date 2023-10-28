@@ -7,7 +7,6 @@ import random
 from threading import Thread
 import platform
 
-import pymysql
 import requests
 import PyQt5
 from PyQt5.QtCore import QRect
@@ -28,10 +27,11 @@ from language import Language
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata, random_movies, iso_639_1, username, poster, get_data, recoms, movie_data, watchagain, \
-    language
+    playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
+    init_list_metadata, not_found_img
 from reusable_imports.commons import clickable, remove_spaces
-from utils.movie_utils import get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
+from backend.Utils.movie_utils import *
+from backend import playlists, users, movie_search
 
 # Threading to get the playlists metadata at start
 _thread = Thread(target=get_movies)
@@ -54,9 +54,6 @@ resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 # Initialising requests connection
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
-
-# Universal SQL connection
-conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
 
 
 class Main(QMainWindow):
@@ -218,6 +215,7 @@ class Main(QMainWindow):
 
                 try:
                     # Deletes from the backend list which will be updated in the sql table
+                    left_movies = playlists.remove_movies([_objectdelete], username, _playlist, conn, cur)
                     playlists_metadata[_playlist][3].remove(int(_objectdelete))
                 except:
                     print("Can't delete")
@@ -270,7 +268,10 @@ class Main(QMainWindow):
                 try:
                     # Try to delete playlist
                     removed_playlists[_objectdelete] = playlists_metadata[_objectdelete]
+                    playlist_name = playlists_metadata[_objectdelete][0]
+                    print(playlist_name)
                     del playlists_metadata[_objectdelete]
+                    playlists.delete_playlist(username, playlist_name, conn, cur)
                     print(f"Playlist Deleted {_objectdelete}")
 
                 except KeyError:
@@ -302,6 +303,7 @@ class Main(QMainWindow):
             print("Can't delete playlist layout")
 
         # Adds the new widgets to the library grid layout
+        print(playlist_picture)
         for i in range(children):
             for j in range(1):
                 lib.new_widgets_lib(name=list(playlists_metadata.keys())[i], row=j, column=i,
@@ -339,7 +341,10 @@ class Main(QMainWindow):
             self.collapse.show()
 
     def logout_func(self):
-        # dialog box to make the user confirm if he/she wanna logs out and then call exit function
+        # TODO dialog box to make the user confirm if he/she wants to log out and then call exit function
+        # Logging out in SQL
+
+        users.logout(cur, conn)
         print("Logging out")
         self.close()
 
@@ -384,6 +389,7 @@ class Main(QMainWindow):
 
                 try:
                     # Deletes from the backend list which will be updated in the sql table
+                    playlists.remove_movies([_objectdelete], username, playlist_name, conn, cur)
                     playlists_metadata[_playlist][3].remove(int(_objectdelete))
                 except ValueError:
                     print("Can't delete")
@@ -442,6 +448,8 @@ class Main(QMainWindow):
                         _genre=self.random_genre, _date=self.random_date,
                         _shortlist_but=self.random_add_toshortlist)
 
+            playlists.create_playlist(username, uid, '', '', conn, cur)
+          
     def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
                    _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
                    _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
@@ -450,15 +458,25 @@ class Main(QMainWindow):
         Function to display movies when the respective movie frame is clicked
         """
         _id = random.choice(id)
-
+        
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        title = get_title(_id, conn, conn.cursor())
-        poster_path = get_poster(_id, conn, conn.cursor())
-        overview = get_overview(_id, conn, conn.cursor())
-        lang = get_lang(_id, conn, conn.cursor())
-        pop = get_pop(_id, conn, conn.cursor())
-        gen = get_genz(_id, conn, conn.cursor())
-        date = get_release_date(_id, conn, conn.cursor())
+        movie_info = get_movie_info(_id, cur)
+
+        title = movie_info[1]
+        poster = movie_info[8]
+        overview = movie_info[2]
+        lang = movie_info[5]
+        pop = movie_info[6]
+        gen = movie_info[4]
+        date = movie_info[3]
+
+        # title = get_title(_id, conn.cursor())
+        # poster = get_poster(_id, conn.cursor())
+        # overview = get_overview(_id, conn.cursor())
+        # lang = get_lang(_id, conn.cursor())
+        # pop = get_pop(_id, conn.cursor())
+        # gen = get_genz(_id, conn.cursor())
+        # date = get_release_date(_id, conn.cursor())
 
         real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
 
@@ -474,14 +492,18 @@ class Main(QMainWindow):
         for i in gen:
             genre_real += f"{i}, "
 
-        try:
-            poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-        except requests.ConnectionError:
-            poster_real = None
+        if poster != 'nan' and poster:
+            try:
+                poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
+            except requests.ConnectionError:
+                poster_real = not_found_img
+        else:
+            poster_real = not_found_img
 
         image_object = QImage()
         image_object.loadFromData(poster_real)
-
+                       
+        
         def add_to_shortlist():
             """
             Function to add a movie to shortlist
@@ -495,7 +517,7 @@ class Main(QMainWindow):
             except KeyError:
                 print(f"Unable to add {_id} to shortlist")
 
-            enter = ["shortlist", title, poster_real, lang, pop, _id]
+            enter = ["Shortlist", title, poster_real, lang, pop, _id]
 
             try:
                 playlists_display_metadata["shortlist"].append(tuple(enter))
@@ -503,6 +525,7 @@ class Main(QMainWindow):
             except AttributeError:
                 print("Unable to enter the movie metadata to the display list")
 
+                       
         _image.setPixmap(QPixmap(image_object))
         _title.setText(title)
         _overview.setText(overview)
@@ -514,7 +537,7 @@ class Main(QMainWindow):
         _shortlist_but.setChecked(False)
         _shortlist_but.clicked.connect(lambda: add_to_shortlist())
         _shortlist_but.setEnabled(True)
-
+    
     def search_func(self):
         """
         Function to search and display movies in the search widget of the stack.
@@ -524,14 +547,26 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
         print(f"Searching {search_text}")
 
+        searched_movies = movie_search.search(search_text, cur)[:10]
+        print(f'Search Results: {searched_movies}')
+
+        search_metadata = {}
+        for i in get_movies_info(searched_movies, cur):
+            search_metadata[i[0]] = i[1:]
+
+        print(search_metadata)
+
     def delete_acc_func(self):
         """
         Function to delete user's account (move it to recovery table)
         """
         # Dialog box to ask confirmation and give the 14-day recovery period.
         # then close the app and move the user credentials to the recovery table.
+        # TODO Return to login menu
+
+        users.delete_user(username, conn, cur)
         print("Account Deleted")
-        sys.exit()
+        self.close()
 
     def clear_cache_func(self):
         """
@@ -673,7 +708,11 @@ class Main(QMainWindow):
         # add a dialog box that asks if the user actually want to close or not
         # or check if any bg process is running and if they are show a warning to the user
 
+        for i in playlists_metadata.keys():
+            playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
 
+
+'''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -681,8 +720,8 @@ if __name__ == '__main__':
     window.show()
 
     sys.exit(app.exec_())
-
 '''
+
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
@@ -693,13 +732,27 @@ if __name__ == "__main__":
     genre_win = Genre()
     lang_win = Language()
 
-    if start_win.exec_() == 1:  # User registered
+    users.remove_users(conn, cur)  # Remove deleted users if date has passed
+
+    if not no_logged:
+        username, no_logged = init_uname()
+        playlists_metadata = init_list_metadata()
+        playlists_display_metadata = get_movies()
+        window.show()
+
+    elif start_win.exec_() == 1:  # User registered
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
+                    username, no_logged = init_uname()
+                    playlists_metadata = init_list_metadata()
+                    playlists_display_metadata = get_movies()
                     window.show()
+
     elif start_win.exec_() == 2:  # User logged in
+        username, no_logged = init_uname()
+        playlists_metadata = init_list_metadata()
+        playlists_display_metadata = get_movies()
         window.show()
 
     sys.exit(app.exec_())
-'''
