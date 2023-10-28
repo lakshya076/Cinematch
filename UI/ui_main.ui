@@ -1134,7 +1134,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+            <number>1</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1401,8 +1401,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>135</width>
-               <height>43</height>
+                  <width>822</width>
+                  <height>486</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1410,12 +1410,68 @@ background-color: rgba(0,0,0,0);</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
               <item>
+                  <widget class="QScrollArea" name="search_sa_real">
+                      <property name="minimumSize">
+                          <size>
+                              <width>0</width>
+                              <height>400</height>
+                          </size>
+                      </property>
+                      <property name="maximumSize">
+                          <size>
+                              <width>16777215</width>
+                              <height>400</height>
+                          </size>
+                      </property>
+                      <property name="frameShape">
+                          <enum>QFrame::NoFrame</enum>
+                      </property>
+                      <property name="frameShadow">
+                          <enum>QFrame::Plain</enum>
+                      </property>
+                      <property name="lineWidth">
+                          <number>0</number>
+                      </property>
+                      <property name="widgetResizable">
+                          <bool>true</bool>
+                      </property>
+                      <widget class="QWidget" name="search_sa_real_widgets">
+                          <property name="geometry">
+                              <rect>
+                                  <x>0</x>
+                                  <y>0</y>
+                                  <width>12363</width>
+                                  <height>383</height>
+                              </rect>
+                          </property>
+                          <layout class="QHBoxLayout" name="search_sa_real_hlayout">
+                              <item>
+                                  <widget class="QLabel" name="label_4">
+                                      <property name="minimumSize">
+                                          <size>
+                                              <width>12345</width>
+                                              <height>0</height>
+                                          </size>
+                                      </property>
+                                      <property name="text">
+                                          <string>TextLabel</string>
+                                      </property>
+                                  </widget>
+                              </item>
+                          </layout>
+                      </widget>
+                  </widget>
+              </item>
+                 <item>
                <widget class="QLabel" name="label_7">
                 <property name="styleSheet">
                  <string notr="true">font:16pt;</string>
                 </property>
                 <property name="text">
-                 <string>Search Page</string>
+                    <string>Display Ad Here</string>
+                </property>
+                   <property name="alignment">
+                       <set>Qt::AlignCenter</set>
                 </property>
                </widget>
               </item>
@@ -1506,7 +1562,7 @@ background-color: rgba(0,0,0,0);</string>
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../Icons/randomiser.ico</normaloff>../Icons/randomiser.ico
+                      <normaloff>../Icons/randomiser.ico</normaloff>../Icons/randomiser.ico
                   </iconset>
                  </property>
                 </widget>
@@ -1585,7 +1641,7 @@ background-color: rgba(0,0,0,0);</string>
                    <property name="icon">
                     <iconset>
                      <normaloff>../Icons/like_unchecked.ico</normaloff>
-                     <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
+                        <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -1633,21 +1689,23 @@ background-color: rgba(0,0,0,0);</string>
                  </property>
                  <property name="html">
                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-                   &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
-                   type=&quot;text/css&quot;&gt;
-                   p, li { white-space: pre-wrap; }
-                   &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
-                   font-weight:400; font-style:normal;&quot;&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                      &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
+                      type=&quot;text/css&quot;&gt;
+                      p, li { white-space: pre-wrap; }
+                      &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
+                      font-weight:400; font-style:normal;&quot;&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
                 </widget>
@@ -1980,8 +2038,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>822</width>
-               <height>486</height>
+                  <width>514</width>
+                  <height>471</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -2460,7 +2518,7 @@ border-radius:10px;</string>
                    <property name="icon">
                     <iconset>
                      <normaloff>../Icons/like_unchecked.ico</normaloff>
-                     <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
+                        <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -2508,21 +2566,23 @@ border-radius:10px;</string>
                  </property>
                  <property name="html">
                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-                   &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
-                   type=&quot;text/css&quot;&gt;
-                   p, li { white-space: pre-wrap; }
-                   &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
-                   font-weight:400; font-style:normal;&quot;&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                      &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
+                      type=&quot;text/css&quot;&gt;
+                      p, li { white-space: pre-wrap; }
+                      &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
+                      font-weight:400; font-style:normal;&quot;&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
                 </widget>

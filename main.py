@@ -13,8 +13,6 @@ from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon, QImage, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
 from PyQt5.uic import loadUi
-from cachecontrol import CacheControl
-from cachecontrol.caches import FileCache
 
 from display_movie import DisplayMovies
 from library import Library
@@ -28,7 +26,7 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, session
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -50,10 +48,6 @@ else:
 # only for windows (get resolution)
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
-
-# Initialising requests connection
-cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
-session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 
 class Main(QMainWindow):
@@ -712,7 +706,6 @@ class Main(QMainWindow):
             playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
 
 
-'''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -720,8 +713,8 @@ if __name__ == '__main__':
     window.show()
 
     sys.exit(app.exec_())
-'''
 
+'''
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
@@ -756,3 +749,5 @@ if __name__ == "__main__":
         window.show()
 
     sys.exit(app.exec_())
+
+'''
