@@ -216,7 +216,9 @@ def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
     data = cursor.fetchall()
 
     if data:
-        return list(data[0])
+        data = data[0]
+        result = [int(data[0]), data[1], data[2], str(data[3]), data[4].split('-'), data[5], float(data[6]), data[7].split('-'), data[8]]
+        return result
     
     else:
         return False
@@ -239,7 +241,14 @@ def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[tuple]:
     data = cursor.fetchall()
 
     if data:
-        return list(data)
+
+        result = []
+
+        for i in data:
+            movie_info = [int(i[0]), i[1], i[2], str(i[3]), i[4].split('-'), i[5], float(i[6]), i[7].split('-'), i[8]]
+            result.append(movie_info)
+
+        return result
     
     else:
         return False
