@@ -2,7 +2,7 @@
 Movie Recommender/Organiser (Alpha stage)
 
 ## Requirements
-- [Python 3.7 or later version](https://www.python.org/downloads/)
+- [Python 3.10 or later version](https://www.python.org/downloads/)
 - Packages mentioned in the `requirements.txt` file.
   #### For Windows
   ```
@@ -14,7 +14,7 @@ Movie Recommender/Organiser (Alpha stage)
   ```
   
 ## Contributing
-- [Pull Requests](https://github.com/lakshya076/DarkNotes/pulls) are welcome but for major changes or improvements, please open an [issue](https://github.com/lakshya076/DarkNotes/issues) first to discuss the changes.
+- [Pull Requests](https://github.com/lakshya076/Cinematch/pulls) are welcome but for major changes or improvements, please open an [issue](https://github.com/lakshya076/Cinematch/issues) first to discuss the changes.
 
 ## Preview
 Coming Soon
