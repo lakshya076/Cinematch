@@ -30,11 +30,11 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
 
         cursor.execute('update users set logged_in = 0')
 
+        cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
         cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 1, 0, null, null)')
         cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
-        cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
         # cursor.execute(f'insert into mapping values("{username}", "", "", "", "", "", "")')
 
 

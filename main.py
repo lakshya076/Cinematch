@@ -246,8 +246,9 @@ class Main(QMainWindow):
                 try:
                     # Try to delete playlist
                     removed_playlists[_objectdelete] = playlists_metadata[_objectdelete]
+                    playlist_name = playlists_metadata[_objectdelete][1]
                     del playlists_metadata[_objectdelete]
-                    playlists.delete_playlist(username, _objectdelete, conn, cur)
+                    playlists.delete_playlist(username, playlist_name, conn, cur)
                     print(f"Playlist Deleted {_objectdelete}")
                     self.combo(_playlist_combo=self.random_combo)
                     self.combo(_playlist_combo=self.display_combo)
@@ -772,36 +773,33 @@ if __name__ == "__main__":
     window = Main()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
-    start_win = Start()
-
-    username, no_logged = init_uname()
-    playlists_metadata = init_list_metadata()
-    get_movies()
 
     if not no_logged:
+        username, no_logged = init_uname()
+        playlists_metadata = init_list_metadata()
+        playlists_display_metadata = get_movies()
         window.show()
 
-        sys.exit(app.exec_())
+    else:
+        
+        start_win = Start()
 
-    elif start_win.exec_() == 2:  # User logged in
-        init_uname()
-        init_list_metadata()
-        get_movies()
-        window.show()
+        if start_win.exec_() == 2:  # User logged in
+            username, no_logged = init_uname()
+            playlists_metadata = init_list_metadata()
+            playlists_display_metadata = get_movies()
+            window.show()
 
-        sys.exit(app.exec_())
-
-    checklist_win = Checklist()
-    genre_win = Genre()
-    lang_win = Language()
-
-    if start_win.exec_() == 1:  # User registered
-        init_uname()
-        init_list_metadata()
-        get_movies()
-        if checklist_win.exec_() == QDialog.Accepted:
-            if genre_win.exec_() == QDialog.Accepted:
-                if lang_win.exec_() == QDialog.Accepted:
-                    window.show()
+        elif start_win.exec_() == 1:  # User registered
+            checklist_win = Checklist()
+            genre_win = Genre()
+            lang_win = Language()
+            username, no_logged = init_uname()
+            playlists_metadata = init_list_metadata()
+            playlists_display_metadata = get_movies()
+            if checklist_win.exec_() == QDialog.Accepted:
+                if genre_win.exec_() == QDialog.Accepted:
+                    if lang_win.exec_() == QDialog.Accepted:
+                        window.show()
 
     sys.exit(app.exec_())

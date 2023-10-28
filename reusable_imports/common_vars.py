@@ -145,6 +145,8 @@ def get_movies():
 
     conn.close()
 
+    return playlists_display_metadata
+
 
 def get_playlist_movies(list_name: str):
     if list_name in playlists_metadata.keys():
