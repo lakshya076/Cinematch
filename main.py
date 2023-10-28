@@ -781,11 +781,15 @@ if __name__ == "__main__":
     if not no_logged:
         window.show()
 
+        sys.exit(app.exec_())
+
     elif start_win.exec_() == 2:  # User logged in
         init_uname()
         init_list_metadata()
         get_movies()
         window.show()
+
+        sys.exit(app.exec_())
 
     checklist_win = Checklist()
     genre_win = Genre()
