@@ -10,6 +10,7 @@ import requests
 from backend.Utils.movie_utils import *
 from backend.Utils.user_utils import get_logged_user
 from backend.Utils.playlist_utils import *
+from reusable_imports.commons import remove_spaces
 
 # This list holds id of all the movies selected by the user in the checklist page
 movies = list()
@@ -53,7 +54,7 @@ def init_list_metadata():
         for i in get_playlists(username, cur):
             list_info = playlist_info(username, i, cur)
             print(list_info)
-            playlists_metadata[list_info[2].lower().replace(' ', '')] = [list_info[2], list_info[0], '-'.join(list_info[6].split('-')[::-1]), list_info[3], list_info[5]]
+            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0], '-'.join(list_info[6].split('-')[::-1]), list_info[3], list_info[5]]
 
     return playlists_metadata
 init_uname()
@@ -86,6 +87,10 @@ def get_movies():
     playlists_display_metadata
     :return: None
     """
+    
+    # Threaded function needs its own connection
+    conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
+    cur = conn.cursor()
 
     # Common session used to load the images of all the movies in the metadata list. The images are then cached and
     # stored so when the program is run again, images load easily.
@@ -103,11 +108,18 @@ def get_movies():
         for j in list(playlists_metadata.values())[i][3]:
             id = int(j)
 
-            title = get_title(int(j), cursor=conn.cursor())  # gets title
-            poster_path = get_poster(int(j), cursor=conn.cursor())  # gets poster path
-            lang = get_lang(int(j), cursor=conn.cursor())  # gets movie lang
-            popularity = get_pop(int(j), cursor=conn.cursor())  # gets movie popularity
-            if poster_path != 'nan':
+            movie_info = get_movie_info(id, cur)
+
+            title = movie_info[1]
+            poster_path = movie_info[8]
+            lang = movie_info[5]
+            popularity = movie_info[6]
+
+            # title = get_title(int(j), cursor=conn.cursor())  # gets title
+            # poster_path = get_poster(int(j), cursor=conn.cursor())  # gets poster path
+            # lang = get_lang(int(j), cursor=conn.cursor())  # gets movie lang
+            # popularity = get_pop(int(j), cursor=conn.cursor())  # gets movie popularity
+            if poster_path != 'nan' and poster_path:
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
                 except requests.ConnectionError:  # Network Error
@@ -122,6 +134,7 @@ def get_movies():
             if type(title) is str:
                 playlists_display_metadata[list(playlists_metadata.keys())[i]].append(tuple(enter))
 
+    conn.close()
 
 def get_playlist_movies(list_name: str):
     if list_name in playlists_metadata.keys():

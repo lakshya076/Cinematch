@@ -204,6 +204,47 @@ def get_lang(id: int, cursor: pymysql.cursors.Cursor) -> str:
         return ''
 
 
+def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
+
+    '''
+    
+    (id, title, overview, release_date, genres, language, popularity, cast, poster)
+    
+    '''
+
+    cursor.execute(f'select * from main where id = {id}')
+    data = cursor.fetchall()
+
+    if data:
+        return list(data[0])
+    
+    else:
+        return False
+    
+
+def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[tuple]:
+
+    '''
+    
+    (id, title, overview, release_date, genres, language, popularity, cast, poster)
+    
+    '''
+
+    query = 'select * from main where '
+    for i in ids:
+        query += f'id = {i} or '
+
+    query = query[:len(query)-4]
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    if data:
+        return list(data)
+    
+    else:
+        return False
+
+
 def recommend_direct(id: int, depth: int, cursor: pymysql.cursors.Cursor) -> list[int]:
 
     '''
@@ -242,7 +283,7 @@ def pop_sort(ids: list[int], cursor: pymysql.cursors.Cursor) -> list[int]:
 
     pop_dict = {}
     for i in ids:
-        popularity = get_popularity(i, cursor)
+        popularity = get_pop(i, cursor)
         pop_dict[popularity] = i
 
     pop_list = list(pop_dict.keys())

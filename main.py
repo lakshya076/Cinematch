@@ -8,7 +8,6 @@ import random
 from threading import Thread
 import platform
 
-import pymysql
 import requests
 import PyQt5
 from PyQt5.QtCore import QRect
@@ -31,7 +30,7 @@ from reusable_imports.common_vars import playlist_picture, playlists_metadata, g
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, init_list_metadata, not_found_img
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
-from backend import playlists, users
+from backend import playlists, users, movie_search
 
 # Threading to get the movies metadata (movies stored in playlists) at start
 _thread = Thread(target=get_movies)
@@ -321,10 +320,10 @@ class Main(QMainWindow):
     def logout_func(self):
         # TODO dialog box to make the user confirm if he/she wants to log out and then call exit function
         # Logging out in SQL
-        users.logout(cur, conn)
 
+        users.logout(cur, conn)
         print("Logging out")
-        self.close()
+        sys.exit()
 
     def open_playlist_func(self, playlist_name: str):
         """
@@ -436,13 +435,23 @@ class Main(QMainWindow):
         _output_label.setText("")
 
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        title = get_title(_id, conn.cursor())
-        poster = get_poster(_id, conn.cursor())
-        overview = get_overview(_id, conn.cursor())
-        lang = get_lang(_id, conn.cursor())
-        pop = get_pop(_id, conn.cursor())
-        gen = get_genz(_id, conn.cursor())
-        date = get_release_date(_id, conn.cursor())
+        movie_info = get_movie_info(_id, cur)
+
+        title = movie_info[1]
+        poster = movie_info[8]
+        overview = movie_info[2]
+        lang = movie_info[5]
+        pop = movie_info[6]
+        gen = movie_info[4]
+        date = movie_info[3]
+
+        # title = get_title(_id, conn.cursor())
+        # poster = get_poster(_id, conn.cursor())
+        # overview = get_overview(_id, conn.cursor())
+        # lang = get_lang(_id, conn.cursor())
+        # pop = get_pop(_id, conn.cursor())
+        # gen = get_genz(_id, conn.cursor())
+        # date = get_release_date(_id, conn.cursor())
 
         real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
 
@@ -458,10 +467,14 @@ class Main(QMainWindow):
         for i in gen:
             genre_real += f"{i}, "
 
-        try:
-            poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
-        except requests.ConnectionError:
+        if poster != 'nan' and poster:
+            try:
+                poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
+            except requests.ConnectionError:
+                poster_real = not_found_img
+        else:
             poster_real = not_found_img
+            
         image_object = QImage()
         image_object.loadFromData(poster_real)
 
@@ -503,12 +516,19 @@ class Main(QMainWindow):
         except KeyError:
             print(f"Unable to add {id} to shortlist")
 
-        title = get_title(id, cursor=conn.cursor())  # gets title
-        poster_path = get_poster(id, cursor=conn.cursor())  # gets poster path
-        lang = get_lang(id, cursor=conn.cursor())  # gets movie lang
-        popularity = get_pop(id, cursor=conn.cursor())  # gets movie popularity
+        movie_info = get_movie_info(id, cur)
 
-        if poster_path != 'nan':
+        title = movie_info[1]
+        poster_path = movie_info[8]
+        lang = movie_info[5]
+        popularity = movie_info[6]
+
+        # title = get_title(id, cursor=conn.cursor())  # gets title
+        # poster_path = get_poster(id, cursor=conn.cursor())  # gets poster path
+        # lang = get_lang(id, cursor=conn.cursor())  # gets movie lang
+        # popularity = get_pop(id, cursor=conn.cursor())  # gets movie popularity
+
+        if poster_path != 'nan' and poster_path:
             try:
                 poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
             except requests.ConnectionError:  # Network Error
@@ -518,11 +538,11 @@ class Main(QMainWindow):
             poster_var = not_found_img
             # executes if the poster path is not available in the database.
 
-        enter = ["shortlist", title, poster_var, lang, popularity, id]
+        enter = ["Shortlist", title, poster_var, lang, popularity, id]
+
 
         try:
             playlists_display_metadata["shortlist"].append(tuple(enter))
-            playlists.add_movies([id], username, "shortlist", conn, cur)
             print(f"Added {id} to display list")
         except AttributeError:
             print("Unable to enter the movie metadata to the display list")
@@ -573,6 +593,16 @@ class Main(QMainWindow):
         self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
         print(f"Searching {search_text}")
 
+        searched_movies = movie_search.search(search_text, cur)[:10]
+        print(f'Search Results: {searched_movies}')
+
+        search_metadata = {}
+        for i in get_movies_info(searched_movies, cur):
+            search_metadata[i[0]] = i[1:]
+        
+        print(search_metadata)
+
+
     def delete_acc_func(self):
         """
         Function to delete user's account (move it to recovery table)
@@ -580,6 +610,7 @@ class Main(QMainWindow):
         # Dialog box to ask confirmation and give the 14-day recovery period.
         # then close the app and move the user credentials to the recovery table.
         # TODO Return to login menu
+
         users.delete_user(username, conn, cur)
         print("Account Deleted")
         sys.exit()
@@ -746,6 +777,9 @@ if __name__ == "__main__":
 
     username, no_logged = init_uname()
     playlists_metadata = init_list_metadata()
+    get_movies()
+
+    users.remove_users(conn, cur) # Remove deleted users if date has passed
 
     if not no_logged:
         window.show()
@@ -753,6 +787,7 @@ if __name__ == "__main__":
     elif start_win.exec_() == 1:  # User registered
         init_uname()
         init_list_metadata()
+        get_movies()
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
@@ -761,6 +796,7 @@ if __name__ == "__main__":
     elif start_win.exec_() == 2:  # User logged in
         init_uname()
         init_list_metadata()
+        get_movies()
         window.show()
 
     sys.exit(app.exec_())

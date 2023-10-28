@@ -74,6 +74,18 @@ def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
     else:
         return False
+    
+
+def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select date from playlists where username = "{username}" and name = "{name}"')
+    data = cursor.fetchall()
+
+    if data:
+        return '-'.join(data[0][0].split('-')[::-1])
+
+    else:
+        return False
 
 
 def get_playlists(username: str, cursor: pymysql.cursors.Cursor):
