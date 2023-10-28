@@ -97,6 +97,30 @@ def get_password(user: str, cursor: pymysql.cursors.Cursor):
         return False
     
 
+def get_logged_user(cursor: pymysql.cursors.Cursor):
+
+    cursor.execute('select username from users where logged_in = 1')
+    data = cursor.fetchall()
+
+    if data:
+        return data[0][0]
+        
+    else:
+        return False
+    
+
+def is_logged_in(user: str, cursor: pymysql.cursors.Cursor):
+
+    cursor.execute(f'select logged_in from users where username="{user}" or email="{user}"')
+    data = cursor.fetchone()
+
+    if data:
+        return bool(int(data[0]))
+
+    else:
+        return False
+
+
 def is_premium(user: str, cursor: pymysql.cursors.Cursor):
 
     '''
@@ -105,11 +129,11 @@ def is_premium(user: str, cursor: pymysql.cursors.Cursor):
 
     '''
 
-    cursor.execute(f'select * from users where username="{user}" or email="{user}"')
-    data = cursor.fetchone()
+    cursor.execute(f'select premium from users where username="{user}" or email="{user}"')
+    data = cursor.fetchall()
 
     if data:
-        return bool(int(data[0]))
+        return bool(int(data[0][0]))
 
     else:
-        return False
+        return None

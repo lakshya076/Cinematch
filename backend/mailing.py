@@ -2,7 +2,7 @@ import smtplib
 from email.message import EmailMessage
 import random
 import pymysql.cursors
-from Utils.user_utils import valid_email, get_username
+from backend.Utils.user_utils import valid_email, get_username
 
 
 passwd = 'tkbw uufq ziyx smnq'
