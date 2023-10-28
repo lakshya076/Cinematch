@@ -27,7 +27,8 @@ from language import Language
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, init_list_metadata, not_found_img
+    playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
+    init_list_metadata, not_found_img
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -50,7 +51,6 @@ resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 # Initialising requests connection
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
-
 
 
 class Main(QMainWindow):
@@ -474,7 +474,7 @@ class Main(QMainWindow):
                 poster_real = not_found_img
         else:
             poster_real = not_found_img
-            
+
         image_object = QImage()
         image_object.loadFromData(poster_real)
 
@@ -539,7 +539,6 @@ class Main(QMainWindow):
 
         enter = ["Shortlist", title, poster_var, lang, popularity, id]
 
-
         try:
             playlists_display_metadata["shortlist"].append(tuple(enter))
             print(f"Added {id} to display list")
@@ -597,9 +596,8 @@ class Main(QMainWindow):
         search_metadata = {}
         for i in get_movies_info(searched_movies, cur):
             search_metadata[i[0]] = i[1:]
-        
-        print(search_metadata)
 
+        print(search_metadata)
 
     def delete_acc_func(self):
         """
@@ -756,6 +754,7 @@ class Main(QMainWindow):
         for i in playlists_metadata.keys():
             playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
 
+
 '''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -772,7 +771,7 @@ if __name__ == "__main__":
 
     window = Main()
 
-    users.remove_users(conn, cur) # Remove deleted users if date has passed
+    users.remove_users(conn, cur)  # Remove deleted users if date has passed
     start_win = Start()
 
     username, no_logged = init_uname()
