@@ -3,7 +3,7 @@
 Movie Recommender (Alpha stage)
 
 For movie organiser
-see [oganiser-cum-recommender](https://github.com/lakshya076/Cinematch/tree/organiser-cum-recommender)
+see [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/tree/organiser-cum-recommender)
 
 
 ## Requirements
