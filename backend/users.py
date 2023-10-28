@@ -33,9 +33,10 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
         cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 1, 0, null, null)')
         cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null, curdate())')
-        cursor.execute(
-            f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
+        cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
+        cursor.execute(f'insert into mapping values("{username}", "", "", "", "", "", "")')
+
 
         connection.commit()
 
@@ -156,8 +157,7 @@ def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor)
 def recover_user(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     if user_utils.user_status(email, cursor) == 2:
 
-        cursor.execute(
-            f'insert into users (select username, password, email, premium, premium_start, premium_end from deleted_users where email="{email}")')
+        cursor.execute(f'insert into users (select username, password, email, premium, premium_start, premium_end from deleted_users where email="{email}")')
         cursor.execute(f'delete from deleted_users where email="{email}"')
         connection.commit()
 

@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QDialog, QApplication, QLineEdit
 from PyQt5.uic import loadUi
 
 from reusable_imports.commons import ErrorDialog, clickable
-from backend.Utils.user_utils import valid_email
 from backend import mailing, users
 from reusable_imports.common_vars import conn, cur
 
@@ -84,9 +83,6 @@ class Start(QDialog):
             elif password != confirmpassword:
                 self.error_register.setText("Passwords do not match.")
 
-            elif not valid_email(email):
-                self.error_register.setText("Email is not valid.")
-
             else:
                 print("Registering")
                 self.done(1)
@@ -136,7 +132,7 @@ class Start(QDialog):
         self.email = self.efield_forgot.text()
 
         if wifi_availability():
-            if len(self.email) == 0 or not valid_email(self.email):
+            if len(self.email) == 0:
                 self.error_forgot.setText("Please fill in all the inputs.")
             else:
                 # otp send type shit (preferably separate function so that it can be reused in the send again button

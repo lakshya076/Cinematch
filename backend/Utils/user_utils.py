@@ -3,6 +3,7 @@ import pymysql.cursors
 from validate_email import validate_email
 
 
+
 def user_status(user: str, cursor: pymysql.cursors.Cursor):
     '''
     

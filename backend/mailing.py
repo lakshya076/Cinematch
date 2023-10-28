@@ -2,7 +2,7 @@ import smtplib
 from email.message import EmailMessage
 import random
 import pymysql.cursors
-from backend.Utils.user_utils import valid_email, get_username
+from backend.Utils.user_utils import get_username
 
 passwd = 'tkbw uufq ziyx smnq'
 sender = "lakhya.arnav.cs.project@gmail.com"
@@ -17,7 +17,7 @@ def send_otp(email: str):
     
     '''
 
-    if valid_email(email):
+    try:
 
         otp = random.randint(100000, 999999)
         message = EmailMessage()
@@ -35,12 +35,12 @@ def send_otp(email: str):
 
         return otp
 
-    else:
+    except:
         return -1
 
 
 def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor):
-    if valid_email(email):
+    try:
 
         username = get_username(email, cursor)
 
@@ -61,12 +61,12 @@ def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor):
 
         return True
 
-    else:
+    except:
         return False
 
 
 def send_removal_mail(email: str, cursor: pymysql.cursors.Cursor):
-    if valid_email(email):
+    try:
 
         username = get_username(email, cursor)
 
@@ -90,5 +90,5 @@ def send_removal_mail(email: str, cursor: pymysql.cursors.Cursor):
 
         return False
 
-    else:
+    except:
         return False
