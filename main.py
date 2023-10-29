@@ -725,6 +725,12 @@ class Main(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
+    _thread = Thread(target=get_movies)
+    _thread.start()
+
+    # Function to get movies metadata to display on home screen (add splash screen for this)
+    get_data()
+
     window = Main()
     window.show()
 
