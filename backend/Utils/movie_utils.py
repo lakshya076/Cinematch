@@ -224,13 +224,16 @@ def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
         return False
     
 
-def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[tuple]:
+def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
 
     '''
     
     (id, title, overview, release_date, genres, language, popularity, cast, poster)
     
     '''
+
+    if ids == []:
+        return []
 
     query = 'select * from main where '
     for i in ids:

@@ -6,6 +6,7 @@ from PyQt5.uic import loadUi
 from reusable_imports.commons import ErrorDialog, clickable
 from backend import mailing, users
 from reusable_imports.common_vars import conn, cur
+from backend.Utils import user_utils
 
 
 def wifi_availability():
@@ -76,6 +77,7 @@ class Start(QDialog):
         email = self.efield_register.text()
         password = self.pfield_register.text()
         confirmpassword = self.cpfield_register.text()
+        user_stat = user_utils.user_status(user, cur)
 
         if wifi_availability():
             if len(user) == 0 or len(password) == 0 or len(confirmpassword) == 0 or len(email) == 0:
@@ -96,13 +98,18 @@ class Start(QDialog):
             elif ' ' in user:
                 self.error_register.setText("Username cannot have a space.")
 
+            elif user_stat != 0:
+
+                if user_stat == 1:
+                    self.error_register.setText("Credentials already exist.")
+                elif user_stat == 2:
+                    self.error_register.setText("User is deleted. Recovery available.")
+
             else:
-                # Database linkage code
-                if users.register(user, password, email, conn, cur):
-                    print("Registering")
-                    self.done(1)
-                else:
-                    self.error_register.setText("Credentials already exists.")
+                self.username = user
+                self.password = password
+                self.email = email
+                self.done(1)
 
                 # Direct to next page (Checklist/Languages)
 

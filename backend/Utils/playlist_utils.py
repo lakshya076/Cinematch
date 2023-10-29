@@ -3,6 +3,7 @@ import pymysql.cursors
 
 
 def playlist_status(username: str, name: str, cursor: pymysql.cursors.Cursor):
+    
     cursor.execute(f'select * from playlists where username="{username}" and name="{name}"')
     x = cursor.fetchall()
 
@@ -20,6 +21,7 @@ def playlist_status(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
 
 def requires_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
+   
     cursor.execute(f'select requires_password from playlists where username="{username}" and name="{name}"')
     data = cursor.fetchone()
 
@@ -31,6 +33,7 @@ def requires_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_movies(username: str, name: str, cursor: pymysql.cursors.Cursor):
+    
     cursor.execute(f'select movies from playlists where username="{username}" and name="{name}"')
     data = cursor.fetchall()
 
@@ -46,6 +49,7 @@ def get_movies(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
+    
     cursor.execute(f'select password from playlists where username = "{username}" and name = "{name}"')
     from_normal = cursor.fetchone()
 
@@ -63,6 +67,7 @@ def get_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
+    
     cursor.execute(f'select type from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchall()
 
@@ -74,6 +79,7 @@ def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
+    
     cursor.execute(f'select date from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchall()
 
@@ -85,13 +91,43 @@ def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_playlists(username: str, cursor: pymysql.cursors.Cursor):
+    
     cursor.execute(f'select name from playlists where username = "{username}"')
     data = cursor.fetchall()
 
     return [i[0] for i in data]
 
 
+def get_playlists_info(username: str, cursor: pymysql.cursors.Cursor):
+
+    '''
+    
+    (username, type, name, movies, requires_password, password, date_created)
+
+    '''
+
+    cursor.execute(f'select * from playlists where username = "{username}"')
+    data = cursor.fetchall()
+
+    if data:
+
+        result = []
+        for i in data:
+            
+            if i[3] == '':
+                result.append([i[0], i[1], i[2], [], bool(int(i[4])), i[5], str(i[6])])
+            
+            else:
+                result.append([i[0], i[1], i[2], i[3].split('-'), bool(int(i[4])), i[5], str(i[6])])
+
+        return result
+
+    else:
+        return False
+
+
 def playlist_info(username: str, name: str, cursor: pymysql.cursors.Cursor):
+    
     '''
     
     0 username

@@ -26,18 +26,12 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, session
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, session
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
 from widget_generator_search import SearchMovies
 
-# Threading to get the playlists metadata at start
-_thread = Thread(target=get_movies)
-_thread.start()
-
-# Function to get movies metadata to display on home screen (add splash screen for this)
-get_data()
 
 # Checking OS
 if platform.system() == "Windows":
@@ -213,6 +207,7 @@ class Main(QMainWindow):
             sender = display.sender()
             _playlist = sender.objectName().strip().split(sep="_")[-2]
             _objectdelete = sender.objectName().strip().split(sep="_")[-1]
+            _playlist_name = playlists_metadata[_playlist][0]
 
             try:
                 delete_list = [i[5] for i in display.check]
@@ -220,17 +215,14 @@ class Main(QMainWindow):
                 # Deletes from the viewable 'client' side dict
                 del playlists_display_metadata[_playlist][delete_queue]
 
-                try:
-                    # Deletes from the backend list which will be updated in the sql table
-                    left_movies = playlists.remove_movies([_objectdelete], username, _playlist, conn, cur)
-                    playlists_metadata[_playlist][3].remove(int(_objectdelete))
-                except:
-                    print("Can't delete")
+                # Deletes from the backend list which will be updated in the sql table
+                removed_playlist_movies[_playlist_name].append(int(_objectdelete))
+                playlists_metadata[_playlist][3].remove(int(_objectdelete))
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
-            except KeyError:
-                print("Key Error, Can't Delete Playlist.")
+            except Exception as e:
+                print(f"{e}, Can't Delete Playlist.")
 
             self.shortlist_func()
             # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
@@ -248,7 +240,7 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -278,7 +270,7 @@ class Main(QMainWindow):
                     playlist_name = playlists_metadata[_objectdelete][0]
                     print(playlist_name)
                     del playlists_metadata[_objectdelete]
-                    playlists.delete_playlist(username, playlist_name, conn, cur)
+                    
                     print(f"Playlist Deleted {_objectdelete}")
 
                 except KeyError:
@@ -386,6 +378,7 @@ class Main(QMainWindow):
             """
             sender = display.sender()
             _playlist = sender.objectName().strip().split(sep="_")[-2]
+            _playlist_name = playlists_metadata[_playlist][0]
             _objectdelete = sender.objectName().strip().split(sep="_")[-1]
 
             try:
@@ -393,18 +386,14 @@ class Main(QMainWindow):
                 delete_queue = delete_list.index(int(_objectdelete))
                 # Deletes from the viewable 'client' side dict
                 del playlists_display_metadata[_playlist][delete_queue]
-
-                try:
-                    # Deletes from the backend list which will be updated in the sql table
-                    playlists.remove_movies([_objectdelete], username, playlist_name, conn, cur)
-                    playlists_metadata[_playlist][3].remove(int(_objectdelete))
-                except ValueError:
-                    print("Can't delete")
+                removed_playlist_movies[_playlist_name].append(int(_objectdelete))
+                playlists_metadata[_playlist][3].remove(int(_objectdelete))
+                print("Can't delete")
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
-            except KeyError:
-                print("Key Error, Can't Delete Playlist.")
+            except Exception as e:
+                print(f"{e}\nCan't Delete Playlist.")
 
             self.open_playlist_func(playlist_name=playlist_name)
             # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
@@ -421,7 +410,7 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.playlist_sa_widgets, layout=self.playlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
         self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
 
         self.stack.setCurrentIndex(8)
@@ -473,38 +462,22 @@ class Main(QMainWindow):
 
         title = movie_info[1]
         poster = movie_info[8]
-        overview = movie_info[2]
+        overview = movie_info[2] or "Not Available"
         lang = movie_info[5]
         pop = movie_info[6]
         gen = movie_info[4]
         date = movie_info[3]
 
-        # title = get_title(_id, conn.cursor())
-        # poster = get_poster(_id, conn.cursor())
-        # overview = get_overview(_id, conn.cursor())
-        # lang = get_lang(_id, conn.cursor())
-        # pop = get_pop(_id, conn.cursor())
-        # gen = get_genz(_id, conn.cursor())
-        # date = get_release_date(_id, conn.cursor())
-
         real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+        lang_real = iso_639_1[lang]
+        lang_real = lang
 
-        if overview == "nan":
-            overview = "Not Available"
+        genre_real = ", ".join(gen)
 
-        try:
-            lang_real = iso_639_1[lang]
-        except KeyError:
-            lang_real = lang
-
-        genre_real = str()
-        for i in gen:
-            genre_real += f"{i}, "
-
-        if poster != 'nan' and poster:
+        if poster:
             try:
                 poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
-            except requests.ConnectionError:
+            except:
                 poster_real = not_found_img
         else:
             poster_real = not_found_img
@@ -519,26 +492,23 @@ class Main(QMainWindow):
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.setDisabled(True)
 
-            try:
-                playlists_metadata["shortlist"][3].append(_id)
-                print(f"Added {_id} to shortlist")
-            except KeyError:
-                print(f"Unable to add {_id} to shortlist")
+
+            playlists_metadata["shortlist"][3].append(_id)
+            print(f"Added {_id} to shortlist")
+            print(f"Unable to add {_id} to shortlist")
 
             enter = ["Shortlist", title, poster_real, lang, pop, _id]
 
-            try:
-                playlists_display_metadata["shortlist"].append(tuple(enter))
-                print(f"Added {_id} to display list")
-            except AttributeError:
-                print("Unable to enter the movie metadata to the display list")
+            playlists_display_metadata["shortlist"].append(tuple(enter))
+            print(f"Added {_id} to display list")
+            print("Unable to enter the movie metadata to the display list")
 
         _image.setPixmap(QPixmap(image_object))
         _title.setText(title)
         _overview.setText(overview)
         _pop.setText(f"Popularity:\n{str(pop)}")
         _lang.setText(lang_real)
-        _genre.setText(genre_real[:-2:1])
+        _genre.setText(genre_real)
         _date.setText(f"Release Date:\n{real_date}")
 
         _shortlist_but.setChecked(False)
@@ -748,6 +718,9 @@ class Main(QMainWindow):
         for i in playlists_metadata.keys():
             playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
 
+        for i in removed_playlist_movies.keys():
+            playlists.remove_movies(removed_playlist_movies[i], username, i, conn, cur)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -759,6 +732,15 @@ if __name__ == '__main__':
 
 '''
 if __name__ == "__main__":
+
+    username, no_logged = init_uname()
+    playlists_metadata, playlist_picture = init_list_metadata()
+
+    _thread = Thread(target=get_movies)
+    _thread.start()
+
+    # Function to get movies metadata to display on home screen (add splash screen for this)
+    get_data()
 
     app = QApplication(sys.argv)
 
@@ -772,7 +754,7 @@ if __name__ == "__main__":
 
     if not no_logged:
         username, no_logged = init_uname()
-        playlists_metadata = init_list_metadata()
+        playlists_metadata, playlist_picture = init_list_metadata()
         playlists_display_metadata = get_movies()
         window.show()
 
@@ -780,14 +762,15 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
+                    users.register(start_win.username, start_win.password, start_win.email, conn, cur)
                     username, no_logged = init_uname()
-                    playlists_metadata = init_list_metadata()
+                    playlists_metadata, playlist_picture = init_list_metadata()
                     playlists_display_metadata = get_movies()
                     window.show()
 
     elif start_win.exec_() == 2:  # User logged in
         username, no_logged = init_uname()
-        playlists_metadata = init_list_metadata()
+        playlists_metadata, playlist_picture = init_list_metadata()
         playlists_display_metadata = get_movies()
         window.show()
 
