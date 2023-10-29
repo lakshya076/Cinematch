@@ -66,6 +66,7 @@ class Main(QMainWindow):
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
+        self.user_settings.setText(username)
 
         clickable(self.collapse).connect(self.sidebar_expand_show)
         clickable(self.expand).connect(self.sidebar_collapse_show)
@@ -687,6 +688,9 @@ class Main(QMainWindow):
         self.mode_expand.setIcon(QIcon("Icons/dark_mode.ico"))
         self.mode_expand.setText("Dark Mode")
 
+        self.user_img.setPixmap(QPixmap("Images\\user_white.png"))
+        self.user_settings.setStyleSheet("color:#fffaf0;font:18pt;")
+
     def light_mode(self):
         """
         Function to change to light mode
@@ -718,6 +722,9 @@ class Main(QMainWindow):
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
         self.mode_expand.setIcon(QIcon("Icons/light_mode.ico"))
         self.mode_expand.setText("Light Mode")
+
+        self.user_img.setPixmap(QPixmap("Images\\user_black.png"))
+        self.user_settings.setStyleSheet("color:#000;font:18pt;")
 
     def closeEvent(self, event):
         print("closing")
