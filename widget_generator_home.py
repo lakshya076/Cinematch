@@ -3,7 +3,6 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import QMenu, QVBoxLayout, QFrame
 
-from reusable_imports._css import dark_home_stylesheet
 from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 
@@ -24,9 +23,6 @@ class Home(QFrame):
         self.frame = ClickableFrame(scroll_area)
         self.frame.setObjectName(self.frame_new)
         self.frame.setFixedSize(QSize(168, 325))
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.frame.setStyleSheet(dark_home_stylesheet)
         setattr(self, self.frame_new, self.frame)
 
         self.poster = ClickableLabel(self.frame)
