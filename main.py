@@ -10,8 +10,8 @@ import platform
 import requests
 import PyQt5
 from PyQt5.QtCore import QRect
-from PyQt5.QtGui import QIcon, QImage, QPixmap
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
+from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
@@ -67,6 +67,10 @@ class Main(QMainWindow):
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
         self.user_settings.setText(username)
+
+        # Setting shortcut for search box
+        self.shortcut = QShortcut(QKeySequence("Alt+D"), self)
+        self.shortcut.activated.connect(self.search_shortcut)
 
         clickable(self.collapse).connect(self.sidebar_expand_show)
         clickable(self.expand).connect(self.sidebar_collapse_show)
@@ -129,6 +133,10 @@ class Main(QMainWindow):
                 home.new_widgets_home(language[i], title=movie_data["language"][i][1],
                                       image=movie_data["language"][i][2], scroll_area=self.languages_sa_widgets,
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
+
+    def search_shortcut(self):
+        self.findnext_func()
+        self.search_box.selectAll()
 
     def open_home_search(self):
         sender = self.sender()
