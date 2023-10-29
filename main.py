@@ -470,7 +470,6 @@ class Main(QMainWindow):
 
         real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
         lang_real = iso_639_1[lang]
-        lang_real = lang
 
         genre_real = ", ".join(gen)
 
