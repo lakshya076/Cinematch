@@ -26,12 +26,12 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, session
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, \
+    session
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
 from widget_generator_search import SearchMovies
-
 
 # Checking OS
 if platform.system() == "Windows":
@@ -128,23 +128,6 @@ class Main(QMainWindow):
                                       image=movie_data["language"][i][2], scroll_area=self.languages_sa_widgets,
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
 
-    def search_shortcut(self):
-        self.findnext_func()
-        self.search_box.selectAll()
-
-    def open_home_search(self):
-        sender = self.sender()
-        _id = sender.objectName().split(sep="_")[-1]
-
-        try:
-            self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
-                            _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                            _genre=self.display_genre, _date=self.display_date,
-                            _shortlist_but=self.display_add_toshortlist)
-            self.stack.setCurrentIndex(7)
-        except TypeError:
-            print(f"Can't display {_id}")
-
     def home_func(self):
         """
         Function to switch to the home widget in the stack
@@ -240,7 +223,8 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main,
+                                       p_md=playlists_metadata)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -270,7 +254,7 @@ class Main(QMainWindow):
                     playlist_name = playlists_metadata[_objectdelete][0]
                     print(playlist_name)
                     del playlists_metadata[_objectdelete]
-                    
+
                     print(f"Playlist Deleted {_objectdelete}")
 
                 except KeyError:
@@ -347,6 +331,27 @@ class Main(QMainWindow):
         print("Logging out")
         self.close()
 
+    def search_shortcut(self):
+        """Function to activate search box by clicking shortcut Alt+D"""
+        self.findnext_func()
+        self.search_box.selectAll()
+
+    def open_home_search(self):
+        """
+        Function to open movies on home page and search page
+        """
+        sender = self.sender()
+        _id = sender.objectName().split(sep="_")[-1]
+
+        try:
+            self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
+                            _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                            _genre=self.display_genre, _date=self.display_date,
+                            _shortlist_but=self.display_add_toshortlist)
+            self.stack.setCurrentIndex(7)
+        except TypeError:
+            print(f"Can't display {_id}")
+
     def open_playlist_func(self, playlist_name: str):
         """
         The actual function to open a playlist
@@ -410,7 +415,8 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.playlist_sa_widgets, layout=self.playlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main,
+                                       p_md=playlists_metadata)
         self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
 
         self.stack.setCurrentIndex(8)
@@ -490,7 +496,6 @@ class Main(QMainWindow):
             """
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.setDisabled(True)
-
 
             playlists_metadata["shortlist"][3].append(_id)
             print(f"Added {_id} to shortlist")
