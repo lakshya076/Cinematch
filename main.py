@@ -480,6 +480,8 @@ class Main(QMainWindow):
                 poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
             except:
                 poster_real = not_found_img
+        else:
+            poster_real = not_found_img
 
         image_object = QImage()
         image_object.loadFromData(poster_real)
