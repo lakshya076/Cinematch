@@ -150,6 +150,7 @@ def get_movies():
     playlists_display_metadata
     :return: None
     """
+    print("Getting playlists data")
 
     # Threaded function needs its own connection
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
