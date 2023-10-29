@@ -2,6 +2,8 @@ from PyQt5.QtCore import QEvent, pyqtSignal, QObject, Qt
 from PyQt5.QtGui import QCursor
 from PyQt5.QtWidgets import QMessageBox, QLabel, QFrame
 
+from reusable_imports._css import dark_widget_stylesheet
+
 
 class ClickableLabel(QLabel):
     """
@@ -26,6 +28,9 @@ class ClickableFrame(QFrame):
     def __init__(self, parent=None):
         super(ClickableFrame, self).__init__(parent)
         self.setCursor(QCursor(Qt.PointingHandCursor))
+        self.setFrameShape(QFrame.StyledPanel)
+        self.setFrameShadow(QFrame.Raised)
+        self.setStyleSheet(dark_widget_stylesheet)
 
     def mousePressEvent(self, QMouseEvent):
         self.clicked.emit()

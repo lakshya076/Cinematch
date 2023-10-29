@@ -10,11 +10,9 @@ import platform
 import requests
 import PyQt5
 from PyQt5.QtCore import QRect
-from PyQt5.QtGui import QIcon, QImage, QPixmap
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
+from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut
 from PyQt5.uic import loadUi
-from cachecontrol import CacheControl
-from cachecontrol.caches import FileCache
 
 from display_movie import DisplayMovies
 from library import Library
@@ -28,10 +26,11 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, session
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
+from widget_generator_search import SearchMovies
 
 
 # Checking OS
@@ -44,10 +43,6 @@ else:
 # only for windows (get resolution)
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
-
-# Initialising requests connection
-cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
-session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 
 class Main(QMainWindow):
@@ -65,6 +60,11 @@ class Main(QMainWindow):
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
+        self.user_settings.setText(username)
+
+        # Setting shortcut for search box
+        self.shortcut = QShortcut(QKeySequence("Alt+D"), self)
+        self.shortcut.activated.connect(self.search_shortcut)
 
         clickable(self.collapse).connect(self.sidebar_expand_show)
         clickable(self.expand).connect(self.sidebar_collapse_show)
@@ -112,20 +112,27 @@ class Main(QMainWindow):
 
         # Displaying widgets on the home screen
         home = Home()
-        for i in range(len(recoms)):
-            home.new_widgets_home(recoms[i], title=movie_data["recoms"][i][1], image=movie_data["recoms"][i][2],
-                                  scroll_area=self.foryou_sa_widgets, layout=self.foryou_hlayout,
-                                  open_func_lib=self.open_home)
-        for i in range(len(watchagain)):
-            home.new_widgets_home(watchagain[i], image=movie_data["watchagain"][i][2],
-                                  title=movie_data["watchagain"][i][1], scroll_area=self.watchagain_sa_widgets,
-                                  layout=self.watchagain_hlayout, open_func_lib=self.open_home)
-        for i in range(len(language)):
-            home.new_widgets_home(language[i], title=movie_data["language"][i][1], image=movie_data["language"][i][2],
-                                  scroll_area=self.languages_sa_widgets, layout=self.languages_hlayout,
-                                  open_func_lib=self.open_home)
+        if len(recoms) != 0:
+            for i in range(len(recoms)):
+                home.new_widgets_home(recoms[i], title=movie_data["recoms"][i][1], image=movie_data["recoms"][i][2],
+                                      scroll_area=self.foryou_sa_widgets, layout=self.foryou_hlayout,
+                                      open_func_lib=self.open_home_search)
+        if len(watchagain) != 0:
+            for i in range(len(watchagain)):
+                home.new_widgets_home(watchagain[i], image=movie_data["watchagain"][i][2],
+                                      title=movie_data["watchagain"][i][1], scroll_area=self.watchagain_sa_widgets,
+                                      layout=self.watchagain_hlayout, open_func_lib=self.open_home_search)
+        if len(language) != 0:
+            for i in range(len(language)):
+                home.new_widgets_home(language[i], title=movie_data["language"][i][1],
+                                      image=movie_data["language"][i][2], scroll_area=self.languages_sa_widgets,
+                                      layout=self.languages_hlayout, open_func_lib=self.open_home_search)
 
-    def open_home(self):
+    def search_shortcut(self):
+        self.findnext_func()
+        self.search_box.selectAll()
+
+    def open_home_search(self):
         sender = self.sender()
         _id = sender.objectName().split(sep="_")[-1]
 
@@ -526,6 +533,30 @@ class Main(QMainWindow):
 
         print(search_metadata)
 
+        if len(searched_movies) != 0:
+            search = SearchMovies()
+
+            for i in range(len(searched_movies)):
+                _id = searched_movies[i]
+
+                poster_path = search_metadata[_id][-1]
+
+                if poster_path != '':
+                    try:
+                        poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                    except requests.ConnectionError:  # Network Error
+                        poster_var = not_found_img
+                    # gets poster image as a byte array
+                else:
+                    poster_var = not_found_img
+                    # executes if the poster path is not available in the database.
+
+                search.new_widgets_search(_id, title=search_metadata[_id][0], image=poster_var,
+                                          scroll_area=self.search_sa_real_widgets,
+                                          layout=self.search_sa_real_hlayout, open_func_lib=self.open_home_search)
+
+                print(f"Displaying searched movie {_id}")
+
     def delete_acc_func(self):
         """
         Function to delete user's account (move it to recovery table)
@@ -635,6 +666,9 @@ class Main(QMainWindow):
         self.mode_expand.setIcon(QIcon("Icons/dark_mode.ico"))
         self.mode_expand.setText("Dark Mode")
 
+        self.user_img.setPixmap(QPixmap("Images\\user_white.png"))
+        self.user_settings.setStyleSheet("color:#fffaf0;font:18pt;")
+
     def light_mode(self):
         """
         Function to change to light mode
@@ -667,6 +701,9 @@ class Main(QMainWindow):
         self.mode_expand.setIcon(QIcon("Icons/light_mode.ico"))
         self.mode_expand.setText("Light Mode")
 
+        self.user_img.setPixmap(QPixmap("Images\\user_black.png"))
+        self.user_settings.setStyleSheet("color:#000;font:18pt;")
+
     def closeEvent(self, event):
         print("closing")
         print(playlists_metadata)
@@ -685,7 +722,6 @@ class Main(QMainWindow):
             playlists.remove_movies(removed_playlist_movies[i], username, i, conn, cur)
 
 
-'''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -693,8 +729,8 @@ if __name__ == '__main__':
     window.show()
 
     sys.exit(app.exec_())
-'''
 
+'''
 if __name__ == "__main__":
 
     username, no_logged = init_uname()
@@ -739,3 +775,5 @@ if __name__ == "__main__":
         window.show()
 
     sys.exit(app.exec_())
+
+'''

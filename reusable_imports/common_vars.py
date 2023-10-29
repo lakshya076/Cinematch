@@ -41,6 +41,11 @@ language = [615656, 872585, 677179, 385687, 1397]
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
 
+# Common session used to load the images. The images are then cached and stored so when the program is run again,
+# images load easily.
+cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
+session = CacheControl(requests.Session(), cache=FileCache(cache_path))
+
 
 def init_uname():
     global username
@@ -120,6 +125,7 @@ def get_data():
 
     movie_list = [recoms, watchagain, language]
     for i in range(len(movie_list)):
+
         movies_info = get_movies_info(movie_list[i], cur)
         for j in movies_info:
             title = j[1]  # gets title
@@ -147,15 +153,11 @@ def get_movies():
     playlists_display_metadata
     :return: None
     """
+    print("Getting playlists data")
 
     # Threaded function needs its own connection
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
     cur = conn.cursor()
-
-    # Common session used to load the images of all the movies in the metadata list. The images are then cached and
-    # stored so when the program is run again, images load easily.
-    cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
-    session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
     # Main loop to get the metadata
     for i in playlists_metadata.keys():
