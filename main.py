@@ -30,6 +30,7 @@ from reusable_imports.common_vars import playlist_picture, playlists_metadata, g
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
+from widget_generator_search import SearchMovies
 
 # Threading to get the playlists metadata at start
 _thread = Thread(target=get_movies)
@@ -112,20 +113,23 @@ class Main(QMainWindow):
 
         # Displaying widgets on the home screen
         home = Home()
-        for i in range(len(recoms)):
-            home.new_widgets_home(recoms[i], title=movie_data["recoms"][i][1], image=movie_data["recoms"][i][2],
-                                  scroll_area=self.foryou_sa_widgets, layout=self.foryou_hlayout,
-                                  open_func_lib=self.open_home)
-        for i in range(len(watchagain)):
-            home.new_widgets_home(watchagain[i], image=movie_data["watchagain"][i][2],
-                                  title=movie_data["watchagain"][i][1], scroll_area=self.watchagain_sa_widgets,
-                                  layout=self.watchagain_hlayout, open_func_lib=self.open_home)
-        for i in range(len(language)):
-            home.new_widgets_home(language[i], title=movie_data["language"][i][1], image=movie_data["language"][i][2],
-                                  scroll_area=self.languages_sa_widgets, layout=self.languages_hlayout,
-                                  open_func_lib=self.open_home)
+        if len(recoms) != 0:
+            for i in range(len(recoms)):
+                home.new_widgets_home(recoms[i], title=movie_data["recoms"][i][1], image=movie_data["recoms"][i][2],
+                                      scroll_area=self.foryou_sa_widgets, layout=self.foryou_hlayout,
+                                      open_func_lib=self.open_home_search)
+        if len(watchagain) != 0:
+            for i in range(len(watchagain)):
+                home.new_widgets_home(watchagain[i], image=movie_data["watchagain"][i][2],
+                                      title=movie_data["watchagain"][i][1], scroll_area=self.watchagain_sa_widgets,
+                                      layout=self.watchagain_hlayout, open_func_lib=self.open_home_search)
+        if len(language) != 0:
+            for i in range(len(language)):
+                home.new_widgets_home(language[i], title=movie_data["language"][i][1],
+                                      image=movie_data["language"][i][2], scroll_area=self.languages_sa_widgets,
+                                      layout=self.languages_hlayout, open_func_lib=self.open_home_search)
 
-    def open_home(self):
+    def open_home_search(self):
         sender = self.sender()
         _id = sender.objectName().split(sep="_")[-1]
 
@@ -549,6 +553,30 @@ class Main(QMainWindow):
             search_metadata[i[0]] = i[1:]
 
         print(search_metadata)
+
+        if len(searched_movies) != 0:
+            search = SearchMovies()
+
+            for i in range(len(searched_movies)):
+                _id = searched_movies[i]
+
+                poster_path = search_metadata[_id][-1]
+
+                if poster_path != '':
+                    try:
+                        poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                    except requests.ConnectionError:  # Network Error
+                        poster_var = not_found_img
+                    # gets poster image as a byte array
+                else:
+                    poster_var = not_found_img
+                    # executes if the poster path is not available in the database.
+
+                search.new_widgets_search(_id, title=search_metadata[_id][0], image=poster_var,
+                                          scroll_area=self.search_sa_real_widgets,
+                                          layout=self.search_sa_real_hlayout, open_func_lib=self.open_home_search)
+
+                print(f"Displaying searched movie {_id}")
 
     def delete_acc_func(self):
         """
