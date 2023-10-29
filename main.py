@@ -725,6 +725,9 @@ class Main(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
+    username, no_logged = init_uname()
+    playlists_metadata, playlist_picture = init_list_metadata()
+
     _thread = Thread(target=get_movies)
     _thread.start()
 

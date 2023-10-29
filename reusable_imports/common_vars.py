@@ -48,6 +48,7 @@ session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 
 def init_uname():
+    print("Checking for recurring login")
     global username
     global no_logged
 
@@ -62,6 +63,7 @@ def init_uname():
 
 
 def init_list_metadata():
+    print("Initialising playlists")
     global playlists_metadata
     global removed_playlist_movies
     if no_logged:
