@@ -4,7 +4,6 @@ import os
 import shutil
 import sys
 import random
-from threading import Thread
 import platform
 
 import requests
@@ -16,6 +15,7 @@ from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
 from library import Library
+from splash_screen import SplashScreen
 from widget_generator_home import Home
 from startup import Start
 from checklist import Checklist
@@ -720,6 +720,7 @@ class Main(QMainWindow):
 
         for i in removed_playlist_movies.keys():
             playlists.remove_movies(removed_playlist_movies[i], username, i, conn, cur)
+            # TODO issue when playlists is removed. Fix that
 
 
 if __name__ == '__main__':
@@ -728,14 +729,11 @@ if __name__ == '__main__':
     username, no_logged = init_uname()
     playlists_metadata, playlist_picture = init_list_metadata()
 
-    _thread = Thread(target=get_movies)
-    _thread.start()
+    splash = SplashScreen()
 
-    # Function to get movies metadata to display on home screen (add splash screen for this)
-    get_data()
-
-    window = Main()
-    window.show()
+    if splash.exec_() == QDialog.Accepted:
+        window = Main()
+        window.show()
 
     sys.exit(app.exec_())
 
@@ -745,44 +743,48 @@ if __name__ == "__main__":
     username, no_logged = init_uname()
     playlists_metadata, playlist_picture = init_list_metadata()
 
-    _thread = Thread(target=get_movies)
-    _thread.start()
-
-    # Function to get movies metadata to display on home screen (add splash screen for this)
-    get_data()
-
     app = QApplication(sys.argv)
 
-    window = Main()
     start_win = Start()
-    checklist_win = Checklist()
-    genre_win = Genre()
-    lang_win = Language()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
     if not no_logged:
         username, no_logged = init_uname()
         playlists_metadata, playlist_picture = init_list_metadata()
-        playlists_display_metadata = get_movies()
-        window.show()
+        splash = SplashScreen()
+
+        if splash.exec_() == QDialog.Accepted:
+            window = Main()
+            window.show()
 
     elif start_win.exec_() == 1:  # User registered
+        checklist_win = Checklist()
+        genre_win = Genre()
+        lang_win = Language()
+
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
                     users.register(start_win.username, start_win.password, start_win.email, conn, cur)
                     username, no_logged = init_uname()
                     playlists_metadata, playlist_picture = init_list_metadata()
-                    playlists_display_metadata = get_movies()
-                    window.show()
+
+                    splash = SplashScreen()
+
+                    if splash.exec_() == QDialog.Accepted:
+                        window = Main()
+                        window.show()
 
     elif start_win.exec_() == 2:  # User logged in
         username, no_logged = init_uname()
         playlists_metadata, playlist_picture = init_list_metadata()
-        playlists_display_metadata = get_movies()
-        window.show()
+
+        splash = SplashScreen()
+
+        if splash.exec_() == QDialog.Accepted:
+            window = Main()
+            window.show()
 
     sys.exit(app.exec_())
-
 '''
