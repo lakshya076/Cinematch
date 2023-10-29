@@ -461,14 +461,6 @@ class Main(QMainWindow):
         gen = movie_info[4]
         date = movie_info[3]
 
-        # title = get_title(_id, conn.cursor())
-        # poster = get_poster(_id, conn.cursor())
-        # overview = get_overview(_id, conn.cursor())
-        # lang = get_lang(_id, conn.cursor())
-        # pop = get_pop(_id, conn.cursor())
-        # gen = get_genz(_id, conn.cursor())
-        # date = get_release_date(_id, conn.cursor())
-
         real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
         lang_real = iso_639_1[lang]
         lang_real = lang
