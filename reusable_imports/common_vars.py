@@ -86,7 +86,7 @@ def init_list_metadata():
 
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
-removed_playlists = []
+removed_playlists = {}
 removed_playlist_movies = {}
 
 # Random movies to choose for the random page function

@@ -109,7 +109,9 @@ class Start(QDialog):
                 self.username = user
                 self.password = password
                 self.email = email
-                self.done(1)
+                self.reg = True
+                self.sent_otp = mailing.send_otp(email)
+                self.redirect_otp()
 
                 # Direct to next page (Checklist/Languages)
 
@@ -156,13 +158,12 @@ class Start(QDialog):
             else:
                 # otp send type shit (preferably separate function so that it can be reused in the send again button
                 # in next window
-                self.sent_otp = mailing.send_otp(self.email)
-
                 self.redirect_otp()
         else:
             Wifi()
 
     def directto_otp(self):
+
         otp = self.otp_field.text()
 
         if wifi_availability():
@@ -178,7 +179,11 @@ class Start(QDialog):
                     print("OTP transaction done.")
                     self.error_otp.setText("")
                     self.success_otp.setText("Successful. Redirecting now.")
-                    self.redirect_reset()
+
+                    if self.reg:
+                        self.done(1)
+                    else:
+                        self.redirect_reset()
 
                 else:
 

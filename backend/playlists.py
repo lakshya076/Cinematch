@@ -56,7 +56,7 @@ def remove_movies(movies: list, username: str, name: str, connection: pymysql.Co
 
     if prev_movies:
 
-        final_movies = [i for i in prev_movies if i not in movies]
+        final_movies = [str(i) for i in prev_movies if i not in movies]
 
         cursor.execute(
             f'update playlists set movies = "{"-".join(final_movies)}" where username = "{username}" and name = "{name}"')
