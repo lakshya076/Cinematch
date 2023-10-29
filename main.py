@@ -10,7 +10,7 @@ import requests
 import PyQt5
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
@@ -324,12 +324,20 @@ class Main(QMainWindow):
             self.collapse.show()
 
     def logout_func(self):
-        # TODO dialog box to make the user confirm if he/she wants to log out and then call exit function
-        # Logging out in SQL
+        """
+        Function to log out the user.
+        Produces a simple dialog box to ask for confirmation.
+        """
 
-        users.logout(cur, conn)
-        print("Logging out")
-        self.close()
+        reply = QMessageBox.question(self, "Logout", "Are you sure you want to logout?",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            users.logout(cur, conn)
+            print("Logging out")
+            self.close()
+        elif reply == QMessageBox.No:
+            print("Logout Aborted")
 
     def search_shortcut(self):
         """Function to activate search box by clicking shortcut Alt+D"""
@@ -565,8 +573,7 @@ class Main(QMainWindow):
         """
         Function to delete user's account (move it to recovery table)
         """
-        # Dialog box to ask confirmation and give the 14-day recovery period.
-        # then close the app and move the user credentials to the recovery table.
+        # TODO ask for confirmation and warn user about waiting period. Ask for password as confirmation if possible
         # TODO Return to login menu
 
         users.delete_user(username, conn, cur)
