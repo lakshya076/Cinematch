@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QCursor, QPixmap, QImage, QIcon
 from PyQt5.QtWidgets import QApplication, QHBoxLayout, QFrame, QPushButton
 
-from reusable_imports.common_vars import get_playlist_movies, playlists_metadata, iso_639_1, get_movies
+from reusable_imports.common_vars import get_playlist_movies, playlists_metadata, iso_639_1
 from reusable_imports.commons import ClickableLabel, ClickableFrame
 from reusable_imports._css import dark_playlist_frame_style
 

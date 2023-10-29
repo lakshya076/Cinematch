@@ -58,6 +58,7 @@ def init_uname():
 
 def init_list_metadata():
     global playlists_metadata
+    global removed_playlist_movies
     if no_logged:
         playlists_metadata = {
             'shortlist': ['Shortlist', 'Cinematch Team', '12/10/2023', [615656, 872585, 677179, 385687, 1397]],
@@ -66,10 +67,11 @@ def init_list_metadata():
             'test3': ['Test 3', f'{username}', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
     else:
         playlists_metadata = {}
-        for i in get_playlists(username, cur):
-            list_info = playlist_info(username, i, cur)
-            print(list_info)
-            playlists_metadata[remove_spaces(list_info[2])] = [list_info[2], list_info[0], '-'.join(list_info[6].split('-')[::-1]), list_info[3], list_info[5]]
+        playlists_info = get_playlists_info(username, cur)
+        for i in playlists_info:
+            print(i)
+            removed_playlist_movies[i[2]] = []
+            playlists_metadata[remove_spaces(i[2])] = [i[2], i[0], '-'.join(i[6].split('-')[::-1]), i[3], i[5]]
 
     global playlist_picture
     playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
@@ -80,6 +82,7 @@ def init_list_metadata():
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
 removed_playlists = []
+removed_playlist_movies = {}
 
 # Random movies to choose for the random page function
 random_movies = get_random(cur, 20)
@@ -194,10 +197,7 @@ def get_movies():
 
 def get_playlist_movies(list_name: str):
     if list_name in playlists_metadata.keys():
-        try:
-            return playlists_display_metadata[list_name]
-        except KeyError:
-            return False
+        return playlists_display_metadata[list_name]
     else:
         return False
 
