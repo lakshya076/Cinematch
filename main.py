@@ -200,6 +200,7 @@ class Main(QMainWindow):
             sender = display.sender()
             _playlist = sender.objectName().strip().split(sep="_")[-2]
             _objectdelete = sender.objectName().strip().split(sep="_")[-1]
+            _playlist_name = playlists_metadata[_playlist][0]
 
             try:
                 delete_list = [i[5] for i in display.check]
@@ -207,17 +208,14 @@ class Main(QMainWindow):
                 # Deletes from the viewable 'client' side dict
                 del playlists_display_metadata[_playlist][delete_queue]
 
-                try:
-                    # Deletes from the backend list which will be updated in the sql table
-                    left_movies = playlists.remove_movies([_objectdelete], username, _playlist, conn, cur)
-                    playlists_metadata[_playlist][3].remove(int(_objectdelete))
-                except:
-                    print("Can't delete")
+                # Deletes from the backend list which will be updated in the sql table
+                removed_playlist_movies[_playlist_name].append(int(_objectdelete))
+                playlists_metadata[_playlist][3].remove(int(_objectdelete))
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
-            except KeyError:
-                print("Key Error, Can't Delete Playlist.")
+            except Exception as e:
+                print(f"{e}, Can't Delete Playlist.")
 
             self.shortlist_func()
             # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
