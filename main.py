@@ -290,7 +290,7 @@ class Main(QMainWindow):
 
         # Adds the new widgets to the library grid layout
         print(playlist_picture)
-        # Define the for loop properly
+        # TODO Define the for loop properly
         for i in range(children):
             for j in range(1):
                 lib.new_widgets_lib(name=list(playlists_metadata.keys())[i], row=j, column=i,
