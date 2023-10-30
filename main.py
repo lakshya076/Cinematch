@@ -408,7 +408,7 @@ class Main(QMainWindow):
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
             except Exception as e:
-                print(f"{e}\nCan't Delete Playlist.")
+                print(f"{e} Can't Delete Playlist.")
 
             self.open_playlist_func(playlist_name=playlist_name)
             # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
@@ -738,7 +738,7 @@ class Main(QMainWindow):
         for i in removed_playlists.values():
             playlists.delete_playlist(username, i, conn, cur)
 
-'''
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -752,8 +752,8 @@ if __name__ == '__main__':
         window.show()
 
     sys.exit(app.exec_())
-'''
 
+'''
 if __name__ == "__main__":
 
     username, no_logged = init_uname()
@@ -803,3 +803,4 @@ if __name__ == "__main__":
             window.show()
 
     sys.exit(app.exec_())
+'''
