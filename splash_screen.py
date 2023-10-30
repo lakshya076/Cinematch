@@ -31,7 +31,7 @@ class SplashScreen(QDialog):
         super(SplashScreen, self).__init__()
         loadUi("UI\\ui_splashscreen.ui", self)
 
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+        self.setWindowFlag(Qt.FramelessWindowHint)
         self.setCursor(QCursor(Qt.BlankCursor))
 
         self.thread = QThread(self)
