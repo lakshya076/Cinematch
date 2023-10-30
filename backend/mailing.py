@@ -21,9 +21,9 @@ def send_otp(email: str):
 
         otp = random.randint(100000, 999999)
         message = EmailMessage()
-        message.set_content(f'The OTP for Cinematch password reset is: {otp}')
+        message.set_content(f'Your Cinematch OTP is: {otp}')
 
-        message['Subject'] = f'Cinematch Password Recovery'
+        message['Subject'] = f'Cinematch OTP'
         message['From'] = sender
         message['To'] = email
 

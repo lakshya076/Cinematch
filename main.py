@@ -199,12 +199,14 @@ class Main(QMainWindow):
                 del playlists_display_metadata[_playlist][delete_queue]
 
                 # Deletes from the backend list which will be updated in the sql table
+                print(playlists_metadata)
+                print(_playlist, _objectdelete)
                 removed_playlist_movies[_playlist_name].append(int(_objectdelete))
                 playlists_metadata[_playlist][3].remove(int(_objectdelete))
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
-            except Exception as e:
+            except KeyError as e:
                 print(f"{e}, Can't Delete Playlist.")
 
             self.shortlist_func()
@@ -250,7 +252,7 @@ class Main(QMainWindow):
             else:
                 try:
                     # Try to delete playlist
-                    removed_playlists[_objectdelete] = playlists_metadata[_objectdelete]
+                    removed_playlists[_objectdelete] = playlists_metadata[_objectdelete][0]
                     playlist_name = playlists_metadata[_objectdelete][0]
                     print(playlist_name)
                     del playlists_metadata[_objectdelete]
@@ -732,9 +734,11 @@ class Main(QMainWindow):
 
         for i in removed_playlist_movies.keys():
             playlists.remove_movies(removed_playlist_movies[i], username, i, conn, cur)
-            # TODO issue when playlists is removed. Fix that
 
+        for i in removed_playlists.values():
+            playlists.delete_playlist(username, i, conn, cur)
 
+'''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -748,8 +752,8 @@ if __name__ == '__main__':
         window.show()
 
     sys.exit(app.exec_())
-
 '''
+
 if __name__ == "__main__":
 
     username, no_logged = init_uname()
@@ -799,4 +803,3 @@ if __name__ == "__main__":
             window.show()
 
     sys.exit(app.exec_())
-'''

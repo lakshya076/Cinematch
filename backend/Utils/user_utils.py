@@ -60,7 +60,14 @@ def get_username(email: str, cursor: pymysql.cursors.Cursor):
         return data[0]
 
     else:
-        return False
+
+        cursor.execute(f'select username from deleted_users where email="{email}"')
+        data = cursor.fetchall()
+
+        if data:
+            return data[0][0]
+        else:
+            return False
 
 
 def get_password(user: str, cursor: pymysql.cursors.Cursor):

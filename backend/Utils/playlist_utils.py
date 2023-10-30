@@ -118,7 +118,7 @@ def get_playlists_info(username: str, cursor: pymysql.cursors.Cursor):
                 result.append([i[0], i[1], i[2], [], bool(int(i[4])), i[5], str(i[6])])
             
             else:
-                result.append([i[0], i[1], i[2], i[3].split('-'), bool(int(i[4])), i[5], str(i[6])])
+                result.append([i[0], i[1], i[2], list(map(int, i[3].split('-'))), bool(int(i[4])), i[5], str(i[6])])
 
         return result
 
