@@ -55,19 +55,13 @@ class SplashScreen(QDialog):
         self.thread.start()
 
     def one(self):
-        print("First Thread Done")
         self.progress.setValue(random.choice(range(20, 40)))
         self.doing.setText("Fetching Your Recommendations")
         time.sleep(2)
 
     def two(self):
-        print("Second Thread Done")
-        self.progress.setValue(random.choice(range(65, 85)))
-        self.doing.setText("Fetching Your Recommendations")
-        time.sleep(2)
-
         self.doing.setText("Having <i>Dahi Shakkar</i> for good luck")
-        self.progress.setValue(random.choice(range(85, 90)))
+        self.progress.setValue(random.choice(range(60, 85)))
         time.sleep(2)
 
         self.doing.setText("Manifesting 🤌🤌")
