@@ -27,7 +27,7 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
     playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
     init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, \
-    session
+    session, movies_metadata
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -472,31 +472,35 @@ class Main(QMainWindow):
         _id = random.choice(id)
 
         # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        movie_info = get_movie_info(_id, cur)
+        # movie_info = get_movie_info(_id, cur)
 
-        title = movie_info[1]
-        poster = movie_info[8]
-        overview = movie_info[2] or "Not Available"
-        lang = movie_info[5]
-        pop = movie_info[6]
-        gen = movie_info[4]
-        date = movie_info[3]
+        title = ""
+        overview = ""
+        date = ""
+        gen = ""
+        lang = ""
+        pop = ""
+        cast = ""
+        poster = ""
 
-        real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
-        lang_real = iso_639_1[lang]
+        try:
+            movie = movies_metadata[_id]
+            title = movie[0]
+            overview = movie[1]
+            date = movie[2]
+            gen = movie[3]
+            lang = movie[4]
+            pop = movie[5]
+            cast = movie[6]
+            poster = movie[7]
 
-        genre_real = ", ".join(gen)
+        except KeyError:
+            print("Unable to display movie")
 
-        if poster:
-            try:
-                poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
-            except:
-                poster_real = not_found_img
-        else:
-            poster_real = not_found_img
-
-        image_object = QImage()
-        image_object.loadFromData(poster_real)
+        # Formatting poster
+        image_object = QImage()  # initialising a QImage object
+        image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
+        image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
 
         def add_to_shortlist():
             """
@@ -509,19 +513,19 @@ class Main(QMainWindow):
             print(f"Added {_id} to shortlist")
             print(f"Unable to add {_id} to shortlist")
 
-            enter = ["Shortlist", title, poster_real, lang, pop, _id]
+            enter = ["Shortlist", title, poster, lang, pop, _id]
 
             playlists_display_metadata["shortlist"].append(tuple(enter))
             print(f"Added {_id} to display list")
             print("Unable to enter the movie metadata to the display list")
 
-        _image.setPixmap(QPixmap(image_object))
+        _image.setPixmap(image_to_load)
         _title.setText(title)
         _overview.setText(overview)
         _pop.setText(f"Popularity:\n{str(pop)}")
-        _lang.setText(lang_real)
-        _genre.setText(genre_real)
-        _date.setText(f"Release Date:\n{real_date}")
+        _lang.setText(lang)
+        _genre.setText(gen)
+        _date.setText(f"Release Date:\n{date}")
 
         _shortlist_but.setChecked(False)
         _shortlist_but.clicked.connect(lambda: add_to_shortlist())

@@ -1,5 +1,6 @@
 # This file defines common variables which are used in more than one files
 # These values should be retrieved as soon as the user logs in from the mapping table
+import datetime
 import os
 import random
 import pymysql
@@ -41,6 +42,9 @@ language = [615656, 872585, 677179, 385687, 1397]
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
 
+# Dictionary to store metadata of random, home and playlist movies. Gets populated in splash screen
+movies_metadata = {}
+
 # Common session used to load the images. The images are then cached and stored so when the program is run again,
 # images load easily.
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
@@ -67,11 +71,8 @@ def init_list_metadata():
     global playlists_metadata
     global removed_playlist_movies
     if no_logged:
-        playlists_metadata = {
-            'shortlist': ['Shortlist', 'Cinematch Team', '12/10/2023', [615656, 872585, 677179, 385687, 1397]],
-            'test1': ['Test 1', f'{username}', '02/03/2020', [238, 12, 37165]],
-            'test2': ['Test 2', f'{username}', '12/12/2023', [575264, 267805, 283995]],
-            'test3': ['Test 3', f'{username}', '07/06/2023', [758009, 920143, 28152, 852096, 668482, 587092, 873126]]}
+        playlists_metadata = {'shortlist': ['Shortlist', 'Cinematch Team', '--/--/----', []]}
+
     else:
         playlists_metadata = {}
         playlists_info = get_playlists_info(username, cur)
@@ -106,14 +107,17 @@ playlists_display_metadata = {}
 
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
-movie_data = {"recoms": [], "watchagain": [], "language": []}
+movie_data = {"recoms": [], "watchagain": [], "language": [], "random_movies": []}
 
 
-def get_data():
+def get_data() -> None:
     """
     Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
     home screen)
+    Also gets the movie data in the random and all the playlists
+    :return: None
     """
+
     # Common session used to load the images of all the movies in the metadata list. The images are then cached and
     # stored so when the program is run again, images load easily.
     cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
@@ -123,17 +127,36 @@ def get_data():
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
     cur = conn.cursor()
 
-    print("Getting data for home screen")
+    print("Getting movie data")
 
-    movie_list = [recoms, watchagain, language]
+    movie_list = [recoms, watchagain, language, random_movies]
     for i in range(len(movie_list)):
 
         movies_info = get_movies_info(movie_list[i], cur)
         for j in movies_info:
-            title = j[1]  # gets title
-            poster_path = j[-1]  # gets poster path
-            print("ok")
+            title = j[1] or "Not Available"  # gets title
+            overview = j[2] or "Not Available"
+            date = j[3]
+            gen = j[4] or "Not Available"
+            lang = j[5] or "Not Available"
+            pop = j[6] or "Not Available"
+            cast = j[7] or "Not Available"
+            poster_path = j[8]  # gets poster path
 
+            genre_real = "Not Available"
+            lang_real = ""
+
+            # Formatting date
+            try:
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+            except ValueError:
+                real_date = "Not Available"
+
+            # Formatting genre
+            if gen != "Not Available":
+                genre_real = ", ".join(gen)
+
+            # Formatting poster path
             if poster_path != 'nan' and poster_path:
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
@@ -144,16 +167,31 @@ def get_data():
                 poster_var = not_found_img
                 # executes if the poster path is not available in the database.
 
+            # Formatting language
+            if lang != "Not Available":
+                try:
+                    lang_real = iso_639_1[lang]
+                except KeyError:
+                    lang_real = lang
+
+            print(f"Movie got {j[0]}")
+
             enter = [list(movie_data.keys())[i], title, poster_var, j]
+            metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
 
             movie_data[list(movie_data.keys())[i]].append(tuple(enter))
 
+            if j[0] not in movies_metadata:
+                movies_metadata[int(j[0])] = metadata_enter
+            else:
+                pass
 
-def get_movies():
+
+def get_movies() -> dict:
     """
     get the title, poster, language of all the movies in the playlists_metadata lists and stores it in
     playlists_display_metadata
-    :return: None
+    :return: list
     """
     print("Getting playlists data")
 
@@ -169,16 +207,29 @@ def get_movies():
         for j in movies_info:
             id = j[0]
 
-            title = j[1]
-            poster_path = j[8]
-            lang = j[5]
-            popularity = j[6]
+            title = j[1] or "Not Available"  # gets title
+            overview = j[2] or "Not Available"
+            date = j[3]
+            gen = j[4] or "Not Available"
+            lang = j[5] or "Not Available"
+            pop = j[6] or "Not Available"
+            cast = j[7] or "Not Available"
+            poster_path = j[8]  # gets poster path
 
-            # title = get_title(int(j), cursor=conn.cursor())  # gets title
-            # poster_path = get_poster(int(j), cursor=conn.cursor())  # gets poster path
-            # lang = get_lang(int(j), cursor=conn.cursor())  # gets movie lang
-            # popularity = get_pop(int(j), cursor=conn.cursor())  # gets movie popularity
+            genre_real = "Not Available"
+            lang_real = ""
 
+            # Formatting date
+            try:
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+            except ValueError:
+                real_date = "Not Available"
+
+            # Formatting genre
+            if gen != "Not Available":
+                genre_real = ", ".join(gen)
+
+            # Formatting poster path
             if poster_path != 'nan' and poster_path:
                 try:
                     poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
@@ -189,10 +240,25 @@ def get_movies():
                 poster_var = not_found_img
                 # executes if the poster path is not available in the database.
 
-            enter = [i, title, poster_var, lang, popularity, id]
+            # Formatting language
+            if lang != "Not Available":
+                try:
+                    lang_real = iso_639_1[lang]
+                except KeyError:
+                    lang_real = lang
+
+            print(f"Movie got {j[0]}")
+
+            enter = [i, title, poster_var, lang, str(pop), id]  # Add to playlist display metadata
+            metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
 
             if type(title) is str:
                 playlists_display_metadata[i].append(tuple(enter))
+
+            if j[0] not in movies_metadata:
+                movies_metadata[int(j[0])] = metadata_enter
+            else:
+                pass
 
     conn.close()
 
