@@ -24,9 +24,9 @@ from language import Language
 
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
-from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, \
+from reusable_imports.common_vars import playlist_picture, playlists_metadata, removed_playlists, \
+    playlists_display_metadata, random_movies, username, poster, conn, cur, no_logged, init_uname, \
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, removed_playlist_movies, \
     session, movies_metadata
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
@@ -470,9 +470,6 @@ class Main(QMainWindow):
         Function to display movies when the respective movie frame is clicked
         """
         _id = random.choice(id)
-
-        # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        # movie_info = get_movie_info(_id, cur)
 
         title = ""
         overview = ""
