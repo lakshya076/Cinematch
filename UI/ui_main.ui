@@ -638,7 +638,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Goto Home</string>
+             <string/>
          </property>
          <property name="text">
           <string>Home</string>
@@ -683,7 +683,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Find Your Next Movie</string>
+             <string/>
          </property>
          <property name="text">
           <string>Find Next</string>
@@ -728,7 +728,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>I'm Feeling Lucky</string>
+             <string/>
          </property>
          <property name="text">
           <string>Random</string>
@@ -773,7 +773,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Open Shortlist</string>
+             <string/>
          </property>
          <property name="text">
           <string>Shortlist</string>
@@ -818,7 +818,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Open Library</string>
+             <string/>
          </property>
          <property name="text">
           <string>Library</string>
@@ -863,7 +863,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Ceate A Playlist</string>
+             <string/>
          </property>
          <property name="text">
           <string>Create A Playlist</string>
@@ -921,7 +921,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Change Theme</string>
+             <string/>
          </property>
          <property name="text">
           <string>Dark Mode</string>
@@ -965,7 +965,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Open Settings</string>
+             <string/>
          </property>
          <property name="text">
           <string>Settings</string>
@@ -1010,7 +1010,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Logout</string>
+             <string/>
          </property>
          <property name="text">
           <string>Logout</string>
@@ -1054,7 +1054,7 @@
           <enum>Qt::NoFocus</enum>
          </property>
          <property name="toolTip">
-          <string>Quit App</string>
+             <string/>
          </property>
          <property name="text">
           <string>Exit</string>
