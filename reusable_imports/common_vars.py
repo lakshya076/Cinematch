@@ -129,8 +129,8 @@ def get_data() -> None:
 
     movie_list = [recoms, watchagain, language, random_movies]
     for i in range(len(movie_list)):
-
         movies_info = get_movies_info(movie_list[i], cur)
+
         for j in movies_info:
             title = j[1] or "Not Available"  # gets title
             overview = j[2] or "Not Available"
