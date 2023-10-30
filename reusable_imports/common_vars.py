@@ -31,13 +31,13 @@ no_logged = True
 username = "User"
 
 # This list holds all the recommendations for the user (max - 15)
-recoms = [615656, 872585, 677179, 385687, 1397]
+recoms = [626289, 355911, 617290, 851296, 458133, 354949, 134255, 509607, 774599]
 
 # This list holds all the movies user can watch again (max - 10)
-watchagain = [677179, 385687, 1397, 238, 12, 37165]
+watchagain = [261115, 242810, 197100, 946181, 574798, 900057, 157260]
 
 # This movie holds all the language movies based on the languages user has chosen (max -15)
-language = [615656, 872585, 677179, 385687, 1397]
+language = [278349, 640796, 621739, 881083]
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
@@ -107,8 +107,6 @@ playlists_display_metadata = {}
 
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
-movie_data = {"recoms": [], "watchagain": [], "language": [], "random_movies": []}
-
 
 def get_data() -> None:
     """
@@ -176,10 +174,7 @@ def get_data() -> None:
 
             print(f"Movie got {j[0]}")
 
-            enter = [list(movie_data.keys())[i], title, poster_var, j]
             metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
-
-            movie_data[list(movie_data.keys())[i]].append(tuple(enter))
 
             if j[0] not in movies_metadata:
                 movies_metadata[int(j[0])] = metadata_enter

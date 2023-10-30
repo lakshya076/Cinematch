@@ -26,8 +26,7 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, removed_playlists, \
     playlists_display_metadata, random_movies, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, removed_playlist_movies, \
-    session, movies_metadata
+    init_list_metadata, not_found_img, recoms, watchagain, language, removed_playlist_movies, session, movies_metadata
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -114,18 +113,18 @@ class Main(QMainWindow):
         home = Home()
         if len(recoms) != 0:
             for i in range(len(recoms)):
-                home.new_widgets_home(recoms[i], title=movie_data["recoms"][i][1], image=movie_data["recoms"][i][2],
-                                      scroll_area=self.foryou_sa_widgets, layout=self.foryou_hlayout,
-                                      open_func_lib=self.open_home_search)
+                home.new_widgets_home(recoms[i], title=movies_metadata[recoms[i]][0],
+                                      image=movies_metadata[recoms[i]][7], scroll_area=self.foryou_sa_widgets,
+                                      layout=self.foryou_hlayout, open_func_lib=self.open_home_search)
         if len(watchagain) != 0:
             for i in range(len(watchagain)):
-                home.new_widgets_home(watchagain[i], image=movie_data["watchagain"][i][2],
-                                      title=movie_data["watchagain"][i][1], scroll_area=self.watchagain_sa_widgets,
+                home.new_widgets_home(watchagain[i], image=movies_metadata[watchagain[i]][7],
+                                      title=movies_metadata[watchagain[i]][0], scroll_area=self.watchagain_sa_widgets,
                                       layout=self.watchagain_hlayout, open_func_lib=self.open_home_search)
         if len(language) != 0:
             for i in range(len(language)):
-                home.new_widgets_home(language[i], title=movie_data["language"][i][1],
-                                      image=movie_data["language"][i][2], scroll_area=self.languages_sa_widgets,
+                home.new_widgets_home(language[i], title=movies_metadata[language[i]][0],
+                                      image=movies_metadata[language[i]][7], scroll_area=self.languages_sa_widgets,
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
 
     def home_func(self):
