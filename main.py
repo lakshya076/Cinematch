@@ -26,7 +26,8 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
 from reusable_imports.common_vars import playlist_picture, playlists_metadata, removed_playlists, \
     playlists_display_metadata, random_movies, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, watchagain, language, removed_playlist_movies, session, movies_metadata
+    init_list_metadata, not_found_img, recoms, watchagain, language, removed_playlist_movies, session, movies_metadata, \
+    premium
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -60,6 +61,16 @@ class Main(QMainWindow):
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
         self.user_settings.setText(username)
+
+        # Hiding widgets if user has premium
+        if premium == 1:
+            self.premium.hide()
+            self.ad_search.hide()
+            self.ad_create.hide()
+        elif premium == 0:
+            self.premium.show()
+            self.ad_search.show()
+            self.ad_create.show()
 
         # Setting shortcut for search box
         self.shortcut = QShortcut(QKeySequence("Alt+D"), self)
@@ -97,6 +108,8 @@ class Main(QMainWindow):
         self.create_playlist_name.returnPressed.connect(self.create_playlist_func)
 
         self.credit_license.clicked.connect(self.credit_license_func)
+        self.premium.clicked.connect(self.premium_func)
+        self.premium_plans.clicked.connect(self.premium_plans_func)
 
         self.mode_collapse.clicked.connect(self.mode)
         self.mode_expand.clicked.connect(self.mode)
@@ -583,6 +596,21 @@ class Main(QMainWindow):
             self.expand.hide()
             self.collapse.show()
 
+    def premium_func(self):
+        """
+        Function to open Premium Window if user doesn't have premium
+        """
+        self.stack.setCurrentIndex(10)
+        if self.expand.isVisible():
+            self.expand.hide()
+            self.collapse.show()
+
+    def premium_plans_func(self):
+        """
+        Function to display premium plans
+        """
+        print("Checking Available Premium Plans")
+
     def delete_acc_func(self):
         """
         Function to delete user's account (move it to recovery table)
@@ -680,6 +708,7 @@ class Main(QMainWindow):
         self.shortlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.credit_license_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
+        self.premium_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.random_page.setStyleSheet(dark_mainwin_widget)
         self.create_page.setStyleSheet(dark_mainwin_widget)
         self.library_page.setStyleSheet(dark_mainwin_widget)
@@ -687,6 +716,7 @@ class Main(QMainWindow):
         self.display_page.setStyleSheet(dark_mainwin_widget)
         self.playlist_page.setStyleSheet(dark_mainwin_widget)
         self.credit_license_page.setStyleSheet(dark_mainwin_widget)
+        self.premium_page.setStyleSheet(dark_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_dark.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/dark_mode.ico"))
@@ -697,6 +727,7 @@ class Main(QMainWindow):
         self.user_settings.setStyleSheet("color:#fffaf0;font:18pt;")
 
         self.credit_license.setIcon(QIcon("Icons/license_white.png"))
+        self.premium.setStyleSheet("font:12pt;background-color:rgba(0,0,0,0);color:#fffaf0;")
 
     def light_mode(self):
         """
@@ -719,6 +750,7 @@ class Main(QMainWindow):
         self.shortlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.credit_license_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
+        self.premium_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.random_page.setStyleSheet(light_mainwin_widget)
         self.create_page.setStyleSheet(light_mainwin_widget)
         self.library_page.setStyleSheet(light_mainwin_widget)
@@ -726,6 +758,7 @@ class Main(QMainWindow):
         self.display_page.setStyleSheet(light_mainwin_widget)
         self.playlist_page.setStyleSheet(light_mainwin_widget)
         self.credit_license_page.setStyleSheet(light_mainwin_widget)
+        self.premium_page.setStyleSheet(light_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
@@ -736,6 +769,7 @@ class Main(QMainWindow):
         self.user_settings.setStyleSheet("color:#000;font:18pt;")
 
         self.credit_license.setIcon(QIcon("icons/license_black.png"))
+        self.premium.setStyleSheet("font:12pt;background-color:rgba(0,0,0,0);color:#000000;")
 
     def closeEvent(self, event):
         print("closing")
