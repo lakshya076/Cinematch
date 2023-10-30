@@ -4,18 +4,18 @@ import os
 import shutil
 import sys
 import random
-from threading import Thread
 import platform
 
 import requests
 import PyQt5
 from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
 from library import Library
+from splash_screen import SplashScreen
 from widget_generator_home import Home
 from startup import Start
 from checklist import Checklist
@@ -24,14 +24,14 @@ from language import Language
 
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
-from reusable_imports.common_vars import playlist_picture, playlists_metadata, get_movies, removed_playlists, \
-    playlists_display_metadata, random_movies, iso_639_1, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, get_data, removed_playlist_movies, session
+from reusable_imports.common_vars import playlist_picture, playlists_metadata, removed_playlists, \
+    playlists_display_metadata, random_movies, username, poster, conn, cur, no_logged, init_uname, \
+    init_list_metadata, not_found_img, recoms, movie_data, watchagain, language, removed_playlist_movies, \
+    session, movies_metadata
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
 from widget_generator_search import SearchMovies
-
 
 # Checking OS
 if platform.system() == "Windows":
@@ -127,23 +127,6 @@ class Main(QMainWindow):
                 home.new_widgets_home(language[i], title=movie_data["language"][i][1],
                                       image=movie_data["language"][i][2], scroll_area=self.languages_sa_widgets,
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
-
-    def search_shortcut(self):
-        self.findnext_func()
-        self.search_box.selectAll()
-
-    def open_home_search(self):
-        sender = self.sender()
-        _id = sender.objectName().split(sep="_")[-1]
-
-        try:
-            self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
-                            _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                            _genre=self.display_genre, _date=self.display_date,
-                            _shortlist_but=self.display_add_toshortlist)
-            self.stack.setCurrentIndex(7)
-        except TypeError:
-            print(f"Can't display {_id}")
 
     def home_func(self):
         """
@@ -242,7 +225,8 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.shortlist_sa_widgets, layout=self.shortlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main,
+                                       p_md=playlists_metadata)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -272,7 +256,7 @@ class Main(QMainWindow):
                     playlist_name = playlists_metadata[_objectdelete][0]
                     print(playlist_name)
                     del playlists_metadata[_objectdelete]
-                    
+
                     print(f"Playlist Deleted {_objectdelete}")
 
                 except KeyError:
@@ -342,12 +326,41 @@ class Main(QMainWindow):
             self.collapse.show()
 
     def logout_func(self):
-        # TODO dialog box to make the user confirm if he/she wants to log out and then call exit function
-        # Logging out in SQL
+        """
+        Function to log out the user.
+        Produces a simple dialog box to ask for confirmation.
+        """
 
-        users.logout(cur, conn)
-        print("Logging out")
-        self.close()
+        reply = QMessageBox.question(self, "Logout", "Are you sure you want to logout?",
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            users.logout(cur, conn)
+            print("Logging out")
+            self.close()
+        elif reply == QMessageBox.No:
+            print("Logout Aborted")
+
+    def search_shortcut(self):
+        """Function to activate search box by clicking shortcut Alt+D"""
+        self.findnext_func()
+        self.search_box.selectAll()
+
+    def open_home_search(self):
+        """
+        Function to open movies on home page and search page
+        """
+        sender = self.sender()
+        _id = sender.objectName().split(sep="_")[-1]
+
+        try:
+            self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
+                            _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                            _genre=self.display_genre, _date=self.display_date,
+                            _shortlist_but=self.display_add_toshortlist)
+            self.stack.setCurrentIndex(7)
+        except TypeError:
+            print(f"Can't display {_id}")
 
     def open_playlist_func(self, playlist_name: str):
         """
@@ -412,7 +425,8 @@ class Main(QMainWindow):
                                        image=display.check[i][2], title=display.check[i][1],
                                        lang=display.check[i][3], pop=display.check[i][4],
                                        scroll_area=self.playlist_sa_widgets, layout=self.playlist_vlayout,
-                                       open_movie=open_movie_main, delete_movie=delete_movie_main, p_md=playlists_metadata)
+                                       open_movie=open_movie_main, delete_movie=delete_movie_main,
+                                       p_md=playlists_metadata)
         self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
 
         self.stack.setCurrentIndex(8)
@@ -459,33 +473,33 @@ class Main(QMainWindow):
         """
         _id = random.choice(id)
 
-        # get_title, get_poster, get_overview, get_genz, get_release_date, get_lang, get_pop
-        movie_info = get_movie_info(_id, cur)
+        title = ""
+        overview = ""
+        date = ""
+        gen = ""
+        lang = ""
+        pop = ""
+        cast = ""
+        poster = ""
 
-        title = movie_info[1]
-        poster = movie_info[8]
-        overview = movie_info[2] or "Not Available"
-        lang = movie_info[5]
-        pop = movie_info[6]
-        gen = movie_info[4]
-        date = movie_info[3]
+        try:
+            movie = movies_metadata[_id]
+            title = movie[0]
+            overview = movie[1]
+            date = movie[2]
+            gen = movie[3]
+            lang = movie[4]
+            pop = movie[5]
+            cast = movie[6]
+            poster = movie[7]
 
-        real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
-        lang_real = iso_639_1[lang]
-        lang_real = lang
+        except KeyError:
+            print("Unable to display movie")
 
-        genre_real = ", ".join(gen)
-
-        if poster:
-            try:
-                poster_real = session.get(f"https://image.tmdb.org/t/p/original{poster}").content
-            except:
-                poster_real = not_found_img
-        else:
-            poster_real = not_found_img
-
-        image_object = QImage()
-        image_object.loadFromData(poster_real)
+        # Formatting poster
+        image_object = QImage()  # initialising a QImage object
+        image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
+        image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
 
         def add_to_shortlist():
             """
@@ -494,24 +508,23 @@ class Main(QMainWindow):
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.setDisabled(True)
 
-
             playlists_metadata["shortlist"][3].append(_id)
             print(f"Added {_id} to shortlist")
             print(f"Unable to add {_id} to shortlist")
 
-            enter = ["Shortlist", title, poster_real, lang, pop, _id]
+            enter = ["Shortlist", title, poster, lang, pop, _id]
 
             playlists_display_metadata["shortlist"].append(tuple(enter))
             print(f"Added {_id} to display list")
             print("Unable to enter the movie metadata to the display list")
 
-        _image.setPixmap(QPixmap(image_object))
+        _image.setPixmap(image_to_load)
         _title.setText(title)
         _overview.setText(overview)
         _pop.setText(f"Popularity:\n{str(pop)}")
-        _lang.setText(lang_real)
-        _genre.setText(genre_real)
-        _date.setText(f"Release Date:\n{real_date}")
+        _lang.setText(lang)
+        _genre.setText(gen)
+        _date.setText(f"Release Date:\n{date}")
 
         _shortlist_but.setChecked(False)
         _shortlist_but.clicked.connect(lambda: add_to_shortlist())
@@ -563,8 +576,7 @@ class Main(QMainWindow):
         """
         Function to delete user's account (move it to recovery table)
         """
-        # Dialog box to ask confirmation and give the 14-day recovery period.
-        # then close the app and move the user credentials to the recovery table.
+        # TODO ask for confirmation and warn user about waiting period. Ask for password as confirmation if possible
         # TODO Return to login menu
 
         users.delete_user(username, conn, cur)
@@ -730,14 +742,14 @@ class Main(QMainWindow):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    _thread = Thread(target=get_movies)
-    _thread.start()
+    username, no_logged = init_uname()
+    playlists_metadata, playlist_picture = init_list_metadata()
 
-    # Function to get movies metadata to display on home screen (add splash screen for this)
-    get_data()
+    splash = SplashScreen()
 
-    window = Main()
-    window.show()
+    if splash.exec_() == QDialog.Accepted:
+        window = Main()
+        window.show()
 
     sys.exit(app.exec_())
 '''
@@ -747,44 +759,47 @@ if __name__ == "__main__":
     username, no_logged = init_uname()
     playlists_metadata, playlist_picture = init_list_metadata()
 
-    _thread = Thread(target=get_movies)
-    _thread.start()
-
-    # Function to get movies metadata to display on home screen (add splash screen for this)
-    get_data()
-
-    from reusable_imports.common_vars import playlists_metadata, movie_data
-
     app = QApplication(sys.argv)
 
-    window = Main()
     start_win = Start()
-    checklist_win = Checklist()
-    genre_win = Genre()
-    lang_win = Language()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
     if not no_logged:
         username, no_logged = init_uname()
         playlists_metadata, playlist_picture = init_list_metadata()
-        playlists_display_metadata = get_movies()
-        window.show()
+        splash = SplashScreen()
+
+        if splash.exec_() == QDialog.Accepted:
+            window = Main()
+            window.show()
 
     elif start_win.exec_() == 1:  # User registered
+        checklist_win = Checklist()
+        genre_win = Genre()
+        lang_win = Language()
+
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
                     users.register(start_win.username, start_win.password, start_win.email, conn, cur)
                     username, no_logged = init_uname()
                     playlists_metadata, playlist_picture = init_list_metadata()
-                    playlists_display_metadata = get_movies()
-                    window.show()
+
+                    splash = SplashScreen()
+
+                    if splash.exec_() == QDialog.Accepted:
+                        window = Main()
+                        window.show()
 
     elif start_win.exec_() == 2:  # User logged in
         username, no_logged = init_uname()
         playlists_metadata, playlist_picture = init_list_metadata()
-        playlists_display_metadata = get_movies()
-        window.show()
+
+        splash = SplashScreen()
+
+        if splash.exec_() == QDialog.Accepted:
+            window = Main()
+            window.show()
 
     sys.exit(app.exec_())

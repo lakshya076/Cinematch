@@ -1134,7 +1134,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-            <number>6</number>
+            <number>0</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1166,7 +1166,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>230</width>
+                  <width>805</width>
                <height>1233</height>
               </rect>
              </property>
@@ -1215,7 +1215,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>212</width>
+                      <width>787</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1283,7 +1283,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>212</width>
+                      <width>787</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1351,7 +1351,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>212</width>
+                      <width>787</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1414,13 +1414,13 @@ background-color: rgba(0,0,0,0);</string>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>400</height>
+                     <height>410</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
-                  <height>400</height>
+                     <height>410</height>
                  </size>
                 </property>
                 <property name="frameShape">
@@ -1441,7 +1441,7 @@ background-color: rgba(0,0,0,0);</string>
                    <x>0</x>
                    <y>0</y>
                    <width>804</width>
-                   <height>400</height>
+                      <height>410</height>
                   </rect>
                  </property>
                  <layout class="QHBoxLayout" name="search_sa_real_hlayout"/>
@@ -1693,6 +1693,8 @@ background-color: rgba(0,0,0,0);</string>
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -1797,8 +1799,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -1829,8 +1831,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2640,6 +2642,8 @@ border-radius:10px;</string>
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -2737,8 +2741,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
