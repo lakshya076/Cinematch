@@ -866,7 +866,7 @@
           <string>Ceate A Playlist</string>
          </property>
          <property name="text">
-          <string>Add a Playlist</string>
+          <string>Create A Playlist</string>
          </property>
          <property name="icon">
           <iconset>
