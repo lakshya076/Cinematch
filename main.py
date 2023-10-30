@@ -463,6 +463,8 @@ class Main(QMainWindow):
             self.playlist_error.setText("Playlist name can not be over 18 characters")
         elif uid in playlists_metadata.keys():
             self.playlist_error.setText("Playlist name not available!")
+        elif len(playlists_metadata.keys()) == 10 and premium == 0:
+            self.playlist_error.setText("Maximum 10 playlists allowed. Go Premium to get more playlists")
         else:
             playlists_metadata[uid] = [text, username, current_date, []]
             playlists_display_metadata[uid] = []  # manually adding playlist to the display metadata variable
@@ -471,7 +473,7 @@ class Main(QMainWindow):
                 playlists.create_playlist(username, uid, '', '', conn, cur)
                 self.playlist_success.setText("Playlist added to account.")
             except:
-                self.playlist_success.setText("Unable to add playlist")
+                self.playlist_error.setText("Unable to add playlist")
 
     def placeholder_random(self):
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
