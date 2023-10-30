@@ -96,6 +96,8 @@ class Main(QMainWindow):
         self.create_playlist.clicked.connect(self.create_playlist_func)
         self.create_playlist_name.returnPressed.connect(self.create_playlist_func)
 
+        self.credit_license.clicked.connect(self.credit_license_func)
+
         self.mode_collapse.clicked.connect(self.mode)
         self.mode_expand.clicked.connect(self.mode)
 
@@ -571,6 +573,15 @@ class Main(QMainWindow):
 
                 print(f"Displaying searched movie {_id}")
 
+    def credit_license_func(self):
+        """
+        Function to open Credits/License Window
+        """
+        self.stack.setCurrentIndex(9)
+        if self.expand.isVisible():
+            self.expand.hide()
+            self.collapse.show()
+
     def delete_acc_func(self):
         """
         Function to delete user's account (move it to recovery table)
@@ -667,20 +678,24 @@ class Main(QMainWindow):
         self.library_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.shortlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
+        self.credit_license_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.random_page.setStyleSheet(dark_mainwin_widget)
         self.create_page.setStyleSheet(dark_mainwin_widget)
         self.library_page.setStyleSheet(dark_mainwin_widget)
         self.shortlist_page.setStyleSheet(dark_mainwin_widget)
         self.display_page.setStyleSheet(dark_mainwin_widget)
         self.playlist_page.setStyleSheet(dark_mainwin_widget)
+        self.credit_license_page.setStyleSheet(dark_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_dark.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/dark_mode.ico"))
         self.mode_expand.setIcon(QIcon("Icons/dark_mode.ico"))
         self.mode_expand.setText("Dark Mode")
 
-        self.user_img.setPixmap(QPixmap("Images\\user_white.png"))
+        self.user_img.setPixmap(QPixmap("Images/user_white.png"))
         self.user_settings.setStyleSheet("color:#fffaf0;font:18pt;")
+
+        self.credit_license.setIcon(QIcon("Icons/license_white.png"))
 
     def light_mode(self):
         """
@@ -702,20 +717,24 @@ class Main(QMainWindow):
         self.library_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.shortlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
+        self.credit_license_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.random_page.setStyleSheet(light_mainwin_widget)
         self.create_page.setStyleSheet(light_mainwin_widget)
         self.library_page.setStyleSheet(light_mainwin_widget)
         self.shortlist_page.setStyleSheet(light_mainwin_widget)
         self.display_page.setStyleSheet(light_mainwin_widget)
         self.playlist_page.setStyleSheet(light_mainwin_widget)
+        self.credit_license_page.setStyleSheet(light_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
         self.mode_expand.setIcon(QIcon("Icons/light_mode.ico"))
         self.mode_expand.setText("Light Mode")
 
-        self.user_img.setPixmap(QPixmap("Images\\user_black.png"))
+        self.user_img.setPixmap(QPixmap("Images/user_black.png"))
         self.user_settings.setStyleSheet("color:#000;font:18pt;")
+
+        self.credit_license.setIcon(QIcon("icons/license_black.png"))
 
     def closeEvent(self, event):
         print("closing")

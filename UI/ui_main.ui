@@ -1037,6 +1037,40 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
+            <widget class="QPushButton" name="credit_license">
+                <property name="minimumSize">
+                    <size>
+                        <width>32</width>
+                        <height>32</height>
+                    </size>
+                </property>
+                <property name="maximumSize">
+                    <size>
+                        <width>32</width>
+                        <height>32</height>
+                    </size>
+                </property>
+                <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="toolTip">
+                    <string>See Credits and License</string>
+                </property>
+                <property name="styleSheet">
+                    <string notr="true">background-color:rgba(0,0,0,0);</string>
+                </property>
+                <property name="text">
+                    <string/>
+                </property>
+                <property name="iconSize">
+                    <size>
+                        <width>24</width>
+                        <height>24</height>
+                    </size>
+                </property>
+            </widget>
+        </item>
+           <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -1126,6 +1160,22 @@ background-color: rgba(0,0,0,0);</string>
           </property>
          </spacer>
         </item>
+           <item>
+               <spacer name="horizontalSpacer_9">
+                   <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                       <enum>QSizePolicy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                       <size>
+                           <width>20</width>
+                           <height>20</height>
+                       </size>
+                   </property>
+               </spacer>
+           </item>
        </layout>
       </item>
       <item>
@@ -1134,7 +1184,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-            <number>7</number>
+            <number>9</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1440,7 +1490,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>100</width>
+                      <width>149</width>
                       <height>410</height>
                   </rect>
                  </property>
@@ -1801,8 +1851,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>63</width>
+                  <height>18</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -1833,8 +1883,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>63</width>
+                  <height>18</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2751,8 +2801,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>98</width>
-                  <height>28</height>
+                  <width>820</width>
+                  <height>612</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
@@ -2761,6 +2811,323 @@ border-radius:10px;</string>
           </item>
          </layout>
         </widget>
+           <widget class="QWidget" name="credit_license_page">
+               <layout class="QVBoxLayout" name="verticalLayout_19">
+                   <item>
+                       <widget class="QScrollArea" name="credit_license_sa">
+                           <property name="widgetResizable">
+                               <bool>true</bool>
+                           </property>
+                           <widget class="QWidget" name="credit_license_sa_widgets">
+                               <property name="geometry">
+                                   <rect>
+                                       <x>0</x>
+                                       <y>0</y>
+                                       <width>820</width>
+                                       <height>651</height>
+                                   </rect>
+                               </property>
+                               <layout class="QVBoxLayout" name="verticalLayout_20">
+                                   <item>
+                                       <widget class="QLabel" name="label_4">
+                                           <property name="minimumSize">
+                                               <size>
+                                                   <width>0</width>
+                                                   <height>61</height>
+                                               </size>
+                                           </property>
+                                           <property name="maximumSize">
+                                               <size>
+                                                   <width>16777215</width>
+                                                   <height>61</height>
+                                               </size>
+                                           </property>
+                                           <property name="styleSheet">
+                                               <string notr="true">font:18pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>Developed By:</string>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_5">
+                                           <property name="minimumSize">
+                                               <size>
+                                                   <width>0</width>
+                                                   <height>0</height>
+                                               </size>
+                                           </property>
+                                           <property name="styleSheet">
+                                               <string notr="true">font:14pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/lakshya076&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Lakshya
+                                                   Saxena&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_6">
+                                           <property name="minimumSize">
+                                               <size>
+                                                   <width>0</width>
+                                                   <height>0</height>
+                                               </size>
+                                           </property>
+                                           <property name="styleSheet">
+                                               <string notr="true">font: 14pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/arnaav11&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Arnav
+                                                   Pushkarna&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <spacer name="verticalSpacer_16">
+                                           <property name="orientation">
+                                               <enum>Qt::Vertical</enum>
+                                           </property>
+                                           <property name="sizeType">
+                                               <enum>QSizePolicy::Fixed</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                               <size>
+                                                   <width>20</width>
+                                                   <height>5</height>
+                                               </size>
+                                           </property>
+                                       </spacer>
+                                   </item>
+                                   <item>
+                                       <widget class="Line" name="line_5">
+                                           <property name="orientation">
+                                               <enum>Qt::Horizontal</enum>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <spacer name="verticalSpacer_17">
+                                           <property name="orientation">
+                                               <enum>Qt::Vertical</enum>
+                                           </property>
+                                           <property name="sizeType">
+                                               <enum>QSizePolicy::Fixed</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                               <size>
+                                                   <width>20</width>
+                                                   <height>5</height>
+                                               </size>
+                                           </property>
+                                       </spacer>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_9">
+                                           <property name="minimumSize">
+                                               <size>
+                                                   <width>0</width>
+                                                   <height>61</height>
+                                               </size>
+                                           </property>
+                                           <property name="styleSheet">
+                                               <string notr="true">font:14pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Licensed Under:
+                                                   &lt;a href=&quot;https://choosealicense.com/&quot;&gt;&lt;span style=&quot;
+                                                   text-decoration: underline; color:#05b8cc;&quot;&gt;Choose a License&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <spacer name="verticalSpacer_18">
+                                           <property name="orientation">
+                                               <enum>Qt::Vertical</enum>
+                                           </property>
+                                           <property name="sizeType">
+                                               <enum>QSizePolicy::Fixed</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                               <size>
+                                                   <width>20</width>
+                                                   <height>5</height>
+                                               </size>
+                                           </property>
+                                       </spacer>
+                                   </item>
+                                   <item>
+                                       <widget class="Line" name="line_6">
+                                           <property name="orientation">
+                                               <enum>Qt::Horizontal</enum>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <spacer name="horizontalSpacer_10">
+                                           <property name="orientation">
+                                               <enum>Qt::Vertical</enum>
+                                           </property>
+                                           <property name="sizeType">
+                                               <enum>QSizePolicy::Fixed</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                               <size>
+                                                   <width>20</width>
+                                                   <height>5</height>
+                                               </size>
+                                           </property>
+                                       </spacer>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_14">
+                                           <property name="minimumSize">
+                                               <size>
+                                                   <width>0</width>
+                                                   <height>61</height>
+                                               </size>
+                                           </property>
+                                           <property name="styleSheet">
+                                               <string notr="true">font:18pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>Credits:</string>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_23">
+                                           <property name="styleSheet">
+                                               <string notr="true">font:14pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>Playlists Posters By:</string>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_17">
+                                           <property name="styleSheet">
+                                               <string notr="true">font:12pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/onkelglocke-12931647/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=4609877&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Andreas
+                                                   Glöckner&lt;/span&gt;&lt;/a&gt; from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=4609877&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_20">
+                                           <property name="styleSheet">
+                                               <string notr="true">font:12pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/yousafbhutta-2933897/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=7025904&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;yousafbhutta&lt;/span&gt;&lt;/a&gt;
+                                                   from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=7025904&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_21">
+                                           <property name="styleSheet">
+                                               <string notr="true">font:12pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/memorycatcher-168384/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=1414156&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Siggy
+                                                   Nowak&lt;/span&gt;&lt;/a&gt; from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=1414156&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <widget class="QLabel" name="label_22">
+                                           <property name="styleSheet">
+                                               <string notr="true">font:12pt;</string>
+                                           </property>
+                                           <property name="text">
+                                               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/insspirito-1851261/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=8314422&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Garik
+                                                   Barseghyan&lt;/span&gt;&lt;/a&gt; from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=8314422&quot;&gt;&lt;span
+                                                   style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                                               </string>
+                                           </property>
+                                           <property name="textFormat">
+                                               <enum>Qt::MarkdownText</enum>
+                                           </property>
+                                           <property name="openExternalLinks">
+                                               <bool>true</bool>
+                                           </property>
+                                       </widget>
+                                   </item>
+                                   <item>
+                                       <spacer name="verticalSpacer_6">
+                                           <property name="orientation">
+                                               <enum>Qt::Vertical</enum>
+                                           </property>
+                                           <property name="sizeHint" stdset="0">
+                                               <size>
+                                                   <width>20</width>
+                                                   <height>40</height>
+                                               </size>
+                                           </property>
+                                       </spacer>
+                                   </item>
+                               </layout>
+                           </widget>
+                       </widget>
+                   </item>
+               </layout>
+           </widget>
        </widget>
       </item>
      </layout>
