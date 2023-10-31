@@ -37,13 +37,13 @@ premium = 0
 ad = ["Advertisements/ad_one.png", "Advertisements/ad_two.png"]
 
 # This list holds all the recommendations for the user (max - 15)
-recoms = [626289, 355911, 617290, 851296, 458133, 354949, 134255, 509607, 774599]
+recoms = []
 
 # This list holds all the movies user can watch again (max - 10)
-watchagain = [261115, 242810, 197100, 946181, 574798, 900057, 157260]
+watchagain = []
 
 # This movie holds all the language movies based on the languages user has chosen (max -15)
-language = [278349, 640796, 621739, 881083]
+language = []
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
