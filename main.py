@@ -559,11 +559,51 @@ class Main(QMainWindow):
         searched_movies = movie_search.search(search_text, cur)[:10]
         print(f'Search Results: {searched_movies}')
 
-        search_metadata = {}
         for i in get_movies_info(searched_movies, cur):
-            search_metadata[i[0]] = i[1:]
+            title = i[1] or "Not Available"  # gets title
+            overview = i[2] or "Not Available"
+            date = i[3]
+            gen = i[4] or "Not Available"
+            lang = i[5] or "Not Available"
+            pop = i[6] or "Not Available"
+            cast = i[7] or "Not Available"
+            poster_path = i[8]  # gets poster path
 
-        print(search_metadata)
+            genre_real = "Not Available"
+            lang_real = ""
+
+            # Formatting date
+            try:
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+            except ValueError:
+                real_date = "Not Available"
+
+            # Formatting genre
+            if gen != "Not Available":
+                genre_real = ", ".join(gen)
+
+            # Formatting poster path
+            if poster_path != 'nan' and poster_path:
+                try:
+                    poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                except requests.ConnectionError:  # Network Error
+                    poster_var = not_found_img
+                # gets poster image as a byte array
+            else:
+                poster_var = not_found_img
+                # executes if the poster path is not available in the database.
+
+            # Formatting language
+            if lang != "Not Available":
+                try:
+                    lang_real = iso_639_1[lang]
+                except KeyError:
+                    lang_real = lang
+
+            metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
+
+            if i[0] not in movies_metadata:
+                movies_metadata[int(i[0])] = metadata_enter
 
         if len(searched_movies) != 0:
             search = SearchMovies()
@@ -571,23 +611,9 @@ class Main(QMainWindow):
             for i in range(len(searched_movies)):
                 _id = searched_movies[i]
 
-                poster_path = search_metadata[_id][-1]
-
-                if poster_path != '':
-                    try:
-                        poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-                    except requests.ConnectionError:  # Network Error
-                        poster_var = not_found_img
-                    # gets poster image as a byte array
-                else:
-                    poster_var = not_found_img
-                    # executes if the poster path is not available in the database.
-
-                search.new_widgets_search(_id, title=search_metadata[_id][0], image=poster_var,
+                search.new_widgets_search(_id, title=movies_metadata[_id][0], image=movies_metadata[_id][7],
                                           scroll_area=self.search_sa_real_widgets,
                                           layout=self.search_sa_real_hlayout, open_func_lib=self.open_home_search)
-
-                print(f"Displaying searched movie {_id}")
 
     def credit_license_func(self):
         """
