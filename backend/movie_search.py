@@ -27,9 +27,6 @@ def search(phrase: str, cursor: pymysql.cursors.Cursor):
 
     phrase = phrase.strip()
 
-    cursor.execute(f'select id from main where overview like "%{phrase}%" order by popularity desc')
-    overview_search.extend([int(i[0]) for i in cursor.fetchall()])
-
     L = []
     s = ''
     for sep in [':', ';', ' -']:
@@ -46,6 +43,6 @@ def search(phrase: str, cursor: pymysql.cursors.Cursor):
     cast_search.extend([int(i[0]) for i in cursor.fetchall()])
 
     combined_search = title_search + cast_search + overview_search
-    combined_search = list(set(combined_search))
+    result = [i for i in combined_search if i not in result]
 
-    return combined_search
+    return result
