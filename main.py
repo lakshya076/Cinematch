@@ -24,10 +24,7 @@ from language import Language
 
 from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
     dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
-from reusable_imports.common_vars import playlist_picture, playlists_metadata, removed_playlists, \
-    playlists_display_metadata, random_movies, username, poster, conn, cur, no_logged, init_uname, \
-    init_list_metadata, not_found_img, recoms, watchagain, language, removed_playlist_movies, session, movies_metadata, \
-    premium
+from reusable_imports.common_vars import *
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
@@ -107,9 +104,12 @@ class Main(QMainWindow):
         self.create_playlist.clicked.connect(self.create_playlist_func)
         self.create_playlist_name.returnPressed.connect(self.create_playlist_func)
 
+        # Credit/License, Premium, Ads
         self.credit_license.clicked.connect(self.credit_license_func)
         self.premium.clicked.connect(self.premium_func)
         self.premium_plans.clicked.connect(self.premium_plans_func)
+        self.ad_create.setPixmap(QPixmap(random.choice(ad)))
+        self.ad_search.setPixmap(QPixmap(random.choice(ad)))
 
         self.mode_collapse.clicked.connect(self.mode)
         self.mode_expand.clicked.connect(self.mode)

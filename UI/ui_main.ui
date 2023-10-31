@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1108</width>
+       <width>1226</width>
     <height>776</height>
    </rect>
   </property>
@@ -1325,7 +1325,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>780</width>
+                  <width>898</width>
                <height>1233</height>
               </rect>
              </property>
@@ -1374,7 +1374,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>762</width>
+                      <width>880</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1442,7 +1442,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>762</width>
+                      <width>880</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1510,7 +1510,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>762</width>
+                      <width>880</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1560,7 +1560,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>822</width>
+                  <width>915</width>
                <height>653</height>
               </rect>
              </property>
@@ -1599,7 +1599,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>804</width>
+                      <width>897</width>
                    <height>410</height>
                   </rect>
                  </property>
@@ -1608,23 +1608,68 @@ background-color: rgba(0,0,0,0);</string>
                </widget>
               </item>
               <item>
-               <widget class="QLabel" name="ad_search">
-                <property name="cursor">
-                 <cursorShape>PointingHandCursor</cursorShape>
-                </property>
-                <property name="toolTip">
-                 <string>Get Premium</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">font:16pt;</string>
-                </property>
-                <property name="text">
-                 <string>Display Ad Here</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
+                  <layout class="QHBoxLayout" name="horizontalLayout_16">
+                      <item>
+                          <spacer name="horizontalSpacer_19">
+                              <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                                  <size>
+                                      <width>40</width>
+                                      <height>20</height>
+                                  </size>
+                              </property>
+                          </spacer>
+                      </item>
+                      <item>
+                          <widget class="QLabel" name="ad_search">
+                              <property name="minimumSize">
+                                  <size>
+                                      <width>300</width>
+                                      <height>100</height>
+                                  </size>
+                              </property>
+                              <property name="maximumSize">
+                                  <size>
+                                      <width>300</width>
+                                      <height>100</height>
+                                  </size>
+                              </property>
+                              <property name="cursor">
+                                  <cursorShape>PointingHandCursor</cursorShape>
+                              </property>
+                              <property name="toolTip">
+                                  <string>Get Premium</string>
+                              </property>
+                              <property name="styleSheet">
+                                  <string notr="true">font:16pt;</string>
+                              </property>
+                              <property name="text">
+                                  <string>Display Ad Here</string>
+                              </property>
+                              <property name="scaledContents">
+                                  <bool>true</bool>
+                              </property>
+                              <property name="alignment">
+                                  <set>Qt::AlignCenter</set>
+                              </property>
+                          </widget>
+                      </item>
+                      <item>
+                          <spacer name="horizontalSpacer_20">
+                              <property name="orientation">
+                                  <enum>Qt::Horizontal</enum>
+                              </property>
+                              <property name="sizeHint" stdset="0">
+                                  <size>
+                                      <width>40</width>
+                                      <height>20</height>
+                                  </size>
+                              </property>
+                          </spacer>
+                      </item>
+                  </layout>
               </item>
              </layout>
             </widget>
@@ -1713,7 +1758,7 @@ background-color: rgba(0,0,0,0);</string>
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../Icons/randomiser.ico</normaloff>../Icons/randomiser.ico
+                      <normaloff>../Icons/randomiser.ico</normaloff>../Icons/randomiser.ico
                   </iconset>
                  </property>
                 </widget>
@@ -1792,7 +1837,7 @@ background-color: rgba(0,0,0,0);</string>
                    <property name="icon">
                     <iconset>
                      <normaloff>../Icons/like_unchecked.ico</normaloff>
-                     <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
+                        <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -1840,31 +1885,33 @@ background-color: rgba(0,0,0,0);</string>
                  </property>
                  <property name="html">
                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-                   &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
-                   type=&quot;text/css&quot;&gt;
-                   p, li { white-space: pre-wrap; }
-                   &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
-                   font-weight:400; font-style:normal;&quot;&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                      &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
+                      type=&quot;text/css&quot;&gt;
+                      p, li { white-space: pre-wrap; }
+                      &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
+                      font-weight:400; font-style:normal;&quot;&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
                 </widget>
@@ -2140,23 +2187,59 @@ background-color: rgba(0,0,0,0);</string>
            </spacer>
           </item>
           <item>
-           <widget class="QLabel" name="ad_create">
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>200</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">font:14pt;</string>
-            </property>
-            <property name="text">
-             <string>Display Ad here</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                      <spacer name="horizontalSpacer_17">
+                          <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                              <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                              </size>
+                          </property>
+                      </spacer>
+                  </item>
+                  <item>
+                      <widget class="QLabel" name="ad_create">
+                          <property name="minimumSize">
+                              <size>
+                                  <width>900</width>
+                                  <height>300</height>
+                              </size>
+                          </property>
+                          <property name="maximumSize">
+                              <size>
+                                  <width>900</width>
+                                  <height>300</height>
+                              </size>
+                          </property>
+                          <property name="styleSheet">
+                              <string notr="true">font:14pt;</string>
+                          </property>
+                          <property name="text">
+                              <string>Display Ad here</string>
+                          </property>
+                          <property name="alignment">
+                              <set>Qt::AlignCenter</set>
+                          </property>
+                      </widget>
+                  </item>
+                  <item>
+                      <spacer name="horizontalSpacer_18">
+                          <property name="orientation">
+                              <enum>Qt::Horizontal</enum>
+                          </property>
+                          <property name="sizeHint" stdset="0">
+                              <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                              </size>
+                          </property>
+                      </spacer>
+                  </item>
+              </layout>
           </item>
           <item>
            <spacer name="verticalSpacer_15">
@@ -2745,7 +2828,7 @@ border-radius:10px;</string>
                    <property name="icon">
                     <iconset>
                      <normaloff>../Icons/like_unchecked.ico</normaloff>
-                     <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
+                        <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -2799,31 +2882,33 @@ border-radius:10px;</string>
                  </property>
                  <property name="html">
                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-                   &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
-                   type=&quot;text/css&quot;&gt;
-                   p, li { white-space: pre-wrap; }
-                   &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
-                   font-weight:400; font-style:normal;&quot;&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
-                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
-                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                      &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style
+                      type=&quot;text/css&quot;&gt;
+                      p, li { white-space: pre-wrap; }
+                      &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:14pt;
+                      font-weight:400; font-style:normal;&quot;&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
                 </widget>
@@ -2951,8 +3036,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>822</width>
-               <height>653</height>
+                  <width>304</width>
+                  <height>468</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -3268,8 +3353,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>835</width>
-               <height>636</height>
+                  <width>832</width>
+                  <height>481</height>
               </rect>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -3416,7 +3501,7 @@ border-radius:10px;</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>../Icons/premium_nope.ico</normaloff>../Icons/premium_nope.ico
+                        <normaloff>../Icons/premium_nope.ico</normaloff>../Icons/premium_nope.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3445,7 +3530,7 @@ border-radius:10px;</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>../Icons/premium_nope.ico</normaloff>../Icons/premium_nope.ico
+                        <normaloff>../Icons/premium_nope.ico</normaloff>../Icons/premium_nope.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3474,7 +3559,7 @@ border-radius:10px;</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>../Icons/premium_nope.ico</normaloff>../Icons/premium_nope.ico
+                        <normaloff>../Icons/premium_nope.ico</normaloff>../Icons/premium_nope.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3647,7 +3732,7 @@ border-radius:10px;</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>../Icons/premium_yup.ico</normaloff>../Icons/premium_yup.ico
+                        <normaloff>../Icons/premium_yup.ico</normaloff>../Icons/premium_yup.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3676,7 +3761,7 @@ border-radius:10px;</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>../Icons/premium_yup.ico</normaloff>../Icons/premium_yup.ico
+                        <normaloff>../Icons/premium_yup.ico</normaloff>../Icons/premium_yup.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3705,7 +3790,7 @@ border-radius:10px;</string>
                    </property>
                    <property name="icon">
                     <iconset>
-                     <normaloff>../Icons/premium_yup.ico</normaloff>../Icons/premium_yup.ico
+                        <normaloff>../Icons/premium_yup.ico</normaloff>../Icons/premium_yup.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3825,7 +3910,7 @@ border-radius:10px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1108</width>
+        <width>1226</width>
      <height>21</height>
     </rect>
    </property>

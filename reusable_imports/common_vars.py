@@ -33,6 +33,9 @@ username = "User"
 # Premium user or not. 0 -> No; 1 -> Yes
 premium = 0
 
+# List to store ad posters
+ad = ["Advertisements/ad_one.png", "Advertisements/ad_two.png"]
+
 # This list holds all the recommendations for the user (max - 15)
 recoms = [626289, 355911, 617290, 851296, 458133, 354949, 134255, 509607, 774599]
 
