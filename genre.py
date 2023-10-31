@@ -181,6 +181,7 @@ class Genre(QDialog, FrameReuse):
             selected_error.error_dialog.exec_()
         else:
             print("Moving on to Languages")
+            self.genres = genres
             self.accept()
 
     def reject(self):

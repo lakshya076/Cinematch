@@ -5,7 +5,7 @@ from PyQt5.QtGui import QCursor, QIcon
 from PyQt5.QtWidgets import QFrame, QApplication, QLabel, QDialog, QHBoxLayout
 from PyQt5.uic import loadUi
 
-from reusable_imports.common_vars import languages
+from reusable_imports.common_vars import languages, iso_639_1_inv
 from reusable_imports._css import genre_frame_selection_css, genre_title_selection_css
 from reusable_imports.commons import ErrorDialog, clickable
 from reusable_imports.source_vars import lang_source
@@ -139,7 +139,7 @@ class Language(QDialog, FrameReuse):
                 self.lang_flags[number] = True
 
                 try:
-                    languages.append(lang_source[number])
+                    languages.append(iso_639_1_inv[lang_source[number]])
                 except:
                     pass
 
@@ -177,6 +177,7 @@ class Language(QDialog, FrameReuse):
             selected_error.error_dialog.exec_()
         else:
             print("Moving on to Splash Screen")
+            self.languages = languages
             self.accept()
 
     def reject(self):

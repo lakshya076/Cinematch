@@ -200,6 +200,7 @@ class Checklist(QDialog, FrameReuse):
         else:
             # Direct to next (Genres/Languages) page
             print("Moving on to Genres/Languages")
+            self.movies = movies
             self.accept()
 
     def new_widgets(self, number, img, title, scroll_area):
