@@ -868,7 +868,7 @@ class Main(QMainWindow):
         for i in removed_playlists.values():
             playlists.delete_playlist(username, i, conn, cur)
 
-
+'''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
@@ -933,4 +933,3 @@ if __name__ == "__main__":
             window.show()
 
     sys.exit(app.exec_())
-'''
