@@ -81,3 +81,6 @@ class SplashScreen(QDialog):
 
     def mouseReleaseEvent(self, event):
         event.ignore()
+
+    def mouseMoveEvent(self, event):
+        event.ignore()
