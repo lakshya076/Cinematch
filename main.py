@@ -8,9 +8,9 @@ import platform
 
 import requests
 import PyQt5
-from PyQt5.QtCore import QRect
-from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox
+from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize
+from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
 
 from display_movie import DisplayMovies
@@ -40,6 +40,68 @@ else:
 # only for windows (get resolution)
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
+
+searched_movies = []
+search_text = ""
+
+
+class SearchAlg(QObject):
+    done = pyqtSignal()
+
+    def run(self):
+        global searched_movies, search_text
+
+        print(f"Searching {search_text}")
+        searched_movies = movie_search.search(search_text, cur)[:10]
+        print(f'Search Results: {searched_movies}')
+
+        for i in get_movies_info(searched_movies, cur):
+            title = i[1] or "Not Available"  # gets title
+            overview = i[2] or "Not Available"
+            date = i[3]
+            gen = i[4] or "Not Available"
+            lang = i[5] or "Not Available"
+            pop = i[6] or "Not Available"
+            cast = i[7] or "Not Available"
+            poster_path = i[8]  # gets poster path
+
+            genre_real = "Not Available"
+            lang_real = ""
+
+            # Formatting date
+            try:
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+            except ValueError:
+                real_date = "Not Available"
+
+            # Formatting genre
+            if gen != "Not Available":
+                genre_real = ", ".join(gen)
+
+            # Formatting poster path
+            if poster_path != 'nan' and poster_path:
+                try:
+                    poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
+                except requests.ConnectionError:  # Network Error
+                    poster_var = not_found_img
+                # gets poster image as a byte array
+            else:
+                poster_var = not_found_img
+                # executes if the poster path is not available in the database.
+
+            # Formatting language
+            if lang != "Not Available":
+                try:
+                    lang_real = iso_639_1[lang]
+                except KeyError:
+                    lang_real = lang
+
+            metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
+
+            if i[0] not in movies_metadata:
+                movies_metadata[int(i[0])] = metadata_enter
+
+        self.done.emit()
 
 
 class Main(QMainWindow):
@@ -88,6 +150,20 @@ class Main(QMainWindow):
         self.search_box.clicked.connect(self.findnext_func)
         self.search_box.returnPressed.connect(self.search_func)
         self.search_button.clicked.connect(self.search_func)
+
+        # Loading GIF and Threading in Search Window
+        self.loading = QMovie("Images/loading.gif")
+        self.label = QLabel()
+        self.label.setFixedSize(QSize(64, 64))
+        self.label.setScaledContents(True)
+        self.label.setMovie(self.loading)
+        self.search_sa_real_hlayout.addWidget(self.label)
+
+        self.thread = QThread()
+        self.worker = SearchAlg()
+        self.worker.moveToThread(self.thread)
+        self.worker.done.connect(self.search_put)
+        self.thread.started.connect(self.worker.run)
 
         self.randomiser.clicked.connect(self.placeholder_random)  # Randomise movie
         self.random_collapse.clicked.connect(self.random_func)
@@ -529,13 +605,11 @@ class Main(QMainWindow):
 
             playlists_metadata["shortlist"][3].append(_id)
             print(f"Added {_id} to shortlist")
-            print(f"Unable to add {_id} to shortlist")
 
             enter = ["Shortlist", title, poster, lang, pop, _id]
 
             playlists_display_metadata["shortlist"].append(tuple(enter))
             print(f"Added {_id} to display list")
-            print("Unable to enter the movie metadata to the display list")
 
         _image.setPixmap(image_to_load)
         _title.setText(title)
@@ -553,59 +627,32 @@ class Main(QMainWindow):
         """
         Function to search and display movies in the search widget of the stack.
         """
+        global search_text
         search_text = self.search_box.text()
         self.search_box.clearFocus()  # Removes focus from the search box
         self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
-        print(f"Searching {search_text}")
 
-        searched_movies = movie_search.search(search_text, cur)[:10]
-        print(f'Search Results: {searched_movies}')
+        self.thread.start()
 
-        for i in get_movies_info(searched_movies, cur):
-            title = i[1] or "Not Available"  # gets title
-            overview = i[2] or "Not Available"
-            date = i[3]
-            gen = i[4] or "Not Available"
-            lang = i[5] or "Not Available"
-            pop = i[6] or "Not Available"
-            cast = i[7] or "Not Available"
-            poster_path = i[8]  # gets poster path
+        try:
+            for i in reversed(range(self.search_sa_real_hlayout.count())):
+                if i == 0:
+                    break
+                self.search_sa_real_hlayout.itemAt(i).widget().setParent(None)
+        except:
+            pass
 
-            genre_real = "Not Available"
-            lang_real = ""
+        if not self.label.isVisible():
+            self.label.show()
+            self.loading.start()
+        else:
+            self.loading.start()
 
-            # Formatting date
-            try:
-                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
-            except ValueError:
-                real_date = "Not Available"
-
-            # Formatting genre
-            if gen != "Not Available":
-                genre_real = ", ".join(gen)
-
-            # Formatting poster path
-            if poster_path != 'nan' and poster_path:
-                try:
-                    poster_var = session.get(f"https://image.tmdb.org/t/p/original{poster_path}").content
-                except requests.ConnectionError:  # Network Error
-                    poster_var = not_found_img
-                # gets poster image as a byte array
-            else:
-                poster_var = not_found_img
-                # executes if the poster path is not available in the database.
-
-            # Formatting language
-            if lang != "Not Available":
-                try:
-                    lang_real = iso_639_1[lang]
-                except KeyError:
-                    lang_real = lang
-
-            metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
-
-            if i[0] not in movies_metadata:
-                movies_metadata[int(i[0])] = metadata_enter
+    def search_put(self):
+        self.loading.stop()
+        self.label.hide()
+        self.thread.quit()
+        self.thread.exit()
 
         if len(searched_movies) != 0:
             search = SearchMovies()
