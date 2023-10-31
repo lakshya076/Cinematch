@@ -357,7 +357,9 @@ class Main(QMainWindow):
             print("Logout Aborted")
 
     def search_shortcut(self):
-        """Function to activate search box by clicking shortcut Alt+D"""
+        """
+        Function to activate search box by clicking shortcut Alt+D
+        """
         self.findnext_func()
         self.search_box.selectAll()
 
