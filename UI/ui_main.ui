@@ -1293,7 +1293,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+            <number>5</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1560,8 +1560,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>915</width>
-               <height>653</height>
+                  <width>932</width>
+                  <height>636</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1599,7 +1599,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>897</width>
+                      <width>914</width>
                    <height>410</height>
                   </rect>
                  </property>
@@ -1626,13 +1626,13 @@ background-color: rgba(0,0,0,0);</string>
                           <widget class="QLabel" name="ad_search">
                               <property name="minimumSize">
                                   <size>
-                                      <width>300</width>
+                                      <width>900</width>
                                       <height>100</height>
                                   </size>
                               </property>
                               <property name="maximumSize">
                                   <size>
-                                      <width>300</width>
+                                      <width>900</width>
                                       <height>100</height>
                                   </size>
                               </property>
@@ -1911,6 +1911,8 @@ background-color: rgba(0,0,0,0);</string>
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -2015,8 +2017,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>63</width>
-               <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -2047,8 +2049,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>63</width>
-               <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2176,7 +2178,7 @@ background-color: rgba(0,0,0,0);</string>
              <enum>Qt::Vertical</enum>
             </property>
             <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
+                <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -2206,13 +2208,13 @@ background-color: rgba(0,0,0,0);</string>
                           <property name="minimumSize">
                               <size>
                                   <width>900</width>
-                                  <height>300</height>
+                                  <height>100</height>
                               </size>
                           </property>
                           <property name="maximumSize">
                               <size>
                                   <width>900</width>
-                                  <height>300</height>
+                                  <height>100</height>
                               </size>
                           </property>
                           <property name="styleSheet">
@@ -2245,6 +2247,9 @@ background-color: rgba(0,0,0,0);</string>
            <spacer name="verticalSpacer_15">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
+            </property>
+               <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -2908,6 +2913,8 @@ border-radius:10px;</string>
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                       &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                      -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                      &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                       -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -3005,8 +3012,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>63</width>
-               <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
