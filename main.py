@@ -886,8 +886,7 @@ if __name__ == '__main__':
 '''
 if __name__ == "__main__":
 
-    username, no_logged = init_uname()
-    playlists_metadata, playlist_picture = init_list_metadata()
+    username, no_logged, premium = init_uname()
 
     app = QApplication(sys.argv)
 
@@ -896,11 +895,12 @@ if __name__ == "__main__":
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
     if not no_logged:
-        username, no_logged = init_uname()
         playlists_metadata, playlist_picture = init_list_metadata()
+        recoms, watchagain, language = init_mapping()
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
+            recoms, watchagain, language, random_movies = splash.movies_result
             window = Main()
             window.show()
 
@@ -912,10 +912,10 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
-                    users.register(start_win.username, start_win.password, start_win.email, conn, cur)
-                    username, no_logged = init_uname()
+                    print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, conn, cur))
+                    username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture = init_list_metadata()
-
+                    recoms, watchagain, language = init_mapping()
                     splash = SplashScreen()
 
                     if splash.exec_() == QDialog.Accepted:
@@ -923,8 +923,9 @@ if __name__ == "__main__":
                         window.show()
 
     elif start_win.exec_() == 2:  # User logged in
-        username, no_logged = init_uname()
+        username, no_logged, premium = init_uname()
         playlists_metadata, playlist_picture = init_list_metadata()
+        recoms, watchagain, language = init_mapping()
 
         splash = SplashScreen()
 
