@@ -15,7 +15,6 @@ from backend.Utils.playlist_utils import *
 from backend.Utils.mapping_utils import *
 from reusable_imports.commons import remove_spaces
 
-
 # This list holds id of all the movies selected by the user in the checklist page - works only when user registers
 movies = list()
 
@@ -106,8 +105,8 @@ def init_list_metadata():
 
     return playlists_metadata, playlist_picture
 
-def init_mapping():
 
+def init_mapping():
     global recoms, watchagain, language
     print('Init Mapping')
     if not no_logged:
@@ -118,9 +117,9 @@ def init_mapping():
         watchagain = mapping_data[3]
         language = get_language_movies(username, 30, cur)
         print('Printing Language Movies')
-        
 
     return recoms, watchagain, language
+
 
 # Playlist metadata will be added in this when deleted
 # Then this should be uploaded to the removed playlists table
@@ -143,7 +142,7 @@ playlists_display_metadata = {}
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
 
-def get_data() -> None:
+def get_data() -> list:
     """
     Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
     home screen)
@@ -300,7 +299,7 @@ def get_movies() -> dict:
     return playlists_display_metadata
 
 
-def get_playlist_movies(list_name: str):
+def get_playlist_movies(list_name: str) -> dict | bool:
     if list_name in playlists_metadata.keys():
         return playlists_display_metadata[list_name]
     else:
