@@ -26,7 +26,8 @@ def register(username: str, password: str, email: str, liked: list, genres: list
     if status == 0:
 
         liked = list(map(str, liked))
-        recommended = list(map(str, collab_filter.recommend(liked, cursor)))[:20]
+        recommended = list(map(str, collab_filter.recommend(liked, cursor)))[:100]
+        print(recommended)
 
         cursor.execute('update users set logged_in = 0')
 

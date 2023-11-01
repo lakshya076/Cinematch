@@ -59,7 +59,8 @@ movies_metadata = {}
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
-item_similarity = pandas.read_csv('backend\\cos_similarity.csv', index_col=0)
+item_similarity = pandas.read_csv('backend\\cos_similarity.csv', index_col=False)
+print(item_similarity.head())
 
 
 def init_uname():
@@ -112,6 +113,8 @@ def init_mapping():
     if not no_logged:
         mapping_data = get_mapping_data(username, cur)
         recoms = mapping_data[6]
+        random.shuffle(recoms)
+        recoms = recoms[:50]
         watchagain = mapping_data[3]
         language = get_language_movies(username, 30, cur)
         print('Printing Language Movies')

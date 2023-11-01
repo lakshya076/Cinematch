@@ -50,7 +50,11 @@ def get_recs(id: int, cursor: pymysql.cursors.Cursor) -> list[int]:
     data = cursor.fetchone()
 
     if data:
-        return list(map(int, data[0].split('-')))
+
+        if data[0]:
+            return list(map(int, data[0].split('-')))
+        else:
+            return []
 
     else:
         return []
@@ -239,7 +243,7 @@ def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
         query += f'id = {i} or '
 
     query = query[:len(query)-4]
-    cursor.execute(query)
+    cursor.execute(f'{query} order by popularity desc')
     data = cursor.fetchall()
 
     if data:

@@ -3,10 +3,10 @@ import pymysql.cursors
 
 def mapping_status(username: str, cursor: pymysql.cursors.Cursor):
 
-    cursor.execute(f'select email from mapping where username="{username}"')
+    cursor.execute(f'select * from mapping where username="{username}"')
     x = cursor.fetchall()
 
-    cursor.execute(f'select email from deleted_mapping where username="{username}"')
+    cursor.execute(f'select * from deleted_mapping where username="{username}"')
     y = cursor.fetchall()
 
     if x:

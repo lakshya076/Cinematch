@@ -919,6 +919,7 @@ if __name__ == "__main__":
                     splash = SplashScreen()
 
                     if splash.exec_() == QDialog.Accepted:
+                        recoms, watchagain, language, random_movies = splash.movies_result
                         window = Main()
                         window.show()
 
@@ -930,6 +931,7 @@ if __name__ == "__main__":
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
+            recoms, watchagain, language, random_movies = splash.movies_result
             window = Main()
             window.show()
 

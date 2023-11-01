@@ -11,13 +11,13 @@ def get_similar(id, rating):
 
 
 def recommend(ids: list, cursor: pymysql.cursors.Cursor):
-    if len(ids) < 7:
-        ratings = []
-        for i in ids:
-            recommended = movie_utils.recommend_direct(int(i), 1, cursor)
-            ratings.extend([(str(j), 5) for j in recommended])
-    else:
-        ratings = [(str(i), 5) for i in ids]
+
+    ratings = []
+    for i in ids:
+        recommended = movie_utils.recommend_direct(int(i), 1, cursor)
+        ratings.append((str(i), 5))
+        ratings.extend([(str(j), 5) for j in recommended])
+
 
     recommendations = pandas.DataFrame()
     for i in ratings:
