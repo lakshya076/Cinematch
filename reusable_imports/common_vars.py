@@ -113,7 +113,6 @@ def init_mapping():
         mapping_data = get_mapping_data(username, cur)
         recoms = mapping_data[6]
         random.shuffle(recoms)
-        recoms = recoms[:50]
         watchagain = mapping_data[3]
         language = get_language_movies(username, 30, cur)
         print('Printing Language Movies')

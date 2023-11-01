@@ -313,6 +313,6 @@ def pop_sort(ids: list[int], cursor: pymysql.cursors.Cursor) -> list[int]:
 
 def get_random(cursor: pymysql.cursors.Cursor, limit: int) -> list[int]:
 
-    cursor.execute(f'select id from main order by rand() limit {limit}')
+    cursor.execute(f'select id from main where popularity >= 50 order by rand() limit {limit}')
 
     return [int(i[0]) for i in cursor.fetchall()]
