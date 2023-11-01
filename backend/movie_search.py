@@ -43,6 +43,7 @@ def search(phrase: str, cursor: pymysql.cursors.Cursor):
     cast_search.extend([int(i[0]) for i in cursor.fetchall()])
 
     combined_search = title_search + cast_search + overview_search
+    result = []
     result = [i for i in combined_search if i not in result]
 
     return result
