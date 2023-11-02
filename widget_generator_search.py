@@ -29,7 +29,7 @@ class SearchMovies(QFrame):
         self.poster = ClickableLabel(self.frame)
         self.poster.setObjectName(self.poster_new)
         self.poster.setScaledContents(True)
-        self.poster.setFixedSize(QSize(174, 261))
+        self.poster.setFixedSize(QSize(180, 270))
         image_object = QImage()
         image_object.loadFromData(image)
         _image = QPixmap(image_object)
