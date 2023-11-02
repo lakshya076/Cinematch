@@ -22,7 +22,7 @@ class WorkerTwo(QObject):
     done = pyqtSignal()
 
     def call(self):
-        get_data()
+        self.result = get_data()
         self.done.emit()
 
 
@@ -71,6 +71,8 @@ class SplashScreen(QDialog):
         self.doing.setText("All Set")
         self.progress.setValue(100)
         time.sleep(2)
+        self.movies_result = self.worker_two.result
+        self.thread.exit()
         self.accept()
 
     def mousePressEvent(self, event):

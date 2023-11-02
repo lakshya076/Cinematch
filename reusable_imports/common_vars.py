@@ -7,10 +7,12 @@ import pymysql
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 import requests
+import pandas
 
 from backend.Utils.movie_utils import *
-from backend.Utils.user_utils import get_logged_user
+from backend.Utils.user_utils import get_logged_user, is_premium
 from backend.Utils.playlist_utils import *
+from backend.Utils.mapping_utils import *
 from reusable_imports.commons import remove_spaces
 
 # This list holds id of all the movies selected by the user in the checklist page - works only when user registers
@@ -56,11 +58,15 @@ movies_metadata = {}
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
+item_similarity = pandas.read_csv('backend\\cos_similarity.csv', index_col=False)
+print(item_similarity.head())
+
 
 def init_uname():
     print("Checking for recurring login")
     global username
     global no_logged
+    global premium
 
     username = get_logged_user(cur)
     no_logged = False
@@ -68,14 +74,19 @@ def init_uname():
     if not username:
         username = "User"
         no_logged = True
+    else:
+        premium = is_premium(username, cur)
 
-    return username, no_logged
+    return username, no_logged, premium
 
 
 def init_list_metadata():
     print("Initialising playlists")
     global playlists_metadata
     global removed_playlist_movies
+    global recoms
+    global watchagain
+    global language
     if no_logged:
         playlists_metadata = {'shortlist': ['Shortlist', 'Cinematch Team', '--/--/----', []]}
 
@@ -87,10 +98,26 @@ def init_list_metadata():
             removed_playlist_movies[i[2]] = []
             playlists_metadata[remove_spaces(i[2])] = [i[2], i[0], '-'.join(i[6].split('-')[::-1]), i[3], i[5]]
 
+        recoms
+
     global playlist_picture
     playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
 
     return playlists_metadata, playlist_picture
+
+
+def init_mapping():
+    global recoms, watchagain, language
+    print('Init Mapping')
+    if not no_logged:
+        mapping_data = get_mapping_data(username, cur)
+        recoms = mapping_data[6]
+        random.shuffle(recoms)
+        watchagain = mapping_data[3]
+        language = get_language_movies(username, 30, cur)
+        print('Printing Language Movies')
+
+    return recoms, watchagain, language
 
 
 # Playlist metadata will be added in this when deleted
@@ -99,7 +126,7 @@ removed_playlists = {}
 removed_playlist_movies = {}
 
 # Random movies to choose for the random page function
-random_movies = get_random(cur, 20)
+random_movies = get_random(cur, 50)
 
 poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg",
           "playlist_posters\\four.png"]
@@ -114,7 +141,7 @@ playlists_display_metadata = {}
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
 
-def get_data() -> None:
+def get_data() -> list:
     """
     Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
     home screen)
@@ -135,8 +162,9 @@ def get_data() -> None:
 
     movie_list = [recoms, watchagain, language, random_movies]
     for i in range(len(movie_list)):
+        print(movie_list[i])
         movies_info = get_movies_info(movie_list[i], cur)
-
+        movie_list[i] = []
         for j in movies_info:
             title = j[1] or "Not Available"  # gets title
             overview = j[2] or "Not Available"
@@ -146,6 +174,8 @@ def get_data() -> None:
             pop = j[6] or "Not Available"
             cast = j[7] or "Not Available"
             poster_path = j[8]  # gets poster path
+
+            movie_list[i].append(int(j[0]))
 
             genre_real = "Not Available"
             lang_real = ""
@@ -184,8 +214,10 @@ def get_data() -> None:
 
             if j[0] not in movies_metadata:
                 movies_metadata[int(j[0])] = metadata_enter
-            else:
-                pass
+
+        print(movie_list[i])
+
+    return movie_list
 
 
 def get_movies() -> dict:
@@ -266,7 +298,7 @@ def get_movies() -> dict:
     return playlists_display_metadata
 
 
-def get_playlist_movies(list_name: str):
+def get_playlist_movies(list_name: str) -> dict | bool:
     if list_name in playlists_metadata.keys():
         return playlists_display_metadata[list_name]
     else:
@@ -305,3 +337,5 @@ iso_639_1 = {'ab': 'Abkhaz', 'aa': 'Afar', 'af': 'Afrikaans', 'ak': 'Akan', 'sq'
              'tw': 'Twi', 'ty': 'Tahitian', 'ug': 'Uighur', 'uk': 'Ukrainian', 'ur': 'Urdu', 'uz': 'Uzbek',
              've': 'Venda', 'vi': 'Vietnamese', 'vo': 'Volapük', 'wa': 'Walloon', 'cy': 'Welsh', 'wo': 'Wolof',
              'fy': 'Western Frisian', 'xh': 'Xhosa', 'yi': 'Yiddish', 'yo': 'Yoruba', 'za': 'Zhuang', 'zu': 'Zulu'}
+
+iso_639_1_inv = {v: k for k, v in iso_639_1.items()}

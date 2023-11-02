@@ -4,9 +4,11 @@ import backend.Utils.user_utils as user_utils
 import backend.mailing as mailing
 import backend.playlists as playlists
 import backend.Utils.playlist_utils as playlist_utils
+import backend.mapping as mapping
+import backend.collaborative_filtering as collab_filter
 
 
-def register(username: str, password: str, email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def register(username: str, password: str, email: str, liked: list, genres: list, langs: list, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     '''
     
     Registers user in the database
@@ -20,13 +22,12 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
     hashed_password = encryption.sha256(password)
     del password
 
-    cursor.execute(f'select username from users where username="{username}"')
-    data = cursor.fetchall()
+    status = user_utils.user_status(username, cursor)
+    if status == 0:
 
-    cursor.execute(f'select * from users where email="{email}"')
-    data2 = cursor.fetchall()
-
-    if data == () and data2 == ():
+        liked = list(map(str, liked))
+        recommended = list(map(str, collab_filter.recommend(liked, cursor)))[:100]
+        print(recommended)
 
         cursor.execute('update users set logged_in = 0')
 
@@ -35,16 +36,14 @@ def register(username: str, password: str, email: str, connection: pymysql.Conne
         cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null, curdate())')
         cursor.execute(f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
-        # cursor.execute(f'insert into mapping values("{username}", "", "", "", "", "", "")')
+        cursor.execute(f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
 
 
         connection.commit()
-
         return True
 
     else:
-
-        return False
+        return status
 
 
 def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
@@ -138,12 +137,13 @@ def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.c
         for i in playlist_utils.get_playlists(username, cursor):
             playlists.delete_playlist(username, i, connection, cursor)
 
+        mapping.delete_mapping(username, connection, cursor)
+
         mailing.send_deletion_mail(data[2], cursor)
 
         return True
 
     else:
-
         return False
 
 

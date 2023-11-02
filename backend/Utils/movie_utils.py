@@ -1,4 +1,3 @@
-import pymysql
 import pymysql.cursors
 
 
@@ -51,7 +50,11 @@ def get_recs(id: int, cursor: pymysql.cursors.Cursor) -> list[int]:
     data = cursor.fetchone()
 
     if data:
-        return list(map(int, data[0].split('-')))
+
+        if data[0]:
+            return list(map(int, data[0].split('-')))
+        else:
+            return []
 
     else:
         return []
@@ -240,7 +243,7 @@ def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
         query += f'id = {i} or '
 
     query = query[:len(query)-4]
-    cursor.execute(query)
+    cursor.execute(f'{query} order by popularity desc')
     data = cursor.fetchall()
 
     if data:
@@ -310,6 +313,6 @@ def pop_sort(ids: list[int], cursor: pymysql.cursors.Cursor) -> list[int]:
 
 def get_random(cursor: pymysql.cursors.Cursor, limit: int) -> list[int]:
 
-    cursor.execute(f'select id from main order by rand() limit {limit}')
+    cursor.execute(f'select id from main where popularity >= 50 order by rand() limit {limit}')
 
     return [int(i[0]) for i in cursor.fetchall()]
