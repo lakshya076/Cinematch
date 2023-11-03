@@ -16,9 +16,7 @@ def phrase_former(phrase: str, sep: str):
 
 def search(phrase: str, cursor: pymysql.cursors.Cursor):
     """
-
     search for movies using `phrase`
-
     """
 
     title_search = []

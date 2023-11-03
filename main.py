@@ -868,6 +868,7 @@ class Main(QMainWindow):
         for i in removed_playlists.values():
             playlists.delete_playlist(username, i, conn, cur)
 
+
 '''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
@@ -912,7 +913,8 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
-                    print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, conn, cur))
+                    print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
+                                         genre_win.genres, lang_win.languages, conn, cur))
                     username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture = init_list_metadata()
                     recoms, watchagain, language = init_mapping()

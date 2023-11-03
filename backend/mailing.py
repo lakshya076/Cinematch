@@ -9,13 +9,10 @@ sender = "lakhya.arnav.cs.project@gmail.com"
 
 
 def send_otp(email: str):
-    '''
-    
+    """
     Sends a random 6-digit `OTP` to `email`
-
     Returns `OTP` if `email` is valid, else returns `-1`
-    
-    '''
+    """
 
     try:
 
