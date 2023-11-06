@@ -9,7 +9,7 @@ import platform
 import requests
 import PyQt5
 from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
-from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
+from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie, QGuiApplication
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
 
@@ -892,6 +892,7 @@ if __name__ == "__main__":
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     app = QApplication(sys.argv)
     app.setAttribute(Qt.AA_EnableHighDpiScaling)
+    app.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
 
     start_win = Start()
 
