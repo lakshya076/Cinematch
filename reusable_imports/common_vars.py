@@ -58,7 +58,7 @@ movies_metadata = {}
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
-item_similarity = pandas.read_csv('backend\\cos_similarity.csv', index_col=False)
+item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=False)
 print(item_similarity.head())
 
 
@@ -97,8 +97,6 @@ def init_list_metadata():
             print(i)
             removed_playlist_movies[i[2]] = []
             playlists_metadata[remove_spaces(i[2])] = [i[2], i[0], '-'.join(i[6].split('-')[::-1]), i[3], i[5]]
-
-        recoms
 
     global playlist_picture
     playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
