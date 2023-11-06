@@ -1,16 +1,15 @@
 import pandas
 import pymysql, pymysql.cursors
 import backend.Utils.movie_utils as movie_utils
-from reusable_imports.common_vars import item_similarity
 
-def get_similar(id, rating):
-    sim_score = item_similarity[id] * (rating - 2.5)
+def get_similar(id, rating, sim_table: pandas.DataFrame):
+    sim_score = sim_table[id] * (rating - 2.5)
     sim_score = sim_score.sort_values(ascending=False)
 
     return sim_score
 
 
-def recommend(ids: list, cursor: pymysql.cursors.Cursor):
+def recommend(ids: list, cursor: pymysql.cursors.Cursor, sim_table: pandas.DataFrame):
 
     ratings = []
     for i in ids:
@@ -21,9 +20,9 @@ def recommend(ids: list, cursor: pymysql.cursors.Cursor):
 
     recommendations = pandas.DataFrame()
     for i in ratings:
-
-        if i[0] in item_similarity:
-            movie_similarity = get_similar(i[0], i[1])
+        if i[0] in sim_table:
+            
+            movie_similarity = get_similar(i[0], i[1], sim_table)
             movie_similarity = movie_similarity.to_frame().T
 
             recommendations = pandas.concat([recommendations, movie_similarity])
