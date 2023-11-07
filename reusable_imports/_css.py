@@ -45,36 +45,11 @@ light_mainwin_widget = """
     background-color:#FFFAF0;
     font:14pt;
 
-
     QTextBrowser {
         color:#000000;
         background-color:#FFFAF0;
     }
 
-    QLineEdit {
-        min-height:20px;
-        padding:8px;
-        font:14pt;
-        border-radius:20px;
-        border-width:1px;
-        color:black;
-    }
-
-    QFrame {
-        background-color: #EEE9DF;
-        color: #000000; 
-        border-radius: 16px; 
-        border-width: 1px;
-    }
-    QPushButton {
-        background-color: rgba(0,0,0,0);
-        border:none;
-    }
-    QToolTip {
-        color: #000;
-        opacity: 200;
-        font: 8pt;
-    }
     """
 light_main_stylesheet = """
         /*CentralWidget Stylesheet*/
@@ -84,13 +59,13 @@ light_main_stylesheet = """
         
         /*Sidebar css*/
         #collapse {
-            background-color: #EEE9DF;
+            background-color: #313A46;
         }
         #collapse QPushButton {
             border:none;
         }
         #expand {
-            background-color: #EEE9DF;
+            background-color: #313A46;
         }
         #expand QPushButton {
             border:none;
@@ -100,7 +75,7 @@ light_main_stylesheet = """
             font:12pt \"MS Shell Dlg 2\";
         }
         #expand QPushButton:checked {
-            background-color: #FFF0D3;
+            background-color: #FFF;
         }
 
         /*QScrollBar css*/
@@ -142,35 +117,10 @@ dark_mainwin_widget = """
     background-color:#24292E;
     font: 14pt;
 
-
-    QLineEdit {
-        min-height:20px;
-        padding:8px;
-        font:14pt;
-        border-radius:20px;
-        border-width:1px;
-        color:white;
-    }
-
     QTextBrowser {
         color:#FFFAF0;
         background-color:#24292E;
-    }
-
-    QFrame {
-        background-color: #EEE9DF;
-        color: #000000; 
-        border-radius: 16px; 
-        border-width: 1px;
-    }
-    QPushButton {
-        background-color: rgba(0,0,0,0);
-        border:none;
-    }
-    QToolTip {
-        color: #000;
-        opacity: 200;
-        font: 8pt;
+        font: 14pt;
     }
     """
 dark_library_stylesheet = """
