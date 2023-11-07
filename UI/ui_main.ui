@@ -1297,7 +1297,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>5</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1564,8 +1564,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>932</width>
-               <height>536</height>
+               <width>967</width>
+               <height>653</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1603,7 +1603,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>100</width>
+                   <width>949</width>
                    <height>410</height>
                   </rect>
                  </property>
@@ -2228,6 +2228,9 @@ background-color: rgba(0,0,0,0);</string>
                 <width>900</width>
                 <height>100</height>
                </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="styleSheet">
                <string notr="true">font:14pt;</string>
