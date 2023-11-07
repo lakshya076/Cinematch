@@ -1,3 +1,4 @@
+import platform
 import random
 import sys
 import time
@@ -30,6 +31,13 @@ class SplashScreen(QDialog):
     def __init__(self):
         super(SplashScreen, self).__init__()
         loadUi("UI\\ui_splashscreen.ui", self)
+
+        # Checking OS
+        if platform.system() == "Windows":
+            print("OS check completed")
+        else:
+            print("This program only works on Windows systems")
+            sys.exit(-2)
 
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setCursor(QCursor(Qt.BlankCursor))

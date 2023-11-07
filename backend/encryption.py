@@ -29,11 +29,9 @@ def turn_to_bits(message: str):
 
 
 def turn_to_hex(value: list[int]):
-    '''
-
+    """
     Returns given `value` in hex form
-
-    '''
+    """
 
     val = ''.join([str(x) for x in value])
     binaries = []
@@ -49,13 +47,10 @@ def turn_to_hex(value: list[int]):
 
 
 def divider(bits: list, length: int = 8):
-    '''
-    
+    """
     divides `bits` into `length` equal parts
-
     Returns `list`
-    
-    '''
+    """
 
     L = [bits[i * length:(i + 1) * length] for i in range(len(bits) // length)]
 
@@ -63,13 +58,10 @@ def divider(bits: list, length: int = 8):
 
 
 def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE'):
-    '''
-    
+    """
     Fills zeroes in `bits` as per Big and Little endian
-
     Returns `list`
-    
-    '''
+    """
 
     l = len(bits)
     if endian == 'LE':
@@ -84,13 +76,10 @@ def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE'):
 
 # initialize values from H and K
 def val_init(vals: list[str]):
-    '''
-    
+    """
     Initialises predetermined hex values in `vals`
-
     Returns `list`
-    
-    '''
+    """
 
     binaries = [bin(int(str(i), 16))[2:] for i in vals]
 
@@ -105,12 +94,10 @@ def val_init(vals: list[str]):
 
 # pad the message to nearest next multiple of 512 and return list of 512 length chunks
 def padder(message: str):
-    '''
-    
+    """
     Returns padded message in hex form
     as per sha256 algorithm
-    
-    '''
+    """
 
     msgbits = turn_to_bits(message) + [1]
     msglen = len(msgbits) - 1
@@ -175,13 +162,10 @@ def shr(x: list[int], n: int): return n * [0] + x[:-n]
 
 
 def bin_adder(i: list[int], j: list[int]):
-    '''
-
+    """
     Full binary adder without the final carry-over
-
     returns `list`
-
-    '''
+    """
 
     length = len(i)
     sums = list(range(length))
@@ -195,13 +179,10 @@ def bin_adder(i: list[int], j: list[int]):
 
 
 def sha256(message: str):
-    '''
-    
+    """
     Encrypts `message` using SHA256 algorithm
-    
     returns `hex`
-    
-    '''
+    """
 
     k = val_init(K)
     h0, h1, h2, h3, h4, h5, h6, h7 = val_init(H)

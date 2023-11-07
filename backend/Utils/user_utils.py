@@ -2,11 +2,9 @@ import pymysql.cursors
 
 
 def user_status(user: str, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Returns `True` if username/email exists in the database, else returns `False`
-    
-    '''
+    """
 
     cursor.execute(f'select email from users where email="{user}" or username="{user}"')
     x = cursor.fetchall()
@@ -25,13 +23,10 @@ def user_status(user: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_email(username: str, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Returns the email of a user, given the username
-
     Returns `False` if user doesn't exist
-    
-    '''
+    """
 
     cursor.execute(f'select email from users where email="{username}"')
     data = cursor.fetchone()
@@ -44,13 +39,10 @@ def get_email(username: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_username(email: str, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Returns the username of a user, given the email
-
     Returns `False` if user doesn't exist
-    
-    '''
+    """
 
     cursor.execute(f'select username from users where email="{email}"')
     data = cursor.fetchone()
@@ -70,13 +62,10 @@ def get_username(email: str, cursor: pymysql.cursors.Cursor):
 
 
 def get_password(user: str, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Returns the hashed password of a user, given its username or email
-
     Returns `False` if user doesn't exist
-    
-    '''
+    """
 
     cursor.execute(f'select password from users where email="{user}" or username="{user}"')
     data = cursor.fetchone()
@@ -111,11 +100,9 @@ def is_logged_in(user: str, cursor: pymysql.cursors.Cursor):
 
 
 def is_premium(user: str, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Returns `True` if user is premium, else returns `False`
-
-    '''
+    """
 
     cursor.execute(f'select premium from users where username="{user}" or email="{user}"')
     data = cursor.fetchall()

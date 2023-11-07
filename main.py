@@ -8,7 +8,7 @@ import platform
 
 import requests
 import PyQt5
-from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize
+from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
@@ -29,13 +29,6 @@ from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search, collaborative_filtering, mapping
 from widget_generator_search import SearchMovies
-
-# Checking OS
-if platform.system() == "Windows":
-    print("OS check completed")
-else:
-    print("This program only works on Windows systems")
-    sys.exit(-2)
 
 # only for windows (get resolution)
 user = ctypes.windll.user32
@@ -70,7 +63,7 @@ class SearchAlg(QObject):
 
             # Formatting date
             try:
-                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%d-%m-%Y")
             except ValueError:
                 real_date = "Not Available"
 
@@ -184,8 +177,12 @@ class Main(QMainWindow):
         self.credit_license.clicked.connect(self.credit_license_func)
         self.premium.clicked.connect(self.premium_func)
         self.premium_plans.clicked.connect(self.premium_plans_func)
+
+        # Setting Ads
         self.ad_create.setPixmap(QPixmap(random.choice(ad)))
+        clickable(self.ad_create).connect(self.premium_func)
         self.ad_search.setPixmap(QPixmap(random.choice(ad)))
+        clickable(self.ad_search).connect(self.premium_func)
 
         self.mode_collapse.clicked.connect(self.mode)
         self.mode_expand.clicked.connect(self.mode)
@@ -807,7 +804,7 @@ class Main(QMainWindow):
         self.user_settings.setStyleSheet("color:#fffaf0;font:18pt;")
 
         self.credit_license.setIcon(QIcon("Icons/license_white.png"))
-        self.premium.setStyleSheet("font:12pt;background-color:rgba(0,0,0,0);color:#fffaf0;")
+        self.premium.setIcon(QIcon("Icons/premium_darkmode.ico"))
 
     def light_mode(self):
         """
@@ -852,8 +849,8 @@ class Main(QMainWindow):
         self.user_img.setPixmap(QPixmap("Images/user_black.png"))
         self.user_settings.setStyleSheet("color:#000;font:18pt;")
 
-        self.credit_license.setIcon(QIcon("icons/license_black.png"))
-        self.premium.setStyleSheet("font:12pt;background-color:rgba(0,0,0,0);color:#000000;")
+        self.credit_license.setIcon(QIcon("Icons/license_black.png"))
+        self.premium.setIcon(QIcon("Icons/premium_lightmode.ico"))
 
     def closeEvent(self, event):
         print("closing")
@@ -879,10 +876,9 @@ class Main(QMainWindow):
 
         if not sim_exists:
             item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+            
         recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
-
         mapping.add_recommended_movies(recommendations, username, conn)
-
 
 '''
 if __name__ == '__main__':
@@ -904,6 +900,9 @@ if __name__ == "__main__":
 
     username, no_logged, premium = init_uname()
 
+    os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
+    QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
+    QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     app = QApplication(sys.argv)
 
     start_win = Start()
@@ -932,6 +931,7 @@ if __name__ == "__main__":
                     item_similarity = pandas.read_csv("backend/cos_similarity.csv", index_col=0)
                     sim_exists = True
                     print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur))
+
                     username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture = init_list_metadata()
                     recoms, watchagain, language = init_mapping()

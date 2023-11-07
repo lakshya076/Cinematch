@@ -58,7 +58,6 @@ movies_metadata = {}
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
-
 def init_uname():
     print("Checking for recurring login")
     global username
@@ -176,7 +175,7 @@ def get_data() -> list:
 
             # Formatting date
             try:
-                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%d-%m-%Y")
             except ValueError:
                 real_date = "Not Available"
 
@@ -248,7 +247,7 @@ def get_movies() -> dict:
 
             # Formatting date
             try:
-                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%d-%m-%Y")
             except ValueError:
                 real_date = "Not Available"
 

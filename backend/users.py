@@ -11,15 +11,12 @@ import backend.collaborative_filtering as collab_filter
 
 
 def register(username: str, password: str, email: str, liked: list, genres: list, langs: list, sim_table: pandas.DataFrame, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Registers user in the database
 
     Returns `True` if successful
-
     Returns `False` if user already exists
-    
-    '''
+    """
 
     hashed_password = encryption.sha256(password)
     del password
@@ -37,7 +34,6 @@ def register(username: str, password: str, email: str, liked: list, genres: list
         cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
         cursor.execute(f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
 
-
         connection.commit()
         return True
 
@@ -46,13 +42,10 @@ def register(username: str, password: str, email: str, liked: list, genres: list
 
 
 def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
-    '''
-    
+    """
     Checks login credentials from the database
-
     Returns `True` only if credentials are correct
-    
-    '''
+    """
 
     hashed_password = encryption.sha256(password)
     del password
@@ -94,15 +87,12 @@ def logout(cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
 
 
 def forgot_password(email: str, cursor: pymysql.cursors.Cursor):
-    '''
-    
+    """
     Sends `otp` to `email` for password recovery
 
     returns `otp` if `email` exists in DB and can be sent to.
-
     else returns `-1`
-    
-    '''
+    """
 
     cursor.execute(f'select * from users where email="{email}"')
     data = cursor.fetchall()
@@ -138,9 +128,11 @@ def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.c
 
         data = data[0]
         if data[5] and data[6]:
-            cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", "{int(data[4])}", "{data[5]}, "{data[6]}",  curdate(), date_add(curdate(), interval 30 day))')
+            cursor.execute(
+                f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", "{int(data[4])}", "{data[5]}, "{data[6]}",  curdate(), date_add(curdate(), interval 30 day))')
         else:
-            cursor.execute(f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", "{int(data[4])}", null, null,  curdate(), date_add(curdate(), interval 30 day))')
+            cursor.execute(
+                f'insert into deleted_users values("{data[0]}", "{data[1]}", "{data[2]}", "{int(data[4])}", null, null,  curdate(), date_add(curdate(), interval 30 day))')
         cursor.execute(f'delete from users where username = "{data[0]}"')
         connection.commit()
 
@@ -170,7 +162,8 @@ def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor)
 def recover_user(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     if user_utils.user_status(email, cursor) == 2:
 
-        cursor.execute(f'insert into users (select username, password, email, premium, premium_start, premium_end from deleted_users where email="{email}")')
+        cursor.execute(
+            f'insert into users (select username, password, email, premium, premium_start, premium_end from deleted_users where email="{email}")')
         cursor.execute(f'delete from deleted_users where email="{email}"')
         connection.commit()
 
