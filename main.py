@@ -4,7 +4,7 @@ import os
 import shutil
 import sys
 import random
-import platform
+import pandas
 
 import requests
 import PyQt5
@@ -874,11 +874,8 @@ class Main(QMainWindow):
         for i in removed_playlists.values():
             playlists.delete_playlist(username, i, conn, cur)
 
-        if not sim_exists:
-            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-            
         recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
-        mapping.add_recommended_movies(recommendations, username, conn)
+        mapping.add_recommended_movies(recommendations, username, conn, cur)
 
 '''
 if __name__ == '__main__':
@@ -908,7 +905,6 @@ if __name__ == "__main__":
     start_win = Start()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
-    sim_exists = False
 
     if not no_logged:
         playlists_metadata, playlist_picture = init_list_metadata()
@@ -916,6 +912,7 @@ if __name__ == "__main__":
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
+            item_similarity = splash.item_similarity
             recoms, watchagain, language, random_movies = splash.movies_result
             window = Main()
             window.show()
@@ -928,16 +925,14 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
-                    item_similarity = pandas.read_csv("backend/cos_similarity.csv", index_col=0)
-                    sim_exists = True
-                    print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur))
-
-                    username, no_logged, premium = init_uname()
-                    playlists_metadata, playlist_picture = init_list_metadata()
-                    recoms, watchagain, language = init_mapping()
                     splash = SplashScreen()
 
                     if splash.exec_() == QDialog.Accepted:
+                        username, no_logged, premium = init_uname()
+                        playlists_metadata, playlist_picture = init_list_metadata()
+                        recoms, watchagain, language = init_mapping()
+                        item_similarity = splash.item_similarity
+                        users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur)
                         recoms, watchagain, language, random_movies = splash.movies_result
                         window = Main()
                         window.show()
@@ -950,6 +945,7 @@ if __name__ == "__main__":
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
+            item_similarity = splash.item_similarity
             recoms, watchagain, language, random_movies = splash.movies_result
             window = Main()
             window.show()

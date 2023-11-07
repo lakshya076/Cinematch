@@ -2,6 +2,7 @@ import platform
 import random
 import sys
 import time
+import pandas
 
 from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal
 from PyQt5.QtGui import QCursor
@@ -16,6 +17,7 @@ class WorkerOne(QObject):
 
     def call(self):
         get_movies()
+        self.item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
         self.done.emit()
 
 
@@ -80,6 +82,7 @@ class SplashScreen(QDialog):
         self.progress.setValue(100)
         time.sleep(2)
         self.movies_result = self.worker_two.result
+        self.item_similarity = self.worker_one.item_similarity
         self.thread.exit()
         self.accept()
 
