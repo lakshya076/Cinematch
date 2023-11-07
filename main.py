@@ -27,7 +27,7 @@ from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area
 from reusable_imports.common_vars import *
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
-from backend import playlists, users, movie_search
+from backend import playlists, users, movie_search, collaborative_filtering, mapping
 from widget_generator_search import SearchMovies
 
 # only for windows (get resolution)
@@ -334,7 +334,7 @@ class Main(QMainWindow):
             """
             sender = lib.sender()
             _objectdelete = sender.objectName().strip().split(sep="_")[-1]  # gets the name of the playlist to delete
-            if _objectdelete.lower() in ["shortlist"]:
+            if _objectdelete.lower() in ["shortlist", "watched", "plantowatch", "watching"]:
                 print("Can't Delete Pre-Built Playlist")
             else:
                 try:
@@ -784,10 +784,13 @@ class Main(QMainWindow):
         self.credit_license_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.premium_sa_widgets.setStyleSheet(dark_scroll_area_mainwindow)
         self.random_page.setStyleSheet(dark_mainwin_widget)
+        self.random_overview.setStyleSheet(dark_mainwin_widget)
         self.create_page.setStyleSheet(dark_mainwin_widget)
         self.library_page.setStyleSheet(dark_mainwin_widget)
         self.shortlist_page.setStyleSheet(dark_mainwin_widget)
         self.display_page.setStyleSheet(dark_mainwin_widget)
+        self.displaywidget.setStyleSheet(dark_mainwin_widget)
+        self.display_overview.setStyleSheet(dark_mainwin_widget)
         self.playlist_page.setStyleSheet(dark_mainwin_widget)
         self.credit_license_page.setStyleSheet(dark_mainwin_widget)
         self.premium_page.setStyleSheet(dark_mainwin_widget)
@@ -817,6 +820,18 @@ class Main(QMainWindow):
 
         # Setting Light Mode StyleSheets
         self.setStyleSheet(light_main_stylesheet)
+        self.premium_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
+        self.random_page.setStyleSheet(light_mainwin_widget)
+        self.random_overview.setStyleSheet(light_mainwin_widget)
+        self.create_page.setStyleSheet(light_mainwin_widget)
+        self.library_page.setStyleSheet(light_mainwin_widget)
+        self.shortlist_page.setStyleSheet(light_mainwin_widget)
+        self.display_page.setStyleSheet(light_mainwin_widget)
+        self.display_overview.setStyleSheet(light_mainwin_widget)
+        self.displaywidget.setStyleSheet(light_mainwin_widget)
+        self.playlist_page.setStyleSheet(light_mainwin_widget)
+        self.credit_license_page.setStyleSheet(light_mainwin_widget)
+        self.premium_page.setStyleSheet(light_mainwin_widget)
         self.home_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.search_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.settings_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
@@ -824,15 +839,7 @@ class Main(QMainWindow):
         self.shortlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.playlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.credit_license_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
-        self.premium_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
-        self.random_page.setStyleSheet(light_mainwin_widget)
-        self.create_page.setStyleSheet(light_mainwin_widget)
-        self.library_page.setStyleSheet(light_mainwin_widget)
-        self.shortlist_page.setStyleSheet(light_mainwin_widget)
-        self.display_page.setStyleSheet(light_mainwin_widget)
-        self.playlist_page.setStyleSheet(light_mainwin_widget)
-        self.credit_license_page.setStyleSheet(light_mainwin_widget)
-        self.premium_page.setStyleSheet(light_mainwin_widget)
+        self.home_sa.setStyleSheet(light_mainwin_widget)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
@@ -858,6 +865,8 @@ class Main(QMainWindow):
 
         for i in playlists_metadata.keys():
             playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
+            if i == "watched":
+                mapping.add_watched_movies(playlists_metadata[i][3], username, conn, cur)
 
         for i in removed_playlist_movies.keys():
             playlists.remove_movies(removed_playlist_movies[i], username, i, conn, cur)
@@ -865,6 +874,11 @@ class Main(QMainWindow):
         for i in removed_playlists.values():
             playlists.delete_playlist(username, i, conn, cur)
 
+        if not sim_exists:
+            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+            
+        recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
+        mapping.add_recommended_movies(recommendations, username, conn)
 
 '''
 if __name__ == '__main__':
@@ -894,6 +908,7 @@ if __name__ == "__main__":
     start_win = Start()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
+    sim_exists = False
 
     if not no_logged:
         playlists_metadata, playlist_picture = init_list_metadata()
@@ -913,8 +928,10 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
-                    print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
-                                         genre_win.genres, lang_win.languages, conn, cur))
+                    item_similarity = pandas.read_csv("backend/cos_similarity.csv", index_col=0)
+                    sim_exists = True
+                    print(users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur))
+
                     username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture = init_list_metadata()
                     recoms, watchagain, language = init_mapping()
