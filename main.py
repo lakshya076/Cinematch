@@ -879,7 +879,8 @@ class Main(QMainWindow):
 
         if not sim_exists:
             item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-        recommendations = collaborative_filtering.recommend(playlists_metadata["watched"][3], cur, item_similarity)
+        recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
+
         mapping.add_recommended_movies(recommendations, username, conn)
 
 
