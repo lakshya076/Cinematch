@@ -70,7 +70,7 @@ class SearchAlg(QObject):
 
             # Formatting date
             try:
-                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%m-%d-%Y")
+                real_date = datetime.datetime.strptime(str(date), "%Y-%m-%d").strftime("%d-%m-%Y")
             except ValueError:
                 real_date = "Not Available"
 
