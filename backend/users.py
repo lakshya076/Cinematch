@@ -1,4 +1,6 @@
 import pymysql, pymysql.cursors
+import pandas
+
 import backend.encryption as encryption
 import backend.Utils.user_utils as user_utils
 import backend.mailing as mailing
@@ -8,8 +10,7 @@ import backend.mapping as mapping
 import backend.collaborative_filtering as collab_filter
 
 
-def register(username: str, password: str, email: str, liked: list, genres: list, langs: list,
-             connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def register(username: str, password: str, email: str, liked: list, genres: list, langs: list, sim_table: pandas.DataFrame, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     """
     Registers user in the database
 
@@ -24,19 +25,14 @@ def register(username: str, password: str, email: str, liked: list, genres: list
     if status == 0:
 
         liked = list(map(str, liked))
-        recommended = list(map(str, collab_filter.recommend(liked, cursor)))[:100]
+        recommended = list(map(str, collab_filter.recommend(liked, cursor, sim_table)))[:100]
         print(recommended)
 
         cursor.execute('update users set logged_in = 0')
+        cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 1, 0, null, null)')
 
         cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
-        cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 1, 0, null, null)')
-        cursor.execute(f'insert into playlists values("{username}", "default", "Watching", "", 0, null, curdate())')
-        cursor.execute(f'insert into playlists values("{username}", "default", "Watched", "", 0, null, curdate())')
-        cursor.execute(
-            f'insert into playlists values("{username}", "default", "Plan to Watch", "", 0, null, curdate())')
-        cursor.execute(
-            f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
+        cursor.execute(f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
 
         connection.commit()
         return True
@@ -72,6 +68,17 @@ def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connecti
 
     else:
         return False
+
+
+def make_premium(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+
+    status = user_utils.user_status(username, cursor)
+
+    if status == 1:
+        cursor.execute(f'update users set premium = 1 where username = "{username}"')
+        
+    return status
+
 
 
 def logout(cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
