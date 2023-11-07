@@ -1167,7 +1167,7 @@
            <string>Get Premium</string>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color:rgb(0,0,0,0);</string>
+           <string notr="true">background-color:rgba(0,0,0,0);</string>
           </property>
           <property name="text">
            <string/>
@@ -1748,7 +1748,7 @@ background-color: rgba(0,0,0,0);</string>
                   <string notr="true">font:14pt;
                    text-align:left;
                    min-height:20px;
-                   background-color:rgba(200,230,200);
+                   background-color:rgb(200,230,200);
                    color:#000;
                    border-radius:16px;
                    border-width:1px;
@@ -2144,7 +2144,7 @@ background-color: rgba(0,0,0,0);</string>
               <property name="styleSheet">
                <string notr="true">font:14pt;
                 min-height:20px;
-                background-color:rgba(200,230,200);
+                background-color:rgb(200,230,200);
                 color:#000;
                 border-radius:14px;
                 border-width:1px;
