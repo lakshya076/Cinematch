@@ -59,7 +59,9 @@ cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=False)
-print(item_similarity.head())
+
+
+# print(item_similarity.head())
 
 
 def init_uname():

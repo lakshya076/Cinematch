@@ -30,13 +30,6 @@ from backend.Utils.movie_utils import *
 from backend import playlists, users, movie_search
 from widget_generator_search import SearchMovies
 
-# Checking OS
-if platform.system() == "Windows":
-    print("OS check completed")
-else:
-    print("This program only works on Windows systems")
-    sys.exit(-2)
-
 # only for windows (get resolution)
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
