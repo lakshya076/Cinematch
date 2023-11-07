@@ -797,7 +797,7 @@ class Main(QMainWindow):
         self.user_settings.setStyleSheet("color:#fffaf0;font:18pt;")
 
         self.credit_license.setIcon(QIcon("Icons/license_white.png"))
-        self.premium.setStyleSheet("font:12pt;background-color:rgba(0,0,0,0);color:#fffaf0;")
+        self.premium.setIcon(QIcon("Icons/premium_darkmode.ico"))
 
     def light_mode(self):
         """
@@ -838,8 +838,8 @@ class Main(QMainWindow):
         self.user_img.setPixmap(QPixmap("Images/user_black.png"))
         self.user_settings.setStyleSheet("color:#000;font:18pt;")
 
-        self.credit_license.setIcon(QIcon("icons/license_black.png"))
-        self.premium.setStyleSheet("font:12pt;background-color:rgba(0,0,0,0);color:#000000;")
+        self.credit_license.setIcon(QIcon("Icons/license_black.png"))
+        self.premium.setIcon(QIcon("Icons/premium_lightmode.ico"))
 
     def closeEvent(self, event):
         print("closing")

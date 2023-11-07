@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1226</width>
+    <width>1278</width>
     <height>776</height>
    </rect>
   </property>
@@ -1150,13 +1150,13 @@
          <widget class="QPushButton" name="premium">
           <property name="minimumSize">
            <size>
-            <width>152</width>
-            <height>33</height>
+            <width>0</width>
+            <height>0</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>100</width>
+            <width>32</width>
             <height>32</height>
            </size>
           </property>
@@ -1164,15 +1164,19 @@
            <cursorShape>PointingHandCursor</cursorShape>
           </property>
           <property name="toolTip">
-           <string/>
+           <string>Get Premium</string>
           </property>
           <property name="styleSheet">
-           <string notr="true">font:12pt;
-            min-height:31px; min-width:150px; background-color:rgba(0,0,0,0);
-           </string>
+           <string notr="true">background-color:rgb(0,0,0,0);</string>
           </property>
           <property name="text">
-           <string>Get Premium</string>
+           <string/>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
           </property>
          </widget>
         </item>
@@ -1915,6 +1919,8 @@ background-color: rgba(0,0,0,0);</string>
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -2023,8 +2029,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>913</width>
-               <height>610</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -2055,8 +2061,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>913</width>
-               <height>612</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2352,8 +2358,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>915</width>
-               <height>517</height>
+               <width>514</width>
+               <height>500</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -2923,6 +2929,8 @@ border-radius:10px;</string>
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -3020,8 +3028,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>913</width>
-               <height>612</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
@@ -3925,7 +3933,7 @@ border-radius:10px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1226</width>
+     <width>1278</width>
      <height>21</height>
     </rect>
    </property>
