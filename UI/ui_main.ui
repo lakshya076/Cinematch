@@ -1297,7 +1297,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1378,7 +1378,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
+                   <width>270</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1446,7 +1446,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
+                   <width>270</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1514,7 +1514,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>98</width>
+                   <width>270</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1564,8 +1564,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>967</width>
-               <height>653</height>
+               <width>932</width>
+               <height>536</height>
               </rect>
              </property>
              <property name="styleSheet">
@@ -1603,7 +1603,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>949</width>
+                   <width>914</width>
                    <height>410</height>
                   </rect>
                  </property>
@@ -1921,6 +1921,8 @@ background-color: rgba(0,0,0,0);</string>
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -2029,8 +2031,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>98</width>
-               <height>28</height>
+               <width>63</width>
+               <height>18</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -2061,8 +2063,8 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>98</width>
-               <height>28</height>
+               <width>63</width>
+               <height>18</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2340,6 +2342,22 @@ background-color: rgba(0,0,0,0);</string>
            </layout>
           </item>
           <item>
+           <spacer name="verticalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QScrollArea" name="settings_sa">
             <property name="styleSheet">
              <string notr="true"/>
@@ -2361,37 +2379,14 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>514</width>
-               <height>500</height>
+               <width>950</width>
+               <height>616</height>
               </rect>
              </property>
              <property name="styleSheet">
               <string notr="true"/>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_13">
-              <item>
-               <spacer name="verticalSpacer_5">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeType">
-                 <enum>QSizePolicy::Fixed</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="Line" name="line_4">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
               <item>
                <widget class="QLabel" name="label_12">
                 <property name="minimumSize">
@@ -2427,6 +2422,9 @@ background-color: rgba(0,0,0,0);</string>
               </item>
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
                 <item>
                  <widget class="QPushButton" name="clearcache_button">
                   <property name="sizePolicy">
@@ -2440,11 +2438,12 @@ background-color: rgba(0,0,0,0);</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">background-color:#f5f5dc;
-border: 1px solid white;
-padding: 2px 8px 2px 8px;
+                    border: 1px solid #24292E;
 color:#000;
 font: 12pt;
-border-radius:10px;</string>
+                    border-radius:13px;
+                    padding:6px;
+                   </string>
                   </property>
                   <property name="text">
                    <string>Clear Cache</string>
@@ -2474,7 +2473,7 @@ border-radius:10px;</string>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>20</width>
-                  <height>40</height>
+                  <height>20</height>
                  </size>
                 </property>
                </spacer>
@@ -2485,6 +2484,120 @@ border-radius:10px;</string>
                  <enum>Qt::Horizontal</enum>
                 </property>
                </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_26">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_24">
+                <property name="styleSheet">
+                 <string notr="true">font:16pt;</string>
+                </property>
+                <property name="text">
+                 <string>Taste Profile</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_25">
+                <property name="styleSheet">
+                 <string notr="true">font:10pt;</string>
+                </property>
+                <property name="text">
+                 <string>Change up how we show your recommendations and how many movies you have watched</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_17">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="taste_profile">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">background-color:#f5f5dc;
+                    border: 1px solid #24292E;
+                    color:#000;
+                    font: 12pt;
+                    border-radius:13px;
+                    padding:6px;
+                   </string>
+                  </property>
+                  <property name="text">
+                   <string>Update Your Taste Profile</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_21">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_27">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="Line" name="line_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_28">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
               <item>
                <widget class="QLabel" name="label_18">
@@ -2568,11 +2681,12 @@ font-weight: bold;</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">background-color:#f5f5dc;
-border: 1px solid white;
-padding: 5px;
+                    border: 1px solid #24292E;
+                    padding: 6px;
 color:#000;
 font: 12pt;
-border-radius:10px;</string>
+                    border-radius:14px;
+                   </string>
                   </property>
                   <property name="text">
                    <string>Logout</string>
@@ -2934,6 +3048,8 @@ border-radius:10px;</string>
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
                    &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
+                   -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+                   &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;
                    -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                   </string>
                  </property>
@@ -3031,8 +3147,8 @@ border-radius:10px;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>98</width>
-               <height>28</height>
+               <width>63</width>
+               <height>18</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
