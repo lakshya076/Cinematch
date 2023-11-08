@@ -16,6 +16,7 @@ from PyQt5.uic import loadUi
 from display_movie import DisplayMovies
 from library import Library
 from splash_screen import SplashScreen
+from taste_profile import TasteProfile
 from widget_generator_home import Home
 from startup import Start
 from checklist import Checklist
@@ -189,6 +190,7 @@ class Main(QMainWindow):
 
         self.settings_collapse.clicked.connect(self.settings_func)
         self.settings_expand.clicked.connect(self.settings_func)
+        self.taste_profile.clicked.connect(self.tasteprof_func)
 
         self.logout_collapse.clicked.connect(self.logout_func)
         self.logout_expand.clicked.connect(self.logout_func)
@@ -709,6 +711,10 @@ class Main(QMainWindow):
             print("Directory don't exist")
 
         self.cacheclear_label.setText("Cache cleared!")
+
+    def tasteprof_func(self):
+        tasteprof = TasteProfile()
+        tasteprof.exec_()
 
     def sidebar_expand_show(self):
         """
