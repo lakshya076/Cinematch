@@ -154,6 +154,8 @@ def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor)
 
     for i in cursor.fetchall():
         cursor.execute(f'delete from deleted_users where username = "{i[0]}"')
+        mapping.remove_mapping(connection, cursor)
+        playlists.remove_playlists(connection, cursor)
         mailing.send_removal_mail(i[1], cursor)
 
     connection.commit()
