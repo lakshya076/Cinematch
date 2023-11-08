@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>Dialog</class>
-    <widget class="QDialog" name="Dialog">
+    <class>widget</class>
+    <widget class="QDialog" name="widget">
         <property name="geometry">
             <rect>
                 <x>0</x>
@@ -14,8 +14,23 @@
             <string>Dialog</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+                <number>0</number>
+            </property>
+            <property name="leftMargin">
+                <number>0</number>
+            </property>
+            <property name="topMargin">
+                <number>0</number>
+            </property>
+            <property name="rightMargin">
+                <number>0</number>
+            </property>
+            <property name="bottomMargin">
+                <number>0</number>
+            </property>
             <item>
-                <widget class="QFrame" name="frame">
+                <widget class="QFrame" name="taste">
                     <property name="minimumSize">
                         <size>
                             <width>50</width>
@@ -63,7 +78,7 @@
                                     </spacer>
                                 </item>
                                 <item>
-                                    <widget class="QPushButton" name="pushButton_3">
+                                    <widget class="QPushButton" name="taste_home">
                                         <property name="minimumSize">
                                             <size>
                                                 <width>35</width>
@@ -75,6 +90,9 @@
                                                 <width>35</width>
                                                 <height>35</height>
                                             </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                            <string notr="true"/>
                                         </property>
                                         <property name="text">
                                             <string/>
@@ -124,7 +142,7 @@
                                     </spacer>
                                 </item>
                                 <item>
-                                    <widget class="QPushButton" name="pushButton">
+                                    <widget class="QPushButton" name="taste_search">
                                         <property name="minimumSize">
                                             <size>
                                                 <width>35</width>
@@ -136,6 +154,9 @@
                                                 <width>35</width>
                                                 <height>35</height>
                                             </size>
+                                        </property>
+                                        <property name="styleSheet">
+                                            <string notr="true"/>
                                         </property>
                                         <property name="text">
                                             <string/>
@@ -188,7 +209,7 @@
             <item>
                 <layout class="QVBoxLayout" name="verticalLayout_2">
                     <item>
-                        <widget class="QStackedWidget" name="stackedWidget">
+                        <widget class="QStackedWidget" name="stack">
                             <property name="currentIndex">
                                 <number>0</number>
                             </property>

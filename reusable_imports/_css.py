@@ -183,6 +183,15 @@ dark_main_stylesheet = """
             color: #ffffff;
         }
         
+        /* Taste Profile CSS */
+        #widget {
+            background-color:#313a46;
+            color:#ffaf0;   
+        }
+        #taste {
+            background-color:#313a46;
+        }
+        
         /*QScrollBar css*/
         QScrollBar:horizontal {
             border: 1px solid grey;
