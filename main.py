@@ -877,6 +877,7 @@ class Main(QMainWindow):
             playlists.delete_playlist(username, i, conn, cur)
 
         if playlists_metadata["shortlist"][3]:
+            print('print')
             mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
             recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
             mapping.add_recommended_movies(recommendations, username, conn, cur)
