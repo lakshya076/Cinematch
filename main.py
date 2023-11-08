@@ -699,9 +699,11 @@ class Main(QMainWindow):
         self.close()
 
     def clear_cache_func(self):
+
         """
         Clear cache to improve performance. Restart app to see effective changes.
         """
+
         cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
         if os.path.isdir(cache_dir):
             shutil.rmtree(cache_dir)
@@ -880,8 +882,12 @@ class Main(QMainWindow):
         for i in removed_playlists.values():
             playlists.delete_playlist(username, i, conn, cur)
 
-        recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
-        mapping.add_recommended_movies(recommendations, username, conn, cur)
+        if playlists_metadata["shortlist"][3]:
+            print('print')
+            mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
+            recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
+            mapping.add_recommended_movies(recommendations, username, conn, cur)
+
 
 '''
 if __name__ == '__main__':

@@ -25,4 +25,8 @@ def recommend(ids: list, cursor: pymysql.cursors.Cursor, sim_table: pandas.DataF
 
             recommendations = pandas.concat([recommendations, movie_similarity])
 
-    return list(map(int, list(recommendations.sum().sort_values(ascending=False).to_frame().T.columns)))[:100]
+    recom = list(map(int, list(recommendations.sum().sort_values(ascending=False).to_frame().T.columns)))[:100]
+    result = recommended
+    result.extend([int(i) for i in recom if i not in result])
+    print(result)
+    return result
