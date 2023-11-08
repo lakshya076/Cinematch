@@ -37,8 +37,12 @@ font:14pt \"MS Shell Dlg 2\";
 """
 
 light_scroll_area_mainwindow = """
-    background-color:#EEE9DF;
+    background-color:#FFFAF0;
     color: #000000;
+
+    QWidget {
+        background-color: FFD173;
+    }
     """
 light_mainwin_widget = """
     color: #000000;
@@ -49,7 +53,15 @@ light_mainwin_widget = """
         color:#000000;
         background-color:#FFFAF0;
     }
-
+"""
+light_create_css = """
+    background-color: #FFFAF0;
+    min-height:20px;
+    padding:8px;
+    font:14pt;
+    border: 1px solid #000000;
+    border-radius:20px;
+    color:black;
     """
 light_main_stylesheet = """
         /*CentralWidget Stylesheet*/
@@ -111,7 +123,12 @@ light_main_stylesheet = """
         }
         """
 
-dark_scroll_area_mainwindow = "background-color: #24292E; color: #FFFAF0;"
+dark_scroll_area_mainwindow = """
+    
+    background-color: #24292E;
+    color: #FFFAF0;
+
+"""
 dark_mainwin_widget = """
     color: #FFFAF0;
     background-color:#24292E;
@@ -122,6 +139,16 @@ dark_mainwin_widget = """
         background-color:#24292E;
         font: 14pt;
     }
+
+    """
+dark_create_css = """
+    background-color: #24292E;
+    min-height:20px;
+    padding:8px;
+    font:14pt;
+    border: 1px solid #FFFAF0;
+    border-radius:20px;
+    color:#FFFAF0;
     """
 dark_library_stylesheet = """
     QFrame {

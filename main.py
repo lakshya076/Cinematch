@@ -22,8 +22,7 @@ from checklist import Checklist
 from genre import Genre
 from language import Language
 
-from reusable_imports._css import light_scroll_area_mainwindow, dark_scroll_area_mainwindow, light_main_stylesheet, \
-    dark_main_stylesheet, dark_mainwin_widget, light_mainwin_widget
+from reusable_imports._css import *
 from reusable_imports.common_vars import *
 from reusable_imports.commons import clickable, remove_spaces
 from backend.Utils.movie_utils import *
@@ -796,6 +795,7 @@ class Main(QMainWindow):
         self.playlist_page.setStyleSheet(dark_mainwin_widget)
         self.credit_license_page.setStyleSheet(dark_mainwin_widget)
         self.premium_page.setStyleSheet(dark_mainwin_widget)
+        self.create_playlist_name.setStyleSheet(dark_create_css)
 
         self.search_button.setIcon(QIcon("Icons/search_dark.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/dark_mode.ico"))
@@ -842,6 +842,7 @@ class Main(QMainWindow):
         self.playlist_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.credit_license_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.home_sa.setStyleSheet(light_mainwin_widget)
+        self.create_playlist_name.setStyleSheet(light_create_css)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
