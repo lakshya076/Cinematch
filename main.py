@@ -495,7 +495,6 @@ class Main(QMainWindow):
                 del playlists_display_metadata[_playlist][delete_queue]
                 removed_playlist_movies[_playlist_name].append(int(_objectdelete))
                 playlists_metadata[_playlist][3].remove(int(_objectdelete))
-                print("Can't delete")
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
