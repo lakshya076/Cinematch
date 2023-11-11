@@ -18,6 +18,7 @@ class WorkerOne(QObject):
     def call(self):
         get_movies()
         self.item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+        print("File Read")
         self.done.emit()
 
 
@@ -26,6 +27,7 @@ class WorkerTwo(QObject):
 
     def call(self):
         self.result = get_data()
+        print("Data got, loading main screen")
         self.done.emit()
 
 

@@ -215,6 +215,7 @@ class Main(QMainWindow):
                 home.new_widgets_home(language[i], title=movies_metadata[language[i]][0],
                                       image=movies_metadata[language[i]][7], scroll_area=self.languages_sa_widgets,
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
+        print("Populated Home Screen")
 
     def home_func(self):
         """
@@ -881,7 +882,6 @@ class Main(QMainWindow):
             playlists.delete_playlist(username, i, conn, cur)
 
         if playlists_metadata["shortlist"][3]:
-            print('print')
             mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
             recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
             mapping.add_recommended_movies(recommendations, username, conn, cur)
