@@ -39,9 +39,10 @@ font:14pt \"MS Shell Dlg 2\";
 light_scroll_area_mainwindow = """
     background-color:#FFFAF0;
     color: #000000;
-
-    QWidget {
-        background-color: FFD173;
+"""
+light_movies = """
+    QFrame {
+        background-color: #FFD173;
     }
     """
 light_mainwin_widget = """
@@ -213,7 +214,7 @@ dark_main_stylesheet = """
         /* Taste Profile CSS */
         #widget {
             background-color:#313a46;
-            color:#ffaf0;   
+            color:#fffaf0;   
         }
         #taste {
             background-color:#313a46;

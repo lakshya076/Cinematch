@@ -14,7 +14,7 @@ def recommend(ids: list, cursor: pymysql.cursors.Cursor, sim_table: pandas.DataF
     recommends = []
     for i in ids:
         recommended = movie_utils.recommend_direct(int(i), 1, cursor)
-        recommends.extend(recommended)
+        recommends.extend(recommended[:2])
         ratings.append((str(i), 5))
         ratings.extend([(str(j), 5) for j in recommended])
 
@@ -27,7 +27,7 @@ def recommend(ids: list, cursor: pymysql.cursors.Cursor, sim_table: pandas.DataF
 
             recommendations = pandas.concat([recommendations, movie_similarity])
 
-    recom = list(map(int, list(recommendations.sum().sort_values(ascending=False).to_frame().T.columns)))[:100]
+    recom = list(map(int, list(recommendations.sum().sort_values(ascending=False).to_frame().T.columns)))[:30]
     result = recommends
     result.extend([int(i) for i in recom if i not in result])
     print(result)

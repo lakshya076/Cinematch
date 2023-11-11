@@ -806,6 +806,8 @@ class Main(QMainWindow):
         self.search_button.setIcon(QIcon("Icons/search_dark.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/dark_mode.ico"))
         self.mode_expand.setIcon(QIcon("Icons/dark_mode.ico"))
+        self.display_add_toshortlist.setIcon(QIcon("Icons/like_dark.ico"))
+        self.random_add_toshortlist.setIcon(QIcon("Icons/like_dark.ico"))
         self.mode_expand.setText("Dark Mode")
 
         self.user_img.setPixmap(QPixmap("Images/user_white.png"))
@@ -849,10 +851,13 @@ class Main(QMainWindow):
         self.credit_license_sa_widgets.setStyleSheet(light_scroll_area_mainwindow)
         self.home_sa.setStyleSheet(light_mainwin_widget)
         self.create_playlist_name.setStyleSheet(light_create_css)
+        self.foryou_sa_widgets.setStyleSheet(light_movies)
 
         self.search_button.setIcon(QIcon("Icons/search_light.ico"))
         self.mode_collapse.setIcon(QIcon("Icons/light_mode.ico"))
         self.mode_expand.setIcon(QIcon("Icons/light_mode.ico"))
+        self.display_add_toshortlist.setIcon(QIcon("Icons/like_light.ico"))
+        self.random_add_toshortlist.setIcon(QIcon("Icons/like_light.ico"))
         self.mode_expand.setText("Light Mode")
 
         self.user_img.setPixmap(QPixmap("Images/user_black.png"))
@@ -914,6 +919,7 @@ if __name__ == "__main__":
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     app = QApplication(sys.argv)
+    app.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
     start_win = Start()
 
