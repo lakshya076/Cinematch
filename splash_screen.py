@@ -16,8 +16,7 @@ class WorkerOne(QObject):
     done = pyqtSignal()
 
     def call(self):
-        get_movies()
-        self.item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+        self.result = get_movies()
         self.done.emit()
 
 
@@ -82,7 +81,7 @@ class SplashScreen(QDialog):
         self.progress.setValue(100)
         time.sleep(2)
         self.movies_result = self.worker_two.result
-        self.item_similarity = self.worker_one.item_similarity
+        self.metadata_result = self.worker_one.result
         self.thread.exit()
         self.accept()
 

@@ -606,7 +606,7 @@ class Main(QMainWindow):
 
             enter = ["Shortlist", title, poster, lang, pop, _id]
 
-            playlists_display_metadata["shortlist"].append(tuple(enter))
+            playlists_display_metadata["shortlist"] += [tuple(enter)]
             print(f"Added {_id} to display list")
 
         _image.setPixmap(image_to_load)
@@ -926,13 +926,14 @@ if __name__ == "__main__":
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
     if not no_logged:
-        playlists_metadata, playlist_picture = init_list_metadata()
+        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
         recoms, watchagain, language = init_mapping()
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
-            item_similarity = splash.item_similarity
-            recoms, watchagain, language, random_movies = splash.movies_result
+            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+            recoms, watchagain, language, random_movies = splash.movies_result[0]
+            movies_metadata = splash.movies_result[1]
             window = Main()
             window.show()
 
@@ -944,28 +945,29 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
+                    item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+                    username, no_logged, premium = init_uname()
+                    playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
                     splash = SplashScreen()
-
                     if splash.exec_() == QDialog.Accepted:
-                        username, no_logged, premium = init_uname()
-                        playlists_metadata, playlist_picture = init_list_metadata()
-                        recoms, watchagain, language = init_mapping()
-                        item_similarity = splash.item_similarity
-                        users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur)
-                        recoms, watchagain, language, random_movies = splash.movies_result
+                        recoms, watchagain, language, random_movies = splash.movies_result[0]
+                        movies_metadata = splash.movies_result[1]
+                        playlists_display_metadata = splash.metadata_result[1]
                         window = Main()
                         window.show()
 
     elif start_win.exec_() == 2:  # User logged in
         username, no_logged, premium = init_uname()
-        playlists_metadata, playlist_picture = init_list_metadata()
+        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
         recoms, watchagain, language = init_mapping()
 
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
-            item_similarity = splash.item_similarity
-            recoms, watchagain, language, random_movies = splash.movies_result
+            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+            recoms, watchagain, language, random_movies = splash.movies_result[0]
+            movies_metadata = splash.movies_result[1]
             window = Main()
             window.show()
 
