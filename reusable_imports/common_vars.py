@@ -224,13 +224,14 @@ def get_movies():
     """
     print("Getting playlists data")
 
+    global playlists_display_metadata, movies_metadata
+
     # Threaded function needs its own connection
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
     cur = conn.cursor()
 
     # Main loop to get the metadata
     for i in playlists_metadata.keys():
-        global playlists_display_metadata, movies_metadata
         playlists_display_metadata[i] = []
         print(i)
         movies_info = get_movies_info(playlists_metadata[i][3], cur)
@@ -284,7 +285,7 @@ def get_movies():
             metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
 
             if type(title) is str:
-                playlists_display_metadata[i].append(tuple(enter))
+                playlists_display_metadata[i].append(enter)
 
             if j[0] not in movies_metadata:
                 movies_metadata[int(j[0])] = metadata_enter
@@ -292,6 +293,8 @@ def get_movies():
                 pass
 
     conn.close()
+
+    print(f'Check PDM: {playlists_display_metadata.keys()}')
 
     return playlists_display_metadata, movies_metadata
 

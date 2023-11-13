@@ -606,7 +606,7 @@ class Main(QMainWindow):
 
             enter = ["Shortlist", title, poster, lang, pop, _id]
 
-            playlists_display_metadata["shortlist"] += [tuple(enter)]
+            playlists_display_metadata["shortlist"] += [enter]
             print(f"Added {_id} to display list")
 
         _image.setPixmap(image_to_load)
@@ -889,10 +889,15 @@ class Main(QMainWindow):
             playlists.delete_playlist(username, i, conn, cur)
 
         if playlists_metadata["shortlist"][3]:
-            print('print')
-            mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
+            
             recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
-            mapping.add_recommended_movies(recommendations, username, conn, cur)
+            
+            if len(recommendations) > 10:
+                mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
+                mapping.add_recommended_movies(recommendations, username, conn, cur)
+
+            else:
+                mapping.add_recommended_movies(recommendations, username, conn, cur)
 
 
 '''
@@ -918,6 +923,7 @@ if __name__ == "__main__":
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
+
     app = QApplication(sys.argv)
     app.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
@@ -945,15 +951,21 @@ if __name__ == "__main__":
         if checklist_win.exec_() == QDialog.Accepted:
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
+
                     item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
                     users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+
                     username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+
                     splash = SplashScreen()
                     if splash.exec_() == QDialog.Accepted:
+
                         recoms, watchagain, language, random_movies = splash.movies_result[0]
                         movies_metadata = splash.movies_result[1]
-                        playlists_display_metadata = splash.metadata_result[1]
+                        playlists_display_metadata = splash.metadata_result[0]
+
+                        print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
                         window = Main()
                         window.show()
 

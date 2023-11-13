@@ -61,10 +61,11 @@ def add_watched_movies(movies: list, username: str, connection: pymysql.Connecti
 
 def add_recommended_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
     og_data = get_mapping_data(username, cursor)
-    og_movies = og_data[6]
-    movies = list(map(int, movies))
 
     if og_data:
+
+        og_movies = og_data[6]
+        movies = list(map(int, movies))
 
         og_movies.extend(movies)
         og_movies = list(set(map(str, og_movies)))
