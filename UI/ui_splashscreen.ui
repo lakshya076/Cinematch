@@ -7,8 +7,20 @@
                 <x>0</x>
                 <y>0</y>
                 <width>640</width>
-                <height>290</height>
+                <height>360</height>
             </rect>
+        </property>
+        <property name="minimumSize">
+            <size>
+                <width>640</width>
+                <height>360</height>
+            </size>
+        </property>
+        <property name="maximumSize">
+            <size>
+                <width>640</width>
+                <height>360</height>
+            </size>
         </property>
         <property name="font">
             <font>
@@ -19,8 +31,7 @@
             <string>Dialog</string>
         </property>
         <property name="styleSheet">
-            <string notr="true">background-color:#313a46;
-                color:#fffaf0;
+            <string notr="true">color:#fffaf0;
             </string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
@@ -29,14 +40,14 @@
                     <property name="font">
                         <font>
                             <family>OCR A Extended</family>
-                            <pointsize>22</pointsize>
+                            <pointsize>26</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                         </font>
                     </property>
                     <property name="styleSheet">
-                        <string notr="true">font:22pt;</string>
+                        <string notr="true">font:26pt;</string>
                     </property>
                     <property name="text">
                         <string>Welcome to Cinematch</string>
@@ -132,14 +143,14 @@
                     <property name="font">
                         <font>
                             <family>Malgun Gothic Semilight</family>
-                            <pointsize>12</pointsize>
+                            <pointsize>14</pointsize>
                             <weight>50</weight>
                             <italic>false</italic>
                             <bold>false</bold>
                         </font>
                     </property>
                     <property name="styleSheet">
-                        <string notr="true">font:12pt;</string>
+                        <string notr="true">font:14pt;</string>
                     </property>
                     <property name="text">
                         <string/>

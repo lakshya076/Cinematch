@@ -1,15 +1,17 @@
 import platform
 import random
-import sys
 import time
-import pandas
 
-from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal
-from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QDialog, QApplication, QMainWindow
+from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal, QRect
+from PyQt5.QtGui import QCursor, QPainter, QImage
+from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 
 from reusable_imports.common_vars import get_data, get_movies
+
+# Random image for splash screen
+randlist = ["one.png", "two.png", "three.png", "four.png", "five.png"]
+randimg = random.choice(randlist)
 
 
 class WorkerOne(QObject):
@@ -43,6 +45,7 @@ class SplashScreen(QDialog):
             sys.exit(-2)
 
         self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setCursor(QCursor(Qt.BlankCursor))
 
         self.thread = QThread(self)
@@ -98,3 +101,7 @@ class SplashScreen(QDialog):
 
     def mouseMoveEvent(self, event):
         event.ignore()
+
+    def paintEvent(self, event) -> None:
+        painter = QPainter(self)
+        painter.drawImage(QRect(0, 0, 640, 360), QImage(f"Images/Splash/{randimg}"))
