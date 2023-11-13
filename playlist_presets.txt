@@ -1,0 +1,33 @@
+Presets
+
+MCU
+DC
+Nolan
+Harry Potter
+Hobbit
+Star Wars
+Star Trek
+Spielberg
+Retro
+Genres
+Mission Impossible
+Disney
+Pixar
+Fast and Furious
+Indiana Jones
+Bourne Series
+Matrix
+Shrek
+Kung Fu Panda
+Final Destination
+Insidious
+Alien
+Spider Man
+Ocean's
+James Bond
+Chhota Bheem
+Sherlock Holmes
+Doraemon
+Shin Chan
+Power Rangers
+Anime
