@@ -3157,7 +3157,7 @@ p, li { white-space: pre-wrap; }
                <x>0</x>
                   <y>0</y>
                <width>940</width>
-                  <height>860</height>
+                  <height>885</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -3418,6 +3418,24 @@ p, li { white-space: pre-wrap; }
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://icon-icons.com/&quot;&gt;&lt;span
                         style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Icon Icons&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                     </string>
+                </property>
+                   <property name="textFormat">
+                       <enum>Qt::MarkdownText</enum>
+                   </property>
+                   <property name="openExternalLinks">
+                       <bool>true</bool>
+                   </property>
+               </widget>
+              </item>
+                 <item>
+                     <widget class="QLabel" name="label_37">
+                         <property name="styleSheet">
+                             <string notr="true">font:12pt;</string>
+                         </property>
+                         <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://iconsdb.com/&quot;&gt;&lt;span
+                                 style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;IconsDB&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                             </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
