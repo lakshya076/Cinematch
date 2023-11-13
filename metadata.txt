@@ -34,6 +34,9 @@ Loading GIF By:
 Premium Image:
     Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=576443">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=576443">Pixabay</a>
 
+Icons Image:
+    https://icon-icons.com/
+
 Run Order:
 Register - startup -> checklist -> genres -> language -> splash -> main
 Login - startup -> splash -> main
