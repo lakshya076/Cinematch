@@ -13,6 +13,7 @@ from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
 
+from delete_dialog import DeleteDialog
 from display_movie import DisplayMovies
 from library import Library
 from splash_screen import SplashScreen
@@ -690,12 +691,14 @@ class Main(QMainWindow):
         """
         Function to delete user's account (move it to recovery table)
         """
-        # TODO ask for confirmation and warn user about waiting period. Ask for password as confirmation if possible
-        # TODO Return to login menu
+        del_dia = DeleteDialog(username)
 
-        users.delete_user(username, conn, cur)
-        print("Account Deleted")
-        self.close()
+        if del_dia.exec_() == QDialog.Accepted:
+            users.delete_user(username, conn, cur)
+            print("Account Deleted")
+            self.close()
+        else:
+            pass
 
     def clear_cache_func(self):
 
