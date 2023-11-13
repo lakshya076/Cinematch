@@ -176,6 +176,7 @@ class Main(QMainWindow):
         self.credit_license.clicked.connect(self.credit_license_func)
         self.premium.clicked.connect(self.premium_func)
         self.premium_plans.clicked.connect(self.premium_plans_func)
+        self.license_button.clicked.connect(lambda: os.system("notepad.exe LICENSE.txt"))
 
         # Setting Ads
         self.ad_create.setPixmap(QPixmap(random.choice(ad)))

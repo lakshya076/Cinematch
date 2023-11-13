@@ -1380,7 +1380,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>253</width>
+                      <width>98</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1448,7 +1448,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>253</width>
+                      <width>98</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1516,7 +1516,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>253</width>
+                      <width>98</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1605,7 +1605,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>914</width>
+                      <width>100</width>
                    <height>410</height>
                   </rect>
                  </property>
@@ -2022,8 +2022,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>82</width>
-               <height>18</height>
+                  <width>100</width>
+                  <height>30</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -2057,8 +2057,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>82</width>
-               <height>18</height>
+                  <width>100</width>
+                  <height>30</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2956,7 +2956,7 @@ border-radius:10px;</string>
                    <property name="icon">
                     <iconset>
                      <normaloff>../Icons/like_unchecked.ico</normaloff>
-                     <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
+                        <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
                     </iconset>
                    </property>
                    <property name="iconSize">
@@ -3125,8 +3125,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>80</width>
-               <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
@@ -3155,9 +3155,9 @@ p, li { white-space: pre-wrap; }
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>-100</y>
+                  <y>0</y>
                <width>940</width>
-               <height>839</height>
+                  <height>860</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -3275,16 +3275,14 @@ p, li { white-space: pre-wrap; }
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>61</height>
+                     <height>41</height>
                  </size>
                 </property>
                 <property name="styleSheet">
                  <string notr="true">font:14pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Licensed Under: &lt;a href=&quot;https://choosealicense.com/&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Choose a License&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Licensed Under:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3293,6 +3291,42 @@ p, li { white-space: pre-wrap; }
                  <bool>true</bool>
                 </property>
                </widget>
+              </item>
+                 <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_18">
+                         <item>
+                             <widget class="QPushButton" name="license_button">
+                                 <property name="cursor">
+                                     <cursorShape>PointingHandCursor</cursorShape>
+                                 </property>
+                                 <property name="styleSheet">
+                                     <string notr="true">background-color:#f5f5dc;
+                                         border: 1px solid #24292E;
+                                         color:#000;
+                                         font: 12pt;
+                                         border-radius:13px;
+                                         padding:6px;
+                                     </string>
+                                 </property>
+                                 <property name="text">
+                                     <string>MIT License</string>
+                                 </property>
+                             </widget>
+                         </item>
+                         <item>
+                             <spacer name="horizontalSpacer_22">
+                                 <property name="orientation">
+                                     <enum>Qt::Horizontal</enum>
+                                 </property>
+                                 <property name="sizeHint" stdset="0">
+                                     <size>
+                                         <width>40</width>
+                                         <height>20</height>
+                                     </size>
+                                 </property>
+                             </spacer>
+                         </item>
+                     </layout>
               </item>
               <item>
                <spacer name="verticalSpacer_18">
@@ -3371,7 +3405,7 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:14pt;</string>
                 </property>
                 <property name="text">
-                 <string>Icons By:</string>
+                    <string>Icons By:</string>
                 </property>
                </widget>
               </item>
@@ -3381,9 +3415,9 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://icon-icons.com/&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Icon Icons&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://icon-icons.com/&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Icon Icons&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3531,11 +3565,11 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=576443&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;OpenClipart-Vectors&lt;/span&gt;&lt;/a&gt;
-                  from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=576443&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=576443&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;OpenClipart-Vectors&lt;/span&gt;&lt;/a&gt;
+                        from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=576443&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3578,11 +3612,11 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/felipedsilva-18482044/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=animation&amp;amp;utm_content=7528&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;felipedsilva&lt;/span&gt;&lt;/a&gt;
-                  from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=animation&amp;amp;utm_content=7528&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/felipedsilva-18482044/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=animation&amp;amp;utm_content=7528&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;felipedsilva&lt;/span&gt;&lt;/a&gt;
+                        from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=animation&amp;amp;utm_content=7528&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3624,11 +3658,11 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/bessi-909086/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=736885&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;bess.hamiti@gmail.com&lt;/span&gt;&lt;/a&gt;
-                  from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=736885&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/bessi-909086/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=736885&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;bess.hamiti@gmail.com&lt;/span&gt;&lt;/a&gt;
+                        from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=736885&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3644,11 +3678,11 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/felixmittermeier-4397258/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=2695569&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;PayPal.me/FelixMittermeier&lt;/span&gt;&lt;/a&gt;
-                  from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=2695569&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/felixmittermeier-4397258/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=2695569&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;PayPal.me/FelixMittermeier&lt;/span&gt;&lt;/a&gt;
+                        from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=2695569&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3664,11 +3698,11 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/jplenio-7645255/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=3605547&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Joe&lt;/span&gt;&lt;/a&gt; from &lt;a
-                  href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=3605547&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/jplenio-7645255/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=3605547&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Joe&lt;/span&gt;&lt;/a&gt; from
+                        &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=3605547&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
@@ -3684,11 +3718,11 @@ p, li { white-space: pre-wrap; }
                  <string notr="true">font:12pt;</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/12019-12019/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=1758197&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;12019&lt;/span&gt;&lt;/a&gt; from
-                  &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=1758197&quot;&gt;&lt;span
-                  style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
-                 </string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://pixabay.com/users/12019-12019/?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=1758197&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;12019&lt;/span&gt;&lt;/a&gt;
+                        from &lt;a href=&quot;https://pixabay.com//?utm_source=link-attribution&amp;amp;utm_medium=referral&amp;amp;utm_campaign=image&amp;amp;utm_content=1758197&quot;&gt;&lt;span
+                        style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Pixabay&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                    </string>
                 </property>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
