@@ -21,8 +21,9 @@ def register(username: str, password: str, email: str, liked: list, genres: list
     hashed_password = encryption.sha256(password)
     del password
 
-    status = user_utils.user_status(username, cursor)
-    if status == 0:
+    name_status = user_utils.user_status(username, cursor)
+    mail_status = user_utils.user_status(email, cursor)
+    if name_status == mail_status == 0:
 
         liked = list(map(str, liked))
         recommended = list(map(str, collab_filter.recommend(liked, cursor, sim_table)))[:100]
@@ -38,7 +39,7 @@ def register(username: str, password: str, email: str, liked: list, genres: list
         return True
 
     else:
-        return status
+        return name_status, mail_status
 
 
 def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):

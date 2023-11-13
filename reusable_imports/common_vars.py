@@ -96,7 +96,7 @@ def init_list_metadata():
     global playlist_picture
     playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
 
-    return playlists_metadata, playlist_picture
+    return playlists_metadata, playlist_picture, removed_playlist_movies
 
 
 def init_mapping():
@@ -108,7 +108,6 @@ def init_mapping():
         random.shuffle(recoms)
         watchagain = mapping_data[3]
         language = get_language_movies(username, 30, cur)
-        print('Printing Language Movies')
 
     return recoms, watchagain, language
 
@@ -134,7 +133,7 @@ playlists_display_metadata = {}
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
 
-def get_data() -> list:
+def get_data():
     """
     Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
     home screen)
@@ -153,9 +152,10 @@ def get_data() -> list:
 
     print("Getting movie data")
 
+    init_mapping()
+    global recoms, watchagain, language, random_movies
     movie_list = [recoms, watchagain, language, random_movies]
     for i in range(len(movie_list)):
-        print(movie_list[i])
         movies_info = get_movies_info(movie_list[i], cur)
         movie_list[i] = []
         for j in movies_info:
@@ -209,17 +209,22 @@ def get_data() -> list:
                 movies_metadata[int(j[0])] = metadata_enter
 
         print(movie_list[i])
+    
+    recoms = movie_list[0]
+    watchagain = movie_list[1]
+    language = movie_list[2]
+    return movie_list, movies_metadata
 
-    return movie_list
 
-
-def get_movies() -> dict:
+def get_movies():
     """
     get the title, poster, language of all the movies in the playlists_metadata lists and stores it in
     playlists_display_metadata
     :return: list
     """
     print("Getting playlists data")
+
+    global playlists_display_metadata, movies_metadata
 
     # Threaded function needs its own connection
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
@@ -228,6 +233,7 @@ def get_movies() -> dict:
     # Main loop to get the metadata
     for i in playlists_metadata.keys():
         playlists_display_metadata[i] = []
+        print(i)
         movies_info = get_movies_info(playlists_metadata[i][3], cur)
 
         for j in movies_info:
@@ -279,7 +285,7 @@ def get_movies() -> dict:
             metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
 
             if type(title) is str:
-                playlists_display_metadata[i].append(tuple(enter))
+                playlists_display_metadata[i].append(enter)
 
             if j[0] not in movies_metadata:
                 movies_metadata[int(j[0])] = metadata_enter
@@ -288,10 +294,12 @@ def get_movies() -> dict:
 
     conn.close()
 
-    return playlists_display_metadata
+    print(f'Check PDM: {playlists_display_metadata.keys()}')
+
+    return playlists_display_metadata, movies_metadata
 
 
-def get_playlist_movies(list_name: str) -> dict | bool:
+def get_playlist_movies(list_name: str):
     if list_name in playlists_metadata.keys():
         return playlists_display_metadata[list_name]
     else:

@@ -95,7 +95,8 @@ class Start(QDialog):
         email = self.efield_register.text()
         password = self.pfield_register.text()
         confirmpassword = self.cpfield_register.text()
-        user_stat = user_utils.user_status(user, cur)
+        name_stat = user_utils.user_status(user, cur)
+        mail_stat = user_utils.user_status(email, cur)
 
         if wifi_availability():
             if len(user) == 0 or len(password) == 0 or len(confirmpassword) == 0 or len(email) == 0:
@@ -123,11 +124,11 @@ class Start(QDialog):
                 self.error_register.setText("Username cannot have spaces.")
                 self.ufield_register.setStyleSheet(error_css)
 
-            elif user_stat != 0:
+            elif name_stat != 0 or mail_stat != 0:
 
-                if user_stat == 1:
+                if name_stat == 1 or mail_stat == 1:
                     self.error_register.setText("Credentials already exist.")
-                elif user_stat == 2:
+                elif name_stat == 2 or mail_stat == 2:
                     self.error_register.setText("User is deleted. Recovery available.")
 
             else:
