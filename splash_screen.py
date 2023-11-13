@@ -17,6 +17,7 @@ class WorkerOne(QObject):
 
     def call(self):
         self.result = get_movies()
+        print("Playlist Data Loaded")
         self.done.emit()
 
 
@@ -25,6 +26,7 @@ class WorkerTwo(QObject):
 
     def call(self):
         self.result = get_data()
+        print("Recommendations Data Loaded, forwarding to main screen")
         self.done.emit()
 
 
@@ -71,15 +73,15 @@ class SplashScreen(QDialog):
     def two(self):
         self.doing.setText("Having <i>Dahi Shakkar</i> for good luck")
         self.progress.setValue(random.choice(range(60, 85)))
-        time.sleep(2)
+        time.sleep(1)
 
         self.doing.setText("Manifesting 🤌🤌")
         self.progress.setValue(95)
-        time.sleep(2)
+        time.sleep(1)
 
         self.doing.setText("All Set")
         self.progress.setValue(100)
-        time.sleep(2)
+        time.sleep(1)
         self.movies_result = self.worker_two.result
         self.metadata_result = self.worker_one.result
         self.thread.exit()

@@ -16,7 +16,6 @@ from PyQt5.uic import loadUi
 from display_movie import DisplayMovies
 from library import Library
 from splash_screen import SplashScreen
-from taste_profile import TasteProfile
 from widget_generator_home import Home
 from startup import Start
 from checklist import Checklist
@@ -215,6 +214,7 @@ class Main(QMainWindow):
                 home.new_widgets_home(language[i], title=movies_metadata[language[i]][0],
                                       image=movies_metadata[language[i]][7], scroll_area=self.languages_sa_widgets,
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
+        print("Populated Home Screen")
 
     def home_func(self):
         """
@@ -494,7 +494,6 @@ class Main(QMainWindow):
                 del playlists_display_metadata[_playlist][delete_queue]
                 removed_playlist_movies[_playlist_name].append(int(_objectdelete))
                 playlists_metadata[_playlist][3].remove(int(_objectdelete))
-                print("Can't delete")
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
@@ -712,8 +711,7 @@ class Main(QMainWindow):
         self.cacheclear_label.setText("Cache cleared!")
 
     def tasteprof_func(self):
-        tasteprof = TasteProfile()
-        tasteprof.exec_()
+        print("Opening Taste Dialog")
 
     def sidebar_expand_show(self):
         """
@@ -889,7 +887,6 @@ class Main(QMainWindow):
             playlists.delete_playlist(username, i, conn, cur)
 
         if playlists_metadata["shortlist"][3]:
-            
             recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
             
             if len(recommendations) > 10:

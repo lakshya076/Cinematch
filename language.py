@@ -193,10 +193,3 @@ class Language(QDialog, FrameReuse):
         overriding the default closeEvent to close the window when close button is pressed
         """
         sys.exit()
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Language()
-    window.show()
-    sys.exit(app.exec_())
