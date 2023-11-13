@@ -1380,7 +1380,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>270</width>
+                      <width>98</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1448,7 +1448,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>270</width>
+                      <width>98</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1516,7 +1516,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>270</width>
+                      <width>98</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1605,7 +1605,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>914</width>
+                      <width>100</width>
                    <height>410</height>
                   </rect>
                  </property>
@@ -2022,8 +2022,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>65</width>
-                  <height>18</height>
+                  <width>100</width>
+                  <height>30</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="shortlist_vlayout"/>
@@ -2057,8 +2057,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>65</width>
-                  <height>18</height>
+                  <width>100</width>
+                  <height>30</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="library_gridLayout"/>
@@ -2956,11 +2956,8 @@ border-radius:10px;</string>
                    <property name="icon">
                     <iconset>
                      <normaloff>../Icons/like_unchecked.ico</normaloff>
-                     <normalon>../Icons/like_checked.ico</normalon>
-                     <disabledoff>../Icons/like_checked.ico</disabledoff>
-                     <disabledon>../Icons/like_checked.ico</disabledon>
-                     <activeoff>../Icons/like_checked.ico</activeoff>
-                     <selectedoff>../Icons/like_checked.ico</selectedoff>../Icons/like_unchecked.ico</iconset>
+                        <normalon>../Icons/like_checked.ico</normalon>../Icons/like_unchecked.ico
+                    </iconset>
                    </property>
                    <property name="iconSize">
                     <size>
@@ -3128,8 +3125,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-                  <width>63</width>
-                  <height>18</height>
+                  <width>98</width>
+                  <height>28</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="playlist_vlayout"/>
