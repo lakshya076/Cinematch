@@ -170,6 +170,21 @@ def get_lang(id: int, cursor: pymysql.cursors.Cursor) -> str:
 
     else:
         return ''
+    
+
+def get_prod_comps(id: int, cursor: pymysql.cursors.Cursor) -> list:
+    """
+    Returns the poster id of a movie using its `id`
+    """
+
+    cursor.execute(f'select language from main where id = {id}')
+    data = cursor.fetchone()
+
+    if data:
+        return data[0].split('-')
+
+    else:
+        return ''
 
 
 def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
@@ -183,7 +198,7 @@ def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
     if data:
         data = data[0]
         result = [int(data[0]), data[1], data[2], str(data[3]), data[4].split('-'), data[5], float(data[6]),
-                  data[7].split('-'), data[8]]
+                  data[7].split('-'), data[8], data[9].split('-')]
         return result
 
     else:
@@ -211,7 +226,7 @@ def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
         result = []
 
         for i in data:
-            movie_info = [int(i[0]), i[1], i[2], str(i[3]), i[4].split('-'), i[5], float(i[6]), i[7].split('-'), i[8]]
+            movie_info = [int(i[0]), i[1], i[2], str(i[3]), i[4].split('-'), i[5], float(i[6]), i[7].split('-'), i[8], i[9].split('-')]
             result.append(movie_info)
 
         return result
