@@ -1,5 +1,6 @@
 import platform
 import random
+import sys
 import time
 
 from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal, QRect
