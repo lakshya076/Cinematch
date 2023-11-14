@@ -97,6 +97,7 @@ class SearchAlg(QObject):
 
 
 class Main(QMainWindow):
+    
     def __init__(self):
         super(Main, self).__init__()
         loadUi("UI\\ui_main.ui", self)
@@ -913,6 +914,7 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
 '''
+
 if __name__ == "__main__":
 
     username, no_logged, premium = init_uname()
