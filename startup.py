@@ -132,11 +132,11 @@ class Start(QDialog):
                     self.error_register.setText("User is deleted. Recovery available.")
 
             else:
+                self.email = email
                 self.username = user
                 self.password = password
-                self.email = email
-                self.reg = True
-                self.sent_otp = mailing.send_otp(email)
+                self.sent_otp = mailing.send_otp(self.email)
+                self.reg = 1
                 self.redirect_otp()
 
         else:
@@ -178,13 +178,27 @@ class Start(QDialog):
     def directto_forgot(self):
         self.css_reset()
 
-        self.email = self.efield_forgot.text()
+        email = self.efield_forgot.text()
 
         if wifi_availability():
-            if len(self.email) == 0:
+            status = user_utils.user_status(email, cur)
+
+            if len(email) == 0:
                 self.error_forgot.setText("Please fill in all the inputs.")
                 self.efield_forgot.setStyleSheet(error_css)
+
+            elif status == 0:
+                self.error_forgot.setText("This user doesn't exist")
+                self.efield_forgot.setStyleSheet(error_css)
+
+            elif status == 2:
+                self.error_forgot.setText("This user has been deleted.")
+                self.efield_forgot.setStyleSheet(error_css)
+
             else:
+                self.email = email
+                self.sent_otp = mailing.send_otp(self.email)
+                self.reg = 0
                 self.redirect_otp()
         else:
             Wifi()

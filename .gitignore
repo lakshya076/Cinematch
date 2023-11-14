@@ -32,3 +32,4 @@ backend/cos_similarity.csv
 __pycache__/taste_profile.cpython-311.pyc
 Mode/mode.txt
 Mode/start_mode.txt
+test.py
