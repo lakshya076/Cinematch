@@ -1,5 +1,6 @@
-from PyQt5.QtCore import QEvent, pyqtSignal, QObject, Qt
-from PyQt5.QtGui import QCursor
+import PyQt5
+from PyQt5.QtCore import QEvent, pyqtSignal, QObject, Qt, QRect
+from PyQt5.QtGui import QCursor, QPainter
 from PyQt5.QtWidgets import QMessageBox, QLabel, QFrame
 
 from reusable_imports._css import dark_widget_stylesheet
@@ -15,7 +16,7 @@ class ClickableLabel(QLabel):
         super(ClickableLabel, self).__init__(parent)
         self.setCursor(QCursor(Qt.PointingHandCursor))
 
-    def mousePressEvent(self, QMouseEvent):
+    def mousePressEvent(self, event: PyQt5.QtGui.QMouseEvent):
         self.clicked.emit()
 
 
