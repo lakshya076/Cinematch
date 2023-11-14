@@ -1,12 +1,7 @@
 import ctypes
-import datetime
-import os
 import shutil
 import sys
-import random
-import pandas
 
-import requests
 import PyQt5
 from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
@@ -891,8 +886,9 @@ class Main(QMainWindow):
             playlists.delete_playlist(username, i, conn, cur)
 
         if playlists_metadata["shortlist"][3]:
-            recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
-            
+            recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur,
+                                                                item_similarity)
+
             if len(recommendations) > 10:
                 mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
                 mapping.add_recommended_movies(recommendations, username, conn, cur)
@@ -954,14 +950,14 @@ if __name__ == "__main__":
                 if lang_win.exec_() == QDialog.Accepted:
 
                     item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
+                                   genre_win.genres, lang_win.languages, item_similarity, conn, cur)
 
                     username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
 
                     splash = SplashScreen()
                     if splash.exec_() == QDialog.Accepted:
-
                         recoms, watchagain, language, random_movies = splash.movies_result[0]
                         movies_metadata = splash.movies_result[1]
                         playlists_display_metadata = splash.metadata_result[0]

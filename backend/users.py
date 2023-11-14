@@ -36,6 +36,7 @@ def register(username: str, password: str, email: str, liked: list, genres: list
         cursor.execute(f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
 
         connection.commit()
+        print("User Registered successfully")
         return True
 
     else:
