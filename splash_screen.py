@@ -12,7 +12,7 @@ from reusable_imports.common_vars import get_data, get_movies
 
 # Random image for splash screen
 randlist = ["one.png", "two.png", "three.png", "four.png", "five.png"]
-randimg = random.choice(randlist)
+randimg = random.choices(randlist, weights=[0.4, 0.05, 0.2, 0.05, 0.3], k=1)  # Adding weighted random choices in splash
 
 
 class WorkerOne(QObject):
@@ -105,4 +105,4 @@ class SplashScreen(QDialog):
 
     def paintEvent(self, event) -> None:
         painter = QPainter(self)
-        painter.drawImage(QRect(0, 0, 640, 360), QImage(f"Images/Splash/{randimg}"))
+        painter.drawImage(QRect(0, 0, 640, 360), QImage(f"Images/Splash/{randimg[0]}"))
