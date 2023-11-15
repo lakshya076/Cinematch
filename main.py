@@ -867,12 +867,6 @@ class Main(QMainWindow):
         print("closing")
         print(playlists_metadata)
         print(removed_playlists)
-        # playlist metadata will be pushed to the sql table which contains information about all the playlists made by the user
-        # removed playlists will be pushed to the deleted playlist table from where the user can recover it if wanted
-        # Commit ALL THE CHANGES that happened in the common_vars.py file like if playlist is deleted or movie is
-        # deleted from playlist or a new movie playlist is created
-        # add a dialog box that asks if the user actually want to close or not
-        # or check if any bg process is running and if they are show a warning to the user
 
         for i in playlists_metadata.keys():
             playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
@@ -897,22 +891,6 @@ class Main(QMainWindow):
                 mapping.add_recommended_movies(recommendations, username, conn, cur)
 
 
-'''
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-
-    username, no_logged = init_uname()
-    playlists_metadata, playlist_picture = init_list_metadata()
-
-    splash = SplashScreen()
-
-    if splash.exec_() == QDialog.Accepted:
-        window = Main()
-        window.show()
-
-    sys.exit(app.exec_())
-
-'''
 if __name__ == "__main__":
 
     username, no_logged, premium = init_uname()
