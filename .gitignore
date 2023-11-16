@@ -30,6 +30,4 @@ backend/__pycache__/mapping.cpython-311.pyc
 backend/Utils/__pycache__/mapping_utils.cpython-311.pyc
 backend/cos_similarity.csv
 __pycache__/taste_profile.cpython-311.pyc
-Mode/mode.txt
-Mode/start_mode.txt
 test.py
