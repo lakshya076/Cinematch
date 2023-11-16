@@ -3,7 +3,7 @@
 [![Build](https://img.shields.io/badge/Build-Passing-red?style=for-the-badge&logo=appveyor)]()
 [![Language](https://img.shields.io/badge/Written%20Language-Python-9cf?style=for-the-badge)](https://python.org/about/)
 [![Framework](https://img.shields.io/badge/Framework-PyQt5-important?style=for-the-badge)](https://riverbankcomputing.com/software/pyqt/download)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://raw.githubusercontent.com/lakshya076/Cinematch/master/LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://github.com/lakshya076/Cinematch/blob/master/LICENSE.txt)
 
 Movie Recommender (Beta stage)
 
