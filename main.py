@@ -32,6 +32,9 @@ resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 searched_movies = []
 search_text = ""
 
+nav_stack = [0]
+current_index = 0
+
 
 class SearchAlg(QObject):
     done = pyqtSignal()
@@ -102,12 +105,17 @@ class Main(QMainWindow):
         self.setGeometry(QRect(0, 0, resolution[0] - 20, resolution[1] - 90))
         self.expand.hide()
         self.stack.setCurrentIndex(0)
+        self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
         self.user_settings.setText(username)
+
+        # Setting navigation
+        self.back.clicked.connect(self.back_nav)
+        self.forward.clicked.connect(self.for_nav)
 
         # Hiding widgets if user has premium
         if premium == 1:
@@ -213,11 +221,54 @@ class Main(QMainWindow):
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
         print("Populated Home Screen")
 
+    def back_nav(self):
+        global current_index, nav_stack
+
+        try:
+            self.back.setEnabled(True)
+            self.stack.setCurrentIndex(nav_stack[current_index - 1])
+            current_index -= 1
+            print(nav_stack, current_index)
+
+        except IndexError:
+            self.back.setDisabled(True)
+            current_index = 0
+
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+    def for_nav(self):
+        global current_index, nav_stack
+
+        try:
+            self.forward.setEnabled(True)
+            self.stack.setCurrentIndex(nav_stack[current_index + 1])
+            current_index += 1
+
+            print(nav_stack, current_index)
+        except IndexError:
+            self.forward.setDisabled(True)
+            current_index = nav_stack.index(nav_stack[-1])
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+
     def home_func(self):
         """
         Function to switch to the home widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(0)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 0)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -226,7 +277,18 @@ class Main(QMainWindow):
         """
         Function to switch to the search widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(1)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 1)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         self.search_box.setFocus()
         self.findnext_collapse.setChecked(True)
         if self.expand.isVisible():
@@ -237,7 +299,18 @@ class Main(QMainWindow):
         """
         Function to switch to the random widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(2)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 2)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -246,7 +319,18 @@ class Main(QMainWindow):
         """
         Function to switch to the shortlist widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(3)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 3)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
 
@@ -255,6 +339,7 @@ class Main(QMainWindow):
             Opens the clicked movie on the shortlist page
             Function is passed a parameter in display_new_widgets function of DisplayMovies class
             """
+            global current_index, nav_stack
             sender = display.sender()
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
@@ -264,6 +349,16 @@ class Main(QMainWindow):
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
+                nav_stack = nav_stack[:current_index + 1]
+                nav_stack.insert(current_index + 1, 7)
+                current_index += 1
+
+                if nav_stack[:current_index]:
+                    self.back.setEnabled(True)
+                if nav_stack[current_index:]:
+                    self.forward.setEnabled(True)
+
+                print(nav_stack, current_index)
             except TypeError:
                 print("TypeError. Can't display movie.")
 
@@ -321,7 +416,18 @@ class Main(QMainWindow):
         Function to switch to the library widget in the stack
         The library widget displays all the playlists
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(4)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 4)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         children = len(playlists_metadata)
         lib = Library()
 
@@ -392,11 +498,22 @@ class Main(QMainWindow):
         """
         Function to display the add (create) playlist widget of the stack
         """
+        global current_index, nav_stack
         self.playlist_error.setText("")
         self.playlist_success.setText("")
         self.create_playlist_name.clear()
 
         self.stack.setCurrentIndex(5)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 5)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -405,7 +522,18 @@ class Main(QMainWindow):
         """
         Function to display the settings widget of the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(6)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 6)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         self.cacheclear_label.setText("")
         if self.expand.isVisible():
             self.expand.hide()
@@ -438,6 +566,7 @@ class Main(QMainWindow):
         """
         Function to open movies on home page and search page
         """
+        global current_index, nav_stack
         sender = self.sender()
         _id = sender.objectName().split(sep="_")[-1]
 
@@ -447,6 +576,16 @@ class Main(QMainWindow):
                             _genre=self.display_genre, _date=self.display_date,
                             _shortlist_but=self.display_add_toshortlist)
             self.stack.setCurrentIndex(7)
+            nav_stack = nav_stack[:current_index + 1]
+            nav_stack.insert(current_index + 1, 7)
+            current_index += 1
+
+            if nav_stack[:current_index]:
+                self.back.setEnabled(True)
+            if nav_stack[current_index:]:
+                self.forward.setEnabled(True)
+
+            print(nav_stack, current_index)
         except TypeError:
             print(f"Can't display {_id}")
 
@@ -662,7 +801,18 @@ class Main(QMainWindow):
         """
         Function to open Credits/License Window
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(9)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 9)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -671,7 +821,18 @@ class Main(QMainWindow):
         """
         Function to open Premium Window if user doesn't have premium
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(10)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 10)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -813,6 +974,9 @@ class Main(QMainWindow):
         self.credit_license.setIcon(QIcon("Icons/license_white.png"))
         self.premium.setIcon(QIcon("Icons/premium_darkmode.ico"))
 
+        self.back.setIcon(QIcon("Icons/backward_dark.ico"))
+        self.forward.setIcon(QIcon("Icons/forward_dark.ico"))
+
     def light_mode(self):
         """
         Function to change to light mode
@@ -862,6 +1026,9 @@ class Main(QMainWindow):
 
         self.credit_license.setIcon(QIcon("Icons/license_black.png"))
         self.premium.setIcon(QIcon("Icons/premium_lightmode.ico"))
+
+        self.back.setIcon(QIcon("Icons/backward_light.ico"))
+        self.forward.setIcon(QIcon("Icons/forward_light.ico"))
 
     def closeEvent(self, event):
         print("closing")
