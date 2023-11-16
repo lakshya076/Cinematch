@@ -1090,8 +1090,7 @@ color:rgb(0,0,0);</string>
 color:rgb(0,0,0);</string>
                                   </property>
                                   <property name="text">
-                                      <string>Tell us your email.
-                                          Trust us.
+                                      <string>Tell us your email. Trust us.
                                       </string>
                                   </property>
                                   <property name="alignment">
