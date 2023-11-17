@@ -1125,6 +1125,7 @@ if __name__ == "__main__":
     start_win = Start()
 
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
+    users.reminder_remove(conn, cur)  # Sends a reminder email if the user account is scheduled to delete the next day
 
     if not no_logged:
         # This block runs if the user is already logged in
