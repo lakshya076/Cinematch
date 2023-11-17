@@ -9,6 +9,10 @@ from reusable_imports._css import dark_playlist_frame_style
 
 
 class DisplayMovies(QFrame):
+    """
+    Class to display movies in playlists
+    """
+
     def __init__(self, playlist: str = None):
         super(DisplayMovies, self).__init__()
         self.check = get_playlist_movies(playlist)

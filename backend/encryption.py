@@ -12,9 +12,7 @@ K = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
 
 def turn_to_bits(message: str) -> list:
     """
-
     Returns `list` of all bits in `message`
-
     """
 
     chars = [i for i in message]
@@ -57,7 +55,7 @@ def divider(bits: list, length: int = 8) -> list[list[int]]:
     return L
 
 
-def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE'):
+def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE') -> list:
     """
     Fills zeroes in `bits` as per Big and Little endian
     Returns `list`
@@ -110,7 +108,7 @@ def padder(message: str) -> list[int]:
     msgbits.extend([0] * padding)
     msgbits.extend(list(map(int, list(bin(msglen)[2:].zfill(64)))))
 
-    return (msgbits)
+    return msgbits
 
 
 # truth condition is integer 1

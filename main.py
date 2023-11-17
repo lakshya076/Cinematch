@@ -29,17 +29,25 @@ from widget_generator_search import SearchMovies
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 
+# Search
 searched_movies = []
 search_text = ""
 
+# Setting Navigation
 nav_stack = [0]
 current_index = 0
 
 
 class SearchAlg(QObject):
+    """
+    Algorithm to search movies and display in the ui, runs in separate thread
+    """
     done = pyqtSignal()
 
     def run(self):
+        """
+        Actual function to get searched movies' metadata
+        """
         global searched_movies, search_text
 
         print(f"Searching {search_text}")
@@ -102,6 +110,7 @@ class Main(QMainWindow):
 
         # Initial Checks
         self.setWindowTitle("Home - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
         self.setGeometry(QRect(0, 0, resolution[0] - 20, resolution[1] - 90))
         self.expand.hide()
         self.stack.setCurrentIndex(0)
@@ -222,6 +231,9 @@ class Main(QMainWindow):
         print("Populated Home Screen")
 
     def back_nav(self):
+        """
+        Function to navigate backwards in the main window
+        """
         global current_index, nav_stack
 
         try:
@@ -241,6 +253,9 @@ class Main(QMainWindow):
             self.forward.setEnabled(True)
 
     def for_nav(self):
+        """
+        Function to navigate forward in the main window
+        """
         global current_index, nav_stack
 
         try:
@@ -262,6 +277,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(0)
+        self.setWindowTitle("Home - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 0)
         current_index += 1
@@ -282,6 +298,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(1)
+        self.setWindowTitle("Search - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 1)
         current_index += 1
@@ -304,6 +321,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(2)
+        self.setWindowTitle("Random - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 2)
         current_index += 1
@@ -324,6 +342,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(3)
+        self.setWindowTitle("Shortlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 3)
         current_index += 1
@@ -352,6 +371,7 @@ class Main(QMainWindow):
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
+                self.setWindowTitle("Display - Cinematch")
                 nav_stack = nav_stack[:current_index + 1]
                 nav_stack.insert(current_index + 1, 7)
                 current_index += 1
@@ -421,6 +441,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(4)
+        self.setWindowTitle("Library - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 4)
         current_index += 1
@@ -507,6 +528,7 @@ class Main(QMainWindow):
         self.create_playlist_name.clear()
 
         self.stack.setCurrentIndex(5)
+        self.setWindowTitle("Create Playlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 5)
         current_index += 1
@@ -527,6 +549,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(6)
+        self.setWindowTitle("Setting - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 6)
         current_index += 1
@@ -579,6 +602,7 @@ class Main(QMainWindow):
                             _genre=self.display_genre, _date=self.display_date,
                             _shortlist_but=self.display_add_toshortlist)
             self.stack.setCurrentIndex(7)
+            self.setWindowTitle("Display - Cinematch")
             nav_stack = nav_stack[:current_index + 1]
             nav_stack.insert(current_index + 1, 7)
             current_index += 1
@@ -613,6 +637,7 @@ class Main(QMainWindow):
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
+                self.setWindowTitle("Display - Cinematch")
             except TypeError:
                 print("TypeError. Can't display movie.")
 
@@ -659,6 +684,7 @@ class Main(QMainWindow):
         self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
 
         self.stack.setCurrentIndex(8)
+        self.setWindowTitle("Playlist - Cinematch")
 
     def create_playlist_func(self):
         """
@@ -690,6 +716,10 @@ class Main(QMainWindow):
                 self.playlist_error.setText("Unable to add playlist")
 
     def placeholder_random(self):
+        """
+        This function is called when the randomizer button is clicked in the main window. THis function randomises the
+        movie and displays it on the random page
+        """
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
@@ -767,6 +797,7 @@ class Main(QMainWindow):
         search_text = self.search_box.text()
         self.search_box.clearFocus()  # Removes focus from the search box
         self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
+        self.setWindowTitle("Search - Cinematch")
 
         self.thread.start()
 
@@ -785,6 +816,10 @@ class Main(QMainWindow):
             self.loading.start()
 
     def search_put(self):
+        """
+        Function is called when the movie search is done in the worker thread and the movies will be put in the
+        search window
+        """
         self.loading.stop()
         self.label.hide()
         self.thread.quit()
@@ -806,6 +841,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(9)
+        self.setWindowTitle("Credits/Licenses - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 9)
         current_index += 1
@@ -826,6 +862,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(10)
+        self.setWindowTitle("Premium - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 10)
         current_index += 1
@@ -860,7 +897,6 @@ class Main(QMainWindow):
             pass
 
     def clear_cache_func(self):
-
         """
         Clear cache to improve performance. Restart app to see effective changes.
         """
@@ -874,6 +910,10 @@ class Main(QMainWindow):
         self.cacheclear_label.setText("Cache cleared!")
 
     def tasteprof_func(self):
+        """
+        Function to display the user's taste profile and giving the user choice to update their taste profiles
+        (Coming in later versions)
+        """
         print("Opening Taste Dialog")
 
     def sidebar_expand_show(self):
@@ -910,6 +950,9 @@ class Main(QMainWindow):
                 self.dark_mode()
 
     def mode(self):
+        """
+        Function to set theme and change the text file related to theme
+        """
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -1034,6 +1077,12 @@ class Main(QMainWindow):
         self.forward.setIcon(QIcon("Icons/forward_light.ico"))
 
     def closeEvent(self, event):
+        """
+        Function is called whenever the program is closed. This function registers all the changes happened during the
+        run of the program in the database.
+        This function also uses backend/cos_similarity.csv file to get the recommendations for the user for the next
+        run and store it in the database.
+        """
         print("closing")
         print(playlists_metadata)
         print(removed_playlists)
@@ -1063,8 +1112,9 @@ class Main(QMainWindow):
 
 if __name__ == "__main__":
 
-    username, no_logged, premium = init_uname()
+    username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
 
+    # Optimising the screen for high resolution displays
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
@@ -1077,6 +1127,7 @@ if __name__ == "__main__":
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
     if not no_logged:
+        # This block runs if the user is already logged in
         playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
         recoms, watchagain, language = init_mapping()
         splash = SplashScreen()

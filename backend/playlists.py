@@ -8,7 +8,6 @@ def create_playlist(username: str, name: str, movies: str, password: str, connec
     """
     Creates a playlist in the MySQL Database, if it doesn't already exist
     """
-
     status = playlist_utils.playlist_status(username, name, cursor)
     if not status:
 
@@ -30,7 +29,6 @@ def update_password(username: str, name: str, new_pass: str, connection: pymysql
     """
     Updates the password of a playlist in the MySQL database, if it exists
     """
-
     hashed_password = encryption.sha256(new_pass)
     del new_pass
 
@@ -44,11 +42,11 @@ def update_password(username: str, name: str, new_pass: str, connection: pymysql
     return status
 
 
-def add_movies(movies: list, username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> int:
+def add_movies(movies: list, username: str, name: str, connection: pymysql.Connection,
+               cursor: pymysql.cursors.Cursor) -> int:
     """
     Adds movies to a playlist in the MySQL database, if it exists
     """
-
     status = playlist_utils.playlist_status(username, name, cursor)
     if status == 1:
         prev_movies = list(map(str, playlist_utils.get_movies(username, name, cursor)))
@@ -68,7 +66,6 @@ def remove_movies(movies: list, username: str, name: str, connection: pymysql.Co
 
     Returns the list of movies left in the playlist
     """
-
     prev_movies = playlist_utils.get_movies(username, name, cursor)
     movies = list(map(int, movies))
 
@@ -90,7 +87,6 @@ def delete_playlist(username: str, name: str, connection: pymysql.Connection, cu
     """
     Sends a playlist into its deletion period
     """
-
     cursor.execute(f'select * from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchone()
 
@@ -114,7 +110,6 @@ def remove_playlists(connection: pymysql.Connection, cursor: pymysql.cursors.Cur
 
     Returns the data of the deleted playlists
     """
-
     cursor.execute(f'select username, name from deleted_playlists where curdate() > removal_date')
     data = cursor.fetchall()
 
@@ -129,7 +124,6 @@ def recover_playlist(username: str, name: str, connection: pymysql.Connection, c
     """
     Recovers a playlist in its deletion period
     """
-
     status = playlist_utils.playlist_status(username, name, cursor)
     if status == 2:
         cursor.execute(

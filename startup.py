@@ -1,5 +1,7 @@
+import re
 import sys
 import requests
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QApplication, QLineEdit
 from PyQt5.uic import loadUi
 
@@ -9,6 +11,9 @@ from reusable_imports.common_vars import conn, cur
 from backend.Utils import user_utils
 
 error_css = "border: 2px solid red;font:14pt;border-radius:10px;padding:2 10px;"
+mail_reg = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+user_reg = r'^[a-zA-z_.]{3,}$'
+pass_reg = r"^[A-Za-z0-9!@#$%^&*()_+-={}:\";',./<>?|\[\]]{8,20}"
 
 
 def wifi_availability() -> bool:
@@ -38,10 +43,16 @@ class Wifi(ErrorDialog):
 
 
 class Start(QDialog):
+    """
+    This window is shown when the user is either logged out or is using Cinematch for the first time.
+    Also supports user verification during registration, resetting password and forgot password.
+    """
+
     def __init__(self):
         super(Start, self).__init__()
         loadUi("UI\\ui_startup.ui", self)
         self.setWindowTitle("Welcome to Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
         self.stack.setCurrentIndex(0)
 
         self.register_startup.clicked.connect(self.redirect_register)
@@ -107,25 +118,25 @@ class Start(QDialog):
                 self.pfield_register.setStyleSheet(error_css)
                 self.cpfield_register.setStyleSheet(error_css)
 
-            elif len(user) < 3:
-                self.error_register.setText("Username cannot be less than 3 characters.")
-                self.ufield_register.setStyleSheet(error_css)
-
             elif password != confirmpassword:
                 self.error_register.setText("Passwords do not match.")
                 self.pfield_register.setStyleSheet(error_css)
                 self.cpfield_register.setStyleSheet(error_css)
 
-            elif ' ' in email:
-                self.error_register.setText("Email cannot contain spaces.")
+            elif not re.fullmatch(pass_reg, password):
+                self.error_register.setText("Enter a valid password.")
+                self.pfield_register.setStyleSheet(error_css)
+                self.cpfield_register.setStyleSheet(error_css)
+
+            elif not re.fullmatch(mail_reg, email):
+                self.error_register.setText("Enter a valid email address.")
                 self.efield_register.setStyleSheet(error_css)
 
-            elif ' ' in user:
-                self.error_register.setText("Username cannot have spaces.")
+            elif not re.fullmatch(user_reg, user):
+                self.error_register.setText("Enter a valid username.\nMake sure its not less than 3 characters.")
                 self.ufield_register.setStyleSheet(error_css)
 
             elif name_stat != 0 or mail_stat != 0:
-
                 if name_stat == 1 or mail_stat == 1:
                     self.error_register.setText("Credentials already exist.")
                 elif name_stat == 2 or mail_stat == 2:

@@ -34,6 +34,11 @@ class WorkerTwo(QObject):
 
 
 class SplashScreen(QDialog):
+    """
+    Class to call a splash screen before loading main window. This splash screen loads all the user related data, i.e.,
+    playlist movies, playlist data, random movies' data, etc.
+    """
+
     def __init__(self):
         super(SplashScreen, self).__init__()
         loadUi("UI\\ui_splashscreen.ui", self)

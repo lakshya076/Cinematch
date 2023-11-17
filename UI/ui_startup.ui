@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-       <width>490</width>
-       <height>560</height>
+    <width>490</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-       <width>490</width>
-       <height>560</height>
+    <width>490</width>
+    <height>560</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-       <width>490</width>
-       <height>560</height>
+    <width>490</width>
+    <height>560</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,370 +30,370 @@
     <rect>
      <x>0</x>
      <y>0</y>
-        <width>490</width>
-        <height>560</height>
+     <width>490</width>
+     <height>560</height>
     </rect>
    </property>
    <property name="minimumSize">
     <size>
-        <width>490</width>
-        <height>560</height>
+     <width>490</width>
+     <height>560</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-        <width>490</width>
-        <height>560</height>
+     <width>490</width>
+     <height>560</height>
     </size>
    </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-              <number>0</number>
-          </property>
-          <property name="leftMargin">
-              <number>0</number>
-          </property>
-          <property name="topMargin">
-              <number>0</number>
-          </property>
-          <property name="rightMargin">
-              <number>0</number>
-          </property>
-          <property name="bottomMargin">
-              <number>0</number>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
     </property>
-          <item>
-              <widget class="QStackedWidget" name="stack">
-                  <property name="minimumSize">
-                      <size>
-                          <width>486</width>
-                          <height>558</height>
-                      </size>
-                  </property>
-                  <property name="maximumSize">
-                      <size>
-                          <width>486</width>
-                          <height>558</height>
-                      </size>
-                  </property>
-                  <property name="styleSheet">
-                      <string notr="true">background-color:#FFFAF0;
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QStackedWidget" name="stack">
+      <property name="minimumSize">
+       <size>
+        <width>486</width>
+        <height>558</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>486</width>
+        <height>558</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:#FFFAF0;
 </string>
-                  </property>
-                  <property name="currentIndex">
-                      <number>4</number>
-                  </property>
-                  <widget class="QWidget" name="startup">
-                      <layout class="QVBoxLayout" name="verticalLayout_3">
-                          <item>
-                              <spacer name="verticalSpacer_3">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="welcomelabel">
-                                  <property name="minimumSize">
-                                      <size>
-                                          <width>300</width>
-                                          <height>61</height>
-                                      </size>
-                                  </property>
-                                  <property name="maximumSize">
-                                      <size>
-                                          <width>16777215</width>
-                                          <height>61</height>
-                                      </size>
-                                  </property>
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="startup">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="welcomelabel">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>61</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>61</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Welcome</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="textlabel">
-                                  <property name="minimumSize">
-                                      <size>
-                                          <width>400</width>
-                                          <height>41</height>
-                                      </size>
-                                  </property>
-                                  <property name="maximumSize">
-                                      <size>
-                                          <width>16777215</width>
-                                          <height>41</height>
-                                      </size>
-                                  </property>
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+          </property>
+          <property name="text">
+           <string>Welcome</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="textlabel">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>41</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Login or register a new account</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_2">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout">
-                                  <item>
-                                      <spacer name="horizontalSpacer">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <widget class="QPushButton" name="register_startup">
-                                          <property name="sizePolicy">
-                                              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                                                  <horstretch>0</horstretch>
-                                                  <verstretch>0</verstretch>
-                                              </sizepolicy>
-                                          </property>
-                                          <property name="minimumSize">
-                                              <size>
-                                                  <width>341</width>
-                                                  <height>51</height>
-                                              </size>
-                                          </property>
-                                          <property name="maximumSize">
-                                              <size>
-                                                  <width>341</width>
-                                                  <height>51</height>
-                                              </size>
-                                          </property>
-                                          <property name="cursor">
-                                              <cursorShape>PointingHandCursor</cursorShape>
-                                          </property>
-                                          <property name="styleSheet">
-                                              <string notr="true">border-radius:10px;
+          </property>
+          <property name="text">
+           <string>Login or register a new account</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="register_startup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>341</width>
+              <height>51</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>341</width>
+              <height>51</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-radius:10px;
 background-color:rgb(240, 234, 214);
 font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
-                                          </property>
-                                          <property name="text">
-                                              <string>Register</string>
-                                          </property>
-                                      </widget>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_2">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_2">
-                                  <item>
-                                      <spacer name="horizontalSpacer_3">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <widget class="QPushButton" name="login_startup">
-                                          <property name="sizePolicy">
-                                              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                                                  <horstretch>0</horstretch>
-                                                  <verstretch>0</verstretch>
-                                              </sizepolicy>
-                                          </property>
-                                          <property name="minimumSize">
-                                              <size>
-                                                  <width>341</width>
-                                                  <height>51</height>
-                                              </size>
-                                          </property>
-                                          <property name="maximumSize">
-                                              <size>
-                                                  <width>341</width>
-                                                  <height>51</height>
-                                              </size>
-                                          </property>
-                                          <property name="cursor">
-                                              <cursorShape>PointingHandCursor</cursorShape>
-                                          </property>
-                                          <property name="styleSheet">
-                                              <string notr="true">border-radius:10px;
+            </property>
+            <property name="text">
+             <string>Register</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="login_startup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>341</width>
+              <height>51</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>341</width>
+              <height>51</height>
+             </size>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-radius:10px;
 background-color:rgb(240, 234, 214);
 font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
-                                          </property>
-                                          <property name="text">
-                                              <string>Log in</string>
-                                          </property>
-                                      </widget>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_4">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                      </layout>
-                  </widget>
-                  <widget class="QWidget" name="signup">
-                      <layout class="QVBoxLayout" name="verticalLayout_10">
-                          <item>
-                              <spacer name="verticalSpacer_28">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="registerlabel">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+            </property>
+            <property name="text">
+             <string>Log in</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="signup">
+       <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <spacer name="verticalSpacer_28">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="registerlabel">
+          <property name="styleSheet">
+           <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
                                           color:rgb(0,0,0);
                                       </string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Register</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="text">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+          </property>
+          <property name="text">
+           <string>Register</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="text">
+          <property name="styleSheet">
+           <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Register a brand new account</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_18">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>10</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_3">
-                                  <item>
-                                      <spacer name="horizontalSpacer_5">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <layout class="QVBoxLayout" name="verticalLayout_4">
-                                          <item>
-                                              <widget class="QLineEdit" name="pfield_register">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+          </property>
+          <property name="text">
+           <string>Register a brand new account</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_18">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>10</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QLineEdit" name="efield_register">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
 
-                                                          background:#FFFAF0;
+                background: #FFFAF0;
 selection-background-color: black;
 border-width: 1px; 
 border-style: solid; 
@@ -401,48 +401,22 @@ border-color: black black black black;
 border-radius: 10px;
 padding: 2 10px;
 </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Password</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <widget class="QLineEdit" name="efield_register">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
-font: 14pt &quot;MS Shell Dlg 2&quot;;
-
-                                                          background: #FFFAF0;
-selection-background-color: black;
-border-width: 1px; 
-border-style: solid; 
-border-color: black black black black; 
-border-radius: 10px;
-padding: 2 10px;
-</string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Email</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <widget class="QLineEdit" name="ufield_register">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+              </property>
+              <property name="placeholderText">
+               <string>Email</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="ufield_register">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
 
                                                           background: #FFFAF0;
@@ -453,22 +427,51 @@ border-color: black black black black;
 border-radius: 10px;
 padding: 2 10px;
 </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Username</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <widget class="QLineEdit" name="cpfield_register">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+              </property>
+              <property name="placeholderText">
+               <string>Username</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="pfield_register">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
+font: 14pt &quot;MS Shell Dlg 2&quot;;
+
+                background:#FFFAF0;
+selection-background-color: black;
+border-width: 1px; 
+border-style: solid; 
+border-color: black black black black; 
+border-radius: 10px;
+padding: 2 10px;
+</string>
+              </property>
+              <property name="maxLength">
+               <number>20</number>
+              </property>
+              <property name="placeholderText">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="cpfield_register">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
 
 background: #FFFAF0;
@@ -479,255 +482,258 @@ border-color: black black black black;
 border-radius: 10px;
 padding: 2 10px;
 </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Confirm Password</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_19">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Expanding</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <layout class="QHBoxLayout" name="horizontalLayout_7">
-                                                  <item>
-                                                      <widget class="QLabel" name="r_direct_l">
-                                                          <property name="minimumSize">
-                                                              <size>
-                                                                  <width>0</width>
-                                                                  <height>31</height>
-                                                              </size>
-                                                          </property>
-                                                          <property name="font">
-                                                              <font>
-                                                                  <family>MS Shell Dlg 2</family>
-                                                                  <pointsize>14</pointsize>
-                                                                  <weight>50</weight>
-                                                                  <italic>false</italic>
-                                                                  <bold>false</bold>
-                                                              </font>
-                                                          </property>
-                                                          <property name="cursor">
-                                                              <cursorShape>PointingHandCursor</cursorShape>
-                                                          </property>
-                                                          <property name="styleSheet">
-                                                              <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="maxLength">
+               <number>20</number>
+              </property>
+              <property name="placeholderText">
+               <string>Confirm Password</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_19">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <widget class="QLabel" name="r_direct_l">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>14</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                                          </property>
-                                                          <property name="text">
-                                                              <string>&lt;u&gt;Login instead?&lt;/u&gt;</string>
-                                                          </property>
-                                                          <property name="textFormat">
-                                                              <enum>Qt::MarkdownText</enum>
-                                                          </property>
-                                                      </widget>
-                                                  </item>
-                                                  <item>
-                                                      <spacer name="horizontalSpacer_24">
-                                                          <property name="orientation">
-                                                              <enum>Qt::Horizontal</enum>
-                                                          </property>
-                                                          <property name="sizeHint" stdset="0">
-                                                              <size>
-                                                                  <width>40</width>
-                                                                  <height>20</height>
-                                                              </size>
-                                                          </property>
-                                                      </spacer>
-                                                  </item>
-                                              </layout>
-                                          </item>
-                                          <item>
-                                              <widget class="QLabel" name="error_register">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>0</width>
-                                                          <height>31</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+                </property>
+                <property name="text">
+                 <string>&lt;u&gt;Login instead?&lt;/u&gt;</string>
+                </property>
+                <property name="textFormat">
+                 <enum>Qt::MarkdownText</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_24">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="error_register">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
                                           color:red;
                                       </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string/>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_27">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <widget class="QPushButton" name="register_button">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="cursor">
-                                                      <cursorShape>PointingHandCursor</cursorShape>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">border-radius:10px;
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_27">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="register_button">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
                                                   background-color:rgb(240, 234, 214);
                                                   font: 18pt &quot;MS Shell Dlg 2&quot;;
                                               </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string>Register</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                      </layout>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_6">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_5">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                      </layout>
-                  </widget>
-                  <widget class="QWidget" name="login">
-                      <layout class="QVBoxLayout" name="verticalLayout_11">
-                          <item>
-                              <spacer name="verticalSpacer_6">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="loginlabel">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="text">
+               <string>Register</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="login">
+       <layout class="QVBoxLayout" name="verticalLayout_11">
+        <item>
+         <spacer name="verticalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="loginlabel">
+          <property name="styleSheet">
+           <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
                                           color:rgb(0,0,0);
                                       </string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Login</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="text_2">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+          </property>
+          <property name="text">
+           <string>Login</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="text_2">
+          <property name="styleSheet">
+           <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Sign in to your existing account</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_20">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Expanding</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>20</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_5">
-                                  <item>
-                                      <spacer name="horizontalSpacer_7">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <layout class="QVBoxLayout" name="verticalLayout">
-                                          <item>
-                                              <widget class="QLineEdit" name="ufield_login">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+          </property>
+          <property name="text">
+           <string>Sign in to your existing account</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_20">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <spacer name="horizontalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <widget class="QLineEdit" name="ufield_login">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
                                                   font: 14pt &quot;MS Shell Dlg 2&quot;;
 
                                                   background:#FFFAF0;
@@ -738,25 +744,25 @@ color:rgb(0,0,0);</string>
                                                   border-radius: 10px;
                                                   padding: 2 10px;
                                               </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string/>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Username</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <widget class="QLineEdit" name="pfield_login">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Username</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="pfield_login">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
                                                   font: 14pt &quot;MS Shell Dlg 2&quot;;
 
                                                   background: #FFFAF0;
@@ -767,302 +773,305 @@ color:rgb(0,0,0);</string>
                                                   border-radius: 10px;
                                                   padding: 2 10px;
                                               </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Password</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_21">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <layout class="QHBoxLayout" name="horizontalLayout_4">
-                                                  <item>
-                                                      <widget class="QLabel" name="l_direct_r">
-                                                          <property name="enabled">
-                                                              <bool>true</bool>
-                                                          </property>
-                                                          <property name="minimumSize">
-                                                              <size>
-                                                                  <width>0</width>
-                                                                  <height>31</height>
-                                                              </size>
-                                                          </property>
-                                                          <property name="font">
-                                                              <font>
-                                                                  <family>MS Shell Dlg 2</family>
-                                                                  <pointsize>14</pointsize>
-                                                                  <weight>50</weight>
-                                                                  <italic>false</italic>
-                                                                  <bold>false</bold>
-                                                              </font>
-                                                          </property>
-                                                          <property name="cursor">
-                                                              <cursorShape>PointingHandCursor</cursorShape>
-                                                          </property>
-                                                          <property name="styleSheet">
-                                                              <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="maxLength">
+               <number>20</number>
+              </property>
+              <property name="placeholderText">
+               <string>Password</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_21">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QLabel" name="l_direct_r">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>MS Shell Dlg 2</family>
+                  <pointsize>14</pointsize>
+                  <weight>50</weight>
+                  <italic>false</italic>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                                          </property>
-                                                          <property name="text">
-                                                              <string>&lt;u&gt;Register instead?&lt;/u&gt;</string>
-                                                          </property>
-                                                          <property name="textFormat">
-                                                              <enum>Qt::MarkdownText</enum>
-                                                          </property>
-                                                          <property name="openExternalLinks">
-                                                              <bool>false</bool>
-                                                          </property>
-                                                      </widget>
-                                                  </item>
-                                                  <item>
-                                                      <spacer name="horizontalSpacer_13">
-                                                          <property name="orientation">
-                                                              <enum>Qt::Horizontal</enum>
-                                                          </property>
-                                                          <property name="sizeHint" stdset="0">
-                                                              <size>
-                                                                  <width>40</width>
-                                                                  <height>20</height>
-                                                              </size>
-                                                          </property>
-                                                      </spacer>
-                                                  </item>
-                                                  <item>
-                                                      <widget class="QLabel" name="l_direct_f">
-                                                          <property name="minimumSize">
-                                                              <size>
-                                                                  <width>0</width>
-                                                                  <height>31</height>
-                                                              </size>
-                                                          </property>
-                                                          <property name="cursor">
-                                                              <cursorShape>PointingHandCursor</cursorShape>
-                                                          </property>
-                                                          <property name="styleSheet">
-                                                              <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+                </property>
+                <property name="text">
+                 <string>&lt;u&gt;Register instead?&lt;/u&gt;</string>
+                </property>
+                <property name="textFormat">
+                 <enum>Qt::MarkdownText</enum>
+                </property>
+                <property name="openExternalLinks">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_13">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="l_direct_f">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
                                                   color:rgb(0,0,0);
                                               </string>
-                                                          </property>
-                                                          <property name="text">
-                                                              <string>&lt;u&gt;Forgot Password?&lt;/u&gt;</string>
-                                                          </property>
-                                                          <property name="textFormat">
-                                                              <enum>Qt::MarkdownText</enum>
-                                                          </property>
-                                                          <property name="alignment">
-                                                              <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
-                                                          </property>
-                                                      </widget>
-                                                  </item>
-                                              </layout>
-                                          </item>
-                                          <item>
-                                              <widget class="QLabel" name="error_login">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>0</width>
-                                                          <height>31</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+                </property>
+                <property name="text">
+                 <string>&lt;u&gt;Forgot Password?&lt;/u&gt;</string>
+                </property>
+                <property name="textFormat">
+                 <enum>Qt::MarkdownText</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="error_login">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
                                                           color:red;
                                                       </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string/>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_22">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <widget class="QPushButton" name="login_button">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="font">
-                                                      <font>
-                                                          <family>MS Shell Dlg 2</family>
-                                                          <pointsize>18</pointsize>
-                                                          <weight>50</weight>
-                                                          <italic>false</italic>
-                                                          <bold>false</bold>
-                                                      </font>
-                                                  </property>
-                                                  <property name="cursor">
-                                                      <cursorShape>PointingHandCursor</cursorShape>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">border-radius:10px;
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_22">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="login_button">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>MS Shell Dlg 2</family>
+                <pointsize>18</pointsize>
+                <weight>50</weight>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
 background-color:rgb(240, 234, 214);
 font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string>Login</string>
-                                                  </property>
-                                                  <property name="checkable">
-                                                      <bool>false</bool>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                      </layout>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_8">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_4">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>80</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                      </layout>
-                  </widget>
-                  <widget class="QWidget" name="forgotpswd">
-                      <layout class="QVBoxLayout" name="verticalLayout_8">
-                          <item>
-                              <spacer name="verticalSpacer_7">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="forgotpswdlabel">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="text">
+               <string>Login</string>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>80</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="forgotpswd">
+       <layout class="QVBoxLayout" name="verticalLayout_8">
+        <item>
+         <spacer name="verticalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="forgotpswdlabel">
+          <property name="styleSheet">
+           <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Forgot Password</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="text_3">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+          </property>
+          <property name="text">
+           <string>Forgot Password</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="text_3">
+          <property name="styleSheet">
+           <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Tell us your email. Trust us.
+          </property>
+          <property name="text">
+           <string>Tell us your email. Trust us.
                                       </string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                                  <property name="wordWrap">
-                                      <bool>true</bool>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_14">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_14">
-                                  <item>
-                                      <spacer name="horizontalSpacer_27">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <layout class="QVBoxLayout" name="verticalLayout_5">
-                                          <item>
-                                              <widget class="QLineEdit" name="efield_forgot">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_14">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <item>
+           <spacer name="horizontalSpacer_27">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QLineEdit" name="efield_forgot">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
 
 background: #FFFAF0;
@@ -1073,262 +1082,262 @@ border-color: black black black black;
 border-radius: 10px;
 padding: 2 10px;
 </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Email</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_13">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <layout class="QHBoxLayout" name="horizontalLayout_23">
-                                                  <item>
-                                                      <widget class="QLabel" name="f_direct_r">
-                                                          <property name="minimumSize">
-                                                              <size>
-                                                                  <width>0</width>
-                                                                  <height>31</height>
-                                                              </size>
-                                                          </property>
-                                                          <property name="cursor">
-                                                              <cursorShape>PointingHandCursor</cursorShape>
-                                                          </property>
-                                                          <property name="styleSheet">
-                                                              <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="placeholderText">
+               <string>Email</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_13">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_23">
+              <item>
+               <widget class="QLabel" name="f_direct_r">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                                          </property>
-                                                          <property name="text">
-                                                              <string>&lt;u&gt;Register instead?&lt;/u&gt;</string>
-                                                          </property>
-                                                      </widget>
-                                                  </item>
-                                                  <item>
-                                                      <spacer name="horizontalSpacer_26">
-                                                          <property name="orientation">
-                                                              <enum>Qt::Horizontal</enum>
-                                                          </property>
-                                                          <property name="sizeHint" stdset="0">
-                                                              <size>
-                                                                  <width>40</width>
-                                                                  <height>20</height>
-                                                              </size>
-                                                          </property>
-                                                      </spacer>
-                                                  </item>
-                                                  <item>
-                                                      <widget class="QLabel" name="f_direct_l">
-                                                          <property name="cursor">
-                                                              <cursorShape>PointingHandCursor</cursorShape>
-                                                          </property>
-                                                          <property name="styleSheet">
-                                                              <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+                </property>
+                <property name="text">
+                 <string>&lt;u&gt;Register instead?&lt;/u&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_26">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="f_direct_l">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
                                                   color:rgb(0,0,0);
                                               </string>
-                                                          </property>
-                                                          <property name="text">
-                                                              <string>&lt;u&gt;Login instead?&lt;/u&gt;</string>
-                                                          </property>
-                                                      </widget>
-                                                  </item>
-                                              </layout>
-                                          </item>
-                                          <item>
-                                              <widget class="QLabel" name="error_forgot">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>0</width>
-                                                          <height>31</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+                </property>
+                <property name="text">
+                 <string>&lt;u&gt;Login instead?&lt;/u&gt;</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="error_forgot">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
                                                           color:red;
                                                       </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string/>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_23">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <widget class="QPushButton" name="forgot_button">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="cursor">
-                                                      <cursorShape>PointingHandCursor</cursorShape>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">border-radius:10px;
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_23">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="forgot_button">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
 background-color:rgb(240, 234, 214);
 font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string>Send Mail</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                      </layout>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_31">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_11">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>120</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                      </layout>
-                  </widget>
-                  <widget class="QWidget" name="otp">
-                      <layout class="QVBoxLayout" name="verticalLayout_9">
-                          <item>
-                              <spacer name="verticalSpacer_8">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="otp_2">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="text">
+               <string>Send Mail</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_31">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_11">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>120</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="otp">
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <spacer name="verticalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="otp_2">
+          <property name="styleSheet">
+           <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>OTP</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="text_4">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+          </property>
+          <property name="text">
+           <string>OTP</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="text_4">
+          <property name="styleSheet">
+           <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Enter the OTP sent to your email id</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                                  <property name="wordWrap">
-                                      <bool>true</bool>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_15">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Expanding</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>20</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_16">
-                                  <item>
-                                      <spacer name="horizontalSpacer_30">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <layout class="QVBoxLayout" name="verticalLayout_6">
-                                          <item>
-                                              <widget class="QLineEdit" name="otp_field">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+          </property>
+          <property name="text">
+           <string>Enter the OTP sent to your email id</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_15">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_16">
+          <item>
+           <spacer name="horizontalSpacer_30">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QLineEdit" name="otp_field">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
                                                   font: 14pt &quot;MS Shell Dlg 2&quot;;
 
                                                   background: #FFFAF0;
@@ -1339,247 +1348,250 @@ color:rgb(0,0,0);</string>
                                                   border-radius: 10px;
                                                   padding: 2 10px;
                                               </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>OTP</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_16">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <layout class="QHBoxLayout" name="horizontalLayout_15">
-                                                  <item>
-                                                      <spacer name="horizontalSpacer_25">
-                                                          <property name="orientation">
-                                                              <enum>Qt::Horizontal</enum>
-                                                          </property>
-                                                          <property name="sizeHint" stdset="0">
-                                                              <size>
-                                                                  <width>40</width>
-                                                                  <height>20</height>
-                                                              </size>
-                                                          </property>
-                                                      </spacer>
-                                                  </item>
-                                                  <item>
-                                                      <widget class="QLabel" name="sendagain">
-                                                          <property name="minimumSize">
-                                                              <size>
-                                                                  <width>0</width>
-                                                                  <height>31</height>
-                                                              </size>
-                                                          </property>
-                                                          <property name="cursor">
-                                                              <cursorShape>PointingHandCursor</cursorShape>
-                                                          </property>
-                                                          <property name="styleSheet">
-                                                              <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="maxLength">
+               <number>6</number>
+              </property>
+              <property name="placeholderText">
+               <string>OTP</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_16">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <spacer name="horizontalSpacer_25">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="sendagain">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;
 color:rgb(0,0,0);</string>
-                                                          </property>
-                                                          <property name="text">
-                                                              <string>&lt;u&gt;Send Again&lt;/u&gt;</string>
-                                                          </property>
-                                                          <property name="textFormat">
-                                                              <enum>Qt::MarkdownText</enum>
-                                                          </property>
-                                                          <property name="alignment">
-                                                              <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
-                                                          </property>
-                                                      </widget>
-                                                  </item>
-                                              </layout>
-                                          </item>
-                                          <item>
-                                              <widget class="QLabel" name="error_otp">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>0</width>
-                                                          <height>31</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+                </property>
+                <property name="text">
+                 <string>&lt;u&gt;Send Again&lt;/u&gt;</string>
+                </property>
+                <property name="textFormat">
+                 <enum>Qt::MarkdownText</enum>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QLabel" name="error_otp">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
                                                           color:red;
                                                       </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string/>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_24">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <widget class="QPushButton" name="otp_button">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="cursor">
-                                                      <cursorShape>PointingHandCursor</cursorShape>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">border-radius:10px;
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_24">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="otp_button">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
 background-color:rgb(240, 234, 214);
 font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string>Check OTP</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                      </layout>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_32">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="success_otp">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;; color:green;</string>
-                                  </property>
-                                  <property name="text">
-                                      <string/>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_12">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>120</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                      </layout>
-                  </widget>
-                  <widget class="QWidget" name="reset">
-                      <layout class="QVBoxLayout" name="verticalLayout_12">
-                          <item>
-                              <spacer name="verticalSpacer_9">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>40</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="resetlabel">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="text">
+               <string>Check OTP</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_32">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="success_otp">
+          <property name="styleSheet">
+           <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;; color:green;</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_12">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>120</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="reset">
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <spacer name="verticalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="resetlabel">
+          <property name="styleSheet">
+           <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
                                           color:rgb(0,0,0);
                                       </string>
-                                  </property>
-                                  <property name="text">
-                                      <string>Reset Password</string>
-                                  </property>
-                                  <property name="alignment">
-                                      <set>Qt::AlignCenter</set>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_17">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>20</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_6">
-                                  <item>
-                                      <spacer name="horizontalSpacer_9">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <layout class="QVBoxLayout" name="verticalLayout_7">
-                                          <item>
-                                              <widget class="QLineEdit" name="pfield_reset">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+          </property>
+          <property name="text">
+           <string>Reset Password</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_17">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <spacer name="horizontalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLineEdit" name="pfield_reset">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
 
                                                   background:#FFFAF0;
@@ -1590,22 +1602,25 @@ border-color: black black black black;
 border-radius: 10px;
 padding: 2 10px;
 </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>New Password</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <widget class="QLineEdit" name="cpfield_reset">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">background-color:rgba(0,0,0,0);
+              </property>
+              <property name="maxLength">
+               <number>20</number>
+              </property>
+              <property name="placeholderText">
+               <string>New Password</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="cpfield_reset">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color:rgba(0,0,0,0);
 font: 14pt &quot;MS Shell Dlg 2&quot;;
 
                                                   background: #FFFAF0;
@@ -1616,121 +1631,124 @@ border-color: black black black black;
 border-radius: 10px;
 padding: 2 10px;
 </string>
-                                                  </property>
-                                                  <property name="placeholderText">
-                                                      <string>Confirm New Password</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_26">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <widget class="QLabel" name="error_reset">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>0</width>
-                                                          <height>31</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+              </property>
+              <property name="maxLength">
+               <number>20</number>
+              </property>
+              <property name="placeholderText">
+               <string>Confirm New Password</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_26">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="error_reset">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
                                                           color:red;
                                                       </string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string/>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                          <item>
-                                              <spacer name="verticalSpacer_25">
-                                                  <property name="orientation">
-                                                      <enum>Qt::Vertical</enum>
-                                                  </property>
-                                                  <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
-                                                  </property>
-                                                  <property name="sizeHint" stdset="0">
-                                                      <size>
-                                                          <width>20</width>
-                                                          <height>10</height>
-                                                      </size>
-                                                  </property>
-                                              </spacer>
-                                          </item>
-                                          <item>
-                                              <widget class="QPushButton" name="reset_button">
-                                                  <property name="minimumSize">
-                                                      <size>
-                                                          <width>341</width>
-                                                          <height>51</height>
-                                                      </size>
-                                                  </property>
-                                                  <property name="cursor">
-                                                      <cursorShape>PointingHandCursor</cursorShape>
-                                                  </property>
-                                                  <property name="styleSheet">
-                                                      <string notr="true">border-radius:10px;
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_25">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="reset_button">
+              <property name="minimumSize">
+               <size>
+                <width>341</width>
+                <height>51</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border-radius:10px;
 background-color:rgb(240, 234, 214);
 font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
-                                                  </property>
-                                                  <property name="text">
-                                                      <string>Reset</string>
-                                                  </property>
-                                              </widget>
-                                          </item>
-                                      </layout>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_10">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <spacer name="verticalSpacer_10">
-                                  <property name="orientation">
-                                      <enum>Qt::Vertical</enum>
-                                  </property>
-                                  <property name="sizeType">
-                                      <enum>QSizePolicy::Fixed</enum>
-                                  </property>
-                                  <property name="sizeHint" stdset="0">
-                                      <size>
-                                          <width>20</width>
-                                          <height>120</height>
-                                      </size>
-                                  </property>
-                              </spacer>
-                          </item>
-                      </layout>
-                  </widget>
-              </widget>
+              </property>
+              <property name="text">
+               <string>Reset</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
-      </layout>
+          <item>
+           <spacer name="horizontalSpacer_10">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>120</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <tabstops>

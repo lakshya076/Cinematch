@@ -58,7 +58,12 @@ movies_metadata = {}
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
-def init_uname():
+
+def init_uname() -> tuple:
+    """
+    Checks if the user is already logged in, if true gets the information of the user. If false, startup window is
+    opened
+    """
     print("Checking for recurring login")
     global username
     global no_logged
@@ -76,7 +81,10 @@ def init_uname():
     return username, no_logged, premium
 
 
-def init_list_metadata():
+def init_list_metadata() -> tuple:
+    """
+    Gets playlist metadata of all playlists if the user is logged in
+    """
     print("Initialising playlists")
     global playlists_metadata
     global removed_playlist_movies
@@ -99,7 +107,10 @@ def init_list_metadata():
     return playlists_metadata, playlist_picture, removed_playlist_movies
 
 
-def init_mapping():
+def init_mapping() -> tuple:
+    """
+    Initialises the mapping data for the logged-in user
+    """
     global recoms, watchagain, language
     print('Init Mapping')
     if not no_logged:
@@ -133,12 +144,11 @@ playlists_display_metadata = {}
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
 
-def get_data():
+def get_data() -> None:
     """
     Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
     home screen)
     Also gets the movie data in the random and all the playlists
-    :return: None
     """
 
     # Common session used to load the images of all the movies in the metadata list. The images are then cached and
@@ -209,18 +219,17 @@ def get_data():
                 movies_metadata[int(j[0])] = metadata_enter
 
         print(movie_list[i])
-    
+
     recoms = movie_list[0]
     watchagain = movie_list[1]
     language = movie_list[2]
     return movie_list, movies_metadata
 
 
-def get_movies():
+def get_movies() -> tuple:
     """
     get the title, poster, language of all the movies in the playlists_metadata lists and stores it in
     playlists_display_metadata
-    :return: list
     """
     print("Getting playlists data")
 
@@ -299,7 +308,10 @@ def get_movies():
     return playlists_display_metadata, movies_metadata
 
 
-def get_playlist_movies(list_name: str):
+def get_playlist_movies(list_name: str) -> list | bool:
+    """
+    Gets the list of movies and their metadata from the playlists_display_metadata dict given the playlist name
+    """
     if list_name in playlists_metadata.keys():
         return playlists_display_metadata[list_name]
     else:

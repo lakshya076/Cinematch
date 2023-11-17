@@ -7,6 +7,10 @@ from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 
 class Home(QFrame):
+    """
+    Class to generate home widgets
+    """
+
     def __init__(self):
         super(Home, self).__init__()
 

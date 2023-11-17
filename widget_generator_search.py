@@ -8,6 +8,10 @@ from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 
 class SearchMovies(QFrame):
+    """
+    Class to generate search widgets
+    """
+
     def __init__(self):
         super(SearchMovies, self).__init__()
 

@@ -8,6 +8,10 @@ from reusable_imports.commons import ClickableLabel, ClickableFrame
 
 
 class Library(QFrame):
+    """
+    Class to show playlist covers in the library page of main window
+    """
+
     def __init__(self):
         super(Library, self).__init__()
 

@@ -6,7 +6,7 @@ from cachecontrol.caches import FileCache
 
 from PyQt5.QtCore import QSize, Qt, QEvent
 from PyQt5.QtGui import QCursor, QImage, QPixmap, QIcon
-from PyQt5.QtWidgets import QFrame, QApplication, QLabel, QVBoxLayout, QDialog
+from PyQt5.QtWidgets import QFrame, QLabel, QVBoxLayout, QDialog
 from PyQt5.uic import loadUi
 
 from reusable_imports.commons import ErrorDialog, clickable
@@ -14,7 +14,6 @@ from reusable_imports._css import checklist_frame_selection_css, checklist_image
     checklist_title_selection_css
 from reusable_imports.source_vars import checklist_movie_source
 from reusable_imports.common_vars import movies
-
 
 _obj_ = ""
 
@@ -64,6 +63,7 @@ class Checklist(QDialog, FrameReuse):
         super(Checklist, self).__init__()
         loadUi("UI\\ui_checklist.ui", self)
         self.setWindowTitle("Select Movies - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
         self.stack.setCurrentIndex(0)  # At the start the popular movies are shown first
 
         global _obj_  # defining global variables for the whole class

@@ -2,11 +2,11 @@ import pymysql, pymysql.cursors
 from backend.Utils.mapping_utils import get_mapping_data, mapping_status
 
 
-def add_liked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+def add_liked_movies(movies: list, username: str, connection: pymysql.Connection,
+                     cursor: pymysql.cursors.Cursor) -> bool:
     """
     Adds liked movies in the MySQL database
     """
-
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[1]
     movies = list(map(int, movies))
