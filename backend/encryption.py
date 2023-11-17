@@ -10,11 +10,9 @@ K = ['0x428a2f98', '0x71374491', '0xb5c0fbcf', '0xe9b5dba5', '0x3956c25b', '0x59
      '0x748f82ee', '0x78a5636f', '0x84c87814', '0x8cc70208', '0x90befffa', '0xa4506ceb', '0xbef9a3f7', '0xc67178f2']
 
 
-def turn_to_bits(message: str):
+def turn_to_bits(message: str) -> list:
     """
-
     Returns `list` of all bits in `message`
-
     """
 
     chars = [i for i in message]
@@ -28,7 +26,7 @@ def turn_to_bits(message: str):
     return bitlist
 
 
-def turn_to_hex(value: list[int]):
+def turn_to_hex(value: list[int]) -> str:
     """
     Returns given `value` in hex form
     """
@@ -46,7 +44,7 @@ def turn_to_hex(value: list[int]):
     return hexes
 
 
-def divider(bits: list, length: int = 8):
+def divider(bits: list, length: int = 8) -> list:
     """
     divides `bits` into `length` equal parts
     Returns `list`
@@ -57,7 +55,7 @@ def divider(bits: list, length: int = 8):
     return L
 
 
-def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE'):
+def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE') -> list:
     """
     Fills zeroes in `bits` as per Big and Little endian
     Returns `list`
@@ -75,7 +73,7 @@ def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE'):
 
 
 # initialize values from H and K
-def val_init(vals: list[str]):
+def val_init(vals: list[str]) -> list:
     """
     Initialises predetermined hex values in `vals`
     Returns `list`
@@ -93,7 +91,7 @@ def val_init(vals: list[str]):
 
 
 # pad the message to nearest next multiple of 512 and return list of 512 length chunks
-def padder(message: str):
+def padder(message: str) -> list:
     """
     Returns padded message in hex form
     as per sha256 algorithm
@@ -110,7 +108,7 @@ def padder(message: str):
     msgbits.extend([0] * padding)
     msgbits.extend(list(map(int, list(bin(msglen)[2:].zfill(64)))))
 
-    return (msgbits)
+    return msgbits
 
 
 # truth condition is integer 1
@@ -178,7 +176,7 @@ def bin_adder(i: list[int], j: list[int]):
     return sums
 
 
-def sha256(message: str):
+def sha256(message: str) -> str:
     """
     Encrypts `message` using SHA256 algorithm
     returns `hex`

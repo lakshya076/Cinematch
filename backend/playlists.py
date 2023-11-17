@@ -4,7 +4,7 @@ import pymysql, pymysql.cursors
 
 
 def create_playlist(username: str, name: str, movies: str, password: str, connection: pymysql.Connection,
-                    cursor: pymysql.cursors.Cursor):
+                    cursor: pymysql.cursors.Cursor) -> int:
     status = playlist_utils.playlist_status(username, name, cursor)
     if not status:
 
@@ -22,7 +22,7 @@ def create_playlist(username: str, name: str, movies: str, password: str, connec
 
 
 def update_password(username: str, name: str, new_pass: str, connection: pymysql.Connection,
-                    cursor: pymysql.cursors.Cursor):
+                    cursor: pymysql.cursors.Cursor) -> int:
     hashed_password = encryption.sha256(new_pass)
     del new_pass
 
@@ -36,7 +36,8 @@ def update_password(username: str, name: str, new_pass: str, connection: pymysql
     return status
 
 
-def add_movies(movies: list, username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def add_movies(movies: list, username: str, name: str, connection: pymysql.Connection,
+               cursor: pymysql.cursors.Cursor) -> int:
     status = playlist_utils.playlist_status(username, name, cursor)
     if status == 1:
         prev_movies = list(map(str, playlist_utils.get_movies(username, name, cursor)))
@@ -50,7 +51,7 @@ def add_movies(movies: list, username: str, name: str, connection: pymysql.Conne
 
 
 def remove_movies(movies: list, username: str, name: str, connection: pymysql.Connection,
-                  cursor: pymysql.cursors.Cursor):
+                  cursor: pymysql.cursors.Cursor) -> list | bool:
     prev_movies = playlist_utils.get_movies(username, name, cursor)
     movies = list(map(int, movies))
 
@@ -68,7 +69,7 @@ def remove_movies(movies: list, username: str, name: str, connection: pymysql.Co
         return False
 
 
-def delete_playlist(username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_playlist(username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
     cursor.execute(f'select * from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchone()
 
@@ -86,7 +87,7 @@ def delete_playlist(username: str, name: str, connection: pymysql.Connection, cu
         return False
 
 
-def remove_playlists(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def remove_playlists(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> tuple:
     cursor.execute(f'select username, name from deleted_playlists where curdate() > removal_date')
     data = cursor.fetchall()
 
@@ -97,7 +98,7 @@ def remove_playlists(connection: pymysql.Connection, cursor: pymysql.cursors.Cur
     return data
 
 
-def recover_playlist(username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def recover_playlist(username: str, name: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> int:
     status = playlist_utils.playlist_status(username, name, cursor)
     if status == 2:
         cursor.execute(

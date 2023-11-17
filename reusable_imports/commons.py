@@ -33,7 +33,7 @@ class ClickableFrame(QFrame):
         self.setFrameShadow(QFrame.Raised)
         self.setStyleSheet(dark_widget_stylesheet)
 
-    def mousePressEvent(self, QMouseEvent):
+    def mousePressEvent(self, event):
         self.clicked.emit()
 
 
@@ -79,7 +79,7 @@ class ErrorDialog(QMessageBox):
         self.error_dialog.setIcon(QMessageBox.Warning)
 
 
-def remove_spaces(string: str):
+def remove_spaces(string: str) -> str:
     """
     Function to remove spaces from a string and return it in lowercase
     """

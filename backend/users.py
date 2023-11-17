@@ -1,4 +1,5 @@
-import pymysql, pymysql.cursors
+import pymysql
+import pymysql.cursors
 import pandas
 
 import backend.encryption as encryption
@@ -10,7 +11,8 @@ import backend.mapping as mapping
 import backend.collaborative_filtering as collab_filter
 
 
-def register(username: str, password: str, email: str, liked: list, genres: list, langs: list, sim_table: pandas.DataFrame, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def register(username: str, password: str, email: str, liked: list, genres: list, langs: list,
+             sim_table: pandas.DataFrame, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
     """
     Registers user in the database
 
@@ -33,7 +35,8 @@ def register(username: str, password: str, email: str, liked: list, genres: list
         cursor.execute(f'insert into users values("{username}", "{hashed_password}", "{email}", 1, 0, null, null)')
 
         cursor.execute(f'insert into playlists values("{username}", "default", "Shortlist", "", 0, null, curdate())')
-        cursor.execute(f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
+        cursor.execute(
+            f'insert into mapping values("{username}", "{"-".join(liked)}", "", "{"-".join(liked)}", "{"-".join(genres)}", "{"-".join(langs)}", "{"-".join(recommended)}")')
 
         connection.commit()
         print("User Registered successfully")
@@ -43,7 +46,7 @@ def register(username: str, password: str, email: str, liked: list, genres: list
         return name_status, mail_status
 
 
-def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
+def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connection: pymysql.Connection) -> bool:
     """
     Checks login credentials from the database
     Returns `True` only if credentials are correct
@@ -62,7 +65,6 @@ def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connecti
             cursor.execute(f'update users set logged_in = 0')
             cursor.execute(f'update users set logged_in = 1 where username = "{username}"')
             connection.commit()
-
             return True
 
         else:
@@ -72,40 +74,21 @@ def login(username: str, password: str, cursor: pymysql.cursors.Cursor, connecti
         return False
 
 
-def make_premium(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
-
+def make_premium(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> int:
     status = user_utils.user_status(username, cursor)
 
     if status == 1:
         cursor.execute(f'update users set premium = 1 where username = "{username}"')
-        
+
     return status
 
 
-def logout(cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
+def logout(cursor: pymysql.cursors.Cursor, connection: pymysql.Connection) -> None:
     cursor.execute('update users set logged_in = 0')
     connection.commit()
 
 
-def forgot_password(email: str, cursor: pymysql.cursors.Cursor):
-    """
-    Sends `otp` to `email` for password recovery
-
-    returns `otp` if `email` exists in DB and can be sent to.
-    else returns `-1`
-    """
-
-    cursor.execute(f'select * from users where email="{email}"')
-    data = cursor.fetchall()
-
-    if data == ():
-        return -1
-
-    else:
-        return email.send_otp(data[0][4])
-
-
-def update_password(email: str, new_pass: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def update_password(email: str, new_pass: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
     hashed_password = encryption.sha256(new_pass)
     del new_pass
 
@@ -113,15 +96,13 @@ def update_password(email: str, new_pass: str, connection: pymysql.Connection, c
 
         cursor.execute(f'update users set password = "{hashed_password}" where email = "{email}"')
         connection.commit()
-
         return True
 
     else:
-
         return True
 
 
-def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
     cursor.execute(f'select * from users where username = "{username}"')
     data = cursor.fetchall()
 
@@ -150,7 +131,7 @@ def delete_user(username: str, connection: pymysql.Connection, cursor: pymysql.c
         return False
 
 
-def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> None:
     cursor.execute(f'select username, email from deleted_users where curdate() > removal_date')
 
     for i in cursor.fetchall():
@@ -162,7 +143,7 @@ def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor)
     connection.commit()
 
 
-def recover_user(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def recover_user(email: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
     if user_utils.user_status(email, cursor) == 2:
 
         cursor.execute(
