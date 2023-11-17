@@ -1,18 +1,14 @@
 import ctypes
-import datetime
-import os
 import shutil
 import sys
-import random
-import pandas
 
-import requests
 import PyQt5
 from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
 
+from delete_dialog import DeleteDialog
 from display_movie import DisplayMovies
 from library import Library
 from splash_screen import SplashScreen
@@ -35,6 +31,9 @@ resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 
 searched_movies = []
 search_text = ""
+
+nav_stack = [0]
+current_index = 0
 
 
 class SearchAlg(QObject):
@@ -97,7 +96,6 @@ class SearchAlg(QObject):
 
 
 class Main(QMainWindow):
-    
     def __init__(self):
         super(Main, self).__init__()
         loadUi("UI\\ui_main.ui", self)
@@ -107,12 +105,17 @@ class Main(QMainWindow):
         self.setGeometry(QRect(0, 0, resolution[0] - 20, resolution[1] - 90))
         self.expand.hide()
         self.stack.setCurrentIndex(0)
+        self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
         self.user_settings.setText(username)
+
+        # Setting navigation
+        self.back.clicked.connect(self.back_nav)
+        self.forward.clicked.connect(self.for_nav)
 
         # Hiding widgets if user has premium
         if premium == 1:
@@ -177,6 +180,7 @@ class Main(QMainWindow):
         self.credit_license.clicked.connect(self.credit_license_func)
         self.premium.clicked.connect(self.premium_func)
         self.premium_plans.clicked.connect(self.premium_plans_func)
+        self.license_button.clicked.connect(lambda: os.system("notepad.exe LICENSE.txt"))
 
         # Setting Ads
         self.ad_create.setPixmap(QPixmap(random.choice(ad)))
@@ -217,11 +221,57 @@ class Main(QMainWindow):
                                       layout=self.languages_hlayout, open_func_lib=self.open_home_search)
         print("Populated Home Screen")
 
+    def back_nav(self):
+        global current_index, nav_stack
+
+        try:
+            self.back.setEnabled(True)
+            self.stack.setCurrentIndex(nav_stack[current_index - 1])
+            current_index -= 1
+            print(nav_stack, current_index)
+
+        except IndexError:
+            self.back.setDisabled(True)
+            current_index = 0
+
+        if current_index == 0:
+            self.back.setDisabled(True)
+
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+    def for_nav(self):
+        global current_index, nav_stack
+
+        try:
+            self.forward.setEnabled(True)
+            self.stack.setCurrentIndex(nav_stack[current_index + 1])
+            current_index += 1
+
+            print(nav_stack, current_index)
+        except IndexError:
+            self.forward.setDisabled(True)
+            current_index = nav_stack.index(nav_stack[-1])
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+
     def home_func(self):
         """
         Function to switch to the home widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(0)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 0)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -230,7 +280,18 @@ class Main(QMainWindow):
         """
         Function to switch to the search widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(1)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 1)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         self.search_box.setFocus()
         self.findnext_collapse.setChecked(True)
         if self.expand.isVisible():
@@ -241,7 +302,18 @@ class Main(QMainWindow):
         """
         Function to switch to the random widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(2)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 2)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -250,7 +322,18 @@ class Main(QMainWindow):
         """
         Function to switch to the shortlist widget in the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(3)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 3)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
 
@@ -259,6 +342,7 @@ class Main(QMainWindow):
             Opens the clicked movie on the shortlist page
             Function is passed a parameter in display_new_widgets function of DisplayMovies class
             """
+            global current_index, nav_stack
             sender = display.sender()
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
@@ -268,6 +352,16 @@ class Main(QMainWindow):
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
+                nav_stack = nav_stack[:current_index + 1]
+                nav_stack.insert(current_index + 1, 7)
+                current_index += 1
+
+                if nav_stack[:current_index]:
+                    self.back.setEnabled(True)
+                if nav_stack[current_index:]:
+                    self.forward.setEnabled(True)
+
+                print(nav_stack, current_index)
             except TypeError:
                 print("TypeError. Can't display movie.")
 
@@ -325,7 +419,18 @@ class Main(QMainWindow):
         Function to switch to the library widget in the stack
         The library widget displays all the playlists
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(4)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 4)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         children = len(playlists_metadata)
         lib = Library()
 
@@ -396,11 +501,22 @@ class Main(QMainWindow):
         """
         Function to display the add (create) playlist widget of the stack
         """
+        global current_index, nav_stack
         self.playlist_error.setText("")
         self.playlist_success.setText("")
         self.create_playlist_name.clear()
 
         self.stack.setCurrentIndex(5)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 5)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -409,7 +525,18 @@ class Main(QMainWindow):
         """
         Function to display the settings widget of the stack
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(6)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 6)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         self.cacheclear_label.setText("")
         if self.expand.isVisible():
             self.expand.hide()
@@ -442,6 +569,7 @@ class Main(QMainWindow):
         """
         Function to open movies on home page and search page
         """
+        global current_index, nav_stack
         sender = self.sender()
         _id = sender.objectName().split(sep="_")[-1]
 
@@ -451,6 +579,16 @@ class Main(QMainWindow):
                             _genre=self.display_genre, _date=self.display_date,
                             _shortlist_but=self.display_add_toshortlist)
             self.stack.setCurrentIndex(7)
+            nav_stack = nav_stack[:current_index + 1]
+            nav_stack.insert(current_index + 1, 7)
+            current_index += 1
+
+            if nav_stack[:current_index]:
+                self.back.setEnabled(True)
+            if nav_stack[current_index:]:
+                self.forward.setEnabled(True)
+
+            print(nav_stack, current_index)
         except TypeError:
             print(f"Can't display {_id}")
 
@@ -666,7 +804,18 @@ class Main(QMainWindow):
         """
         Function to open Credits/License Window
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(9)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 9)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -675,7 +824,18 @@ class Main(QMainWindow):
         """
         Function to open Premium Window if user doesn't have premium
         """
+        global current_index, nav_stack
         self.stack.setCurrentIndex(10)
+        nav_stack = nav_stack[:current_index + 1]
+        nav_stack.insert(current_index + 1, 10)
+        current_index += 1
+
+        if nav_stack[:current_index]:
+            self.back.setEnabled(True)
+        if nav_stack[current_index:]:
+            self.forward.setEnabled(True)
+
+        print(nav_stack, current_index)
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -690,12 +850,14 @@ class Main(QMainWindow):
         """
         Function to delete user's account (move it to recovery table)
         """
-        # TODO ask for confirmation and warn user about waiting period. Ask for password as confirmation if possible
-        # TODO Return to login menu
+        del_dia = DeleteDialog(username)
 
-        users.delete_user(username, conn, cur)
-        print("Account Deleted")
-        self.close()
+        if del_dia.exec_() == QDialog.Accepted:
+            users.delete_user(username, conn, cur)
+            print("Account Deleted")
+            self.close()
+        else:
+            pass
 
     def clear_cache_func(self):
 
@@ -815,6 +977,9 @@ class Main(QMainWindow):
         self.credit_license.setIcon(QIcon("Icons/license_white.png"))
         self.premium.setIcon(QIcon("Icons/premium_darkmode.ico"))
 
+        self.back.setIcon(QIcon("Icons/backward_dark.ico"))
+        self.forward.setIcon(QIcon("Icons/forward_dark.ico"))
+
     def light_mode(self):
         """
         Function to change to light mode
@@ -865,16 +1030,13 @@ class Main(QMainWindow):
         self.credit_license.setIcon(QIcon("Icons/license_black.png"))
         self.premium.setIcon(QIcon("Icons/premium_lightmode.ico"))
 
+        self.back.setIcon(QIcon("Icons/backward_light.ico"))
+        self.forward.setIcon(QIcon("Icons/forward_light.ico"))
+
     def closeEvent(self, event):
         print("closing")
         print(playlists_metadata)
         print(removed_playlists)
-        # playlist metadata will be pushed to the sql table which contains information about all the playlists made by the user
-        # removed playlists will be pushed to the deleted playlist table from where the user can recover it if wanted
-        # Commit ALL THE CHANGES that happened in the common_vars.py file like if playlist is deleted or movie is
-        # deleted from playlist or a new movie playlist is created
-        # add a dialog box that asks if the user actually want to close or not
-        # or check if any bg process is running and if they are show a warning to the user
 
         for i in playlists_metadata.keys():
             playlists.add_movies(playlists_metadata[i][3], username, playlists_metadata[i][0], conn, cur)
@@ -888,8 +1050,9 @@ class Main(QMainWindow):
             playlists.delete_playlist(username, i, conn, cur)
 
         if playlists_metadata["shortlist"][3]:
-            recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur, item_similarity)
-            
+            recommendations = collaborative_filtering.recommend(playlists_metadata["shortlist"][3], cur,
+                                                                item_similarity)
+
             if len(recommendations) > 10:
                 mapping.delete_recommended_movies(get_mapping_data(username, cur)[6], username, conn, cur)
                 mapping.add_recommended_movies(recommendations, username, conn, cur)
@@ -897,23 +1060,6 @@ class Main(QMainWindow):
             else:
                 mapping.add_recommended_movies(recommendations, username, conn, cur)
 
-
-'''
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-
-    username, no_logged = init_uname()
-    playlists_metadata, playlist_picture = init_list_metadata()
-
-    splash = SplashScreen()
-
-    if splash.exec_() == QDialog.Accepted:
-        window = Main()
-        window.show()
-
-    sys.exit(app.exec_())
-
-'''
 
 if __name__ == "__main__":
 
@@ -952,14 +1098,14 @@ if __name__ == "__main__":
                 if lang_win.exec_() == QDialog.Accepted:
 
                     item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies, genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
+                                   genre_win.genres, lang_win.languages, item_similarity, conn, cur)
 
                     username, no_logged, premium = init_uname()
                     playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
 
                     splash = SplashScreen()
                     if splash.exec_() == QDialog.Accepted:
-
                         recoms, watchagain, language, random_movies = splash.movies_result[0]
                         movies_metadata = splash.movies_result[1]
                         playlists_display_metadata = splash.metadata_result[0]

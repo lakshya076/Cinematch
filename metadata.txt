@@ -34,9 +34,13 @@ Loading GIF By:
 Premium Image:
     Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=576443">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=576443">Pixabay</a>
 
-Run Order:
-Register - startup -> checklist -> genres -> language -> splash -> main
-Login - startup -> splash -> main
+Splash Screen Images:
+    1. Image by <a href="https://pixabay.com/users/bessi-909086/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=736885">bess.hamiti@gmail.com</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=736885">Pixabay</a>
+    2. Image by <a href="https://pixabay.com/users/felixmittermeier-4397258/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2695569">PayPal.me/FelixMittermeier</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2695569">Pixabay</a>
+    3. Image by <a href="https://pixabay.com/users/jplenio-7645255/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3605547">Joe</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3605547">Pixabay</a>
+    4. Image by <a href="https://pixabay.com/users/felixmittermeier-4397258/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2675322">PayPal.me/FelixMittermeier</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2675322">Pixabay</a>
+    5. Image by <a href="https://pixabay.com/users/12019-12019/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1758197">12019</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1758197">Pixabay</a>
+
 
 Exit Codes:
 
