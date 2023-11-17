@@ -1,7 +1,7 @@
 import pymysql.cursors
 
 
-def user_status(user: str, cursor: pymysql.cursors.Cursor):
+def user_status(user: str, cursor: pymysql.cursors.Cursor) -> int:
     """
     Returns `True` if username/email exists in the database, else returns `False`
     """
@@ -22,7 +22,7 @@ def user_status(user: str, cursor: pymysql.cursors.Cursor):
         return 0
 
 
-def get_email(username: str, cursor: pymysql.cursors.Cursor):
+def get_email(username: str, cursor: pymysql.cursors.Cursor) -> str | bool:
     """
     Returns the email of a user, given the username
     Returns `False` if user doesn't exist
@@ -38,7 +38,7 @@ def get_email(username: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def get_username(email: str, cursor: pymysql.cursors.Cursor):
+def get_username(email: str, cursor: pymysql.cursors.Cursor) -> str | bool:
     """
     Returns the username of a user, given the email
     Returns `False` if user doesn't exist
@@ -61,7 +61,7 @@ def get_username(email: str, cursor: pymysql.cursors.Cursor):
             return False
 
 
-def get_password(user: str, cursor: pymysql.cursors.Cursor):
+def get_password(user: str, cursor: pymysql.cursors.Cursor) -> str | bool:
     """
     Returns the hashed password of a user, given its username or email
     Returns `False` if user doesn't exist
@@ -77,7 +77,7 @@ def get_password(user: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def get_logged_user(cursor: pymysql.cursors.Cursor):
+def get_logged_user(cursor: pymysql.cursors.Cursor) -> str | bool:
     cursor.execute('select username from users where logged_in = 1')
     data = cursor.fetchall()
 
@@ -88,7 +88,7 @@ def get_logged_user(cursor: pymysql.cursors.Cursor):
         return False
 
 
-def is_logged_in(user: str, cursor: pymysql.cursors.Cursor):
+def is_logged_in(user: str, cursor: pymysql.cursors.Cursor) -> bool:
     cursor.execute(f'select logged_in from users where username="{user}" or email="{user}"')
     data = cursor.fetchone()
 
@@ -99,7 +99,7 @@ def is_logged_in(user: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def is_premium(user: str, cursor: pymysql.cursors.Cursor):
+def is_premium(user: str, cursor: pymysql.cursors.Cursor) -> bool | None:
     """
     Returns `True` if user is premium, else returns `False`
     """

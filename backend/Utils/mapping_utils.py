@@ -1,7 +1,17 @@
 import pymysql.cursors
 
 
-def mapping_status(username: str, cursor: pymysql.cursors.Cursor):
+def mapping_status(username: str, cursor: pymysql.cursors.Cursor) -> int:
+    """
+    Returns the status of the mapping data of a user
+
+    `1` -> exists
+
+    `2` -> exists but deleted
+
+    `3` -> doesn't exist
+    """
+
     cursor.execute(f'select * from mapping where username="{username}"')
     x = cursor.fetchall()
 
@@ -18,7 +28,11 @@ def mapping_status(username: str, cursor: pymysql.cursors.Cursor):
         return 0
 
 
-def get_mapping_data(username: str, cursor: pymysql.cursors.Cursor):
+def get_mapping_data(username: str, cursor: pymysql.cursors.Cursor) -> list:
+    """
+    Returns a compiled list of the mapping data of a user
+    """
+
     cursor.execute(f'select * from mapping where username = "{username}"')
     data = cursor.fetchall()
 
@@ -49,7 +63,11 @@ def get_mapping_data(username: str, cursor: pymysql.cursors.Cursor):
         return []
 
 
-def get_language_movies(username: str, limit: int, cursor: pymysql.cursors.Cursor):
+def get_language_movies(username: str, limit: int, cursor: pymysql.cursors.Cursor) -> list[int]:
+    """
+    Returns lates `limit` movies of the languages selected by a user
+    """
+
     cursor.execute(
         f'select id from main where release_date <= curdate() and (select languages from mapping where mapping.username = "{username}") like concat("%", main.language, "%") order by release_date desc limit {limit}')
     data = cursor.fetchall()

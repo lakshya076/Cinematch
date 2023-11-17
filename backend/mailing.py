@@ -8,7 +8,7 @@ passwd = 'tkbw uufq ziyx smnq'
 sender = "lakhya.arnav.cs.project@gmail.com"
 
 
-def send_otp(email: str):
+def send_otp(email: str) -> int:
     """
     Sends a random 6-digit `OTP` to `email`
     Returns `OTP` if `email` is valid, else returns `-1`
@@ -36,7 +36,11 @@ def send_otp(email: str):
         return -1
 
 
-def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor):
+def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Sends a mail to inform about the deletion of the user's account
+    """
+
     try:
 
         username = get_username(email, cursor)
@@ -62,7 +66,11 @@ def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def send_removal_mail(email: str, cursor: pymysql.cursors.Cursor):
+def send_removal_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Sends a mail to inform about the removal of the user's account
+    """
+
     try:
 
         username = get_username(email, cursor)

@@ -1,7 +1,17 @@
 import pymysql.cursors
 
 
-def playlist_status(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def playlist_status(username: str, name: str, cursor: pymysql.cursors.Cursor) -> int:
+    """
+    Returns the status of a playlist
+
+    `1` -> exists
+
+    `2` -> exists but deleted
+
+    `3` -> doesn't exist
+    """
+
     cursor.execute(f'select * from playlists where username="{username}" and name="{name}"')
     x = cursor.fetchall()
 
@@ -18,7 +28,11 @@ def playlist_status(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return 0
 
 
-def requires_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def requires_password(username: str, name: str, cursor: pymysql.cursors.Cursor) -> bool | int:
+    """
+    Returns whether a playlist requires password or not
+    """
+
     cursor.execute(f'select requires_password from playlists where username="{username}" and name="{name}"')
     data = cursor.fetchone()
 
@@ -29,7 +43,11 @@ def requires_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return -1
 
 
-def get_movies(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def get_movies(username: str, name: str, cursor: pymysql.cursors.Cursor) -> list[int]:
+    """
+    Returns the list of IDs of the movies in a playlist
+    """
+
     cursor.execute(f'select movies from playlists where username="{username}" and name="{name}"')
     data = cursor.fetchall()
 
@@ -44,7 +62,11 @@ def get_movies(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return []
 
 
-def get_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def get_password(username: str, name: str, cursor: pymysql.cursors.Cursor) -> str | bool:
+    """
+    Returns hashed password of a playlist
+    """
+
     cursor.execute(f'select password from playlists where username = "{username}" and name = "{name}"')
     from_normal = cursor.fetchone()
 
@@ -61,7 +83,11 @@ def get_password(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor) -> str | bool:
+    """
+    Returns type of a playlist
+    """
+
     cursor.execute(f'select type from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchall()
 
@@ -72,7 +98,11 @@ def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def get_creation_date(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def get_creation_date(username: str, name: str, cursor: pymysql.cursors.Cursor) -> str | bool:
+    """
+    Returns the date a playlist was created
+    """
+
     cursor.execute(f'select date from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchall()
 
@@ -83,15 +113,21 @@ def get_creation_date(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def get_playlists(username: str, cursor: pymysql.cursors.Cursor):
+def get_playlists(username: str, cursor: pymysql.cursors.Cursor) -> list[str]:
+    """
+    Returns the names of the playlists owned by the user
+    """
+
     cursor.execute(f'select name from playlists where username = "{username}"')
     data = cursor.fetchall()
 
     return [i[0] for i in data]
 
 
-def get_playlists_info(username: str, cursor: pymysql.cursors.Cursor):
+def get_playlists_info(username: str, cursor: pymysql.cursors.Cursor) -> list | bool:
     """
+    Returns the info of all the playlist a user has:-
+
     (username, type, name, movies, requires_password, password, date_created)
     """
 
@@ -115,14 +151,11 @@ def get_playlists_info(username: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def playlist_info(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def playlist_info(username: str, name: str, cursor: pymysql.cursors.Cursor) -> list | None:
     """
-    0 username
-    1 type
-    2 name
-    3 movies
-    4 requires_password
-    5 password
+    Returns compiled Playlists info in the following format
+
+    [username, type, name, movies, requires_password, password]
     """
 
     cursor.execute(f'select * from playlists where name = "{name}" and username = "{username}"')
