@@ -46,6 +46,10 @@ class FrameReuse:
 
 
 class Language(QDialog, FrameReuse):
+    """
+    Class to show the languages window during registration process
+    """
+
     def __init__(self):
         super(Language, self).__init__()
         loadUi("UI\\ui_language.ui", self)
@@ -54,19 +58,22 @@ class Language(QDialog, FrameReuse):
         global _obj_  # defining global variables for the whole class
 
         self.lang_flags = [False] * 8
-        '''setting up lang flags to know if a lang frame has been clicked or not so that we could select/deselect the
-        lang_frame (apply css)'''
+        '''
+        setting up lang flags to know if a lang frame has been clicked or not so that we could select/deselect the
+        lang_frame (apply css)
+        '''
 
         self.exit_button.clicked.connect(self.close_func)
 
         self.done_button.clicked.connect(self.done_func)
 
-        """The following loops below are to generate widgets (frames) with movie titles with unique
-         names. 2 separate loops are used because the scroll_area of the new_widgets require a different value
-         (scroll_area parent value for the respective QFrame) to associate the widgets of the specific loop to
-         These frames are then displayed on the screen by calling the 10 class method after the loops which put each
-         frame individually in the grid layout of their respective stacked widget
-         """
+        """
+        The following loops below are to generate widgets (frames) with movie titles with unique
+        names. 2 separate loops are used because the scroll_area of the new_widgets require a different value
+        (scroll_area parent value for the respective QFrame) to associate the widgets of the specific loop to
+        These frames are then displayed on the screen by calling the 10 class method after the loops which put each
+        frame individually in the grid layout of their respective stacked widget
+        """
         for i in range(len(lang_source)):
             self.new_widgets(number=i, title=lang_source[i], scroll_area=self.lang_scroll)
             eval(f"self.lang_scroll_vlayout.addWidget(self.frame_{i})")

@@ -42,6 +42,11 @@ class Wifi(ErrorDialog):
 
 
 class Start(QDialog):
+    """
+    This window is shown when the user is either logged out or is using Cinematch for the first time.
+    Also supports user verification during registration, resetting password and forgot password.
+    """
+
     def __init__(self):
         super(Start, self).__init__()
         loadUi("UI\\ui_startup.ui", self)

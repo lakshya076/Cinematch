@@ -60,6 +60,10 @@ session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 
 def init_uname() -> tuple:
+    """
+    Checks if the user is already logged in, if true gets the information of the user. If false, startup window is
+    opened
+    """
     print("Checking for recurring login")
     global username
     global no_logged
@@ -78,6 +82,9 @@ def init_uname() -> tuple:
 
 
 def init_list_metadata() -> tuple:
+    """
+    Gets playlist metadata of all playlists if the user is logged in
+    """
     print("Initialising playlists")
     global playlists_metadata
     global removed_playlist_movies
@@ -101,6 +108,9 @@ def init_list_metadata() -> tuple:
 
 
 def init_mapping() -> tuple:
+    """
+    Initialises the mapping data for the logged-in user
+    """
     global recoms, watchagain, language
     print('Init Mapping')
     if not no_logged:
@@ -298,7 +308,10 @@ def get_movies() -> tuple:
     return playlists_display_metadata, movies_metadata
 
 
-def get_playlist_movies(list_name: str) -> bool:
+def get_playlist_movies(list_name: str) -> list | bool:
+    """
+    Gets the list of movies and their metadata from the playlists_display_metadata dict given the playlist name
+    """
     if list_name in playlists_metadata.keys():
         return playlists_display_metadata[list_name]
     else:

@@ -29,17 +29,25 @@ from widget_generator_search import SearchMovies
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
 
+# Search
 searched_movies = []
 search_text = ""
 
+# Setting Navigation
 nav_stack = [0]
 current_index = 0
 
 
 class SearchAlg(QObject):
+    """
+    Algorithm to search movies and display in the ui, runs in separate thread
+    """
     done = pyqtSignal()
 
     def run(self):
+        """
+        Actual function to get searched movies' metadata
+        """
         global searched_movies, search_text
 
         print(f"Searching {search_text}")
@@ -222,6 +230,9 @@ class Main(QMainWindow):
         print("Populated Home Screen")
 
     def back_nav(self):
+        """
+        Function to navigate backwards in the main window
+        """
         global current_index, nav_stack
 
         try:
@@ -241,6 +252,9 @@ class Main(QMainWindow):
             self.forward.setEnabled(True)
 
     def for_nav(self):
+        """
+        Function to navigate forward in the main window
+        """
         global current_index, nav_stack
 
         try:
@@ -690,6 +704,10 @@ class Main(QMainWindow):
                 self.playlist_error.setText("Unable to add playlist")
 
     def placeholder_random(self):
+        """
+        This function is called when the randomizer button is clicked in the main window. THis function randomises the
+        movie and displays it on the random page
+        """
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
@@ -785,6 +803,10 @@ class Main(QMainWindow):
             self.loading.start()
 
     def search_put(self):
+        """
+        Function is called when the movie search is done in the worker thread and the movies will be put in the
+        search window
+        """
         self.loading.stop()
         self.label.hide()
         self.thread.quit()
@@ -860,7 +882,6 @@ class Main(QMainWindow):
             pass
 
     def clear_cache_func(self):
-
         """
         Clear cache to improve performance. Restart app to see effective changes.
         """
@@ -874,6 +895,10 @@ class Main(QMainWindow):
         self.cacheclear_label.setText("Cache cleared!")
 
     def tasteprof_func(self):
+        """
+        Function to display the user's taste profile and giving the user choice to update their taste profiles
+        (Coming in later versions)
+        """
         print("Opening Taste Dialog")
 
     def sidebar_expand_show(self):
@@ -910,6 +935,9 @@ class Main(QMainWindow):
                 self.dark_mode()
 
     def mode(self):
+        """
+        Function to set theme and change the text file related to theme
+        """
         if self.expand.isVisible():
             self.expand.hide()
             self.collapse.show()
@@ -1034,6 +1062,12 @@ class Main(QMainWindow):
         self.forward.setIcon(QIcon("Icons/forward_light.ico"))
 
     def closeEvent(self, event):
+        """
+        Function is called whenever the program is closed. This function registers all the changes happened during the
+        run of the program in the database.
+        This function also uses backend/cos_similarity.csv file to get the recommendations for the user for the next
+        run and store it in the database.
+        """
         print("closing")
         print(playlists_metadata)
         print(removed_playlists)
@@ -1063,8 +1097,9 @@ class Main(QMainWindow):
 
 if __name__ == "__main__":
 
-    username, no_logged, premium = init_uname()
+    username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
 
+    # Optimising the screen for high resolution displays
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
@@ -1077,6 +1112,7 @@ if __name__ == "__main__":
     users.remove_users(conn, cur)  # Remove deleted users if date has passed
 
     if not no_logged:
+        # This block runs if the user is already logged in
         playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
         recoms, watchagain, language = init_mapping()
         splash = SplashScreen()
