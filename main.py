@@ -234,6 +234,9 @@ class Main(QMainWindow):
             self.back.setDisabled(True)
             current_index = 0
 
+        if current_index == 0:
+            self.back.setDisabled(True)
+
         if nav_stack[current_index:]:
             self.forward.setEnabled(True)
 
