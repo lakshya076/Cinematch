@@ -110,6 +110,7 @@ class Main(QMainWindow):
 
         # Initial Checks
         self.setWindowTitle("Home - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
         self.setGeometry(QRect(0, 0, resolution[0] - 20, resolution[1] - 90))
         self.expand.hide()
         self.stack.setCurrentIndex(0)
@@ -276,6 +277,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(0)
+        self.setWindowTitle("Home - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 0)
         current_index += 1
@@ -296,6 +298,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(1)
+        self.setWindowTitle("Search - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 1)
         current_index += 1
@@ -318,6 +321,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(2)
+        self.setWindowTitle("Random - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 2)
         current_index += 1
@@ -338,6 +342,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(3)
+        self.setWindowTitle("Shortlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 3)
         current_index += 1
@@ -366,6 +371,7 @@ class Main(QMainWindow):
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
+                self.setWindowTitle("Display - Cinematch")
                 nav_stack = nav_stack[:current_index + 1]
                 nav_stack.insert(current_index + 1, 7)
                 current_index += 1
@@ -435,6 +441,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(4)
+        self.setWindowTitle("Library - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 4)
         current_index += 1
@@ -521,6 +528,7 @@ class Main(QMainWindow):
         self.create_playlist_name.clear()
 
         self.stack.setCurrentIndex(5)
+        self.setWindowTitle("Create Playlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 5)
         current_index += 1
@@ -541,6 +549,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(6)
+        self.setWindowTitle("Setting - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 6)
         current_index += 1
@@ -593,6 +602,7 @@ class Main(QMainWindow):
                             _genre=self.display_genre, _date=self.display_date,
                             _shortlist_but=self.display_add_toshortlist)
             self.stack.setCurrentIndex(7)
+            self.setWindowTitle("Display - Cinematch")
             nav_stack = nav_stack[:current_index + 1]
             nav_stack.insert(current_index + 1, 7)
             current_index += 1
@@ -627,6 +637,7 @@ class Main(QMainWindow):
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
                 self.stack.setCurrentIndex(7)
+                self.setWindowTitle("Display - Cinematch")
             except TypeError:
                 print("TypeError. Can't display movie.")
 
@@ -673,6 +684,7 @@ class Main(QMainWindow):
         self.playlist_name.setText(f"{playlists_metadata[playlist_name][0]}")
 
         self.stack.setCurrentIndex(8)
+        self.setWindowTitle("Playlist - Cinematch")
 
     def create_playlist_func(self):
         """
@@ -785,6 +797,7 @@ class Main(QMainWindow):
         search_text = self.search_box.text()
         self.search_box.clearFocus()  # Removes focus from the search box
         self.stack.setCurrentIndex(1)  # Sets stack's current index to the index corresponding to the search widget
+        self.setWindowTitle("Search - Cinematch")
 
         self.thread.start()
 
@@ -828,6 +841,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(9)
+        self.setWindowTitle("Credits/Licenses - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 9)
         current_index += 1
@@ -848,6 +862,7 @@ class Main(QMainWindow):
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(10)
+        self.setWindowTitle("Premium - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 10)
         current_index += 1

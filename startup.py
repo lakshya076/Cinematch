@@ -1,6 +1,7 @@
 import re
 import sys
 import requests
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QApplication, QLineEdit
 from PyQt5.uic import loadUi
 
@@ -51,6 +52,7 @@ class Start(QDialog):
         super(Start, self).__init__()
         loadUi("UI\\ui_startup.ui", self)
         self.setWindowTitle("Welcome to Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
         self.stack.setCurrentIndex(0)
 
         self.register_startup.clicked.connect(self.redirect_register)

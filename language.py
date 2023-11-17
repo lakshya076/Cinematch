@@ -54,6 +54,7 @@ class Language(QDialog, FrameReuse):
         super(Language, self).__init__()
         loadUi("UI\\ui_language.ui", self)
         self.setWindowTitle("Select Languages - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
 
         global _obj_  # defining global variables for the whole class
 

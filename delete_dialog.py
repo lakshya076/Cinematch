@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 
@@ -13,7 +14,8 @@ class DeleteDialog(QDialog):
         """
         super(DeleteDialog, self).__init__()
         loadUi("UI\\ui_deletedialog.ui", self)
-        self.setWindowTitle("Cinematch - Delete Account")
+        self.setWindowTitle("Delete Account - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
 
         self.setModal(False)
 

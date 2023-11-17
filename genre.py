@@ -54,6 +54,7 @@ class Genre(QDialog, FrameReuse):
         super(Genre, self).__init__()
         loadUi("UI\\ui_genre.ui", self)
         self.setWindowTitle("Select Genres - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
 
         global _obj_  # defining global variables for the whole class
 

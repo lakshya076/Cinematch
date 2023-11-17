@@ -63,6 +63,7 @@ class Checklist(QDialog, FrameReuse):
         super(Checklist, self).__init__()
         loadUi("UI\\ui_checklist.ui", self)
         self.setWindowTitle("Select Movies - Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
         self.stack.setCurrentIndex(0)  # At the start the popular movies are shown first
 
         global _obj_  # defining global variables for the whole class
