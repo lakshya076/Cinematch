@@ -15,11 +15,11 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
 - [Python 3.10 or later version](https://www.python.org/downloads/)
 - Packages mentioned in the `requirements.txt` file.
   #### For Windows
-  ```
+  ```python3
   pip install -r requirements.txt
   ```
   #### For Linux/Unix
-  ```
+  ```python3
   pip3 install -r requirements.txt
   ```
   
