@@ -14,6 +14,11 @@ from reusable_imports.common_vars import get_data, get_movies
 randlist = ["one.png", "two.png", "three.png", "four.png", "five.png"]
 randimg = random.choices(randlist, weights=[0.4, 0.05, 0.2, 0.05, 0.3], k=1)  # Adding weighted random choices in splash
 
+disp_msg_list = ["Having <i>Dahi Shakkar</i> for good luck", "Praying to God that no bugs are encountered.",
+                 "Never Gonna Give You Up!", "Once Upon A Time....",
+                 "Expect disappointment and you'll never be disappointed.", "Huh"]
+disp_msg = random.choice(disp_msg_list)
+
 
 class WorkerOne(QObject):
     done = pyqtSignal()
@@ -80,13 +85,13 @@ class SplashScreen(QDialog):
         time.sleep(2)
 
     def two(self):
-        self.doing.setText("Having <i>Dahi Shakkar</i> for good luck")
+        self.doing.setText(disp_msg)
         self.progress.setValue(random.choice(range(60, 85)))
-        time.sleep(1)
+        time.sleep(2)
 
         self.doing.setText("Manifesting 🤌🤌")
         self.progress.setValue(95)
-        time.sleep(1)
+        time.sleep(0.5)
 
         self.doing.setText("All Set")
         self.progress.setValue(100)
