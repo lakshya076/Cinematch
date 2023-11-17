@@ -1355,7 +1355,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>9</number>
+            <number>0</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1387,7 +1387,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>288</width>
+                  <width>940</width>
                <height>1233</height>
               </rect>
              </property>
@@ -1436,7 +1436,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>98</width>
+                      <width>922</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1504,7 +1504,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>98</width>
+                      <width>922</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1572,7 +1572,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>98</width>
+                      <width>922</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -3884,8 +3884,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>832</width>
-               <height>481</height>
+                  <width>957</width>
+                  <height>653</height>
               </rect>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -4015,6 +4015,18 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item>
+                     <widget class="QLabel" name="label_40">
+                         <property name="styleSheet">
+                             <string notr="true">font:12pt;
+                                 text-align:left;
+                             </string>
+                         </property>
+                         <property name="text">
+                             <string>Get access to only 9000 movies for recommendation</string>
+                         </property>
+                     </widget>
+                 </item>
+                    <item>
                   <widget class="QPushButton" name="pushButton">
                    <property name="minimumSize">
                     <size>
@@ -4239,6 +4251,18 @@ p, li { white-space: pre-wrap; }
                    </property>
                    <property name="text">
                     <string>Unlimited Playlists</string>
+                   </property>
+                  </widget>
+                 </item>
+                    <item>
+                        <widget class="QLabel" name="label_41">
+                            <property name="styleSheet">
+                                <string notr="true">font:12pt;
+                                    text-align:left;
+                                </string>
+                            </property>
+                            <property name="text">
+                                <string>Get full access to the whole library of 600K Movies</string>
                    </property>
                   </widget>
                  </item>
