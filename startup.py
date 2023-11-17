@@ -13,7 +13,7 @@ from backend.Utils import user_utils
 error_css = "border: 2px solid red;font:14pt;border-radius:10px;padding:2 10px;"
 mail_reg = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 user_reg = r'^[a-zA-Z_.]{3,}$'
-pass_reg = r"^[A-Za-z0-9!@#$%^&*()_+-={}:\";',./<>?|\[\]]{8,20}"
+pass_reg = r"^[A-Za-z0-9!@#\$%\^&\*\(\)_\+\-\=\{\}\:\"\;\'\,\.\/\<\>\?\|\[\]]{8,20}"
 
 
 def wifi_availability() -> bool:
