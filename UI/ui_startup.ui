@@ -307,6 +307,19 @@ font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
                   <widget class="QWidget" name="signup">
                       <layout class="QVBoxLayout" name="verticalLayout_10">
                           <item>
+                              <spacer name="verticalSpacer_28">
+                                  <property name="orientation">
+                                      <enum>Qt::Vertical</enum>
+                                  </property>
+                                  <property name="sizeHint" stdset="0">
+                                      <size>
+                                          <width>20</width>
+                                          <height>40</height>
+                                      </size>
+                                  </property>
+                              </spacer>
+                          </item>
+                          <item>
                               <widget class="QLabel" name="registerlabel">
                                   <property name="styleSheet">
                                       <string notr="true">font: 36pt &quot;MS Shell Dlg 2&quot;;
@@ -478,7 +491,7 @@ padding: 2 10px;
                                                       <enum>Qt::Vertical</enum>
                                                   </property>
                                                   <property name="sizeType">
-                                                      <enum>QSizePolicy::Fixed</enum>
+                                                      <enum>QSizePolicy::Expanding</enum>
                                                   </property>
                                                   <property name="sizeHint" stdset="0">
                                                       <size>
@@ -537,74 +550,63 @@ color:rgb(0,0,0);</string>
                                                   </item>
                                               </layout>
                                           </item>
+                                          <item>
+                                              <widget class="QLabel" name="error_register">
+                                                  <property name="minimumSize">
+                                                      <size>
+                                                          <width>0</width>
+                                                          <height>31</height>
+                                                      </size>
+                                                  </property>
+                                                  <property name="styleSheet">
+                                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+                                          color:red;
+                                      </string>
+                                                  </property>
+                                                  <property name="text">
+                                                      <string/>
+                                                  </property>
+                                              </widget>
+                                          </item>
+                                          <item>
+                                              <spacer name="verticalSpacer_27">
+                                                  <property name="orientation">
+                                                      <enum>Qt::Vertical</enum>
+                                                  </property>
+                                                  <property name="sizeHint" stdset="0">
+                                                      <size>
+                                                          <width>20</width>
+                                                          <height>10</height>
+                                                      </size>
+                                                  </property>
+                                              </spacer>
+                                          </item>
+                                          <item>
+                                              <widget class="QPushButton" name="register_button">
+                                                  <property name="minimumSize">
+                                                      <size>
+                                                          <width>341</width>
+                                                          <height>51</height>
+                                                      </size>
+                                                  </property>
+                                                  <property name="cursor">
+                                                      <cursorShape>PointingHandCursor</cursorShape>
+                                                  </property>
+                                                  <property name="styleSheet">
+                                                      <string notr="true">border-radius:10px;
+                                                  background-color:rgb(240, 234, 214);
+                                                  font: 18pt &quot;MS Shell Dlg 2&quot;;
+                                              </string>
+                                                  </property>
+                                                  <property name="text">
+                                                      <string>Register</string>
+                                                  </property>
+                                              </widget>
+                                          </item>
                                       </layout>
                                   </item>
                                   <item>
                                       <spacer name="horizontalSpacer_6">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                              </layout>
-                          </item>
-                          <item>
-                              <widget class="QLabel" name="error_register">
-                                  <property name="styleSheet">
-                                      <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
-                                          color:red;
-                                      </string>
-                                  </property>
-                                  <property name="text">
-                                      <string/>
-                                  </property>
-                              </widget>
-                          </item>
-                          <item>
-                              <layout class="QHBoxLayout" name="horizontalLayout_12">
-                                  <item>
-                                      <spacer name="horizontalSpacer_22">
-                                          <property name="orientation">
-                                              <enum>Qt::Horizontal</enum>
-                                          </property>
-                                          <property name="sizeHint" stdset="0">
-                                              <size>
-                                                  <width>40</width>
-                                                  <height>20</height>
-                                              </size>
-                                          </property>
-                                      </spacer>
-                                  </item>
-                                  <item>
-                                      <widget class="QPushButton" name="register_button">
-                                          <property name="minimumSize">
-                                              <size>
-                                                  <width>341</width>
-                                                  <height>51</height>
-                                              </size>
-                                          </property>
-                                          <property name="cursor">
-                                              <cursorShape>PointingHandCursor</cursorShape>
-                                          </property>
-                                          <property name="styleSheet">
-                                              <string notr="true">border-radius:10px;
-                                                  background-color:rgb(240, 234, 214);
-                                                  font: 18pt &quot;MS Shell Dlg 2&quot;;
-                                              </string>
-                                          </property>
-                                          <property name="text">
-                                              <string>Register</string>
-                                          </property>
-                                      </widget>
-                                  </item>
-                                  <item>
-                                      <spacer name="horizontalSpacer_23">
                                           <property name="orientation">
                                               <enum>Qt::Horizontal</enum>
                                           </property>
@@ -1736,7 +1738,6 @@ font: 18pt &quot;MS Shell Dlg 2&quot;;</string>
  <tabstops>
   <tabstop>register_startup</tabstop>
   <tabstop>login_startup</tabstop>
-  <tabstop>register_button</tabstop>
  </tabstops>
  <resources/>
  <connections/>
