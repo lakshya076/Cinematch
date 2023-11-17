@@ -2,15 +2,21 @@ import pandas
 import pymysql, pymysql.cursors
 import backend.Utils.movie_utils as movie_utils
 
-
 def get_similar(id, rating, sim_table: pandas.DataFrame) -> float:
+    """
+    Returns Cosine similarity scores of a movie w.r.t. all movies in the `sim_table` database
+    in ascending order 
+    """
     sim_score = sim_table[id] * (rating - 2.5)
     sim_score = sim_score.sort_values(ascending=False)
 
     return sim_score
 
 
-def recommend(ids: list, cursor: pymysql.cursors.Cursor, sim_table: pandas.DataFrame) -> list:
+def recommend(ids: list, cursor: pymysql.cursors.Cursor, sim_table: pandas.DataFrame) -> list[int]:
+    """
+    Returns recommended movies using collab filtering
+    """
     ratings = []
     recommends = []
     for i in ids:

@@ -2,7 +2,7 @@ import pymysql
 import pymysql.cursors
 
 
-def phrase_former(phrase: str, sep: str) -> list:
+def phrase_former(phrase: str, sep: str) -> list[str]:
     phrase_list = []
     split_phrase = phrase.split()
 
@@ -14,7 +14,7 @@ def phrase_former(phrase: str, sep: str) -> list:
     return phrase_list[1:]
 
 
-def search(phrase: str, cursor: pymysql.cursors.Cursor) -> list:
+def search(phrase: str, cursor: pymysql.cursors.Cursor) -> list[int]:
     """
     search for movies using `phrase`
     """

@@ -44,7 +44,7 @@ def turn_to_hex(value: list[int]) -> str:
     return hexes
 
 
-def divider(bits: list, length: int = 8) -> list:
+def divider(bits: list, length: int = 8) -> list[list[int]]:
     """
     divides `bits` into `length` equal parts
     Returns `list`
@@ -73,7 +73,7 @@ def fillZeros(bits: list[int], length: int = 8, endian: str = 'LE') -> list:
 
 
 # initialize values from H and K
-def val_init(vals: list[str]) -> list:
+def val_init(vals: list[str]) -> list[list[int]]:
     """
     Initialises predetermined hex values in `vals`
     Returns `list`
@@ -91,7 +91,7 @@ def val_init(vals: list[str]) -> list:
 
 
 # pad the message to nearest next multiple of 512 and return list of 512 length chunks
-def padder(message: str) -> list:
+def padder(message: str) -> list[int]:
     """
     Returns padded message in hex form
     as per sha256 algorithm
@@ -159,7 +159,7 @@ def rotr(x: list[int], n: int): return x[-n:] + x[:-n]
 def shr(x: list[int], n: int): return n * [0] + x[:-n]
 
 
-def bin_adder(i: list[int], j: list[int]):
+def bin_adder(i: list[int], j: list[int]) -> list[int]:
     """
     Full binary adder without the final carry-over
     returns `list`
@@ -179,6 +179,7 @@ def bin_adder(i: list[int], j: list[int]):
 def sha256(message: str) -> str:
     """
     Encrypts `message` using SHA256 algorithm
+    
     returns `hex`
     """
 

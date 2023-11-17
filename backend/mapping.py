@@ -4,6 +4,9 @@ from backend.Utils.mapping_utils import get_mapping_data, mapping_status
 
 def add_liked_movies(movies: list, username: str, connection: pymysql.Connection,
                      cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Adds liked movies in the MySQL database
+    """
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[1]
     movies = list(map(int, movies))
@@ -22,7 +25,11 @@ def add_liked_movies(movies: list, username: str, connection: pymysql.Connection
         return False
 
 
-def add_disliked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def add_disliked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Adds disliked movies in the MySQL database
+    """
+    
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[2]
     movies = list(map(int, movies))
@@ -41,7 +48,11 @@ def add_disliked_movies(movies: list, username: str, connection: pymysql.Connect
         return False
 
 
-def add_watched_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def add_watched_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Adds watched movies in the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[3]
     movies = list(map(int, movies))
@@ -60,7 +71,11 @@ def add_watched_movies(movies: list, username: str, connection: pymysql.Connecti
         return False
 
 
-def add_recommended_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def add_recommended_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Adds recommended movies in the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
 
     if og_data:
@@ -80,7 +95,11 @@ def add_recommended_movies(movies: list, username: str, connection: pymysql.Conn
         return False
 
 
-def add_languages(langs: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def add_languages(langs: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Adds languages in the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_langs = og_data[5]
 
@@ -98,7 +117,11 @@ def add_languages(langs: list, username: str, connection: pymysql.Connection, cu
         return False
 
 
-def add_liked_genres(genres: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def add_liked_genres(genres: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Adds liked genres in the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_genres = og_data[4]
 
@@ -116,7 +139,11 @@ def add_liked_genres(genres: list, username: str, connection: pymysql.Connection
         return False
 
 
-def delete_liked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_liked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Removes liked movies from the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[1]
     movies = list(map(int, movies))
@@ -134,7 +161,11 @@ def delete_liked_movies(movies: list, username: str, connection: pymysql.Connect
         return False
 
 
-def delete_disliked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_disliked_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Removes disliked movies from the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[2]
     movies = list(map(int, movies))
@@ -152,7 +183,11 @@ def delete_disliked_movies(movies: list, username: str, connection: pymysql.Conn
         return False
 
 
-def delete_watched_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_watched_movies(movies: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Removes watched movies from the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[3]
     movies = list(map(int, movies))
@@ -171,7 +206,11 @@ def delete_watched_movies(movies: list, username: str, connection: pymysql.Conne
 
 
 def delete_recommended_movies(movies: list, username: str, connection: pymysql.Connection,
-                              cursor: pymysql.cursors.Cursor):
+                              cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Removes recommended movies from the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_movies = og_data[6]
     movies = list(map(int, movies))
@@ -189,7 +228,11 @@ def delete_recommended_movies(movies: list, username: str, connection: pymysql.C
         return False
 
 
-def delete_languages(langs: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_languages(langs: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Removes languages from the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_langs = og_data[5]
 
@@ -206,7 +249,11 @@ def delete_languages(langs: list, username: str, connection: pymysql.Connection,
         return False
 
 
-def delete_liked_genres(genres: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_liked_genres(genres: list, username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    Removes liked genres from the MySQL database
+    """
+
     og_data = get_mapping_data(username, cursor)
     og_genres = og_data[4]
 
@@ -223,7 +270,11 @@ def delete_liked_genres(genres: list, username: str, connection: pymysql.Connect
         return False
 
 
-def delete_mapping(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def delete_mapping(username: str, connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> bool | int:
+    """
+    Removes mapping from the MySQL database and moves it into deletion period
+    """
+
     status = mapping_status(username, cursor)
 
     if status == 1:
@@ -237,6 +288,10 @@ def delete_mapping(username: str, connection: pymysql.Connection, cursor: pymysq
         return status
 
 
-def remove_mapping(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor):
+def remove_mapping(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor) -> None:
+    """
+    Removes mapping data completely from the MySQL database
+    """
+
     cursor.execute('delete from deleted_mapping where removal_date < curdate()')
     connection.commit()
