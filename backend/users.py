@@ -82,7 +82,6 @@ def make_premium(username: str, connection: pymysql.Connection, cursor: pymysql.
     return status
 
 
-
 def logout(cursor: pymysql.cursors.Cursor, connection: pymysql.Connection):
     cursor.execute('update users set logged_in = 0')
     connection.commit()

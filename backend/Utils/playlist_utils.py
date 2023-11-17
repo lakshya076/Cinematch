@@ -72,7 +72,7 @@ def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
         return False
 
 
-def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor):
+def get_creation_date(username: str, name: str, cursor: pymysql.cursors.Cursor):
     cursor.execute(f'select date from playlists where username = "{username}" and name = "{name}"')
     data = cursor.fetchall()
 
