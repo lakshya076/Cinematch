@@ -3213,7 +3213,7 @@ p, li { white-space: pre-wrap; }
                <x>0</x>
                   <y>0</y>
                <width>940</width>
-                  <height>885</height>
+                  <height>955</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -3802,6 +3802,50 @@ p, li { white-space: pre-wrap; }
                  <enum>Qt::MarkdownText</enum>
                 </property>
                 <property name="openExternalLinks">
+                    <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+                 <item>
+                     <spacer name="verticalSpacer_34">
+                         <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeType">
+                             <enum>QSizePolicy::Fixed</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                             <size>
+                                 <width>20</width>
+                                 <height>10</height>
+                             </size>
+                         </property>
+                     </spacer>
+                 </item>
+                 <item>
+                     <widget class="QLabel" name="label_39">
+                         <property name="styleSheet">
+                             <string notr="true">font:14pt;</string>
+                         </property>
+                         <property name="text">
+                             <string>Emails Powered By:</string>
+                         </property>
+                     </widget>
+                 </item>
+                 <item>
+                     <widget class="QLabel" name="label_38">
+                         <property name="styleSheet">
+                             <string notr="true">font:12pt;</string>
+                         </property>
+                         <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://my.stripo.email/&quot;&gt;&lt;span
+                                 style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Stripo&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                             </string>
+                         </property>
+                         <property name="textFormat">
+                             <enum>Qt::MarkdownText</enum>
+                         </property>
+                         <property name="openExternalLinks">
                  <bool>true</bool>
                 </property>
                </widget>
