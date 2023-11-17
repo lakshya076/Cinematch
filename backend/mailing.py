@@ -1,8 +1,11 @@
 import smtplib
-from email.message import EmailMessage
 import random
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 import pymysql.cursors
 from backend.Utils.user_utils import get_username
+from backend.mail_former import otp_2, otp_1, delete_1, delete_2, perm_delete_1, perm_delete_2
 
 passwd = 'tkbw uufq ziyx smnq'
 sender = "lakhya.arnav.cs.project@gmail.com"
@@ -17,12 +20,25 @@ def send_otp(email: str) -> int:
     try:
 
         otp = random.randint(100000, 999999)
-        message = EmailMessage()
-        message.set_content(f'Your Cinematch OTP is: {otp}')
+        message = MIMEMultipart("alternative")
 
         message['Subject'] = f'Cinematch OTP'
         message['From'] = sender
         message['To'] = email
+
+        # write the text/plain part
+        text = """
+        OTP
+        """
+
+        # write the HTML part
+        html = otp_1 + f"{otp}" + otp_2
+
+        # convert both parts to MIMEText objects and add them to the MIMEMultipart message
+        part1 = MIMEText(text, "plain")
+        part2 = MIMEText(html, "html")
+        message.attach(part1)
+        message.attach(part2)
 
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.login(sender, passwd)
@@ -43,14 +59,22 @@ def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
     try:
         username = get_username(email, cursor)
 
-        message = EmailMessage()
-
-        message_content = f'Dear {username},\n\nYour Cinematch account has been deleted, and will be removed from the database after 30 days.\nIf you want to recover your account, visit our application.'
-        message.set_content(message_content)
+        message = MIMEMultipart("alternative")
 
         message['Subject'] = f'Cinematch Account Deletion'
         message['From'] = sender
         message['To'] = email
+
+        text = """
+        Deletion
+        """
+
+        html = delete_1 + f"{username}" + delete_2
+
+        part1 = MIMEText(text, "plain")
+        part2 = MIMEText(html, "html")
+        message.attach(part1)
+        message.attach(part2)
 
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.login(sender, passwd)
@@ -72,14 +96,25 @@ def send_removal_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
         username = get_username(email, cursor)
 
         if username:
-            message = EmailMessage()
-
-            message_content = f'Dear {username},\n\nYour Cinematch account has been removed and cannot be recovered from our database.'
-            message.set_content(message_content)
+            message = MIMEMultipart("alternative")
 
             message['Subject'] = f'Cinematch Account Removal'
             message['From'] = sender
             message['To'] = email
+
+            # write the text/plain part
+            text = """
+            Delete Account Permanent
+            """
+
+            # write the HTML part
+            html = perm_delete_1 + f"{username}" + perm_delete_2
+
+            # convert both parts to MIMEText objects and add them to the MIMEMultipart message
+            part1 = MIMEText(text, "plain")
+            part2 = MIMEText(html, "html")
+            message.attach(part1)
+            message.attach(part2)
 
             server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
             server.login(sender, passwd)
