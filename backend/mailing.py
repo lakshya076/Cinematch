@@ -88,13 +88,11 @@ def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
         return False
 
 
-def send_removal_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
+def send_removal_mail(username: str, email: str) -> bool:
     """
     Sends a mail to inform about the removal of the user's account
     """
     try:
-        username = get_username(email, cursor)
-
         if username:
             message = MIMEMultipart("alternative")
 

@@ -138,7 +138,10 @@ def remove_users(connection: pymysql.Connection, cursor: pymysql.cursors.Cursor)
         cursor.execute(f'delete from deleted_users where username = "{i[0]}"')
         mapping.remove_mapping(connection, cursor)
         playlists.remove_playlists(connection, cursor)
-        mailing.send_removal_mail(i[1], cursor)
+        if mailing.send_removal_mail(i[0], i[1]):
+            print("User removed.")
+        else:
+            print("User removed email not sent.")
 
     connection.commit()
 
