@@ -39,6 +39,7 @@ def send_otp(email: str) -> int:
 def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
     """
     Sends a mail to inform about the deletion of the user's account
+    """
     try:
         username = get_username(email, cursor)
 
