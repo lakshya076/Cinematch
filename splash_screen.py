@@ -1,10 +1,9 @@
-import platform
+
 import random
-import sys
 import time
 
 from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal, QRect
-from PyQt5.QtGui import QCursor, QPainter, QImage
+from PyQt5.QtGui import QCursor, QPainter, QImage, QIcon
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 
@@ -53,6 +52,7 @@ class SplashScreen(QDialog):
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setCursor(QCursor(Qt.BlankCursor))
         self.setWindowTitle("Loading Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
 
         self.thread = QThread(self)
 

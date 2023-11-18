@@ -10,23 +10,6 @@ from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
 
-from delete_dialog import DeleteDialog
-from display_movie import DisplayMovies
-from library import Library
-from splash_screen import SplashScreen
-from widget_generator_home import Home
-from startup import Start
-from checklist import Checklist
-from genre import Genre
-from language import Language
-
-from reusable_imports._css import *
-from reusable_imports.common_vars import *
-from reusable_imports.commons import clickable, remove_spaces
-from backend.Utils.movie_utils import *
-from backend import playlists, users, movie_search, collaborative_filtering, mapping
-from widget_generator_search import SearchMovies
-
 # only for windows (get resolution)
 user = ctypes.windll.user32
 resolution = [user.GetSystemMetrics(0), user.GetSystemMetrics(1)]
@@ -253,6 +236,10 @@ class Main(QMainWindow):
 
         if current_index == 0:
             self.back.setDisabled(True)
+
+        if nav_stack[0] != 0:
+            nav_stack.insert(0, 0)
+            current_index += 1
 
         if nav_stack[current_index:]:
             self.forward.setEnabled(True)
@@ -1123,7 +1110,7 @@ if __name__ == "__main__":
         print("This program only works on Windows systems")
         sys.exit(-2)
 
-    username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
+    from prerequisites import Prerequisite, url, path
 
     # Optimising the screen for high resolution displays
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -1133,62 +1120,90 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
-    start_win = Start()
+    pre_win = Prerequisite()
+    print(url, path)
 
-    users.remove_users(conn, cur)  # Remove deleted users if date has passed
-    users.reminder_remove(conn, cur)  # Sends a reminder email if the user account is scheduled to delete the next day
+    if pre_win.exec_() == QDialog.Accepted:
+        print("Starting up main process")
+        from delete_dialog import DeleteDialog
+        from display_movie import DisplayMovies
+        from library import Library
+        from splash_screen import SplashScreen
+        from widget_generator_home import Home
+        from startup import Start
+        from checklist import Checklist
+        from genre import Genre
+        from language import Language
 
-    if not no_logged:
-        # This block runs if the user is already logged in
-        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
-        recoms, watchagain, language = init_mapping()
-        splash = SplashScreen()
+        from reusable_imports._css import *
+        from reusable_imports.common_vars import *
+        from reusable_imports.commons import clickable, remove_spaces
+        from backend.Utils.movie_utils import *
+        from backend import playlists, users, movie_search, collaborative_filtering, mapping
+        from widget_generator_search import SearchMovies
 
-        if splash.exec_() == QDialog.Accepted:
-            item_similarity = pandas.read_csv(recommendation_path, index_col=0)
-            recoms, watchagain, language, random_movies = splash.movies_result[0]
-            movies_metadata = splash.movies_result[1]
-            window = Main()
-            window.show()
+        username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
 
-    elif start_win.exec_() == 1:  # User registered
-        checklist_win = Checklist()
-        genre_win = Genre()
-        lang_win = Language()
+        start_win = Start()
 
-        if checklist_win.exec_() == QDialog.Accepted:
-            if genre_win.exec_() == QDialog.Accepted:
-                if lang_win.exec_() == QDialog.Accepted:
+        users.remove_users(conn, cur)  # Remove deleted users if date has passed
+        users.reminder_remove(conn,
+                              cur)  # Sends a reminder email if the user account is scheduled to delete the next day
 
-                    item_similarity = pandas.read_csv(recommendation_path, index_col=0)
-                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
-                                   genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+        if not no_logged:
+            # This block runs if the user is already logged in
+            playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+            recoms, watchagain, language = init_mapping()
+            splash = SplashScreen()
 
-                    username, no_logged, premium = init_uname()
-                    playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+            if splash.exec_() == QDialog.Accepted:
+                item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                print("CSV Loaded")
+                recoms, watchagain, language, random_movies = splash.movies_result[0]
+                movies_metadata = splash.movies_result[1]
+                window = Main()
+                window.show()
 
-                    splash = SplashScreen()
-                    if splash.exec_() == QDialog.Accepted:
-                        recoms, watchagain, language, random_movies = splash.movies_result[0]
-                        movies_metadata = splash.movies_result[1]
-                        playlists_display_metadata = splash.metadata_result[0]
+        elif start_win.exec_() == 1:  # User registered
+            checklist_win = Checklist()
+            genre_win = Genre()
+            lang_win = Language()
 
-                        print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
-                        window = Main()
-                        window.show()
+            if checklist_win.exec_() == QDialog.Accepted:
+                if genre_win.exec_() == QDialog.Accepted:
+                    if lang_win.exec_() == QDialog.Accepted:
 
-    elif start_win.exec_() == 2:  # User logged in
-        username, no_logged, premium = init_uname()
-        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
-        recoms, watchagain, language = init_mapping()
+                        item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                        print("CSV Loaded")
+                        users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
+                                       genre_win.genres, lang_win.languages, item_similarity, conn, cur)
 
-        splash = SplashScreen()
+                        username, no_logged, premium = init_uname()
+                        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
 
-        if splash.exec_() == QDialog.Accepted:
-            item_similarity = pandas.read_csv(recommendation_path, index_col=0)
-            recoms, watchagain, language, random_movies = splash.movies_result[0]
-            movies_metadata = splash.movies_result[1]
-            window = Main()
-            window.show()
+                        splash = SplashScreen()
+                        if splash.exec_() == QDialog.Accepted:
+                            recoms, watchagain, language, random_movies = splash.movies_result[0]
+                            movies_metadata = splash.movies_result[1]
+                            playlists_display_metadata = splash.metadata_result[0]
+
+                            print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
+                            window = Main()
+                            window.show()
+
+        elif start_win.exec_() == 2:  # User logged in
+            username, no_logged, premium = init_uname()
+            playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+            recoms, watchagain, language = init_mapping()
+
+            splash = SplashScreen()
+
+            if splash.exec_() == QDialog.Accepted:
+                item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                print("CSV Loaded")
+                recoms, watchagain, language, random_movies = splash.movies_result[0]
+                movies_metadata = splash.movies_result[1]
+                window = Main()
+                window.show()
 
     sys.exit(app.exec_())

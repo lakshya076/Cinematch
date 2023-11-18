@@ -15,33 +15,9 @@ Sidebar - #313A46
 Central Widget - #24292E
 Scrollbar - #C26B5C
 
-Frames (library and playlist) - #191c20 or #13161a (former - #111111)
-
-Decide on the Dialog Box bg color
-
-Total movies -> 355474
-
-Images used:
-    Library:
-        picture 1 - Image by <a href="https://pixabay.com/users/onkelglocke-12931647/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4609877">Andreas Glöckner</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4609877">Pixabay</a>
-        picture 2 - Image by <a href="https://pixabay.com/users/yousafbhutta-2933897/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7025904">yousafbhutta</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=7025904">Pixabay</a>
-        picture 3 - Image by <a href="https://pixabay.com/users/memorycatcher-168384/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1414156">Siggy Nowak</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1414156">Pixabay</a>
-        picture 4 - Image by <a href="https://pixabay.com/users/insspirito-1851261/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8314422">Garik Barseghyan</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8314422">Pixabay</a>
-
-Loading GIF By:
-    GIF by <a href="https://pixabay.com/users/felipedsilva-18482044/?utm_source=link-attribution&utm_medium=referral&utm_campaign=animation&utm_content=7528">felipedsilva</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=animation&utm_content=7528">Pixabay</a>
-
-Premium Image:
-    Image by <a href="https://pixabay.com/users/openclipart-vectors-30363/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=576443">OpenClipart-Vectors</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=576443">Pixabay</a>
-
-Splash Screen Images:
-    1. Image by <a href="https://pixabay.com/users/bessi-909086/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=736885">bess.hamiti@gmail.com</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=736885">Pixabay</a>
-    2. Image by <a href="https://pixabay.com/users/felixmittermeier-4397258/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2695569">PayPal.me/FelixMittermeier</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2695569">Pixabay</a>
-    3. Image by <a href="https://pixabay.com/users/jplenio-7645255/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3605547">Joe</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3605547">Pixabay</a>
-    4. Image by <a href="https://pixabay.com/users/felixmittermeier-4397258/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2675322">PayPal.me/FelixMittermeier</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2675322">Pixabay</a>
-    5. Image by <a href="https://pixabay.com/users/12019-12019/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1758197">12019</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1758197">Pixabay</a>
-
 
 Exit Codes:
 
 -2 -> OSError
+-3 -> MySQL not installed
+-4 -> MySQL Data not installed
