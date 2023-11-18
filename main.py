@@ -1,5 +1,6 @@
 import ctypes
 import os.path
+import platform
 import shutil
 import sys
 
@@ -1115,6 +1116,12 @@ class Main(QMainWindow):
 
 
 if __name__ == "__main__":
+    # Checking OS
+    if platform.system() == "Windows":
+        print("OS check completed")
+    else:
+        print("This program only works on Windows systems")
+        sys.exit(-2)
 
     username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
 
