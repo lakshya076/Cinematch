@@ -1,3 +1,4 @@
 *.ui linguist-language=XML
+*.ui linguist-detectable
 UI/* linguist-documentation=false
 UI/* linguist-vendored
