@@ -55,7 +55,7 @@ movies_metadata = {}
 
 # Common session used to load the images. The images are then cached and stored so when the program is run again,
 # images load easily.
-cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
+cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\Cache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 
@@ -150,11 +150,6 @@ def get_data() -> None:
     home screen)
     Also gets the movie data in the random and all the playlists
     """
-
-    # Common session used to load the images of all the movies in the metadata list. The images are then cached and
-    # stored so when the program is run again, images load easily.
-    cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache\\.main_img_cache"
-    session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
     # Local SQL Connection
     conn = pymysql.connect(host='localhost', user='root', password='root', database='movies')
