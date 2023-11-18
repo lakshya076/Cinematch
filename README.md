@@ -22,6 +22,8 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
   ```python3
   pip3 install -r requirements.txt
   ```
+- [MySQL 8.0.35](https://dev.mysql.com/downloads/installer/) or above
+- [MSVC Build Tools](https://visualstudio.microsoft.com/downloads/?q=build+tools)
   
 ## Contributing
 - [Pull Requests](https://github.com/lakshya076/Cinematch/pulls) are welcome but for major changes or improvements, please open an [issue](https://github.com/lakshya076/Cinematch/issues) first to discuss the changes.
