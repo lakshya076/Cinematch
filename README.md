@@ -12,6 +12,8 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
 
 
 ## Requirements
+- [MySQL 8.0.xx](https://dev.mysql.com/downloads/installer/) (set user and password = "root")
+- [MSVC Build Tools](https://visualstudio.microsoft.com/downloads/?q=build+tools) to install `PyQt5` Framework for python
 - [Python 3.10 or later version](https://www.python.org/downloads/)
 - Packages mentioned in the `requirements.txt` file.
   #### For Windows

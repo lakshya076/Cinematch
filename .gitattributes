@@ -1,0 +1,4 @@
+*.ui linguist-language=XML
+*.ui linguist-detectable=true
+UI/** linguist-detectable=true
+UI/* linguist-documentation=false

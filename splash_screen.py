@@ -1,10 +1,9 @@
-import platform
+
 import random
-import sys
 import time
 
 from PyQt5.QtCore import Qt, QThread, QObject, pyqtSignal, QRect
-from PyQt5.QtGui import QCursor, QPainter, QImage
+from PyQt5.QtGui import QCursor, QPainter, QImage, QIcon
 from PyQt5.QtWidgets import QDialog
 from PyQt5.uic import loadUi
 
@@ -15,8 +14,9 @@ randlist = ["one.png", "two.png", "three.png", "four.png", "five.png"]
 randimg = random.choices(randlist, weights=[0.4, 0.05, 0.2, 0.05, 0.3], k=1)  # Adding weighted random choices in splash
 
 disp_msg_list = ["Having <i>Dahi Shakkar</i> for good luck", "Praying to God that no bugs are encountered.",
-                 "Never Gonna Give You Up!", "Once Upon A Time....",
-                 "Expect disappointment and you'll never be disappointed.", "Huh"]
+                 "Never Gonna Give You Up!", "Once Upon A Time....", "Hello World!", "Women ☕",
+                 "We might steal all your data", "Expect disappointment and you'll never be disappointed.",
+                 "Huh", "Who's Joe?", "Sending data to Chin- I mean, our servers"]
 disp_msg = random.choice(disp_msg_list)
 
 
@@ -48,16 +48,11 @@ class SplashScreen(QDialog):
         super(SplashScreen, self).__init__()
         loadUi("UI\\ui_splashscreen.ui", self)
 
-        # Checking OS
-        if platform.system() == "Windows":
-            print("OS check completed")
-        else:
-            print("This program only works on Windows systems")
-            sys.exit(-2)
-
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setCursor(QCursor(Qt.BlankCursor))
+        self.setWindowTitle("Loading Cinematch")
+        self.setWindowIcon(QIcon("Icons/logo.png"))
 
         self.thread = QThread(self)
 
@@ -100,6 +95,12 @@ class SplashScreen(QDialog):
         self.metadata_result = self.worker_one.result
         self.thread.exit()
         self.accept()
+
+    def reject(self):
+        pass
+
+    def closeEvent(self, a0):
+        pass
 
     def mousePressEvent(self, event):
         event.ignore()

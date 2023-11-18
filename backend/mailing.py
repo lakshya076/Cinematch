@@ -5,7 +5,8 @@ from email.mime.text import MIMEText
 
 import pymysql.cursors
 from backend.Utils.user_utils import get_username
-from backend.mail_former import otp_2, otp_1, delete_1, delete_2, perm_delete_1, perm_delete_2
+from backend.mail_former import otp_2, otp_1, delete_1, delete_2, perm_delete_1, perm_delete_2, reminder_remove_2, \
+    reminder_remove_1
 
 passwd = 'tkbw uufq ziyx smnq'
 sender = "lakhya.arnav.cs.project@gmail.com"
@@ -107,6 +108,43 @@ def send_removal_mail(username: str, email: str) -> bool:
 
             # write the HTML part
             html = perm_delete_1 + f"{username}" + perm_delete_2
+
+            # convert both parts to MIMEText objects and add them to the MIMEMultipart message
+            part1 = MIMEText(text, "plain")
+            part2 = MIMEText(html, "html")
+            message.attach(part1)
+            message.attach(part2)
+
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.login(sender, passwd)
+
+            server.send_message(message)
+            server.quit()
+
+            return True
+
+        return False
+
+    except:
+        return False
+
+
+def send_reminder_mail(username: str, email: str) -> bool:
+    try:
+        if username:
+            message = MIMEMultipart("alternative")
+
+            message['Subject'] = f'Cinematch Account Removal Reminder'
+            message['From'] = sender
+            message['To'] = email
+
+            # write the text/plain part
+            text = """
+            Remove Account Reminder
+            """
+
+            # write the HTML part
+            html = reminder_remove_1 + f"{username}" + reminder_remove_2
 
             # convert both parts to MIMEText objects and add them to the MIMEMultipart message
             part1 = MIMEText(text, "plain")
