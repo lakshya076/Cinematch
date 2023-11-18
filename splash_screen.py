@@ -102,6 +102,12 @@ class SplashScreen(QDialog):
         self.thread.exit()
         self.accept()
 
+    def reject(self):
+        pass
+
+    def closeEvent(self, a0):
+        pass
+
     def mousePressEvent(self, event):
         event.ignore()
 
