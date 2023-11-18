@@ -12,7 +12,7 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
 
 
 ## Requirements
-- [MySQL 8.0.35](https://dev.mysql.com/downloads/installer/) or above
+- [MySQL 8.0.xx](https://dev.mysql.com/downloads/installer/)
 - [MSVC Build Tools](https://visualstudio.microsoft.com/downloads/?q=build+tools) to install `PyQt5` Framework for python
 - [Python 3.10 or later version](https://www.python.org/downloads/)
 - Packages mentioned in the `requirements.txt` file.
