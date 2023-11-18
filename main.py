@@ -1,4 +1,5 @@
 import ctypes
+import os.path
 import shutil
 import sys
 
@@ -36,6 +37,9 @@ search_text = ""
 # Setting Navigation
 nav_stack = [0]
 current_index = 0
+
+# Path to the cos_similarity file
+recommendation_path = f"{os.path.expanduser('~')}/AppData/Local/Cinematch/recommendation/cos_similarity.csv"
 
 
 class SearchAlg(QObject):
@@ -1080,7 +1084,7 @@ class Main(QMainWindow):
         """
         Function is called whenever the program is closed. This function registers all the changes happened during the
         run of the program in the database.
-        This function also uses backend/cos_similarity.csv file to get the recommendations for the user for the next
+        This function also uses cos_similarity.csv file to get the recommendations for the user for the next
         run and store it in the database.
         """
         print("closing")
@@ -1134,7 +1138,7 @@ if __name__ == "__main__":
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
-            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+            item_similarity = pandas.read_csv(recommendation_path, index_col=0)
             recoms, watchagain, language, random_movies = splash.movies_result[0]
             movies_metadata = splash.movies_result[1]
             window = Main()
@@ -1149,7 +1153,7 @@ if __name__ == "__main__":
             if genre_win.exec_() == QDialog.Accepted:
                 if lang_win.exec_() == QDialog.Accepted:
 
-                    item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+                    item_similarity = pandas.read_csv(recommendation_path, index_col=0)
                     users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
                                    genre_win.genres, lang_win.languages, item_similarity, conn, cur)
 
@@ -1174,7 +1178,7 @@ if __name__ == "__main__":
         splash = SplashScreen()
 
         if splash.exec_() == QDialog.Accepted:
-            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
+            item_similarity = pandas.read_csv(recommendation_path, index_col=0)
             recoms, watchagain, language, random_movies = splash.movies_result[0]
             movies_metadata = splash.movies_result[1]
             window = Main()
