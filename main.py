@@ -23,7 +23,7 @@ nav_stack = [0]
 current_index = 0
 
 # Path to the cos_similarity file
-recommendation_path = f"{os.path.expanduser('~')}/AppData/Local/Cinematch/recommendation/cos_similarity.csv"
+recommendation_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\recommendation\\cos_similarity.csv"
 
 
 class SearchAlg(QObject):
