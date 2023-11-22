@@ -2,6 +2,7 @@ import os
 import random
 import sys
 from urllib.request import urlopen
+import pymysql
 
 import requests
 from PyQt5.QtCore import QThread, pyqtSignal, Qt, QRect
@@ -13,13 +14,13 @@ from cachecontrol.caches import FileCache
 
 
 csv_url = "https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21108&authkey=!ANYzCEC8y0WZf90"
-mysql_url = "https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21107&authkey=!AG5TfhYfUiOcQT8"
 
+cinematch_dir = f"{os.path.expanduser('~')}/AppData/Local/Cinematch"
 csv_path = f"{os.path.expanduser('~')}/AppData/Local/Cinematch/csv/cos_similarity.csv"
 csv_dir = f"{os.path.expanduser('~')}/AppData/Local/Cinematch/csv"
-mysql_save_path = f"{os.path.expanduser('~')}/AppData/Local/Temp/movies.sql"
 
 mysql_data_path = "C:/ProgramData/MySQL/MySQL Server 8.0/Data/movies"
+mysql_alt_data_path = "C:/ProgramData/MySQL/MySQL Server 8.1/Data/movies"
 mysql_path = "C:/Program Files/MySQL"
 
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\FileCache"
@@ -43,6 +44,10 @@ def get_size(file_path: str, unit: str) -> float:
 
 
 def pre_check() -> int:
+    if not os.path.isdir(cinematch_dir):
+        os.mkdir(cinematch_dir)
+        print("Directory created Cinematch")
+
     if not os.path.isdir(csv_dir):
         os.mkdir(csv_dir)
         print("Directory created CSV")
@@ -63,9 +68,7 @@ def pre_check() -> int:
     if not os.path.isdir(mysql_path):
         print("MySQL not installed. Install it before running the program")
         return 1
-    elif not (os.path.isdir(mysql_path + "/MySQL Router 8.0") and os.path.isdir(
-            mysql_path + "/MySQL Shell 8.0") and os.path.isdir(mysql_path + "/MySQL Server 8.0") and os.path.isdir(
-        mysql_path + "/MySQL Workbench 8.0")):
+    elif True not in [i[:14] == "MySQL Server 8" for i in os.listdir(mysql_path)]:
         print("MySQL installation is corrupted. Install it before running the program.")
         # Open Webpage here to guide the user through the installation process
         return 1
@@ -73,16 +76,11 @@ def pre_check() -> int:
         print("MySQL installed")
 
     # Checking MySQL Data
-    if not os.path.isdir(mysql_data_path):
+    if not (os.path.isdir(mysql_data_path) or os.path.isdir(mysql_alt_data_path)):
         try:
             os.remove(mysql_data_path)
         except OSError:
             pass
-
-        url.append(mysql_url)
-        path.append(mysql_save_path)
-
-        print("To Download: MySQL Data")
         # Open webpage here to guide the user on how to run the movies.sql file
         return 2
 
@@ -132,7 +130,7 @@ class Downloader(QThread):
                             readBytes += chunkSize
                             # Tell the window how many bytes we have received.
                             self.setCurrentProgress.emit(readBytes)
-
+            
             self.succeeded.emit()
 
 
@@ -173,7 +171,7 @@ class Prerequisite(QDialog):
             print("MySQL not installed")
             sys.exit(-3)
         elif self.code == 2:
-            print("MySQL Data not installed")
+            print("Please install the database.")
             sys.exit(-4)
         else:
             self.accept()
