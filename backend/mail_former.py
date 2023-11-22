@@ -404,8 +404,8 @@ otp_2 = """</h1><h5
                                                                                href="https://github.com/lakshya076/Cinematch"
                                                                                style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img
                                                                                     title="GitHub"
-                                                                                    src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/github-logo-colored.png"
-                                                                                    alt="GitHub" width="32"
+                                                                                    src="https://i.imgur.com/EUq3tVn.png"
+                                                                                    alt="GitHub" width="24" height="24"
                                                                                     style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a>
                                                                         </td>
                                                                         <td align="center" valign="top"
@@ -414,8 +414,8 @@ otp_2 = """</h1><h5
                                                                                 href="https://mail.google.com/mail/u/0/?fs=1&to=lakhya.arnav.cs.project@gmail.com&su=&body=&tf=cm"
                                                                                 style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img
                                                                                 title="Gmail"
-                                                                                src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/gmail-logo-colored.png"
-                                                                                alt="gm" width="32"
+                                                                                src="https://i.imgur.com/mXoLNLS.png"
+                                                                                alt="gm" width="32" height="24"
                                                                                 style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a>
                                                                         </td>
                                                                     </tr>
@@ -582,8 +582,8 @@ delete_2 = """,</h1></td>
                       <td align="left" style="padding:0;Margin:0;font-size:0">
                        <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                          <tr>
-                          <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://github.com/lakshya076/Cinematch" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="GitHub" src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/github-logo-colored.png" alt="GitHub" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
-                          <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to=lakhya.arnav.cs.project@gmail.com&su=&body=&tf=cm" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="Gmail" src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/gmail-logo-colored.png" alt="gm" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
+                          <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://github.com/lakshya076/Cinematch" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="GitHub" src="https://i.imgur.com/EUq3tVn.png" alt="GitHub" width="24" height="24" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
+                          <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to=lakhya.arnav.cs.project@gmail.com&su=&body=&tf=cm" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="Gmail" src="https://i.imgur.com/mXoLNLS.png" alt="gm" width="32" height="24" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
                          </tr>
                        </table></td>
                      </tr>
@@ -748,8 +748,8 @@ perm_delete_2 = """,</h1></td>
                       <td align="left" style="padding:0;Margin:0;font-size:0">
                        <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                          <tr>
-                          <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://github.com/lakshya076/Cinematch/" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="GitHub" src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/github-logo-colored.png" alt="GitHub" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
-                          <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to=lakhya.arnav.cs.project@gmail.com&su=&body=&tf=cm" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="Gmail" src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/gmail-logo-colored.png" alt="gm" width="32" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
+                          <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://github.com/lakshya076/Cinematch/" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="GitHub" src="https://i.imgur.com/EUq3tVn.png" alt="GitHub" width="24" height="24" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
+                          <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://mail.google.com/mail/u/0/?fs=1&to=lakhya.arnav.cs.project@gmail.com&su=&body=&tf=cm" style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img title="Gmail" src="https://i.imgur.com/mXoLNLS.png" alt="gm" width="32" height="24" style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a></td>
                          </tr>
                        </table></td>
                      </tr>
@@ -1197,8 +1197,8 @@ reminder_remove_2 = """,</h1></td>
                                                                                href="https://github.com/lakshya076/Cinematch"
                                                                                style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img
                                                                                     title="GitHub"
-                                                                                    src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/github-logo-colored.png"
-                                                                                    alt="GitHub" width="32"
+                                                                                    src="https://i.imgur.com/EUq3tVn.png"
+                                                                                    alt="GitHub" width="24" height="24
                                                                                     style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a>
                                                                         </td>
                                                                         <td align="center" valign="top"
@@ -1207,8 +1207,8 @@ reminder_remove_2 = """,</h1></td>
                                                                                 href="https://mail.google.com/mail/u/0/?fs=1&to=lakhya.arnav.cs.project@gmail.com&su=&body=&tf=cm"
                                                                                 style="mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:14px"><img
                                                                                 title="Gmail"
-                                                                                src="https://fcpvley.stripocdn.email/content/assets/img/other-icons/logo-colored/gmail-logo-colored.png"
-                                                                                alt="gm" width="32"
+                                                                                src="https://i.imgur.com/mXoLNLS.png"
+                                                                                alt="gm" width="32" height="24"
                                                                                 style="display:block;font-size:14px;border:0;outline:none;text-decoration:none"></a>
                                                                         </td>
                                                                     </tr>
