@@ -168,6 +168,8 @@ class Main(QMainWindow):
         self.library_collapse.clicked.connect(self.library_func)
         self.library_expand.clicked.connect(self.library_func)
 
+        self.create_collapse.hide()
+        self.create_expand.hide()
         self.create_collapse.clicked.connect(self.create_func)
         self.create_expand.clicked.connect(self.create_func)
         self.create_playlist.clicked.connect(self.create_playlist_func)
