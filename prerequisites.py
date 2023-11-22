@@ -14,12 +14,10 @@ from cachecontrol.caches import FileCache
 
 
 csv_url = "https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21108&authkey=!ANYzCEC8y0WZf90"
-mysql_url = "https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21107&authkey=!AG5TfhYfUiOcQT8"
 
 cinematch_dir = f"{os.path.expanduser('~')}/AppData/Local/Cinematch"
 csv_path = f"{os.path.expanduser('~')}/AppData/Local/Cinematch/csv/cos_similarity.csv"
 csv_dir = f"{os.path.expanduser('~')}/AppData/Local/Cinematch/csv"
-mysql_save_path = f"{os.path.expanduser('~')}/AppData/Local/Temp/movies.sql"
 
 mysql_data_path = "C:/ProgramData/MySQL/MySQL Server 8.0/Data/movies"
 mysql_alt_data_path = "C:/ProgramData/MySQL/MySQL Server 8.1/Data/movies"
@@ -83,11 +81,6 @@ def pre_check() -> int:
             os.remove(mysql_data_path)
         except OSError:
             pass
-
-        url.append(mysql_url)
-        path.append(mysql_save_path)
-
-        print("To Download: MySQL Data")
         # Open webpage here to guide the user on how to run the movies.sql file
         return 2
 
@@ -178,15 +171,7 @@ class Prerequisite(QDialog):
             print("MySQL not installed")
             sys.exit(-3)
         elif self.code == 2:
-            print("MySQL Data not installed, Installing")
-
-            conn = pymysql.connect(host='localhost', user='root', password='root')
-            cur = conn.cursor()
-            with open(mysql_save_path, 'r') as sql:
-                cur.execute(sql.read())
-            conn.commit()
-            conn.close()
-
+            print("Please install the database.")
             sys.exit(-4)
         else:
             self.accept()
