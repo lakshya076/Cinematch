@@ -30,7 +30,7 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
 If the program ends with code
 - -2 -> OSError
 - -3 -> MySQL not installed
-- -4 -> MySQL data is not loaded. Download it from here [here](https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21107&authkey=!AG5TfhYfUiOcQT8)
+- -4 -> MySQL data is not loaded. Download it from [here](https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21107&authkey=!AG5TfhYfUiOcQT8)
   
 ## Contributing
 - [Pull Requests](https://github.com/lakshya076/Cinematch/pulls) are welcome but for major changes or improvements, please open an [issue](https://github.com/lakshya076/Cinematch/issues) first to discuss the changes.
