@@ -17,6 +17,7 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
 - [MSVC Build Tools](https://visualstudio.microsoft.com/downloads/?q=build+tools) to install `PyQt5` Framework for python
 - [Python 3.10 or later version](https://www.python.org/downloads/)
 - Packages mentioned in the `requirements.txt` file.
+   
   ```python3
   pip install -r requirements.txt
   ```
