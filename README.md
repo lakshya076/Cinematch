@@ -11,7 +11,7 @@ see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/t
 
 
 ## Requirements
-- Windows 7+
+- Windows 10/11
 - [MySQL 8.0.xx](https://dev.mysql.com/downloads/installer/) (set user = "root" and password = "root")
 - MySQL database. [Download Database](https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21107&authkey=!AG5TfhYfUiOcQT8) and just run the file in MySQL Workbench
 - [MSVC Build Tools](https://visualstudio.microsoft.com/downloads/?q=build+tools) to install `PyQt5` Framework for python
