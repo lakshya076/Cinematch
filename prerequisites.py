@@ -12,7 +12,6 @@ from PyQt5.uic import loadUi
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 
-
 csv_url = "https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21108&authkey=!ANYzCEC8y0WZf90"
 
 cinematch_dir = f"{os.path.expanduser('~')}/AppData/Local/Cinematch"
@@ -76,7 +75,8 @@ def pre_check() -> int:
         print("MySQL installed")
 
     # Checking MySQL Data
-    if not (os.path.isdir(mysql_data_path) or os.path.isdir(mysql_alt_data_path)):
+    if not (os.path.isdir(mysql_data_path)):
+        # TODO or os.path.isdir(mysql_alt_data_path) adding this to above line doesnt work
         try:
             os.remove(mysql_data_path)
         except OSError:
@@ -130,7 +130,7 @@ class Downloader(QThread):
                             readBytes += chunkSize
                             # Tell the window how many bytes we have received.
                             self.setCurrentProgress.emit(readBytes)
-            
+
             self.succeeded.emit()
 
 
