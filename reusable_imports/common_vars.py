@@ -3,11 +3,12 @@
 import datetime
 import os
 import random
+from typing import Tuple, List, Any, Dict
+
 import pymysql
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 import requests
-import pandas
 
 from backend.Utils.movie_utils import *
 from backend.Utils.user_utils import get_logged_user, is_premium
@@ -39,23 +40,24 @@ premium = 0
 ad = ["Advertisements/ad_one.png", "Advertisements/ad_two.png"]
 
 # This list holds all the recommendations for the user (max - 15)
-recoms = []
+recoms = list()
 
 # This list holds all the movies user can watch again (max - 10)
-watchagain = []
+watchagain = list()
 
 # This movie holds all the language movies based on the languages user has chosen (max -15)
-language = []
+language = list()
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
-playlists_metadata = {}
+# Stores the image as str
+playlists_metadata = dict()
 """
     Structure:- 
         {playlist name, username, playlist date, [movie id in playlist], none}
 """
 
 # Dictionary to store metadata of random, home and playlist movies. Gets populated in splash screen
-movies_metadata = {}
+movies_metadata = dict()
 """
     Structure:-
         {id: [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]}
@@ -141,18 +143,17 @@ random_movies = get_random(cur, 50)
 
 poster = ["playlist_posters\\one.jpg", "playlist_posters\\two.jpg", "playlist_posters\\three.jpg",
           "playlist_posters\\four.png"]
-# Append more these three are default
-
-# random picture generator for playlist img
 playlist_picture = [random.choice(poster) for i in playlists_metadata.keys()]
+# random picture generator for playlist img
 
-# stores the output of get_movies function
-playlists_display_metadata = {}
+# Stores the specific metadata of movies that need to be shown in the list of a specific playlist
+# Also stores the movie image as bytearray
+playlists_display_metadata = dict()
 
 not_found_img = bytes(open('reusable_imports/not_found.png', 'rb').read())
 
 
-def get_data() -> None:
+def get_data() -> tuple[list[list[int] | list[Any] | Any], dict[Any, Any]]:
     """
     Function to get the data of movies in recoms, watch again and languages list (the movies which will be displayed on
     home screen)

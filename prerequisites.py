@@ -75,8 +75,7 @@ def pre_check() -> int:
         print("MySQL installed")
 
     # Checking MySQL Data
-    if not (os.path.isdir(mysql_data_path)):
-        # TODO or os.path.isdir(mysql_alt_data_path) adding this to above line doesnt work
+    if not (os.path.isdir(mysql_data_path) or os.path.isdir(mysql_alt_data_path)):
         try:
             os.remove(mysql_data_path)
         except OSError:

@@ -9,6 +9,7 @@ from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
+import pandas
 
 # only for windows (get resolution)
 user = ctypes.windll.user32
@@ -105,7 +106,6 @@ class Main(QMainWindow):
         self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
-        self.display_add_toshortlist.setToolTip('')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
@@ -169,8 +169,8 @@ class Main(QMainWindow):
         self.library_collapse.clicked.connect(self.library_func)
         self.library_expand.clicked.connect(self.library_func)
 
-        self.create_collapse.hide()
-        self.create_expand.hide()
+        self.create_collapse.show()
+        self.create_expand.show()
         self.create_collapse.clicked.connect(self.create_func)
         self.create_expand.clicked.connect(self.create_func)
         self.create_playlist.clicked.connect(self.create_playlist_func)
@@ -868,6 +868,7 @@ class Main(QMainWindow):
     def search_func(self):
         """
         Function to search and display movies in the search widget of the stack.
+        starts threading
         """
         global search_text
         search_text = self.search_box.text()
