@@ -105,6 +105,7 @@ class Main(QMainWindow):
         self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
+        self.display_add_toshortlist.setToolTip('')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
@@ -364,6 +365,7 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
+                self.display_add_toshortlist.setToolTip(f'{display_id}')
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
@@ -600,6 +602,7 @@ class Main(QMainWindow):
         _id = sender.objectName().split(sep="_")[-1]
 
         try:
+            self.display_add_toshortlist.setToolTip(f'{_id}')
             self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
                             _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                             _genre=self.display_genre, _date=self.display_date,
@@ -636,6 +639,7 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
+                self.display_add_toshortlist.setToolTip(f'{display_id}')
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
@@ -724,6 +728,7 @@ class Main(QMainWindow):
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
+        self.display_add_toshortlist.setToolTip('')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
@@ -737,6 +742,13 @@ class Main(QMainWindow):
         Function to display movies when the respective movie frame is clicked
         """
         _id = random.choice(id)
+
+        real_id = self.display_add_toshortlist.toolTip()
+        if real_id:
+            real_id = int(real_id)
+        else:
+            real_id = _id
+        self.display_add_toshortlist.setToolTip(f'{real_id}')
 
         title = ""
         overview = ""
@@ -770,15 +782,39 @@ class Main(QMainWindow):
             """
             Function to add a movie to shortlist
             """
+            _id = int(self.display_add_toshortlist.toolTip())
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
-            _shortlist_but.setDisabled(True)
+            _shortlist_but.setIcon(QIcon('icons/like_checked.ico'))
+
+            __title = ""
+            __overview = ""
+            __date = ""
+            __gen = ""
+            __lang = ""
+            __pop = ""
+            __cast = ""
+            __poster = ""
+
+            try:
+                __movie = movies_metadata[_id]
+                __title = __movie[0]
+                __overview = __movie[1]
+                __date = __movie[2]
+                __gen = __movie[3]
+                __lang = __movie[4]
+                __pop = __movie[5]
+                __cast = __movie[6]
+                __poster = __movie[7]
+
+            except Exception as e:
+                print(f"Unable to display movie: {e}")
 
             playlists_metadata["shortlist"][3].append(_id)
             print(f"Added {_id} to shortlist")
 
-            enter = ["Shortlist", title, poster, lang, pop, _id]
+            __enter = ["Shortlist", __title, __poster, __lang, __pop, _id]
 
-            playlists_display_metadata["shortlist"] += [enter]
+            playlists_display_metadata["shortlist"] += [__enter]
             print(f"Added {_id} to display list")
 
         _image.setPixmap(image_to_load)
@@ -792,6 +828,7 @@ class Main(QMainWindow):
         _shortlist_but.setChecked(False)
         _shortlist_but.clicked.connect(lambda: add_to_shortlist())
         _shortlist_but.setEnabled(True)
+        _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
 
     def search_func(self):
         """
