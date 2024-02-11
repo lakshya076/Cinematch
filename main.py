@@ -328,13 +328,12 @@ class Main(QMainWindow):
             self.expand.hide()
             self.collapse.show()
 
-    def shortlist_func(self):
+    def navigator(self):
         """
-        Function to switch to the shortlist widget in the stack
+        function to set navigation for shortlist button clicked and when new playlist added
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(3)
-        self.setWindowTitle("Shortlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 3)
         current_index += 1
@@ -345,6 +344,13 @@ class Main(QMainWindow):
             self.forward.setEnabled(True)
 
         print(nav_stack, current_index)
+
+    def shortlist_func(self):
+        """
+        Function to switch to the shortlist widget in the stack
+        """
+        self.navigator()
+        self.setWindowTitle("Shortlist - Cinematch")
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
 
@@ -382,6 +388,8 @@ class Main(QMainWindow):
             Deletes the clicked movie from the shortlist page and then refreshes it to show the updated shortlist
             Function is passed a parameter in display_new_widgets function of DisplayMovies class
             """
+            global nav_stack, current_index
+
             sender = display.sender()
             _playlist = sender.objectName().strip().split(sep="_")[-2]
             _objectdelete = sender.objectName().strip().split(sep="_")[-1]
@@ -405,6 +413,9 @@ class Main(QMainWindow):
                 print(f"{e}, Can't Delete Playlist.")
 
             self.shortlist_func()
+            nav_stack.pop(current_index)
+            current_index = len(nav_stack) - 1
+            print(nav_stack, current_index)
             # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
 
         try:
@@ -614,6 +625,7 @@ class Main(QMainWindow):
         This function displays the playlist in the 9th window (index=8) of the stack
         """
 
+        self.navigator()
         display = DisplayMovies(playlist_name)
 
         def open_movie_main():
