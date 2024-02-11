@@ -9,7 +9,7 @@ def playlist_status(username: str, name: str, cursor: pymysql.cursors.Cursor) ->
 
     `2` -> exists but deleted
 
-    `3` -> doesn't exist
+    `0` -> doesn't exist
     """
 
     cursor.execute(f'select * from playlists where username="{username}" and name="{name}"')
@@ -86,6 +86,7 @@ def get_password(username: str, name: str, cursor: pymysql.cursors.Cursor) -> st
 def get_type(username: str, name: str, cursor: pymysql.cursors.Cursor) -> str | bool:
     """
     Returns type of a playlist
+    type can be 'user made' or 'app made'
     """
 
     cursor.execute(f'select type from playlists where username = "{username}" and name = "{name}"')
@@ -153,7 +154,7 @@ def get_playlists_info(username: str, cursor: pymysql.cursors.Cursor) -> list | 
 
 def playlist_info(username: str, name: str, cursor: pymysql.cursors.Cursor) -> list | None:
     """
-    Returns compiled Playlists info in the following format
+    Returns the data of the given playlist
 
     [username, type, name, movies, requires_password, password]
     """

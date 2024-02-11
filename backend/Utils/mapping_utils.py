@@ -9,7 +9,7 @@ def mapping_status(username: str, cursor: pymysql.cursors.Cursor) -> int:
 
     `2` -> exists but deleted
 
-    `3` -> doesn't exist
+    `0` -> doesn't exist
     """
 
     cursor.execute(f'select * from mapping where username="{username}"')

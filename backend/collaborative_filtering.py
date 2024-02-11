@@ -1,6 +1,8 @@
 import pandas
-import pymysql, pymysql.cursors
+import pymysql
+import pymysql.cursors
 import backend.Utils.movie_utils as movie_utils
+
 
 def get_similar(id, rating, sim_table: pandas.DataFrame) -> float:
     """

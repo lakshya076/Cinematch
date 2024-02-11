@@ -3,6 +3,9 @@ import pymysql.cursors
 
 
 def phrase_former(phrase: str, sep: str) -> list[str]:
+    """
+    forms phrase for searching movies
+    """
     phrase_list = []
     split_phrase = phrase.split()
 

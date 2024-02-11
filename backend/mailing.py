@@ -56,6 +56,7 @@ def send_otp(email: str) -> int:
 def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
     """
     Sends a mail to inform about the deletion of the user's account
+    uses mail_former.py
     """
     try:
         username = get_username(email, cursor)
@@ -92,6 +93,7 @@ def send_deletion_mail(email: str, cursor: pymysql.cursors.Cursor) -> bool:
 def send_removal_mail(username: str, email: str) -> bool:
     """
     Sends a mail to inform about the removal of the user's account
+    uses mail_former.py
     """
     try:
         if username:
@@ -130,6 +132,10 @@ def send_removal_mail(username: str, email: str) -> bool:
 
 
 def send_reminder_mail(username: str, email: str) -> bool:
+    """
+    sends the reminder to the user one day before their account will be deleted forever
+    uses mail_former.py
+    """
     try:
         if username:
             message = MIMEMultipart("alternative")
