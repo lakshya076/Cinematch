@@ -159,7 +159,7 @@ class Main(QMainWindow):
         self.worker.done.connect(self.search_put)
         self.thread.started.connect(self.worker.run)
 
-        self.randomiser.clicked.connect(self.placeholder_random)  # Randomise movie
+        self.randomiser.clicked.connect(lambda: self.placeholder_random(random_movies))  # Randomise movie
         self.random_collapse.clicked.connect(self.random_func)
         self.random_expand.clicked.connect(self.random_func)
 
@@ -314,7 +314,10 @@ class Main(QMainWindow):
         """
         Function to switch to the random widget in the stack
         """
-        global current_index, nav_stack
+        global current_index, nav_stack, random_id
+
+        self.placeholder_random([int(random_id)])
+
         self.stack.setCurrentIndex(2)
         self.setWindowTitle("Random - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
@@ -402,6 +405,7 @@ class Main(QMainWindow):
                 print(_playlist, _objectdelete)
                 removed_playlist_movies[_playlist_name].append(int(_objectdelete))
                 playlists_metadata[_playlist][3].remove(int(_objectdelete))
+
 
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
@@ -713,13 +717,13 @@ class Main(QMainWindow):
             except:
                 self.playlist_error.setText("Unable to add playlist")
 
-    def placeholder_random(self):
+    def placeholder_random(self, id: list):
         """
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
         self.display_add_toshortlist.setToolTip('')
-        self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
+        self.movie_disp(id, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
                         _shortlist_but=self.random_add_toshortlist)
@@ -731,6 +735,7 @@ class Main(QMainWindow):
         """
         Function to display movies when the respective movie frame is clicked
         """
+        global random_id
         _id = random.choice(id)
 
         real_id = self.display_add_toshortlist.toolTip()
@@ -738,6 +743,7 @@ class Main(QMainWindow):
             real_id = int(real_id)
         else:
             real_id = _id
+            random_id = real_id
         self.display_add_toshortlist.setToolTip(f'{real_id}')
 
         print(real_id)
