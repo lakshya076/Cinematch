@@ -49,10 +49,17 @@ language = []
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
-"""dict structure: {playlist name, username, playlist date, [list of movie id in playlist], none}"""
+"""
+    Structure:- 
+        {playlist name, username, playlist date, [movie id in playlist], none}
+"""
 
 # Dictionary to store metadata of random, home and playlist movies. Gets populated in splash screen
 movies_metadata = {}
+"""
+    Structure:-
+        {id: [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]}
+"""
 
 # Common session used to load the images. The images are then cached and stored so when the program is run again,
 # images load easily.
