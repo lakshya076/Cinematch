@@ -734,8 +734,11 @@ class Main(QMainWindow):
         _id = random.choice(id)
 
         real_id = self.display_add_toshortlist.toolTip()
-        if not real_id:
+        if real_id:
+            real_id = int(real_id)
+        else:
             real_id = _id
+        self.display_add_toshortlist.setToolTip(f'{real_id}')
 
         print(real_id)
         print(_id)
@@ -750,7 +753,7 @@ class Main(QMainWindow):
         poster = ""
 
         try:
-            movie = movies_metadata[_id]
+            movie = movies_metadata[real_id]
             title = movie[0]
             overview = movie[1]
             date = movie[2]
@@ -760,28 +763,51 @@ class Main(QMainWindow):
             cast = movie[6]
             poster = movie[7]
 
-        except KeyError:
-            print("Unable to display movie")
+        except Exception as e:
+            print(f"Unable to display movie: {e}")
 
         # Formatting poster
         image_object = QImage()  # initialising a QImage object
         image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
         image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
 
-        def add_to_shortlist(_id):
+        def add_to_shortlist():
             """
             Function to add a movie to shortlist
             """
-            _id = self.display_add_toshortlist.toolTip()
+            _id = int(self.display_add_toshortlist.toolTip())
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.setDisabled(True)
+
+            __title = ""
+            __overview = ""
+            __date = ""
+            __gen = ""
+            __lang = ""
+            __pop = ""
+            __cast = ""
+            __poster = ""
+
+            try:
+                __movie = movies_metadata[_id]
+                __title = __movie[0]
+                __overview = __movie[1]
+                __date = __movie[2]
+                __gen = __movie[3]
+                __lang = __movie[4]
+                __pop = __movie[5]
+                __cast = __movie[6]
+                __poster = __movie[7]
+
+            except Exception as e:
+                print(f"Unable to display movie: {e}")
 
             playlists_metadata["shortlist"][3].append(_id)
             print(f"Added {_id} to shortlist")
 
-            enter = ["Shortlist", title, poster, lang, pop, _id]
+            __enter = ["Shortlist", __title, __poster, __lang, __pop, _id]
 
-            playlists_display_metadata["shortlist"] += [enter]
+            playlists_display_metadata["shortlist"] += [__enter]
             print(f"Added {_id} to display list")
 
         _image.setPixmap(image_to_load)
@@ -794,7 +820,7 @@ class Main(QMainWindow):
 
         _shortlist_but.setChecked(False)
         print(f'This is id: {real_id}')
-        _shortlist_but.clicked.connect(lambda: add_to_shortlist(real_id))
+        _shortlist_but.clicked.connect(lambda: add_to_shortlist())
         _shortlist_but.setEnabled(True)
 
     def search_func(self):
