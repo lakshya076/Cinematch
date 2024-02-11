@@ -26,6 +26,71 @@ current_index = 0
 recommendation_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\csv\\cos_similarity.csv"
 
 
+class MovieDisplay:
+    def add_to_shortlist(self, _shortlist_but, _id, title, poster, lang, pop):
+        """
+        Function to add a movie to shortlist
+        """
+        _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+        _shortlist_but.setDisabled(True)
+
+        playlists_metadata["shortlist"][3].append(_id)
+        print(f"Added {_id} to shortlist")
+
+        print(playlists_metadata["shortlist"])
+
+        playlists_display_metadata["shortlist"] += [["Shortlist", title, poster, lang, pop, _id]]
+        print(f"Added {_id} to display list")
+        # Display list consists of the data that is displayed in the list of movies shown in the playlist
+
+    def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
+                   _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
+                   _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
+                   _shortlist_but: PyQt5.QtWidgets.QPushButton):
+        """
+        Function to display movies when the respective movie frame is clicked
+        """
+        _id = random.choice(id)
+
+        title = ""
+        overview = ""
+        date = ""
+        gen = ""
+        lang = ""
+        pop = ""
+        poster = ""
+
+        try:
+            movie = movies_metadata[_id]
+            title = movie[0]
+            overview = movie[1]
+            date = movie[2]
+            gen = movie[3]
+            lang = movie[4]
+            pop = movie[5]
+            poster = movie[7]
+
+        except KeyError:
+            print("Unable to display movie")
+
+        # Formatting poster
+        image_object = QImage()  # initialising a QImage object
+        image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
+        image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
+
+        _image.setPixmap(image_to_load)
+        _title.setText(title)
+        _overview.setText(overview)
+        _pop.setText(f"Popularity:\n{str(pop)}")
+        _lang.setText(lang)
+        _genre.setText(gen)
+        _date.setText(f"Release Date:\n{date}")
+
+        _shortlist_but.setChecked(False)
+        _shortlist_but.clicked.connect(lambda: self.add_to_shortlist(_shortlist_but, _id, title, poster, lang, pop))
+        _shortlist_but.setEnabled(True)
+
+
 class SearchAlg(QObject):
     """
     Algorithm to search movies and display in the ui, runs in separate thread
@@ -105,9 +170,13 @@ class Main(QMainWindow):
         self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
-        self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
+
+        displayer = MovieDisplay()
+        displayer.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
+        del displayer
+
         self.user_settings.setText(username)
 
         # Setting navigation
@@ -328,13 +397,12 @@ class Main(QMainWindow):
             self.expand.hide()
             self.collapse.show()
 
-    def shortlist_func(self):
+    def navigator(self):
         """
-        Function to switch to the shortlist widget in the stack
+        function to set navigation for shortlist button clicked and when new playlist added
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(3)
-        self.setWindowTitle("Shortlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 3)
         current_index += 1
@@ -345,6 +413,13 @@ class Main(QMainWindow):
             self.forward.setEnabled(True)
 
         print(nav_stack, current_index)
+
+    def shortlist_func(self):
+        """
+        Function to switch to the shortlist widget in the stack
+        """
+        self.navigator()
+        self.setWindowTitle("Shortlist - Cinematch")
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
 
@@ -358,10 +433,14 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
-                self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+
+                displayer = MovieDisplay()
+                displayer.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
                                 _shortlist_but=self.display_add_toshortlist)
+                del displayer
+
                 self.stack.setCurrentIndex(7)
                 self.setWindowTitle("Display - Cinematch")
                 nav_stack = nav_stack[:current_index + 1]
@@ -589,10 +668,13 @@ class Main(QMainWindow):
         _id = sender.objectName().split(sep="_")[-1]
 
         try:
-            self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
+            displayer = MovieDisplay()
+            displayer.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
                             _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                             _genre=self.display_genre, _date=self.display_date,
                             _shortlist_but=self.display_add_toshortlist)
+            del displayer
+
             self.stack.setCurrentIndex(7)
             self.setWindowTitle("Display - Cinematch")
             nav_stack = nav_stack[:current_index + 1]
@@ -613,7 +695,7 @@ class Main(QMainWindow):
         The actual function to open a playlist
         This function displays the playlist in the 9th window (index=8) of the stack
         """
-
+        self.navigator()
         display = DisplayMovies(playlist_name)
 
         def open_movie_main():
@@ -624,10 +706,14 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
-                self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
-                                _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
-                                _genre=self.display_genre, _date=self.display_date,
-                                _shortlist_but=self.display_add_toshortlist)
+
+                displayer = MovieDisplay()
+                displayer.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
+                                     _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
+                                     _genre=self.display_genre, _date=self.display_date,
+                                     _shortlist_but=self.display_add_toshortlist)
+                del displayer
+
                 self.stack.setCurrentIndex(7)
                 self.setWindowTitle("Display - Cinematch")
             except TypeError:
@@ -712,74 +798,12 @@ class Main(QMainWindow):
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
-        self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
+        displayer = MovieDisplay()
+        displayer.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
                         _shortlist_but=self.random_add_toshortlist)
-
-    def movie_disp(self, id: list, _image: PyQt5.QtWidgets.QLabel, _title: PyQt5.QtWidgets.QLabel,
-                   _overview: PyQt5.QtWidgets.QTextBrowser, _pop: PyQt5.QtWidgets.QLabel, _lang: PyQt5.QtWidgets.QLabel,
-                   _genre: PyQt5.QtWidgets.QLabel, _date: PyQt5.QtWidgets.QLabel,
-                   _shortlist_but: PyQt5.QtWidgets.QPushButton):
-        """
-        Function to display movies when the respective movie frame is clicked
-        """
-        _id = random.choice(id)
-
-        title = ""
-        overview = ""
-        date = ""
-        gen = ""
-        lang = ""
-        pop = ""
-        cast = ""
-        poster = ""
-
-        try:
-            movie = movies_metadata[_id]
-            title = movie[0]
-            overview = movie[1]
-            date = movie[2]
-            gen = movie[3]
-            lang = movie[4]
-            pop = movie[5]
-            cast = movie[6]
-            poster = movie[7]
-
-        except KeyError:
-            print("Unable to display movie")
-
-        # Formatting poster
-        image_object = QImage()  # initialising a QImage object
-        image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
-        image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
-
-        def add_to_shortlist():
-            """
-            Function to add a movie to shortlist
-            """
-            _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
-            _shortlist_but.setDisabled(True)
-
-            playlists_metadata["shortlist"][3].append(_id)
-            print(f"Added {_id} to shortlist")
-
-            enter = ["Shortlist", title, poster, lang, pop, _id]
-
-            playlists_display_metadata["shortlist"] += [enter]
-            print(f"Added {_id} to display list")
-
-        _image.setPixmap(image_to_load)
-        _title.setText(title)
-        _overview.setText(overview)
-        _pop.setText(f"Popularity:\n{str(pop)}")
-        _lang.setText(lang)
-        _genre.setText(gen)
-        _date.setText(f"Release Date:\n{date}")
-
-        _shortlist_but.setChecked(False)
-        _shortlist_but.clicked.connect(lambda: add_to_shortlist())
-        _shortlist_but.setEnabled(True)
+        del displayer
 
     def search_func(self):
         """
