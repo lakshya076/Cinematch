@@ -49,6 +49,7 @@ language = []
 
 # Retrieved as soon as user logs in. This lists holds all the movie ids in the user's playlists
 playlists_metadata = {}
+"""dict structure: {playlist name, username, playlist date, [list of movie id in playlist], none}"""
 
 # Dictionary to store metadata of random, home and playlist movies. Gets populated in splash screen
 movies_metadata = {}
