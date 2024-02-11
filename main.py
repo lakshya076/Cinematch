@@ -718,7 +718,7 @@ class Main(QMainWindow):
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
-        self.display_add_toshortlist.setToolTip(f'')
+        self.display_add_toshortlist.setToolTip('')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
@@ -771,13 +771,30 @@ class Main(QMainWindow):
         image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
         image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
 
+        def rem_from_shortlist():
+
+            _id = int(self.display_add_toshortlist.toolTip())
+            _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+            _shortlist_but.clicked.connect(lambda: add_to_shortlist())
+            _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
+
+            delete_list = [i[5] for i in playlists_display_metadata['shortlist']]
+            delete_queue = delete_list.index(int(real_id))
+            # Deletes from the viewable 'client' side dict
+            del playlists_display_metadata['shortlist'][delete_queue]
+
+            removed_playlist_movies['Shortlist'].append(int(_id))
+            playlists_metadata['shortlist'][3].remove(int(_id))
+
+
         def add_to_shortlist():
             """
             Function to add a movie to shortlist
             """
             _id = int(self.display_add_toshortlist.toolTip())
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
-            _shortlist_but.setDisabled(True)
+            _shortlist_but.clicked.connect(lambda: rem_from_shortlist())
+            _shortlist_but.setIcon(QIcon('icons/like_checked.ico'))
 
             __title = ""
             __overview = ""
@@ -818,10 +835,18 @@ class Main(QMainWindow):
         _genre.setText(gen)
         _date.setText(f"Release Date:\n{date}")
 
-        _shortlist_but.setChecked(False)
-        print(f'This is id: {real_id}')
-        _shortlist_but.clicked.connect(lambda: add_to_shortlist())
-        _shortlist_but.setEnabled(True)
+        if real_id not in playlists_metadata['shortlist'][3]:
+            _shortlist_but.setChecked(False)
+            print(f'This is id: {real_id}')
+            _shortlist_but.disconnect()
+            _shortlist_but.clicked.connect(lambda: add_to_shortlist())
+            _shortlist_but.setEnabled(True)
+            _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
+        else:
+            _shortlist_but.setChecked(True)
+            _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+            _shortlist_but.clicked.connect(lambda: rem_from_shortlist())
+            _shortlist_but.setIcon(QIcon('icons/like_checked.ico'))
 
     def search_func(self):
         """

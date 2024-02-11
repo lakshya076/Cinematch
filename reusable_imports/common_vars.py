@@ -52,6 +52,10 @@ playlists_metadata = {}
 
 # Dictionary to store metadata of random, home and playlist movies. Gets populated in splash screen
 movies_metadata = {}
+"""
+    Structure:-
+        {id: [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]}
+"""
 
 # Common session used to load the images. The images are then cached and stored so when the program is run again,
 # images load easily.
