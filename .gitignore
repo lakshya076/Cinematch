@@ -72,4 +72,7 @@ reusable_imports/presets/thriller.txt
 reusable_imports/presets/tolkein.txt
 reusable_imports/presets/war.txt
 reusable_imports/presets.zip
-__pycache__/widget_generator_home.cpython-311.pyc
+backend/passwords.py
+test2.py
+__pycache__/prerequisites.cpython-311.pyc
+backend/__pycache__/mail_former.cpython-311.pyc

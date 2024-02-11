@@ -1355,7 +1355,7 @@ background-color: rgba(0,0,0,0);</string>
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>9</number>
+            <number>0</number>
         </property>
         <widget class="QWidget" name="home_page">
          <property name="styleSheet">
@@ -1387,7 +1387,7 @@ background-color: rgba(0,0,0,0);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>288</width>
+                  <width>940</width>
                <height>1233</height>
               </rect>
              </property>
@@ -1436,7 +1436,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>98</width>
+                      <width>922</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1504,7 +1504,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>98</width>
+                      <width>922</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -1572,7 +1572,7 @@ background-color: rgba(0,0,0,0);</string>
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                      <width>98</width>
+                      <width>922</width>
                    <height>350</height>
                   </rect>
                  </property>
@@ -3213,7 +3213,7 @@ p, li { white-space: pre-wrap; }
                <x>0</x>
                   <y>0</y>
                <width>940</width>
-                  <height>885</height>
+                  <height>955</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -3802,6 +3802,50 @@ p, li { white-space: pre-wrap; }
                  <enum>Qt::MarkdownText</enum>
                 </property>
                 <property name="openExternalLinks">
+                    <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+                 <item>
+                     <spacer name="verticalSpacer_34">
+                         <property name="orientation">
+                             <enum>Qt::Vertical</enum>
+                         </property>
+                         <property name="sizeType">
+                             <enum>QSizePolicy::Fixed</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                             <size>
+                                 <width>20</width>
+                                 <height>10</height>
+                             </size>
+                         </property>
+                     </spacer>
+                 </item>
+                 <item>
+                     <widget class="QLabel" name="label_39">
+                         <property name="styleSheet">
+                             <string notr="true">font:14pt;</string>
+                         </property>
+                         <property name="text">
+                             <string>Emails Powered By:</string>
+                         </property>
+                     </widget>
+                 </item>
+                 <item>
+                     <widget class="QLabel" name="label_38">
+                         <property name="styleSheet">
+                             <string notr="true">font:12pt;</string>
+                         </property>
+                         <property name="text">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://my.stripo.email/&quot;&gt;&lt;span
+                                 style=&quot; text-decoration: underline; color:#05b8cc;&quot;&gt;Stripo&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                             </string>
+                         </property>
+                         <property name="textFormat">
+                             <enum>Qt::MarkdownText</enum>
+                         </property>
+                         <property name="openExternalLinks">
                  <bool>true</bool>
                 </property>
                </widget>
@@ -3840,8 +3884,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>832</width>
-               <height>481</height>
+                  <width>957</width>
+                  <height>653</height>
               </rect>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -3971,6 +4015,18 @@ p, li { white-space: pre-wrap; }
                   </widget>
                  </item>
                  <item>
+                     <widget class="QLabel" name="label_40">
+                         <property name="styleSheet">
+                             <string notr="true">font:12pt;
+                                 text-align:left;
+                             </string>
+                         </property>
+                         <property name="text">
+                             <string>Get access to only 9000 movies for recommendation</string>
+                         </property>
+                     </widget>
+                 </item>
+                    <item>
                   <widget class="QPushButton" name="pushButton">
                    <property name="minimumSize">
                     <size>
@@ -4195,6 +4251,18 @@ p, li { white-space: pre-wrap; }
                    </property>
                    <property name="text">
                     <string>Unlimited Playlists</string>
+                   </property>
+                  </widget>
+                 </item>
+                    <item>
+                        <widget class="QLabel" name="label_41">
+                            <property name="styleSheet">
+                                <string notr="true">font:12pt;
+                                    text-align:left;
+                                </string>
+                            </property>
+                            <property name="text">
+                                <string>Get full access to the whole library of 600K Movies</string>
                    </property>
                   </widget>
                  </item>

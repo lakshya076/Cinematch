@@ -1,4 +1,6 @@
 import ctypes
+import os.path
+import platform
 import shutil
 import sys
 
@@ -7,23 +9,6 @@ from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
-
-from delete_dialog import DeleteDialog
-from display_movie import DisplayMovies
-from library import Library
-from splash_screen import SplashScreen
-from widget_generator_home import Home
-from startup import Start
-from checklist import Checklist
-from genre import Genre
-from language import Language
-
-from reusable_imports._css import *
-from reusable_imports.common_vars import *
-from reusable_imports.commons import clickable, remove_spaces
-from backend.Utils.movie_utils import *
-from backend import playlists, users, movie_search, collaborative_filtering, mapping
-from widget_generator_search import SearchMovies
 
 # only for windows (get resolution)
 user = ctypes.windll.user32
@@ -36,6 +21,9 @@ search_text = ""
 # Setting Navigation
 nav_stack = [0]
 current_index = 0
+
+# Path to the cos_similarity file
+recommendation_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\csv\\cos_similarity.csv"
 
 
 class SearchAlg(QObject):
@@ -117,6 +105,7 @@ class Main(QMainWindow):
         self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
+        self.display_add_toshortlist.setToolTip('')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
@@ -180,6 +169,8 @@ class Main(QMainWindow):
         self.library_collapse.clicked.connect(self.library_func)
         self.library_expand.clicked.connect(self.library_func)
 
+        self.create_collapse.hide()
+        self.create_expand.hide()
         self.create_collapse.clicked.connect(self.create_func)
         self.create_expand.clicked.connect(self.create_func)
         self.create_playlist.clicked.connect(self.create_playlist_func)
@@ -248,6 +239,10 @@ class Main(QMainWindow):
 
         if current_index == 0:
             self.back.setDisabled(True)
+
+        if nav_stack[0] != 0:
+            nav_stack.insert(0, 0)
+            current_index += 1
 
         if nav_stack[current_index:]:
             self.forward.setEnabled(True)
@@ -366,6 +361,7 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
+                self.display_add_toshortlist.setToolTip(f'{display_id}')
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
@@ -597,6 +593,7 @@ class Main(QMainWindow):
         _id = sender.objectName().split(sep="_")[-1]
 
         try:
+            self.display_add_toshortlist.setToolTip(f'{_id}')
             self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
                             _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                             _genre=self.display_genre, _date=self.display_date,
@@ -632,6 +629,7 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
+                self.display_add_toshortlist.setToolTip(f'{display_id}')
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
@@ -720,6 +718,7 @@ class Main(QMainWindow):
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
+        self.display_add_toshortlist.setToolTip(f'')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
@@ -733,6 +732,13 @@ class Main(QMainWindow):
         Function to display movies when the respective movie frame is clicked
         """
         _id = random.choice(id)
+
+        real_id = self.display_add_toshortlist.toolTip()
+        if not real_id:
+            real_id = _id
+
+        print(real_id)
+        print(_id)
 
         title = ""
         overview = ""
@@ -762,10 +768,11 @@ class Main(QMainWindow):
         image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
         image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
 
-        def add_to_shortlist():
+        def add_to_shortlist(_id):
             """
             Function to add a movie to shortlist
             """
+            _id = self.display_add_toshortlist.toolTip()
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.setDisabled(True)
 
@@ -786,7 +793,8 @@ class Main(QMainWindow):
         _date.setText(f"Release Date:\n{date}")
 
         _shortlist_but.setChecked(False)
-        _shortlist_but.clicked.connect(lambda: add_to_shortlist())
+        print(f'This is id: {real_id}')
+        _shortlist_but.clicked.connect(lambda: add_to_shortlist(real_id))
         _shortlist_but.setEnabled(True)
 
     def search_func(self):
@@ -901,7 +909,7 @@ class Main(QMainWindow):
         Clear cache to improve performance. Restart app to see effective changes.
         """
 
-        cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
+        cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\Cache"
         if os.path.isdir(cache_dir):
             shutil.rmtree(cache_dir)
         else:
@@ -1080,7 +1088,7 @@ class Main(QMainWindow):
         """
         Function is called whenever the program is closed. This function registers all the changes happened during the
         run of the program in the database.
-        This function also uses backend/cos_similarity.csv file to get the recommendations for the user for the next
+        This function also uses cos_similarity.csv file to get the recommendations for the user for the next
         run and store it in the database.
         """
         print("closing")
@@ -1111,8 +1119,14 @@ class Main(QMainWindow):
 
 
 if __name__ == "__main__":
+    # Checking OS
+    if platform.system() == "Windows":
+        print("OS check completed")
+    else:
+        print("This program only works on Windows systems")
+        sys.exit(-2)
 
-    username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
+    from prerequisites import Prerequisite, url, path
 
     # Optimising the screen for high resolution displays
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
@@ -1122,61 +1136,90 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setAttribute(Qt.AA_UseHighDpiPixmaps)
 
-    start_win = Start()
+    pre_win = Prerequisite()
+    print(url, path)
 
-    users.remove_users(conn, cur)  # Remove deleted users if date has passed
+    if pre_win.exec_() == QDialog.Accepted:
+        print("Starting up main process")
+        from delete_dialog import DeleteDialog
+        from display_movie import DisplayMovies
+        from library import Library
+        from splash_screen import SplashScreen
+        from widget_generator_home import Home
+        from startup import Start
+        from checklist import Checklist
+        from genre import Genre
+        from language import Language
 
-    if not no_logged:
-        # This block runs if the user is already logged in
-        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
-        recoms, watchagain, language = init_mapping()
-        splash = SplashScreen()
+        from reusable_imports._css import *
+        from reusable_imports.common_vars import *
+        from reusable_imports.commons import clickable, remove_spaces
+        from backend.Utils.movie_utils import *
+        from backend import playlists, users, movie_search, collaborative_filtering, mapping
+        from widget_generator_search import SearchMovies
 
-        if splash.exec_() == QDialog.Accepted:
-            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-            recoms, watchagain, language, random_movies = splash.movies_result[0]
-            movies_metadata = splash.movies_result[1]
-            window = Main()
-            window.show()
+        username, no_logged, premium = init_uname()  # Getting credentials if user still logged in
 
-    elif start_win.exec_() == 1:  # User registered
-        checklist_win = Checklist()
-        genre_win = Genre()
-        lang_win = Language()
+        start_win = Start()
 
-        if checklist_win.exec_() == QDialog.Accepted:
-            if genre_win.exec_() == QDialog.Accepted:
-                if lang_win.exec_() == QDialog.Accepted:
+        users.remove_users(conn, cur)  # Remove deleted users if date has passed
+        users.reminder_remove(conn,
+                              cur)  # Sends a reminder email if the user account is scheduled to delete the next day
 
-                    item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-                    users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
-                                   genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+        if not no_logged:
+            # This block runs if the user is already logged in
+            playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+            recoms, watchagain, language = init_mapping()
+            splash = SplashScreen()
 
-                    username, no_logged, premium = init_uname()
-                    playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+            if splash.exec_() == QDialog.Accepted:
+                item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                print("CSV Loaded")
+                recoms, watchagain, language, random_movies = splash.movies_result[0]
+                movies_metadata = splash.movies_result[1]
+                window = Main()
+                window.show()
 
-                    splash = SplashScreen()
-                    if splash.exec_() == QDialog.Accepted:
-                        recoms, watchagain, language, random_movies = splash.movies_result[0]
-                        movies_metadata = splash.movies_result[1]
-                        playlists_display_metadata = splash.metadata_result[0]
+        elif start_win.exec_() == 1:  # User registered
+            checklist_win = Checklist()
+            genre_win = Genre()
+            lang_win = Language()
 
-                        print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
-                        window = Main()
-                        window.show()
+            if checklist_win.exec_() == QDialog.Accepted:
+                if genre_win.exec_() == QDialog.Accepted:
+                    if lang_win.exec_() == QDialog.Accepted:
 
-    elif start_win.exec_() == 2:  # User logged in
-        username, no_logged, premium = init_uname()
-        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
-        recoms, watchagain, language = init_mapping()
+                        item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                        print("CSV Loaded")
+                        users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
+                                       genre_win.genres, lang_win.languages, item_similarity, conn, cur)
 
-        splash = SplashScreen()
+                        username, no_logged, premium = init_uname()
+                        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
 
-        if splash.exec_() == QDialog.Accepted:
-            item_similarity = pandas.read_csv('backend/cos_similarity.csv', index_col=0)
-            recoms, watchagain, language, random_movies = splash.movies_result[0]
-            movies_metadata = splash.movies_result[1]
-            window = Main()
-            window.show()
+                        splash = SplashScreen()
+                        if splash.exec_() == QDialog.Accepted:
+                            recoms, watchagain, language, random_movies = splash.movies_result[0]
+                            movies_metadata = splash.movies_result[1]
+                            playlists_display_metadata = splash.metadata_result[0]
+
+                            print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
+                            window = Main()
+                            window.show()
+
+        elif start_win.exec_() == 2:  # User logged in
+            username, no_logged, premium = init_uname()
+            playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+            recoms, watchagain, language = init_mapping()
+
+            splash = SplashScreen()
+
+            if splash.exec_() == QDialog.Accepted:
+                item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                print("CSV Loaded")
+                recoms, watchagain, language, random_movies = splash.movies_result[0]
+                movies_metadata = splash.movies_result[1]
+                window = Main()
+                window.show()
 
     sys.exit(app.exec_())
