@@ -159,7 +159,7 @@ class Main(QMainWindow):
         self.worker.done.connect(self.search_put)
         self.thread.started.connect(self.worker.run)
 
-        self.randomiser.clicked.connect(self.placeholder_random)  # Randomise movie
+        self.randomiser.clicked.connect(lambda: self.placeholder_random(random_movies))  # Randomise movie
         self.random_collapse.clicked.connect(self.random_func)
         self.random_expand.clicked.connect(self.random_func)
 
@@ -169,6 +169,8 @@ class Main(QMainWindow):
         self.library_collapse.clicked.connect(self.library_func)
         self.library_expand.clicked.connect(self.library_func)
 
+        self.create_collapse.hide()
+        self.create_expand.hide()
         self.create_collapse.clicked.connect(self.create_func)
         self.create_expand.clicked.connect(self.create_func)
         self.create_playlist.clicked.connect(self.create_playlist_func)
@@ -312,7 +314,10 @@ class Main(QMainWindow):
         """
         Function to switch to the random widget in the stack
         """
-        global current_index, nav_stack
+        global current_index, nav_stack, random_id
+
+        self.placeholder_random([int(random_id)])
+
         self.stack.setCurrentIndex(2)
         self.setWindowTitle("Random - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
@@ -348,7 +353,7 @@ class Main(QMainWindow):
 
     def shortlist_func(self):
         """
-        Function to switch to the shortlist widget in the stack
+        function to set navigation for shortlist button clicked and when new playlist added
         """
         self.navigator()
         self.setWindowTitle("Shortlist - Cinematch")
@@ -723,13 +728,13 @@ class Main(QMainWindow):
             except:
                 self.playlist_error.setText("Unable to add playlist")
 
-    def placeholder_random(self):
+    def placeholder_random(self, id: list):
         """
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
         self.display_add_toshortlist.setToolTip('')
-        self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
+        self.movie_disp(id, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
                         _shortlist_but=self.random_add_toshortlist)
@@ -741,6 +746,7 @@ class Main(QMainWindow):
         """
         Function to display movies when the respective movie frame is clicked
         """
+        global random_id
         _id = random.choice(id)
 
         real_id = self.display_add_toshortlist.toolTip()
@@ -748,7 +754,11 @@ class Main(QMainWindow):
             real_id = int(real_id)
         else:
             real_id = _id
+            random_id = real_id
         self.display_add_toshortlist.setToolTip(f'{real_id}')
+
+        print(real_id)
+        print(_id)
 
         title = ""
         overview = ""
@@ -760,7 +770,7 @@ class Main(QMainWindow):
         poster = ""
 
         try:
-            movie = movies_metadata[_id]
+            movie = movies_metadata[real_id]
             title = movie[0]
             overview = movie[1]
             date = movie[2]
@@ -770,13 +780,29 @@ class Main(QMainWindow):
             cast = movie[6]
             poster = movie[7]
 
-        except KeyError:
-            print("Unable to display movie")
+        except Exception as e:
+            print(f"Unable to display movie: {e}")
 
         # Formatting poster
         image_object = QImage()  # initialising a QImage object
         image_object.loadFromData(poster)  # parameter of function (reference to the for loop in __init__ method)
         image_to_load = QPixmap(image_object)  # converting QImage object to QPixmap object to display on the label
+
+        def rem_from_shortlist():
+
+            _id = int(self.display_add_toshortlist.toolTip())
+            _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+            _shortlist_but.clicked.connect(lambda: add_to_shortlist())
+            _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
+
+            delete_list = [i[5] for i in playlists_display_metadata['shortlist']]
+            delete_queue = delete_list.index(int(real_id))
+            # Deletes from the viewable 'client' side dict
+            del playlists_display_metadata['shortlist'][delete_queue]
+
+            removed_playlist_movies['Shortlist'].append(int(_id))
+            playlists_metadata['shortlist'][3].remove(int(_id))
+
 
         def add_to_shortlist():
             """
@@ -784,6 +810,7 @@ class Main(QMainWindow):
             """
             _id = int(self.display_add_toshortlist.toolTip())
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+            _shortlist_but.clicked.connect(lambda: rem_from_shortlist())
             _shortlist_but.setIcon(QIcon('icons/like_checked.ico'))
 
             __title = ""
@@ -825,10 +852,18 @@ class Main(QMainWindow):
         _genre.setText(gen)
         _date.setText(f"Release Date:\n{date}")
 
-        _shortlist_but.setChecked(False)
-        _shortlist_but.clicked.connect(lambda: add_to_shortlist())
-        _shortlist_but.setEnabled(True)
-        _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
+        if real_id not in playlists_metadata['shortlist'][3]:
+            _shortlist_but.setChecked(False)
+            print(f'This is id: {real_id}')
+            _shortlist_but.disconnect()
+            _shortlist_but.clicked.connect(lambda: add_to_shortlist())
+            _shortlist_but.setEnabled(True)
+            _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
+        else:
+            _shortlist_but.setChecked(True)
+            _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
+            _shortlist_but.clicked.connect(lambda: rem_from_shortlist())
+            _shortlist_but.setIcon(QIcon('icons/like_checked.ico'))
 
     def search_func(self):
         """
