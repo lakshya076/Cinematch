@@ -166,8 +166,8 @@ def get_data() -> tuple[list[list[int] | list[Any] | Any], dict[Any, Any]]:
 
     print("Getting movie data")
 
-    init_mapping()
-    global recoms, watchagain, language, random_movies
+    recoms, watchagain, language = init_mapping()
+    global random_movies
     movie_list = [recoms, watchagain, language, random_movies]
     for i in range(len(movie_list)):
         movies_info = get_movies_info(movie_list[i], cur)
@@ -227,6 +227,7 @@ def get_data() -> tuple[list[list[int] | list[Any] | Any], dict[Any, Any]]:
     recoms = movie_list[0]
     watchagain = movie_list[1]
     language = movie_list[2]
+    print(f'Lang: {language}')
     return movie_list, movies_metadata
 
 
@@ -246,8 +247,10 @@ def get_movies() -> tuple:
     # Main loop to get the metadata
     for i in playlists_metadata.keys():
         playlists_display_metadata[i] = []
-        print(i)
-        movies_info = get_movies_info(playlists_metadata[i][3], cur)
+        if i == 2:
+            movies_info = get_movies_info(playlists_metadata[i][3], cur)
+        else:
+            movies_info = get_movies_info(playlists_metadata[i][3], cur, True)
 
         for j in movies_info:
             id = j[0]
