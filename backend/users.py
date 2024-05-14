@@ -166,4 +166,3 @@ def recover_user(email: str, connection: pymysql.Connection, cursor: pymysql.cur
 
     else:
         return False
-

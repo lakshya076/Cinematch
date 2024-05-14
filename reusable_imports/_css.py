@@ -137,7 +137,7 @@ dark_mainwin_widget = """
 
     QTextBrowser {
         color:#FFFAF0;
-        background-color:#353a3f;
+        background-color:#24292E;
         font: 14pt;
     }
 

@@ -67,7 +67,7 @@ def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
         return False
 
 
-def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor, order_pop: bool = False) -> list[list]:
+def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
     """
     (id, title, overview, release_date, genres, language, popularity, cast, poster)
     """
@@ -75,15 +75,12 @@ def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor, order_pop: bool =
     if ids == []:
         return []
 
-    s = '(id'
+    query = 'select * from main where '
     for i in ids:
-        s += f', {i}'
-    id_tup = '('+s[5:]+')'
+        query += f'id = {i} or '
 
-    if order_pop:
-        cursor.execute(f'select * from main where id in {id_tup} order by popularity')
-    else:
-        cursor.execute(f'select * from main where id in {id_tup} order by field{s})')
+    query = query[:len(query) - 4]
+    cursor.execute(f'{query} order by popularity desc')
     data = cursor.fetchall()
 
     if data:
@@ -148,6 +145,6 @@ def get_random(cursor: pymysql.cursors.Cursor, limit: int) -> list[int]:
     Returns IDs of `limit` random movies whose popularity is above 50
     """
 
-    cursor.execute(f'select id from main where popularity >= 20 order by rand() limit {limit}')
+    cursor.execute(f'select id from main where popularity >= 50 order by rand() limit {limit}')
 
     return [int(i[0]) for i in cursor.fetchall()]

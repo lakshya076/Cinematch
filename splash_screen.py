@@ -48,7 +48,7 @@ class SplashScreen(QDialog):
 
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        # self.setCursor(QCursor(Qt.BlankCursor))
+        self.setCursor(QCursor(Qt.BlankCursor))
         self.setWindowTitle("Loading Cinematch")
         self.setWindowIcon(QIcon("Icons/logo.png"))
 
