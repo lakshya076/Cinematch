@@ -1,3 +1,8 @@
+"""
+this script forms the mails to be sent to the user
+consists of only html
+"""
+
 otp_1 = """
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -534,7 +539,6 @@ span.MsoHyperlinkFollowed {
                    <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                      <tr>
                       <td align="left" style="padding:0;Margin:0"><h1 style="Margin:0;font-family:arial, 'helvetica neue', helvetica, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:30px;font-style:normal;font-weight:normal;line-height:36px;color:#333333">Dear """
-
 delete_2 = """,</h1></td>
                      </tr>
                    </table></td>
@@ -1097,7 +1101,6 @@ reminder_remove_1 = """<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional
                                                             <td align="left" style="padding:0;Margin:0"><h1
                                                                     style="Margin:0;font-family:arial, 'helvetica neue', helvetica, sans-serif;mso-line-height-rule:exactly;letter-spacing:0;font-size:30px;font-style:normal;font-weight:normal;line-height:36px;color:#333333">
                                                                 Dear """
-
 reminder_remove_2 = """,</h1></td>
                                                         </tr>
                                                     </table>

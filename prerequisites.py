@@ -12,7 +12,6 @@ from PyQt5.uic import loadUi
 from cachecontrol import CacheControl
 from cachecontrol.caches import FileCache
 
-
 csv_url = "https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21108&authkey=!ANYzCEC8y0WZf90"
 
 cinematch_dir = f"{os.path.expanduser('~')}/AppData/Local/Cinematch"
@@ -130,7 +129,7 @@ class Downloader(QThread):
                             readBytes += chunkSize
                             # Tell the window how many bytes we have received.
                             self.setCurrentProgress.emit(readBytes)
-            
+
             self.succeeded.emit()
 
 

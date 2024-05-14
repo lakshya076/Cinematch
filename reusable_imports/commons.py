@@ -37,13 +37,11 @@ class ClickableFrame(QFrame):
         self.clicked.emit()
 
 
-def clickable(widget):
+def clickable(widget) -> bool:
     """
     Helps to detect the event in which a non-clickable widget (Ex - Label) is clicked by using the Mouse Button Release
     QEvent. A signal is emitted upon clicking the widget on which this function is used. That signal can be relayed to
     the program and the click (mouse release) event can be used.
-    :param: widget
-    :return: Bool or clicked signal
     """
 
     class Filter(QObject):

@@ -1,6 +1,7 @@
 import backend.Utils.playlist_utils as playlist_utils
 import backend.encryption as encryption
-import pymysql, pymysql.cursors
+import pymysql
+import pymysql.cursors
 
 
 def create_playlist(username: str, name: str, movies: str, password: str, connection: pymysql.Connection,

@@ -1,3 +1,5 @@
+# pyright: reportUnknownVariableType=false
+
 import ctypes
 import os.path
 import platform
@@ -9,6 +11,9 @@ from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
 from PyQt5.QtGui import QIcon, QImage, QPixmap, QKeySequence, QMovie
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog, QShortcut, QMessageBox, QLabel
 from PyQt5.uic import loadUi
+import pandas
+
+os.chdir('/'.join(__file__.split('\\')[::-1][1:][::-1]))
 
 # only for windows (get resolution)
 user = ctypes.windll.user32
@@ -105,7 +110,6 @@ class Main(QMainWindow):
         self.back.setDisabled(True)
         self.home_collapse.setChecked(True)  # By default, the home button is selected in the sidebar
         self.start_mode()
-        self.display_add_toshortlist.setToolTip('')
         self.movie_disp(random_movies, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date, _shortlist_but=self.random_add_toshortlist)
@@ -169,8 +173,8 @@ class Main(QMainWindow):
         self.library_collapse.clicked.connect(self.library_func)
         self.library_expand.clicked.connect(self.library_func)
 
-        self.create_collapse.hide()
-        self.create_expand.hide()
+        self.create_collapse.show()
+        self.create_expand.show()
         self.create_collapse.clicked.connect(self.create_func)
         self.create_expand.clicked.connect(self.create_func)
         self.create_playlist.clicked.connect(self.create_playlist_func)
@@ -215,6 +219,7 @@ class Main(QMainWindow):
                                       title=movies_metadata[watchagain[i]][0], scroll_area=self.watchagain_sa_widgets,
                                       layout=self.watchagain_hlayout, open_func_lib=self.open_home_search)
         if len(language) != 0:
+            print(f'Language: {language}')
             for i in range(len(language)):
                 home.new_widgets_home(language[i], title=movies_metadata[language[i]][0],
                                       image=movies_metadata[language[i]][7], scroll_area=self.languages_sa_widgets,
@@ -334,13 +339,12 @@ class Main(QMainWindow):
             self.expand.hide()
             self.collapse.show()
 
-    def shortlist_func(self):
+    def navigator(self):
         """
-        Function to switch to the shortlist widget in the stack
+        function to set navigation for shortlist button clicked and when new playlist added
         """
         global current_index, nav_stack
         self.stack.setCurrentIndex(3)
-        self.setWindowTitle("Shortlist - Cinematch")
         nav_stack = nav_stack[:current_index + 1]
         nav_stack.insert(current_index + 1, 3)
         current_index += 1
@@ -351,6 +355,13 @@ class Main(QMainWindow):
             self.forward.setEnabled(True)
 
         print(nav_stack, current_index)
+
+    def shortlist_func(self):
+        """
+        function to set navigation for shortlist button clicked and when new playlist added
+        """
+        self.navigator()
+        self.setWindowTitle("Shortlist - Cinematch")
         self.shortlist_collapse.setChecked(True)
         display = DisplayMovies("shortlist")
 
@@ -364,7 +375,7 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
-                self.display_add_toshortlist.setToolTip(f'{display_id}')
+                self.display_add_toshortlist.setWhatsThis(f'{display_id}')
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
@@ -389,6 +400,8 @@ class Main(QMainWindow):
             Deletes the clicked movie from the shortlist page and then refreshes it to show the updated shortlist
             Function is passed a parameter in display_new_widgets function of DisplayMovies class
             """
+            global nav_stack, current_index
+
             sender = display.sender()
             _playlist = sender.objectName().strip().split(sep="_")[-2]
             _objectdelete = sender.objectName().strip().split(sep="_")[-1]
@@ -406,13 +419,15 @@ class Main(QMainWindow):
                 removed_playlist_movies[_playlist_name].append(int(_objectdelete))
                 playlists_metadata[_playlist][3].remove(int(_objectdelete))
 
-
                 print(f"Movie Deleted {_objectdelete} from {_playlist}")
                 # Reflect changes in sql table
             except KeyError as e:
                 print(f"{e}, Can't Delete Playlist.")
 
             self.shortlist_func()
+            nav_stack.pop(current_index)
+            current_index = len(nav_stack) - 1
+            print(nav_stack, current_index)
             # remove from shortlist and recall shortlist_func function to reload the widgets in the shortlist page
 
         try:
@@ -597,7 +612,7 @@ class Main(QMainWindow):
         _id = sender.objectName().split(sep="_")[-1]
 
         try:
-            self.display_add_toshortlist.setToolTip(f'{_id}')
+            self.display_add_toshortlist.setWhatsThis(f'{_id}')
             self.movie_disp([int(_id)], _image=self.display_image, _title=self.display_title,
                             _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                             _genre=self.display_genre, _date=self.display_date,
@@ -623,6 +638,7 @@ class Main(QMainWindow):
         This function displays the playlist in the 9th window (index=8) of the stack
         """
 
+        self.navigator()
         display = DisplayMovies(playlist_name)
 
         def open_movie_main():
@@ -633,7 +649,7 @@ class Main(QMainWindow):
             _objectdisplay = sender.objectName().strip().split(sep="_")[-1]
             try:
                 display_id = int(_objectdisplay)
-                self.display_add_toshortlist.setToolTip(f'{display_id}')
+                self.display_add_toshortlist.setWhatsThis(f'{display_id}')
                 self.movie_disp([display_id], _image=self.display_image, _title=self.display_title,
                                 _overview=self.display_overview, _pop=self.display_pop, _lang=self.display_lang,
                                 _genre=self.display_genre, _date=self.display_date,
@@ -722,7 +738,7 @@ class Main(QMainWindow):
         This function is called when the randomizer button is clicked in the main window. THis function randomises the
         movie and displays it on the random page
         """
-        self.display_add_toshortlist.setToolTip('')
+        self.display_add_toshortlist.setWhatsThis('')
         self.movie_disp(id, _image=self.random_image, _title=self.random_title,
                         _overview=self.random_overview, _pop=self.random_pop, _lang=self.random_lang,
                         _genre=self.random_genre, _date=self.random_date,
@@ -738,13 +754,13 @@ class Main(QMainWindow):
         global random_id
         _id = random.choice(id)
 
-        real_id = self.display_add_toshortlist.toolTip()
+        real_id = self.display_add_toshortlist.whatsThis()
         if real_id:
             real_id = int(real_id)
         else:
             real_id = _id
             random_id = real_id
-        self.display_add_toshortlist.setToolTip(f'{real_id}')
+        self.display_add_toshortlist.setWhatsThis(f'{real_id}')
 
         print(real_id)
         print(_id)
@@ -755,7 +771,6 @@ class Main(QMainWindow):
         gen = ""
         lang = ""
         pop = ""
-        cast = ""
         poster = ""
 
         try:
@@ -766,7 +781,6 @@ class Main(QMainWindow):
             gen = movie[3]
             lang = movie[4]
             pop = movie[5]
-            cast = movie[6]
             poster = movie[7]
 
         except Exception as e:
@@ -779,7 +793,7 @@ class Main(QMainWindow):
 
         def rem_from_shortlist():
 
-            _id = int(self.display_add_toshortlist.toolTip())
+            _id = int(self.display_add_toshortlist.whatsThis())
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.clicked.connect(lambda: add_to_shortlist())
             _shortlist_but.setIcon(QIcon('icons/like_dark.ico'))
@@ -797,29 +811,21 @@ class Main(QMainWindow):
             """
             Function to add a movie to shortlist
             """
-            _id = int(self.display_add_toshortlist.toolTip())
+            _id = int(self.display_add_toshortlist.whatsThis())
             _shortlist_but.disconnect()  # To prevent multiple signals get connected to the clicked button
             _shortlist_but.clicked.connect(lambda: rem_from_shortlist())
             _shortlist_but.setIcon(QIcon('icons/like_checked.ico'))
 
             __title = ""
-            __overview = ""
-            __date = ""
-            __gen = ""
             __lang = ""
             __pop = ""
-            __cast = ""
             __poster = ""
 
             try:
                 __movie = movies_metadata[_id]
                 __title = __movie[0]
-                __overview = __movie[1]
-                __date = __movie[2]
-                __gen = __movie[3]
                 __lang = __movie[4]
                 __pop = __movie[5]
-                __cast = __movie[6]
                 __poster = __movie[7]
 
             except Exception as e:
@@ -857,6 +863,7 @@ class Main(QMainWindow):
     def search_func(self):
         """
         Function to search and display movies in the search widget of the stack.
+        starts threading
         """
         global search_text
         search_text = self.search_box.text()

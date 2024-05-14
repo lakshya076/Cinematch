@@ -4,6 +4,12 @@ import pymysql.cursors
 def user_status(user: str, cursor: pymysql.cursors.Cursor) -> int:
     """
     Returns `True` if username/email exists in the database, else returns `False`
+
+    `1` -> exists
+
+    `2` -> exists but deleted
+
+    `0` -> doesn't exist
     """
 
     cursor.execute(f'select email from users where email="{user}" or username="{user}"')
@@ -78,6 +84,10 @@ def get_password(user: str, cursor: pymysql.cursors.Cursor) -> str | bool:
 
 
 def get_logged_user(cursor: pymysql.cursors.Cursor) -> str | bool:
+    """
+    check which user is logged in
+    return `false` if user not logged in
+    """
     cursor.execute('select username from users where logged_in = 1')
     data = cursor.fetchall()
 
@@ -89,6 +99,10 @@ def get_logged_user(cursor: pymysql.cursors.Cursor) -> str | bool:
 
 
 def is_logged_in(user: str, cursor: pymysql.cursors.Cursor) -> bool:
+    """
+    check if user is logged in
+    return `false` is no user logged in
+    """
     cursor.execute(f'select logged_in from users where username="{user}" or email="{user}"')
     data = cursor.fetchone()
 

@@ -15,22 +15,6 @@ def movie_exists(id: int, cursor: pymysql.cursors.Cursor) -> bool:
         return False
 
 
-def get_title(id: int, cursor: pymysql.cursors.Cursor) -> str:
-    """
-    Return `title` of a movie, given its `id`
-    Returns `''` if movie not found
-    """
-
-    cursor.execute(f'select title from main where id={id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0]
-
-    else:
-        return ''
-
-
 def get_recs(id: int, cursor: pymysql.cursors.Cursor) -> list[int]:
     """
     Returns recommended movies of a movie in a list, given its `id`
@@ -50,36 +34,6 @@ def get_recs(id: int, cursor: pymysql.cursors.Cursor) -> list[int]:
         return []
 
 
-def get_genz(id: int, cursor: pymysql.cursors.Cursor) -> list[str]:
-    """
-    Return genres of a movie in a list, given its `id`
-    """
-
-    cursor.execute(f'select genres from main where id={id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0].split('-')
-
-    else:
-        return []
-
-
-def get_keyz(id: int, cursor: pymysql.cursors.Cursor) -> list[str]:
-    """
-    Return keywords of a movie in a list, given its `id`
-    """
-
-    cursor.execute(f'select keywords from recommendation where id={id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0].split('-')
-
-    else:
-        return []
-
-
 def get_pop(id: int, cursor: pymysql.cursors.Cursor) -> float:
     """
     Return popularity of a movie, given its `id`
@@ -92,99 +46,7 @@ def get_pop(id: int, cursor: pymysql.cursors.Cursor) -> float:
         return float(data[0])
 
     else:
-
         return 1.86  # Avg
-
-
-def get_overview(id: int, cursor: pymysql.cursors.Cursor) -> str:
-    """
-    Returns the overview/description of a movie using its `id`
-    """
-
-    cursor.execute(f'select overview from main where id="{id}"')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0]
-
-    else:
-        return ''
-
-
-def get_release_date(id: int, cursor: pymysql.cursors.Cursor) -> str:
-    """
-    Returns the release date of the movie using its `id`
-    Date is in format `YYYY-MM-DD`
-    """
-
-    cursor.execute(f'select release_date from main where id={id}')
-    data = cursor.fetchone()
-
-    if data:
-        return str(data[0])
-
-    else:
-        return None
-
-
-def get_poster(id: int, cursor: pymysql.cursors.Cursor) -> str:
-    """
-    Returns the poster id of a movie using its `id`
-    """
-
-    cursor.execute(f'select poster from main where id = {id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0]
-
-    else:
-        return ''
-
-
-def get_cast(id: int, cursor: pymysql.cursors.Cursor) -> list[str]:
-    """
-    Returns the cast members of a movie using its `id`
-    """
-
-    cursor.execute(f'select cast from main where id = {id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0].split('-')
-
-    else:
-        return ''
-
-
-def get_lang(id: int, cursor: pymysql.cursors.Cursor) -> str:
-    """
-    Returns the poster id of a movie using its `id`
-    """
-
-    cursor.execute(f'select language from main where id = {id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0]
-
-    else:
-        return ''
-    
-
-def get_prod_comps(id: int, cursor: pymysql.cursors.Cursor) -> list:
-    """
-    Returns the poster id of a movie using its `id`
-    """
-
-    cursor.execute(f'select language from main where id = {id}')
-    data = cursor.fetchone()
-
-    if data:
-        return data[0].split('-')
-
-    else:
-        return ''
 
 
 def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
@@ -205,7 +67,7 @@ def get_movie_info(id: int, cursor: pymysql.cursors.Cursor) -> list:
         return False
 
 
-def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
+def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor, order_pop: bool = False) -> list[list]:
     """
     (id, title, overview, release_date, genres, language, popularity, cast, poster)
     """
@@ -213,20 +75,23 @@ def get_movies_info(ids: list, cursor: pymysql.cursors.Cursor) -> list[list]:
     if ids == []:
         return []
 
-    query = 'select * from main where '
+    s = '(id'
     for i in ids:
-        query += f'id = {i} or '
+        s += f', {i}'
+    id_tup = '('+s[5:]+')'
 
-    query = query[:len(query) - 4]
-    cursor.execute(f'{query} order by popularity desc')
+    if order_pop:
+        cursor.execute(f'select * from main where id in {id_tup} order by popularity')
+    else:
+        cursor.execute(f'select * from main where id in {id_tup} order by field{s})')
     data = cursor.fetchall()
 
     if data:
-
         result = []
 
         for i in data:
-            movie_info = [int(i[0]), i[1], i[2], str(i[3]), i[4].split('-'), i[5], float(i[6]), i[7].split('-'), i[8], i[9].split('-')]
+            movie_info = [int(i[0]), i[1], i[2], str(i[3]), i[4].split('-'), i[5], float(i[6]), i[7].split('-'), i[8],
+                          i[9].split('-')]
             result.append(movie_info)
 
         return result
@@ -244,7 +109,6 @@ def recommend_direct(id: int, depth: int, cursor: pymysql.cursors.Cursor) -> lis
     og_recs = get_recs(id, cursor)
 
     if og_recs:
-
         recommendation = og_recs
 
         if depth == 1:
@@ -284,6 +148,6 @@ def get_random(cursor: pymysql.cursors.Cursor, limit: int) -> list[int]:
     Returns IDs of `limit` random movies whose popularity is above 50
     """
 
-    cursor.execute(f'select id from main where popularity >= 50 order by rand() limit {limit}')
+    cursor.execute(f'select id from main where popularity >= 20 order by rand() limit {limit}')
 
     return [int(i[0]) for i in cursor.fetchall()]

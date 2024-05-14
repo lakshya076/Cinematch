@@ -1,4 +1,5 @@
-import pymysql, pymysql.cursors
+import pymysql
+import pymysql.cursors
 from backend.Utils.mapping_utils import get_mapping_data, mapping_status
 
 

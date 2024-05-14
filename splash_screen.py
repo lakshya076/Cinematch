@@ -1,4 +1,3 @@
-
 import random
 import time
 
@@ -15,8 +14,7 @@ randimg = random.choices(randlist, weights=[0.4, 0.05, 0.2, 0.05, 0.3], k=1)  # 
 
 disp_msg_list = ["Having <i>Dahi Shakkar</i> for good luck", "Praying to God that no bugs are encountered.",
                  "Never Gonna Give You Up!", "Once Upon A Time....", "Hello World!", "Women ☕",
-                 "We might steal all your data", "Expect disappointment and you'll never be disappointed.",
-                 "Huh", "Who's Joe?", "Sending data to Chin- I mean, our servers"]
+                 "We might steal all your data", "Huh", "Who's Joe?", "Sending data to Chin- I mean, our servers"]
 disp_msg = random.choice(disp_msg_list)
 
 
