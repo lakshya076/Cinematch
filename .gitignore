@@ -75,4 +75,6 @@ reusable_imports/presets.zip
 backend/passwords.py
 test2.py
 __pycache__/prerequisites.cpython-311.pyc
+__pycache__
+.idea
 backend/__pycache__/mail_former.cpython-311.pyc
