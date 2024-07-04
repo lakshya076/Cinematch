@@ -873,9 +873,6 @@ color:rgb(0,0,0);</string>
                 <property name="textFormat">
                  <enum>Qt::MarkdownText</enum>
                 </property>
-                <property name="alignment">
-                 <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
-                </property>
                </widget>
               </item>
              </layout>
