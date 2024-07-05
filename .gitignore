@@ -78,3 +78,4 @@ __pycache__/prerequisites.cpython-311.pyc
 __pycache__
 .idea
 backend/__pycache__/mail_former.cpython-311.pyc
+backend/tmdb_api
