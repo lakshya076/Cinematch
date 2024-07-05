@@ -180,7 +180,7 @@ class Start(QDialog):
                     self.done(2)
                     # Splash Screen Redirect
                 else:
-                    self.error_login.setText("Email/Password combination is incorrect.")
+                    self.error_login.setText("Username/Password combination is incorrect.")
                     self.ufield_login.setStyleSheet(error_css)
                     self.pfield_login.setStyleSheet(error_css)
         else:
