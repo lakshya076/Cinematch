@@ -22,8 +22,11 @@ mysql_data_path = "C:/ProgramData/MySQL/MySQL Server 8.0/Data/movies"
 mysql_alt_data_path = "C:/ProgramData/MySQL/MySQL Server 8.1/Data/movies"
 mysql_path = "C:/Program Files/MySQL"
 
+'''
 cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\FileCache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
+'''
+
 url = []
 path = []
 

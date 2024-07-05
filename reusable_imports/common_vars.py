@@ -65,7 +65,7 @@ movies_metadata = dict()
 
 # Common session used to load the images. The images are then cached and stored so when the program is run again,
 # images load easily.
-cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\Cache"
+cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
 session = CacheControl(requests.Session(), cache=FileCache(cache_path))
 
 

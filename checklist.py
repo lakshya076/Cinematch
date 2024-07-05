@@ -96,7 +96,7 @@ class Checklist(QDialog, FrameReuse):
         self.genre_9.clicked.connect(self.switch_to_9)
         self.genre_10.clicked.connect(self.switch_to_10)
 
-        cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\Cache"
+        cache_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
         session = CacheControl(requests.Session(), cache=FileCache(cache_path))
         # Common session used by the frames in the loop to load images from the web. The images are then cached and
         # stored so when the program is run again, images load easily.
