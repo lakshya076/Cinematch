@@ -978,7 +978,7 @@ class Main(QMainWindow):
         Clear cache to improve performance. Restart app to see effective changes.
         """
 
-        cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\Cache"
+        cache_dir = f"{os.path.expanduser('~')}\\AppData\\Local\\Temp\\CinematchCache"
         if os.path.isdir(cache_dir):
             shutil.rmtree(cache_dir)
         else:
