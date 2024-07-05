@@ -3,6 +3,7 @@ import os.path
 import platform
 import shutil
 import sys
+import tmdbsimple as tmdb
 
 import PyQt5
 from PyQt5.QtCore import QRect, QObject, pyqtSignal, QThread, QSize, Qt
@@ -26,6 +27,11 @@ current_index = 0
 # Path to the cos_similarity file
 recommendation_path = f"{os.path.expanduser('~')}\\AppData\\Local\\Cinematch\\csv\\cos_similarity.csv"
 
+# TMDB api
+with open('backend/tmdb_api', 'r') as f:
+    tmdb.API_KEY = f.read()
+tmdb_search = tmdb.Search()
+
 
 class SearchAlg(QObject):
     """
@@ -40,18 +46,21 @@ class SearchAlg(QObject):
         global searched_movies, search_text
 
         print(f"Searching {search_text}")
-        searched_movies = movie_search.search(search_text, cur)[:10]
-        print(f'Search Results: {searched_movies}')
+        searched_movies = movie_search.search(search_text, tmdb_search)[:10]
+        # print(f'Search Results: {searched_movies}')
 
-        for i in get_movies_info(searched_movies, cur):
-            title = i[1] or "Not Available"  # gets title
-            overview = i[2] or "Not Available"
-            date = i[3]
-            gen = i[4] or "Not Available"
-            lang = i[5] or "Not Available"
-            pop = i[6] or "Not Available"
-            cast = i[7] or "Not Available"
-            poster_path = i[8]  # gets poster path
+        for i in searched_movies: # get_movies_info(searched_movies, cur):
+            print(i.keys())
+            movie = tmdb.Movies(i['id'])
+            title = i['title'] or "Not Available"  # gets title
+            overview = i['overview'] or "Not Available"
+            date = i['release_date']
+            gen = [str(j) for j in i['genre_ids']] or "Not Available"
+            lang = i['original_language'] or "Not Available"
+            pop = i['popularity'] or "Not Available"
+            # cast = i[7] or "Not Available"
+            cast = [j['name'] for j in movie.credits()['cast']]
+            poster_path = i['poster_path']  # gets poster path
 
             genre_real = "Not Available"
             lang_real = ""
@@ -86,8 +95,8 @@ class SearchAlg(QObject):
 
             metadata_enter = [title, overview, real_date, genre_real, lang_real, str(pop), cast, poster_var]
 
-            if i[0] not in movies_metadata:
-                movies_metadata[int(i[0])] = metadata_enter
+            # if i[0] not in movies_metadata:
+            #     movies_metadata[int(i[0])] = metadata_enter
 
         self.done.emit()
 

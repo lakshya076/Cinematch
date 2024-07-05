@@ -143,7 +143,7 @@ class Prerequisite(QDialog):
 
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setCursor(QCursor(Qt.BlankCursor))
+        # self.setCursor(QCursor(Qt.BlankCursor))
         self.setWindowTitle("Downloading Cinematch Prerequisites")
         self.setWindowIcon(QIcon("Icons/logo.png"))
 
