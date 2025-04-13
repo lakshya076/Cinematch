@@ -1249,46 +1249,49 @@ if __name__ == "__main__":
                 window = Main()
                 window.show()
 
-        elif start_win.exec_() == 1:  # User registered
-            checklist_win = Checklist()
-            genre_win = Genre()
-            lang_win = Language()
+        else:
+            result = start_win.exec_();
 
-            if checklist_win.exec_() == QDialog.Accepted:
-                if genre_win.exec_() == QDialog.Accepted:
-                    if lang_win.exec_() == QDialog.Accepted:
+            if result == 1:  # User registered
+                checklist_win = Checklist()
+                genre_win = Genre()
+                lang_win = Language()
 
-                        item_similarity = pandas.read_csv(recommendation_path, index_col=0)
-                        print("CSV Loaded")
-                        users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
-                                       genre_win.genres, lang_win.languages, item_similarity, conn, cur)
+                if checklist_win.exec_() == QDialog.Accepted:
+                    if genre_win.exec_() == QDialog.Accepted:
+                        if lang_win.exec_() == QDialog.Accepted:
 
-                        username, no_logged, premium = init_uname()
-                        playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+                            item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                            print("CSV Loaded")
+                            users.register(start_win.username, start_win.password, start_win.email, checklist_win.movies,
+                                           genre_win.genres, lang_win.languages, item_similarity, conn, cur)
 
-                        splash = SplashScreen()
-                        if splash.exec_() == QDialog.Accepted:
-                            recoms, watchagain, language, random_movies = splash.movies_result[0]
-                            movies_metadata = splash.movies_result[1]
-                            playlists_display_metadata = splash.metadata_result[0]
+                            username, no_logged, premium = init_uname()
+                            playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
 
-                            print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
-                            window = Main()
-                            window.show()
+                            splash = SplashScreen()
+                            if splash.exec_() == QDialog.Accepted:
+                                recoms, watchagain, language, random_movies = splash.movies_result[0]
+                                movies_metadata = splash.movies_result[1]
+                                playlists_display_metadata = splash.metadata_result[0]
 
-        elif start_win.exec_() == 2:  # User logged in
-            username, no_logged, premium = init_uname()
-            playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
-            recoms, watchagain, language = init_mapping()
+                                print(f"Playlist Disp Metadata: {playlists_display_metadata.keys()}")
+                                window = Main()
+                                window.show()
 
-            splash = SplashScreen()
+            elif result == 2:  # User logged in
+                username, no_logged, premium = init_uname()
+                playlists_metadata, playlist_picture, removed_playlist_movies = init_list_metadata()
+                recoms, watchagain, language = init_mapping()
 
-            if splash.exec_() == QDialog.Accepted:
-                item_similarity = pandas.read_csv(recommendation_path, index_col=0)
-                print("CSV Loaded")
-                recoms, watchagain, language, random_movies = splash.movies_result[0]
-                movies_metadata = splash.movies_result[1]
-                window = Main()
-                window.show()
+                splash = SplashScreen()
+
+                if splash.exec_() == QDialog.Accepted:
+                    item_similarity = pandas.read_csv(recommendation_path, index_col=0)
+                    print("CSV Loaded")
+                    recoms, watchagain, language, random_movies = splash.movies_result[0]
+                    movies_metadata = splash.movies_result[1]
+                    window = Main()
+                    window.show()
 
     sys.exit(app.exec_())
