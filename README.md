@@ -6,13 +6,11 @@
 
 Movie Recommender (Beta stage)
 
-For movie organiser
-see branch [organiser-cum-recommender](https://github.com/lakshya076/Cinematch/tree/organiser-cum-recommender)
-
+<b>Currently everything is locally, might change in future
 
 ## Requirements
 - Windows 10/11
-- [MySQL 8.0.xx](https://dev.mysql.com/downloads/installer/) (set user = "root" and password = "root")
+- [MySQL 8.0.xx](https://dev.mysql.com/downloads/installer/) (user='root', password='root' or change it in the codebase)
 - MySQL database. [Download Database](https://onedrive.live.com/download?resid=CE0726DF5343E9A8%21107&authkey=!AG5TfhYfUiOcQT8) and just run the file in MySQL Workbench
 - [MSVC Build Tools](https://visualstudio.microsoft.com/downloads/?q=build+tools) to install `PyQt5` Framework for python
 - [Python 3.10 or later version](https://www.python.org/downloads/)
