@@ -6,7 +6,7 @@
 
 Movie Recommender (Beta stage)
 
-<b>Currently everything is locally, might change in future
+<b> Currently everything is locally, might change in future </b>
 
 ## Requirements
 - Windows 10/11
